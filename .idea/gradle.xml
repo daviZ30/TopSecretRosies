@@ -18,7 +18,7 @@
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/invoice" />
             <option value="$PROJECT_DIR$/features" />
-            <option value="$PROJECT_DIR$/features/accountsigin" />
+            <option value="$PROJECT_DIR$/features/accountsignin" />
             <option value="$PROJECT_DIR$/features/accountsignup" />
             <option value="$PROJECT_DIR$/features/customercreation" />
             <option value="$PROJECT_DIR$/features/customerdetail" />
