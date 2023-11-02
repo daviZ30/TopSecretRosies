@@ -15,3 +15,6 @@ Inovice es la aplicación que se realizará de manera modular para el estudio de
 ## V2.1 (29/10/2023)
  - Se ha estructurado la aplicación para simplicar la programación en Kotlin
  - Error en la estructura de las carpetas Theme (Gracias Carlos Bocka)
+
+
+HOLA SOY DEVID
