@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
 
         binding.btSignin.setOnClickListener {
             //findNavController().navigate()
-            findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignIn)
+            findNavController().navigate(R.id.action_mainFragment_to_invoiceCreationFragment)
         }
         binding.btSignUp.setOnClickListener {
             //findNavController().navigate()

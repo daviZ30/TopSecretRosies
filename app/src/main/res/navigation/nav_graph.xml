@@ -19,6 +19,11 @@
         android:id="@+id/accountSignUpFragment"
         android:name="com.moronlu18.accountsignup.ui.AccountSignUp" />
     <fragment
+        app:moduleName="invoicecreation"
+        android:label="@string/title_invoicecreation"
+        android:id="@+id/invoiceCreationFragment"
+        android:name="com.moronlu18.invoicecreation.InvoiceCreationFragment" />
+    <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"
         android:label="@string/mainFragment"
@@ -29,7 +34,10 @@
         <action
             android:id="@+id/action_mainFragment_to_featureAccountSignUp"
             app:destination="@+id/accountSignUpFragment" />
-        </fragment>
+        <action
+            android:id="@+id/action_mainFragment_to_invoiceCreationFragment"
+            app:destination="@id/invoiceCreationFragment" />
+    </fragment>
 
 
 </navigation>
