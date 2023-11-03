@@ -35,13 +35,53 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btSignin.setOnClickListener {
+        binding.btCustomerCreation.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_invoicelistFragment)
+        }
+        binding.btCustomerDetails.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btCustomerList.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btInvoiceCreation.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_invoiceCreationFragment)
         }
-        binding.btSignUp.setOnClickListener {
+        binding.btInvoiceDetails.setOnClickListener {
             //findNavController().navigate()
-            findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_invoicedetailFragment)
+        }
+        binding.btInvoiceList.setOnClickListener {
+            //findNavController().navigate()
+            findNavController().navigate(R.id.action_mainFragment_to_invoicelistFragment)
+        }
+        binding.btItemCreation.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btItemDetail.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btItemList.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btTaskCreation.setOnClickListener {
+            //findNavController().navigate()
+           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btTaskDetails.setOnClickListener {
+            //findNavController().navigate()
+            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+        }
+        binding.btTaskList.setOnClickListener {
+            //findNavController().navigate()
+            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
         }
     }
 

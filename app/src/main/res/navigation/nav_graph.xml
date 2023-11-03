@@ -20,9 +20,19 @@
         android:name="com.moronlu18.accountsignup.ui.AccountSignUp" />
     <fragment
         app:moduleName="invoicecreation"
-        android:label="@string/title_invoicecreation"
+        android:label="@string/title_invoicelist"
         android:id="@+id/invoiceCreationFragment"
         android:name="com.moronlu18.invoicecreation.InvoiceCreationFragment" />
+    <fragment
+        app:moduleName="invoicedetail"
+        android:label="@string/title_invoicelist"
+        android:id="@+id/invoicedetailFragment"
+        android:name="com.moronlu18.invoicedetail.InvoiceDetailsFragment" />
+    <fragment
+        app:moduleName="invoicelist"
+        android:label="@string/title_invoicelist"
+        android:id="@+id/invoicelistFragment"
+        android:name="com.moronlu18.invoicelist.InvoiceListFragment" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"
@@ -35,8 +45,15 @@
             android:id="@+id/action_mainFragment_to_featureAccountSignUp"
             app:destination="@+id/accountSignUpFragment" />
         <action
+            android:id="@+id/action_mainFragment_to_invoicelistFragment"
+            app:destination="@id/invoicelistFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_invoiceCreationFragment"
             app:destination="@id/invoiceCreationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_invoicedetailFragment"
+            app:destination="@id/invoicedetailFragment" />
+
     </fragment>
 
 

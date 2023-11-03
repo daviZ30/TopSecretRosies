@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="txtInvoiceDetailsCliente">Cliente</string>
+    <string name="tieInvoiceDetailsNombre">Nombre:</string>
+    <string name="txtInvoiceDetailsLabNombre">Nombre:</string>
+    <string name="txtInvoiceDetailsNombre" />
+    <string name="txtInvoiceDetailsLabDNI">DNI:</string>
+    <string name="txtInvoiceDetailsDNI" />
+    <string name="txtInvoiceDetailsTelefono"></string>
+    <string name="txtInvoiceDetailsLabTelefono">Teléfono:</string>
+    <string name="txtInvoiceDetailsFecha">Fecha</string>
+    <string name="txtInvoiceDetailsFeEmision"></string>
+    <string name="txtInvoiceDetailsLabFeEmision">Fecha de Emisión :</string>
+    <string name="txtInvoiceDetailsLabFeVencimiento">Fecha de Vencimiento :</string>
+    <string name="txtInvoiceDetailsFeVencimiento" />
+    <string name="txtIncoiceDetailsArticulos">Articulos</string>
+    <string name="txtInvoiceDetailsLabSubTotal">SubTotal:</string>
+    <string name="txtInvoiceDetailsSubTotal" />
+    <string name="txtInvoiceDetailsImpuestos"></string>
+    <string name="txtInvoiceDetailsLabImpuestos">Impuestos:</string>
+    <string name="txtInvoiceDetailsLabTotal">Total:</string>
+    <string name="txtInvoiceDetailsTotal" />
 </resources>

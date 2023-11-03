@@ -28,4 +28,16 @@
     <string name="btSignIn">Login</string>
     <string name="btSignUp">Registro</string>
     <string name="mainFragment">Pantalla Inicial</string>
+    <string name="btCustomerCreation">CurtomerCreation</string>
+    <string name="btCustomerDetails">CustomerDetails</string>
+    <string name="CustomerList">CustomerList</string>
+    <string name="btInvoiceCreation">InvoiceCreation</string>
+    <string name="btInvoiceDetails">InvoiceDetails</string>
+    <string name="btInvoiceList">InvoiceList</string>
+    <string name="btItemDetail">ItemDetail</string>
+    <string name="btItemCreation">ItemCreation</string>
+    <string name="ItemList">ItemList</string>
+    <string name="btTaskCreation">TaskCreation</string>
+    <string name="btTaskDetails">TaskDetail</string>
+    <string name="btTaskList">TaskList</string>
 </resources>
