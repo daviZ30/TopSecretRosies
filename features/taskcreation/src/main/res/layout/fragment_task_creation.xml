@@ -7,7 +7,7 @@
     android:fitsSystemWindows="false"
     tools:context=".TaskCreationActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <!--<com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_theme_light_primary"
@@ -23,7 +23,7 @@
             android:layout_height="?attr/actionBarSize"
             android:tooltipText="@string/abTaskCreationName" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>-->
 
     <LinearLayout
         android:id="@+id/linearLayout"

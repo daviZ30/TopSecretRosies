@@ -25,7 +25,7 @@
         android:name="com.moronlu18.invoicecreation.InvoiceCreationFragment" />
     <fragment
         app:moduleName="invoicedetail"
-        android:label="@string/title_invoicelist"
+        android:label="@string/title_itemdetail"
         android:id="@+id/invoicedetailFragment"
         android:name="com.moronlu18.invoicedetail.InvoiceDetailsFragment" />
     <fragment
