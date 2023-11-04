@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_light_primaryContainer"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    tools:context="com.moronlu18.invoice.MainActivity">
+
+    <Button
+        android:id="@+id/btn_crear_customer_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="82dp"
+        android:text="@string/btn_crear_customer_creation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848" />
+
+    <Spinner
+        android:id="@+id/spin_prefijo_customer_creation"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_correo_customer_creation"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_nombre_customer_creation"
+        android:layout_width="165dp"
+        android:layout_height="61dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22"
+        app:startIconDrawable="@drawable/icon_person_customer_creation">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_nombre_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tie_nombre_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_telefono_customer_creation"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spin_prefijo_customer_creation"
+        app:layout_constraintTop_toBottomOf="@+id/til_correo_customer_creation"
+        app:layout_constraintVertical_bias="0.0"
+        app:startIconDrawable="@drawable/icon_phone_customer_creation">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_teledono_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/tie_telfono_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_direccion_customer_creation"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crear_customer_creation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/til_ciudad_customer_creation"
+        app:layout_constraintTop_toBottomOf="@+id/til_telefono_customer_creation"
+        app:layout_constraintVertical_bias="0.0"
+        app:startIconDrawable="@drawable/icon_place_customer_creation">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_direccion_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/tie_direccion_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_correo_customer_creation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_apellidos_customer_creation"
+        app:layout_constraintVertical_bias="0.0"
+        app:startIconDrawable="@drawable/baseline_markunread_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_correo_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/tie_correo_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_ciudad_customer_creation"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="32dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crear_customer_creation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spin_prefijo_customer_creation"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_ciudad_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/tie_ciudad_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_apellidos_customer_creation"
+        android:layout_width="0dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="16dp"
+        app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/til_nombre_customer_creation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.221">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_apellidos_customer_creation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tie_apellidos_customer_creation" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
