@@ -73,7 +73,7 @@ class MainFragment : Fragment() {
         }
         binding.btTaskCreation.setOnClickListener {
             //findNavController().navigate()
-           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_taskcreationFragment)
         }
         binding.btTaskDetails.setOnClickListener {
             //findNavController().navigate()

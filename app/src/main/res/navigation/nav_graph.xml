@@ -29,6 +29,11 @@
         android:id="@+id/invoicedetailFragment"
         android:name="com.moronlu18.invoicedetail.InvoiceDetailsFragment" />
     <fragment
+        app:moduleName="taskcreation"
+        android:label="@string/title_taskcreation"
+        android:id="@+id/taskcreationFragment"
+        android:name="com.moronlu18.taskcreation.TaskCreationFragment" />
+    <fragment
         app:moduleName="invoicelist"
         android:label="@string/title_invoicelist"
         android:id="@+id/invoicelistFragment"
@@ -53,6 +58,9 @@
         <action
             android:id="@+id/action_mainFragment_to_invoicedetailFragment"
             app:destination="@id/invoicedetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_taskcreationFragment"
+            app:destination="@id/taskcreationFragment" />
 
     </fragment>
 
