@@ -7,7 +7,7 @@
     android:background="@color/md_theme_light_primaryContainer"
     android:paddingLeft="20sp"
     android:paddingRight="20sp"
-    tools:context="com.moronlu18.invoice.MainActivity">
+    tools:context="">
 
     <Button
         android:id="@+id/btn_crear_customer_creation"
@@ -105,7 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_apellidos_customer_creation"
         app:layout_constraintVertical_bias="0.0"
-        app:startIconDrawable="@drawable/baseline_markunread_24">
+        app:startIconDrawable="@drawable/icon_markunread_customer_creation">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tie_correo_customer_creation"
