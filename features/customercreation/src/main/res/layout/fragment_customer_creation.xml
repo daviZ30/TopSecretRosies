@@ -7,7 +7,7 @@
     android:background="@color/md_theme_light_primaryContainer"
     android:paddingLeft="20sp"
     android:paddingRight="20sp"
-    tools:context="">
+    tools:context="com.moronlu18.invoice.MainActivity">
 
     <Button
         android:id="@+id/btn_crear_customer_creation"
