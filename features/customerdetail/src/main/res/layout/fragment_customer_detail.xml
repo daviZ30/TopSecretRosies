@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/md_theme_light_primaryContainer"
+    android:foregroundTint="@color/md_theme_light_primaryContainer"
+    android:paddingLeft="16sp"
+    android:paddingRight="16sp"
+    tools:context=".CustomerDetailFragment">
+
+
+    <ImageView
+        android:id="@+id/img_customer_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/lldatospersonales_customer_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/lldatoscontacto_customer_detail"
+        android:layout_width="0dp"
+        android:layout_height="104dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.633">
+
+        <TextView
+            android:id="@+id/txvcontato_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="@string/txvdatoscontacto_customer_detail"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvemail_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvemail_customer_detail" />
+
+        <TextView
+            android:id="@+id/txvtelefono_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvtelefono_customer_detail" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lldatospersonales_customer_detail"
+        android:layout_width="0dp"
+        android:layout_height="104dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433">
+
+        <TextView
+            android:id="@+id/txvpersonales_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="@string/txv_customer_detail"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvnombre_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvnombre_customer_detail" />
+
+        <TextView
+            android:id="@+id/txvid_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvid_customer_detail" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llubicacion_customer_detail"
+        android:layout_width="0dp"
+        android:layout_height="104dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.851">
+
+        <TextView
+            android:id="@+id/txvubicaion_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="@string/txvubicaion_customer_detail"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvciudad_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvciudad_customer_detail" />
+
+        <TextView
+            android:id="@+id/txvdireccion_customer_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txvdireccion_customer_detail" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
