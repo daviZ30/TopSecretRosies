@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
         }
         binding.btItemCreation.setOnClickListener {
             //findNavController().navigate()
-           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_itemcreationFragment)
         }
         binding.btItemDetail.setOnClickListener {
             //findNavController().navigate()
