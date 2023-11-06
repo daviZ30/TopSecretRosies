@@ -68,19 +68,19 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvTipo"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintStart_toEndOf="@+id/brStart"
-        tools:layout_editor_absoluteY="275dp" />
+        app:layout_constraintTop_toTopOf="@+id/tvTipo" />
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvProfie"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProfie"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintStart_toEndOf="@+id/brStart"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintTop_toTopOf="@+id/tvProfie" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/brStart"
