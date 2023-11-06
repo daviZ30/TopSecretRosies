@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="txtdInvoiceDetailsCliente">18</dimen>
+    <dimen name="txtdInvoiceDetailsCliente">18dp</dimen>
 </resources>
