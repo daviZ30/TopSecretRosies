@@ -5,55 +5,76 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.itemcreation.item
+import com.moronlu18.itemcreation.itemType
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ItemListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ItemListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private val staticItem: item = item(
+        id = 1,
+        name = "Lápiz",
+        rate = 3.55,
+        type = itemType.PRODUCT,
+        description = "Lápiz pequeño",
+        isTaxable = false
+    )
+
+    private val staticItem2: item = item(
+        id = 2,
+        name = "Goma",
+        rate = 1.23,
+        type = itemType.PRODUCT,
+        description = "Goma cuadrada",
+        isTaxable = false
+    )
+
+    private val staticItem3: item = item(
+        id = 3,
+        name = "Boligrafo",
+        rate = 2.23,
+        type = itemType.PRODUCT,
+        description = "Boligrado rojo",
+        isTaxable = false
+    )
+
+    private val staticItem4: item = item(
+        id = 4,
+        name = "Sacapuntas",
+        rate = 1.63,
+        type = itemType.PRODUCT,
+        description = "Sacapuntas gris",
+        isTaxable = false
+    )
+
+    val itemList = listOf(staticItem, staticItem2, staticItem3, staticItem4)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rvItemList)
+
+
+        val adapter = ItemAdapter(itemList)
+        recyclerView.adapter = adapter
+
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ItemListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ItemListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

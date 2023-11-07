@@ -3,29 +3,34 @@ package com.moronlu18.itemlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.itemcreation.item
 
-class ItemAdapter(private val items: List<item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: item) {
-
-        }
-    }
+class ItemAdapter(private val itemList: List<item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.fragment_item_list, parent, false)
-        return ItemViewHolder(itemView)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+        return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val currentItem = items[position]
-        holder.bind(currentItem)
+        val item = itemList[position]
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return itemList.size
+    }
+
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(item: item) {
+            itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"
+            itemView.findViewById<TextView>(R.id.tvNameCard).text = "${item.name}"
+            itemView.findViewById<TextView>(R.id.tvRateCard).text = "${item.rate}"
+            itemView.findViewById<TextView>(R.id.tvTypeCard).text = "${item.type}"
+            itemView.findViewById<TextView>(R.id.tvDescriptionCard).text = "${item.description}"
+            itemView.findViewById<TextView>(R.id.tvIsTaxable).text = "${item.isTaxable}"
+        }
     }
 }
