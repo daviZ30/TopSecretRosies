@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.moronlu18.accountsignup.R
+import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -16,6 +18,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class AccountSignUp : Fragment() {
+    private  var _binding : FragmentAccountSignUpBinding? =null ;
+    private val binding
+        get() = _binding!!
 
 
     // TODO: Rename and change types of parameters
@@ -35,7 +40,8 @@ class AccountSignUp : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_sign_up, container, false)
+        _binding= FragmentAccountSignUpBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     companion object {
@@ -56,5 +62,23 @@ class AccountSignUp : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val itemList = arrayListOf("Private","Public","Empty")
+        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,itemList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spProfile.adapter=adapter;
+        binding.spProfile.setSelection(2)
+        //Inicializar el listener que se lanza cuando el usuario modifica el valor
+
+
+        //Se usa el modismo with que dado un objeto se puede modificar propiedades dentro dl bloque
+        with(binding.spProfile){
+            this.adapter = adapter
+            setSelection(2)
+            onItemSelectedListener=null
+        }
     }
 }
