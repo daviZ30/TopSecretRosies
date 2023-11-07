@@ -4,40 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_primaryContainer"
     android:fitsSystemWindows="false"
-    >
-
-    <!--<com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/md_theme_light_primary"
-        android:fitsSystemWindows="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/tbTaskCreation"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:tooltipText="@string/abTaskCreationName" />
-
-    </com.google.android.material.appbar.AppBarLayout>-->
+    tools:context=".TaskCreationFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/llTaskCreationPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|left"
+        android:layout_height="wrap_content"
+        android:background="@color/md_theme_light_primaryContainer"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/paddingTaskCreation">
+        android:paddingHorizontal="@dimen/paddingTaskCreation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
             android:id="@+id/spTaskCreationCliente"
-            android:layout_width="@dimen/spClienteWidth"
+            android:layout_width="@dimen/spTaskCreationClienteWidth"
             android:layout_height="50dp"
+            android:layout_gravity="left"
             android:layout_marginTop="10dp"
+            android:background="@drawable/shape_spinner"
             android:spinnerMode="dropdown">
 
         </Spinner>
@@ -58,15 +47,15 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTaskCreationDescripcion"
+            android:id="@+id/tilTaskCreationDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEditText"
+                android:id="@+id/tieTaskCreationDesc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tieDescripcionHeight"
+                android:layout_height="@dimen/tieDescHeight"
                 android:gravity="top"
                 android:hint="@string/tieTaskCreationDescripcion"
                 android:inputType="text"
@@ -87,16 +76,17 @@
 
                 <Spinner
                     android:id="@+id/spHoraITaskCreation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/paddingTaskCreation">
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/shape_spinner">
 
                 </Spinner>
 
                 <Spinner
                     android:id="@+id/spHoraFTaskCreation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></Spinner>
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/shape_spinner"></Spinner>
 
             </LinearLayout>
 
@@ -108,8 +98,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieTaskCreationFecha"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/tieTaskCreationFechaWidth"
                     android:layout_height="match_parent"
+                    android:layout_gravity="right"
                     android:hint="@string/tieTaskCreationFecha"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:backgroundTint="@color/md_theme_light_tertiaryContainer"
+            android:backgroundTint="@color/md_theme_light_primary"
             android:text="@string/btnTaskCreationAdd" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
