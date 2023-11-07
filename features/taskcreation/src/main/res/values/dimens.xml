@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="spClienteWidth">150dp</dimen>
+    <dimen name="spTaskCreationClienteWidth">150dp</dimen>
     <dimen name="paddingTaskCreation">15dp</dimen>
-    <dimen name="tieDescripcionHeight">150dp</dimen>
+    <dimen name="tieDescHeight">150dp</dimen>
+    <dimen name="tieTaskCreationFechaWidth">200dp</dimen>
 </resources>

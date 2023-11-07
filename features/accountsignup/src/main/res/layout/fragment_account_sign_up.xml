@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TODO poner los ids a los widgets -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,24 +65,6 @@
             android:hint="hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toEndOf="@+id/brStart"
-        app:layout_constraintTop_toTopOf="@+id/tvTipo" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProfie"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toEndOf="@+id/brStart"
-        app:layout_constraintTop_toTopOf="@+id/tvProfie" />
-
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/brStart"
         android:layout_width="wrap_content"
@@ -91,21 +74,85 @@
 
     <TextView
         android:id="@+id/tvTipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="115dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="100dp"
         android:text="hazvsahbsab"
         app:layout_constraintStart_toStartOf="@+id/started"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
+    <Spinner
+        android:entries="@array/typeuser"
+        android:id="@+id/sptype"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/brStart"
+        app:layout_constraintTop_toTopOf="@+id/tvTipo" />
+
+    <Spinner
+        android:id="@+id/spProfile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProfie"
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/brStart"
+        app:layout_constraintTop_toTopOf="@+id/tvProfie" />
+
     <TextView
         android:id="@+id/tvProfie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
 
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/started"
         app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
+
+    <TextView
+        android:id="@+id/txvfavoritos_account_signup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/started"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfie" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintStart_toStartOf="@+id/started"
+        app:layout_constraintTop_toBottomOf="@+id/txvfavoritos_account_signup"
+        >
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_light_primaryContainer"
-    android:paddingLeft="20sp"
-    android:paddingRight="20sp"
     tools:context="com.moronlu18.invoice.MainActivity">
 
     <Button
