@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_light_primaryContainer"
-    android:fitsSystemWindows="false"
     tools:context=".TaskCreationFragment">
 
     <LinearLayout
@@ -14,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/md_theme_light_primaryContainer"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/paddingTaskCreation"
+        android:paddingHorizontal="@dimen/paddingTask"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +54,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieTaskCreationDesc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tieDescHeight"
+                android:layout_height="@dimen/tieTaskCreationDescHeight"
                 android:gravity="top"
                 android:hint="@string/tieTaskCreationDescripcion"
                 android:inputType="text"
@@ -65,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/paddingTaskCreation"
+            android:layout_marginVertical="@dimen/paddingTask"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -99,7 +98,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieTaskCreationFecha"
                     android:layout_width="@dimen/tieTaskCreationFechaWidth"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:hint="@string/tieTaskCreationFecha"
                     android:inputType="date" />

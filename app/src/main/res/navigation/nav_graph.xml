@@ -54,6 +54,16 @@
         android:id="@+id/itemdetailFragment"
         android:name="com.moronlu18.itemdetail.ItemDetailFragment" />
     <fragment
+        app:moduleName="taskdetail"
+        android:label="@string/title_taskdetail"
+        android:id="@+id/taskdetailFragment"
+        android:name="com.moronlu18.taskdetail.TaskDetailFragment" />
+    <fragment
+        app:moduleName="tasklist"
+        android:label="@string/title_tasklist"
+        android:id="@+id/tasklistFragment"
+        android:name="com.moronlu18.tasklist.TaskListFragment" />
+    <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"
         android:label="@string/mainFragment"
@@ -85,7 +95,12 @@
         <action
             android:id="@+id/action_mainFragment_to_itemdetailFragment"
             app:destination="@id/itemdetailFragment" />
-
+        <action
+            android:id="@+id/action_mainFragment_to_taskdetailFragment"
+            app:destination="@id/taskdetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_tasklistFragment"
+            app:destination="@id/tasklistFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
