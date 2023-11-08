@@ -6,11 +6,12 @@ android {
     namespace = "com.moronlu18.invoicecreation"
     compileSdk = 33
 
+
+
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false

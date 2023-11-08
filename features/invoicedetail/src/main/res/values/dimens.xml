@@ -2,4 +2,5 @@
 <resources>
     <dimen name="txtdInvoiceDetailsCliente">18dp</dimen>
     <dimen name="rbInvoiceDetails">5dp</dimen>
+    <dimen name="dimenSeparacionLista">10dp</dimen>
 </resources>

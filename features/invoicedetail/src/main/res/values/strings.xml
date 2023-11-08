@@ -24,4 +24,8 @@
     <string name="rbInvoiceCreationPendiente">Pendiente</string>
     <string name="rbInvoiceDetailsPagada">Pagada</string>
     <string name="rbInvoiceDetailsVencida">Vencida</string>
+    <string name="tvListaArticulosLabPrecio">Precio:</string>
+    <string name="tvListaArticulosPrecio">20.1</string>
+    <string name="tvListaArticulosNombre">Zapato</string>
+    <string name="tvListaArticulosLabNombre">Nombre:</string>
 </resources>

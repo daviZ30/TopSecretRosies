@@ -16,6 +16,10 @@
     <string name="tieFormatoFecha">DD/MM/YYYY</string>
     <string name="tvInvoiceCreationImpuestos">Impuestos:</string>
     <string name="tvInvoiceCreation">Total:</string>
+    <string name="tvListaArticulosLabPrecio">Precio:</string>
+    <string name="tvListaArticulosPrecio">20.1</string>
+    <string name="tvListaArticulosNombre">Zapato</string>
+    <string name="tvListaArticulosLabNombre">Nombre:</string>
 
 
 </resources>

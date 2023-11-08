@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+
+
 class AdaptadorFacturas(val facturas:List<Factura>)
     : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
 

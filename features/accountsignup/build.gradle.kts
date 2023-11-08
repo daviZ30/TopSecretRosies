@@ -6,9 +6,8 @@ android {
     namespace = "com.moronlu18.accountsignup"
     compileSdk = 33
 
-    buildFeatures {
-        dataBinding = true
-    }
+
+
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -23,16 +22,20 @@ android {
             )
         }
     }
-    compileOptions {
+     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildFeatures{
-        viewBinding = true
     }
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures{
+        viewBinding = true
+        //dataBinding = true
+
+    }
+
+
 }
 
 dependencies {
