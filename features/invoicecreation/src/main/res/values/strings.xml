@@ -13,5 +13,9 @@
     <string name="btnInvoiceCreationArticulos">Añadir Articulo</string>
     <string name="txtInvoiceCreationLabSubTotal">Subtotal:</string>
     <string name="txtInvoiceCreationSubTotal">100</string>
+    <string name="tieFormatoFecha">DD/MM/YYYY</string>
+    <string name="tvInvoiceCreationImpuestos">Impuestos:</string>
+    <string name="tvInvoiceCreation">Total:</string>
+
 
 </resources>

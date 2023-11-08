@@ -21,4 +21,7 @@
     <string name="txtInvoiceDetailsLabImpuestos">Impuestos:</string>
     <string name="txtInvoiceDetailsLabTotal">Total:</string>
     <string name="txtInvoiceDetailsTotal" />
+    <string name="rbInvoiceCreationPendiente">Pendiente</string>
+    <string name="rbInvoiceDetailsPagada">Pagada</string>
+    <string name="rbInvoiceDetailsVencida">Vencida</string>
 </resources>

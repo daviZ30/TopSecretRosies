@@ -6,6 +6,9 @@ android {
     namespace = "com.moronlu18.accountsignup"
     compileSdk = 33
 
+    buildFeatures {
+        dataBinding = true
+    }
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
