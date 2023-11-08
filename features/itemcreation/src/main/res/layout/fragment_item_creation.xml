@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_dark_onBackground"
     tools:context=".ItemCreationFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="729dp"
+        android:layout_width="382dp"
+        android:layout_height="700dp"
         android:gravity="center_vertical|left"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516"
         tools:ignore="MissingConstraints">
 
 
@@ -25,7 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvid"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#039BE5"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
@@ -33,6 +36,7 @@
             android:id="@+id/textInputLayout"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -52,9 +56,10 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvName"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#039BE5"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
@@ -78,9 +83,10 @@
             android:id="@+id/tvRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvRate"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#039BE5"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
@@ -88,6 +94,7 @@
             android:id="@+id/textInputLayout3"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -104,9 +111,10 @@
             android:id="@+id/tvTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvType"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#039BE5"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
@@ -114,17 +122,20 @@
             android:id="@+id/spnType"
             android:layout_width="372dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/md_theme_dark_primary"
+            android:minHeight="30dp"
             tools:ignore="MissingConstraints" />
 
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvDescription"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#039BE5"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
@@ -133,6 +144,7 @@
             android:id="@+id/textInputLayout4"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             tools:ignore="MissingConstraints">
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -148,18 +160,17 @@
 
         <CheckBox
             android:layout_width="135dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="188dp"
-            android:background="@color/md_theme_dark_onBackground"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/chbIsTaxable"
-            android:textColor="@android:color/holo_blue_light"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="53dp"
+            android:layout_marginTop="16dp"
             android:layout_height="76dp"
             android:background="@color/md_theme_light_primary"
             android:clickable="true"
