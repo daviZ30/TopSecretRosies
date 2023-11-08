@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_mainFragment_to_tasklistFragment"
             app:destination="@id/tasklistFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_customerCreationFragment"
+            app:destination="@id/customerCreationFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"

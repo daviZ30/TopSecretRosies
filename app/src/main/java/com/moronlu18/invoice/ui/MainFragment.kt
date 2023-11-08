@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
 
         binding.btCustomerCreation.setOnClickListener {
             //findNavController().navigate()
-           // findNavController().navigate(R.id.action_mainFragment_to_invoicelistFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_customerCreationFragment)
         }
         binding.btCustomerDetails.setOnClickListener {
             //findNavController().navigate()

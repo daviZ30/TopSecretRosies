@@ -4,36 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_primaryContainer"
+    android:background="@color/material_dynamic_primary90"
     android:foregroundTint="@color/md_theme_light_primaryContainer"
     android:paddingLeft="16sp"
     android:paddingRight="16sp"
     tools:context=".CustomerDetailFragment">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/started"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
 
     <ImageView
         android:id="@+id/img_customer_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/lldatospersonales_customer_detail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/started"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.134"
         tools:src="@tools:sample/avatars" />
 
     <LinearLayout
         android:id="@+id/lldatoscontacto_customer_detail"
         android:layout_width="0dp"
         android:layout_height="104dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/material_dynamic_tertiary80"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633">
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/started"
+        app:layout_constraintTop_toBottomOf="@+id/lldatospersonales_customer_detail"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txvcontato_customer_detail"
@@ -60,12 +74,15 @@
         android:id="@+id/lldatospersonales_customer_detail"
         android:layout_width="0dp"
         android:layout_height="104dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/material_dynamic_tertiary80"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433">
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/started"
+        app:layout_constraintTop_toBottomOf="@+id/img_customer_detail"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txvpersonales_customer_detail"
@@ -92,12 +109,15 @@
         android:id="@+id/llubicacion_customer_detail"
         android:layout_width="0dp"
         android:layout_height="104dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/material_dynamic_tertiary80"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851">
+        app:layout_constraintEnd_toStartOf="@+id/ended"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/started"
+        app:layout_constraintTop_toBottomOf="@+id/lldatoscontacto_customer_detail"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txvubicaion_customer_detail"
