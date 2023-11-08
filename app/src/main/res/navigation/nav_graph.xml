@@ -49,6 +49,11 @@
         android:id="@+id/itemlistFragment"
         android:name="com.moronlu18.itemlist.ItemListFragment" />
     <fragment
+        app:moduleName="itemdetail"
+        android:label="@string/title_itemdetail"
+        android:id="@+id/itemdetailFragment"
+        android:name="com.moronlu18.itemdetail.ItemDetailFragment" />
+    <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"
         android:label="@string/mainFragment"
@@ -77,6 +82,9 @@
         <action
             android:id="@+id/action_mainFragment_to_itemlistFragment"
             app:destination="@id/itemlistFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_itemdetailFragment"
+            app:destination="@id/itemdetailFragment" />
 
     </fragment>
     <fragment
