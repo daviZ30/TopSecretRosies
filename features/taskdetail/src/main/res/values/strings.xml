@@ -5,4 +5,5 @@
     <string name="tvTaskDetailHInicial">HORA INICIO:</string>
     <string name="tvTaskDetailHFinal">HORA FIN</string>
     <string name="tvTaskDetailFecha">FECHA</string>
+    <string name="tvTaskDetailEstado">COMPLETO</string>
 </resources>

@@ -68,13 +68,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="end"
-                app:constraint_referenced_ids="tvTaskDetailCliente, tvTaskDetailHInicial,tvTaskDetailHFinal" />
+                app:constraint_referenced_ids="tvTaskDetailCliente, tvTaskDetailHInicial,tvTaskDetailHFinal, cbTaskDetailEstado" />
 
             <TextView
                 android:id="@+id/tvTaskDetailCliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailCliente"
                 android:textColor="@color/md_theme_dark_onPrimary"
@@ -95,7 +94,6 @@
                 android:id="@+id/tvTaskDetailDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailDesc"
@@ -118,7 +116,6 @@
                 android:id="@+id/tvTaskDetailFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailFecha"
@@ -130,7 +127,7 @@
                 android:id="@+id/tvTaskDetailFechaCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="13/04/2002"
@@ -144,7 +141,6 @@
                 android:id="@+id/tvTaskDetailHInicial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailHInicial"
@@ -156,7 +152,7 @@
                 android:id="@+id/tvTaskDetailHInicialCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="00:00"
@@ -169,7 +165,6 @@
                 android:id="@+id/tvTaskDetailHFinal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailHFinal"
@@ -178,9 +173,10 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicial" />
 
             <TextView
+                android:id="@+id/tvTaskDetailHFinalCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="21:00"
@@ -188,6 +184,24 @@
                 android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicialCont" />
+
+            <TextView
+                android:id="@+id/tvTaskDetailEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTopTaskDetail"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:text="@string/tvTaskDetailEstado"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailHFinal" />
+
+            <CheckBox
+                android:id="@+id/cbTaskDetailEstado"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailHFinalCont" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
