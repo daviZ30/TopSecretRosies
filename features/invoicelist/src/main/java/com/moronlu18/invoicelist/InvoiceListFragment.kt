@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.invoicelist.databinding.FragmentInvoiceListBinding
 import java.sql.Time
 
 
@@ -17,6 +18,9 @@ data class Articulo(val nombre:String,val precio:Double)
 data class Factura(val Cliente:String,val FeEmision:String,val FeVencimiento:String,val Articulos:List<Articulo>,val total:Double)
 
 class InvoiceListFragment : Fragment() {
+    private var _binding: FragmentInvoiceListBinding? = null
+    private val binding
+        get() = _binding!!
 
     val facturas = listOf<Factura>(
         Factura("Antonio","10/10/2020","20/20/2023", listOf(
@@ -37,14 +41,13 @@ class InvoiceListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var vista:View = inflater.inflate(R.layout.fragment_invoice_list, container, false)
 
-        val rc = vista.findViewById<RecyclerView>(R.id.rvInvoiceList)
-        rc.adapter = AdaptadorFacturas(facturas)
-        rc.layoutManager = LinearLayoutManager(context)
+        _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
-        // Inflate the layout for this fragment
-        return vista
+        binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas)
+        binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)
+
+        return binding.root
     }
 
 

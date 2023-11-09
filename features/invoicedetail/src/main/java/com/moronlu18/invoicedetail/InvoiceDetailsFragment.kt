@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.invoicedetail.databinding.FragmentInvoiceDetailsBinding
 
 data class Articulo(val nombre:String,val precio:Double)
 class InvoiceDetailsFragment : Fragment() {
+
+    private var _binding: FragmentInvoiceDetailsBinding? = null
+    private val binding
+        get() = _binding!!
 
     val articulos = listOf<Articulo>(
         Articulo("Mesa",222.2),
@@ -23,13 +28,12 @@ class InvoiceDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var vista:View = inflater.inflate(R.layout.fragment_invoice_details, container, false)
+        _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
 
-        val rc = vista.findViewById<RecyclerView>(R.id.rcInvoiceDetails)
-        rc.adapter = AdaptadorArticulos(articulos)
-        rc.layoutManager = LinearLayoutManager(context)
+        binding.rvInvoiceDetails.adapter = AdaptadorArticulos(articulos)
+        binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
         // Inflate the layout for this fragment
-        return vista
+        return binding.root
     }
 
 }

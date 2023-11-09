@@ -5,8 +5,8 @@
     <string name="tieInvoiceDetailsNombre">Nombre:</string>
     <string name="txtInvoiceDetailsLabNombre">Nombre:</string>
     <string name="txtInvoiceDetailsNombre" />
-    <string name="txtInvoiceDetailsLabDNI">DNI:</string>
-    <string name="txtInvoiceDetailsDNI" />
+    <string name="txtInvoiceDetailsLabEmail">Email:</string>
+    <string name="txtInvoiceDetailsEmail" />
     <string name="txtInvoiceDetailsTelefono"></string>
     <string name="txtInvoiceDetailsLabTelefono">Teléfono:</string>
     <string name="txtInvoiceDetailsFecha">Fecha</string>

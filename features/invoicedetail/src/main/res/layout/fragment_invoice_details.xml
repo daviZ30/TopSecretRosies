@@ -39,11 +39,11 @@
 
                 <TextView
                     android:id="@+id/txtInvoiceDetails1"
-                    android:layout_width="81dp"
+                    android:layout_width="@dimen/AnchoDetails"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/txtInvoiceDetailsLabNombre"
-                    android:textSize="19dp"
+                    android:textSize="@dimen/sizeLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/txtInvoiceDetailsNombre"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sizeContent" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,11 +62,11 @@
 
                 <TextView
                     android:id="@+id/txtInvoiceDetails2"
-                    android:layout_width="81dp"
+                    android:layout_width="@dimen/AnchoDetails"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="@string/txtInvoiceDetailsLabDNI"
-                    android:textSize="19dp"
+                    android:text="@string/txtInvoiceDetailsLabEmail"
+                    android:textSize="@dimen/sizeLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -74,8 +74,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:text="@string/txtInvoiceDetailsDNI"
-                    android:textSize="16dp" />
+                    android:text="@string/txtInvoiceDetailsEmail"
+                    android:textSize="@dimen/sizeContent" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,11 +85,11 @@
 
                 <TextView
                     android:id="@+id/txtInvoiceDetailsTelefonoid"
-                    android:layout_width="81dp"
+                    android:layout_width="@dimen/AnchoDetails"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/txtInvoiceDetailsLabTelefono"
-                    android:textSize="19dp"
+                    android:textSize="@dimen/sizeLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/txtInvoiceDetailsTelefono"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sizeContent" />
             </LinearLayout>
 
         </LinearLayout>
@@ -138,11 +138,11 @@
 
                 <TextView
                     android:id="@+id/txtInvoiceDetails4"
-                    android:layout_width="199dp"
+                    android:layout_width="@dimen/AnchoFecha"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/txtInvoiceDetailsLabFeEmision"
-                    android:textSize="19dp"
+                    android:textSize="@dimen/sizeLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/txtInvoiceDetailsFeEmision"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sizeContent" />
             </LinearLayout>
 
             <LinearLayout
@@ -161,11 +161,11 @@
 
                 <TextView
                     android:id="@+id/txtInvoiceDetails5"
-                    android:layout_width="199dp"
+                    android:layout_width="@dimen/AnchoFecha"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/txtInvoiceDetailsLabFeVencimiento"
-                    android:textSize="19dp"
+                    android:textSize="@dimen/sizeLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -174,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/txtInvoiceDetailsFeVencimiento"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/sizeContent" />
             </LinearLayout>
 
         </LinearLayout>
@@ -242,7 +242,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcInvoiceDetails"
+                android:id="@+id/rvInvoiceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -259,7 +259,7 @@
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceDetailsLabSubTotal"
                     android:textAlignment="textEnd"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/sizeSecondLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -269,7 +269,7 @@
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceDetailsSubTotal"
 
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/sizeSecondContent" />
 
                 <TextView
                     android:id="@+id/txtInvoiceDetailslblImpuestos"
@@ -278,7 +278,7 @@
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceDetailsLabImpuestos"
                     android:textAlignment="textEnd"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/sizeSecondLab"
                     android:textStyle="bold" />
 
                 <TextView
@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceDetailsImpuestos"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/sizeSecondContent" />
 
             </LinearLayout>
 
@@ -303,7 +303,7 @@
                     android:layout_weight="2"
                     android:text="@string/txtInvoiceDetailsLabTotal"
                     android:textAlignment="textEnd"
-                    android:textSize="19dp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -312,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="@string/txtInvoiceDetailsTotal"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

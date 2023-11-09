@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
+        app:cardBackgroundColor="@color/ic_launcher_background"
         app:contentPadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,6 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/md_theme_light_primaryContainer"
             android:orientation="vertical">
 
             <TextView
@@ -50,8 +51,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tieInvoiceCreationDni"
-                    android:textColorHint="#616161" />
+                    android:hint="@string/tieInvoiceCreationEmail"
+              />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -62,27 +63,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/tieÍnvoiceCreationTelefono"
-                    android:textColorHint="#616161" />
+                     />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
-        app:contentPadding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        app:cardBackgroundColor="@color/ic_launcher_background"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/md_theme_light_primaryContainer"
             android:orientation="vertical">
 
             <TextView
@@ -97,8 +101,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:helperText="@string/tieFormatoFecha"
-                >
+                app:helperText="@string/tieFormatoFecha">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -115,28 +118,29 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="datetime"
-                    android:hint="@string/tieInvoiceCreationFeVencimiento" />
+                    android:hint="@string/tieInvoiceCreationFeVencimiento"
+                    android:inputType="datetime" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
-        app:contentPadding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/ic_launcher_background"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/md_theme_light_primaryContainer"
             android:orientation="vertical">
 
             <TextView
@@ -151,7 +155,7 @@
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="45dp"
                 android:layout_marginHorizontal="60dp"
                 android:backgroundTint="@color/md_theme_light_primary"
                 android:text="@string/btnInvoiceCreationArticulos" />
@@ -159,7 +163,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvInvoiceArticulos"
                 android:layout_width="match_parent"
-                android:layout_height="140dp" />
+                android:layout_height="135dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,8 +176,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAlignment="textEnd"
                     android:text="@string/txtInvoiceCreationLabSubTotal"
+                    android:textAlignment="textEnd"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -192,8 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/tvInvoiceCreationImpuestos"
-                    android:textSize="15sp"
                     android:textAlignment="textEnd"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -209,6 +213,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/md_theme_light_primaryContainer"
+
                 android:orientation="horizontal">
 
                 <TextView
@@ -226,8 +232,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:textSize="18sp"
-                    android:text="111.000.000" />
+                    android:text="111.000.000"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
