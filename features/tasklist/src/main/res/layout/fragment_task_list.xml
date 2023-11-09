@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/glFinal"
+        app:layout_constraintEnd_toStartOf="@id/glFinal"
         app:layout_constraintStart_toStartOf="@+id/glInicial">
 
     </androidx.recyclerview.widget.RecyclerView>

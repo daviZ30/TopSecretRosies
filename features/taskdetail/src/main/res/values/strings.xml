@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvTaskDetailCliente">CLIENTE:</string>
+    <string name="tvTaskDetailDesc">DESCRIPCIÓN:</string>
+    <string name="tvTaskDetailHInicial">HORA INICIO:</string>
+    <string name="tvTaskDetailHFinal">HORA FIN</string>
+    <string name="tvTaskDetailFecha">FECHA</string>
 </resources>
