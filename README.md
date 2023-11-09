@@ -23,13 +23,16 @@ En todos mis layout he implementado un constraintlayout como principal. En ellos
 Para el funcionamiento de estos features cree varios fragment en el nav_gragh principal, después implemente varios actions y lo vincule a los botones previamente creados 
 ## InvoiceCreation
 En este layout he implementado varios TextUnputLayout en cada cardview, en ellos he cambiado el tipo de letra por una implementada en el proyecto, también he insertado un icono al inicio. En el último cardview puse un botón, el cual cambie el color principal y su tamaño cambiando el height, y un recyclerview en el cual hay otro cardview en cada fila para mostrar los datos acompañado de un imageview.
+
 ![](https://i.postimg.cc/L6ZMm5ZB/creation.png)
 ## InvoiceDetails
 En este layout puse varios TextView varios como lab, los cuales puse en negrita incremente un poco su tamaño, y otros para poner el contenido deseado, todo este contenido tiene el tipo de letra implementado en el proyecto. También podemos ver un RadioGroup con varios RadioButton.
 Nuevamente he implementado el mismo reciclerview que en InvoiceCreation.
+
 ![](https://i.postimg.cc/RhkyW1n1/details.png)
 ## InvoiceList
-En este layout solo podemos ver el RecyclerView, en el layout de cada fila podemos ver un cardview con el contenido junto a una imagen y un textview. Para el recyclerview implemente el adapter necesario para construirlo pasándole una lista de facturas en la cual cada factura es una dataclass. 
+En este layout solo podemos ver el RecyclerView, en el layout de cada fila podemos ver un cardview con el contenido junto a una imagen y un textview. Para el recyclerview implemente el adapter necesario para construirlo pasándole una lista de facturas en la cual cada factura es una dataclass.
+
 ![](https://i.postimg.cc/Kcf54Dtm/list.png)
 
 
