@@ -7,6 +7,7 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosLabPrecio"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimenSeparacionLista"
@@ -18,6 +19,7 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosPrecio"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvListaArticulosPrecio"
@@ -27,6 +29,7 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosNombre"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvListaArticulosNombre"
@@ -36,6 +39,7 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosLabNombre"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimenSeparacionLista"
@@ -47,6 +51,7 @@
 
     <ImageView
         android:id="@+id/imageView2"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"

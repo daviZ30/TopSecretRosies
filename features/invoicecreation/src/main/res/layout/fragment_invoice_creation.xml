@@ -177,6 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceCreationLabSubTotal"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:textAlignment="textEnd"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -185,6 +186,7 @@
                     android:id="@+id/txtInvoiceDetailsSubtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:layout_weight="1"
                     android:text="@string/txtInvoiceCreationSubTotal"
 
@@ -195,6 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:text="@string/tvInvoiceCreationImpuestos"
                     android:textAlignment="textEnd"
                     android:textSize="15sp"
@@ -205,6 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:text="111.000.000"
                     android:textSize="14sp" />
 
@@ -221,6 +225,7 @@
                     android:id="@+id/txtInvoiceDetailsTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:layout_weight="2"
                     android:text="@string/tvInvoiceCreation"
                     android:textAlignment="textEnd"
@@ -231,6 +236,7 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
                     android:layout_weight="2"
                     android:text="111.000.000"
                     android:textSize="18sp" />

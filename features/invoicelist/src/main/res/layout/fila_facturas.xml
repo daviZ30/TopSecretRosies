@@ -13,8 +13,8 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/factura"
         app:layout_constraintBottom_toTopOf="@+id/txtLineaCliente"
-        app:layout_constraintEnd_toStartOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtLineaCliente"
+        app:layout_constraintStart_toStartOf="@+id/txtLineaCliente"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
@@ -45,6 +45,8 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_weight="1"
                     android:text="F. Emisión: "
                     android:textAlignment="textEnd"
@@ -52,6 +54,8 @@
 
                 <TextView
                     android:id="@+id/txtLineaFeEmision"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,6 +72,8 @@
 
                 <TextView
                     android:id="@+id/textView10"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -77,6 +83,8 @@
 
                 <TextView
                     android:id="@+id/txtLineaFeVencimiento"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -93,6 +101,8 @@
 
                 <TextView
                     android:id="@+id/textView15"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -102,6 +112,8 @@
 
                 <TextView
                     android:id="@+id/txtLineaNumArticulos"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -116,6 +128,8 @@
 
                 <TextView
                     android:id="@+id/textView16"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -125,6 +139,8 @@
 
                 <TextView
                     android:id="@+id/txtLineaTotal"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -138,11 +154,12 @@
     <TextView
         android:id="@+id/txtLineaCliente"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:text="TextView"
         android:textSize="18dp"
         android:textStyle="bold"
