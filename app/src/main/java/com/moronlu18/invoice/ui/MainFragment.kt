@@ -83,16 +83,7 @@ class MainFragment : Fragment() {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_tasklistFragment)
         }
-        binding.btTaskDetails.setOnClickListener {
-            //findNavController().navigate()
-            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
-        }
-        binding.btTaskList.setOnClickListener {
-            //findNavController().navigate()
-            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
-        }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
