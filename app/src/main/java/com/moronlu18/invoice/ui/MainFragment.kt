@@ -37,15 +37,15 @@ class MainFragment : Fragment() {
 
         binding.btCustomerCreation.setOnClickListener {
             //findNavController().navigate()
-           //findNavController().navigate(R.id.action_mainFragment_to_customerCreationFragment)
+           findNavController().navigate(R.id.action_mainFragment_to_customerCreationFragment)
         }
         binding.btCustomerDetails.setOnClickListener {
             //findNavController().navigate()
-           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_customerDetailFragment)
         }
         binding.btCustomerList.setOnClickListener {
             //findNavController().navigate()
-           // findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_customerListFragment)
         }
         binding.btInvoiceCreation.setOnClickListener {
             //findNavController().navigate()
@@ -83,16 +83,7 @@ class MainFragment : Fragment() {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_tasklistFragment)
         }
-        binding.btTaskDetails.setOnClickListener {
-            //findNavController().navigate()
-            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
-        }
-        binding.btTaskList.setOnClickListener {
-            //findNavController().navigate()
-            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
-        }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

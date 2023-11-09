@@ -23,17 +23,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
-    <ImageView
-        android:id="@+id/img_customer_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_customer_creation"
+        android:layout_width="132dp"
+        android:layout_height="117dp"
+        android:src="@drawable/icon_person_customer_detail"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/started"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.058" />
+
 
     <LinearLayout
         android:id="@+id/lldatoscontacto_customer_detail"
@@ -53,6 +56,7 @@
             android:id="@+id/txvcontato_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvdatoscontacto_customer_detail"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -61,12 +65,14 @@
             android:id="@+id/txvemail_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvemail_customer_detail" />
 
         <TextView
             android:id="@+id/txvtelefono_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvtelefono_customer_detail" />
     </LinearLayout>
 
@@ -74,20 +80,21 @@
         android:id="@+id/lldatospersonales_customer_detail"
         android:layout_width="0dp"
         android:layout_height="104dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:background="@color/material_dynamic_tertiary80"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/img_customer_detail"
+        app:layout_constraintTop_toBottomOf="@+id/img_customer_creation"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txvpersonales_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txv_customer_detail"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -96,12 +103,14 @@
             android:id="@+id/txvnombre_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvnombre_customer_detail" />
 
         <TextView
             android:id="@+id/txvid_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvid_customer_detail" />
     </LinearLayout>
 
@@ -123,6 +132,7 @@
             android:id="@+id/txvubicaion_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvubicaion_customer_detail"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -131,12 +141,14 @@
             android:id="@+id/txvciudad_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvciudad_customer_detail" />
 
         <TextView
             android:id="@+id/txvdireccion_customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/txvdireccion_customer_detail" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
