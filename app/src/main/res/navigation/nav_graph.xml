@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.moronlu18.invoice.SplashFragment"
+        android:name="com.moronlu18.invoice.ui.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
