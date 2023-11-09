@@ -35,4 +35,17 @@ En este layout solo podemos ver el RecyclerView, en el layout de cada fila podem
 
 ![](https://i.postimg.cc/Kcf54Dtm/list.png)
 
+# Customer (Alex Carnero)
+En todos mis layout he implementado un constrainlayout como container principal. He intentado usar la misma gama de colores y fuente de letra que mis compañeros para hacer una aplicación homogénea.
+
+## CustomerCreation
+En este layout he utilizado TextInputLayout para recoger la información del cliente , además de esto he añadido un spinner con los prefijos de telefono más usados y un boton el cual sirve para crear el cliente
+
+## CustomerDetail
+He usado varion linearlayout para dividir la información del cliente segun de lo que trababa aunque no creo que sea los más optimo para el layout utilizar este tipo de contenedores , pero no se me ocurrio ninguna otra forma.
+
+## CustomerList
+Fragmento encargado de listar todos los clientes existentes en la lista de clientes aunque el modelo de datos no este todavia implementado he añadido una lista manualmente para saber como se posionarian los elementos.
+
+
 
