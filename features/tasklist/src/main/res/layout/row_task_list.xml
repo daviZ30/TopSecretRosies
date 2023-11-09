@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/md_theme_light_primaryContainer"
+    android:paddingVertical="4dp"
+    android:layout_marginVertical="4dp">
 
-<androidx.cardview.widget.CardView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivTaskList"
+        android:layout_width="@dimen/ivTaskList"
+        android:layout_height="@dimen/ivTaskList"
+        android:src="@drawable/baseline_task_alt_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvTituloTaskList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_condensed_bold"
+        android:text="@string/tvTituloTaskList"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTaskList"
+        app:layout_constraintStart_toEndOf="@+id/ivTaskList"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
+    <TextView
+        android:id="@+id/tvClienteTaskList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:text="@string/tvClienteTaskList"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTaskList"
+        app:layout_constraintStart_toEndOf="@+id/ivTaskList"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloTaskList"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvFechaTaskList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:text="@string/tvFechaTaskList"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTaskList"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvHoraTaskList"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvHoraTaskList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:text="@string/tvHoraTaskList"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTaskList"
+
+        app:layout_constraintStart_toEndOf="@+id/ivTaskList"
+        app:layout_constraintTop_toBottomOf="@+id/tvClienteTaskList"
+        tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

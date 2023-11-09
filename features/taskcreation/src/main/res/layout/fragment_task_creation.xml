@@ -73,13 +73,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <Spinner
                     android:id="@+id/spHoraITaskCreation"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
                     android:background="@drawable/shape_spinner">
-
                 </Spinner>
 
                 <Spinner
@@ -87,7 +85,6 @@
                     android:layout_width="100dp"
                     android:layout_height="48dp"
                     android:background="@drawable/shape_spinner"></Spinner>
-
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +114,6 @@
             android:backgroundTint="@color/md_theme_light_primary"
             android:fontFamily="@font/opensans_condensed_bold"
             android:textColor="@color/white"
-
             android:text="@string/btnTaskCreationAdd" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

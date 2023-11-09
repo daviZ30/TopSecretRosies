@@ -1,3 +1,5 @@
 <resources>
     <dimen name="paddingTask">15dp</dimen>
+    <dimen name="ivTaskList">60dp</dimen>
+    <dimen name="textSizeTaskList">15dp</dimen>
 </resources>
