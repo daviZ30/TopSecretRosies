@@ -25,15 +25,15 @@
 
     <ImageView
         android:id="@+id/img_customer_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="143dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/started"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.125"
+        android:src="@drawable/icon_person_customer_detail" />
 
     <LinearLayout
         android:id="@+id/lldatoscontacto_customer_detail"

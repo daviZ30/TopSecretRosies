@@ -19,6 +19,16 @@
         android:id="@+id/accountSignUpFragment"
         android:name="com.moronlu18.accountsignup.ui.AccountSignUp" />
     <fragment
+        app:moduleName="customercreation"
+        android:label="@string/title_customercreation"
+        android:id="@+id/customerCreationFragment"
+        android:name="com.moronlu18.customercreation.CustomerCreationFragment" />
+    <fragment
+        app:moduleName="customerdetail"
+        android:label="@string/title_customerdetail"
+        android:id="@+id/customerDetailFragment"
+        android:name="com.moronlu18.customerdetail.CustomerDetailFragment" />
+    <fragment
         app:moduleName="invoicecreation"
         android:label="@string/title_invoicelist"
         android:id="@+id/invoiceCreationFragment"
@@ -101,9 +111,12 @@
         <action
             android:id="@+id/action_mainFragment_to_tasklistFragment"
             app:destination="@id/tasklistFragment" />
-        <!--<action
+        <action
             android:id="@+id/action_mainFragment_to_customerCreationFragment"
-            app:destination="@id/customerCreationFragment" />-->
+            app:destination="@id/customerCreationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_customerDetailFragment"
+            app:destination="@id/customerDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
