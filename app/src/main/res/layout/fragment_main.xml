@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_primaryContainer"
     tools:context=".MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -18,31 +19,39 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:paddingBottom="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/btCustomerCreation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/btCustomerCreation" />
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:text="@string/btCustomerCreation"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btCustomerDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/btCustomerDetails" />
+                android:text="@string/btCustomerDetails"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btCustomerList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="@string/CustomerList" />
+                android:text="@string/CustomerList"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,26 +65,35 @@
 
             <Button
                 android:id="@+id/btInvoiceCreation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/btInvoiceCreation" />
+                android:text="@string/btInvoiceCreation"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btInvoiceDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/btInvoiceDetails" />
+                android:text="@string/btInvoiceDetails"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btInvoiceList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="@string/btInvoiceList" />
+                android:text="@string/btInvoiceList"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,26 +107,35 @@
 
             <Button
                 android:id="@+id/btItemCreation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/btItemCreation" />
+                android:text="@string/btItemCreation"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btItemDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/btItemDetail" />
+                android:text="@string/btItemDetail"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btItemList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="@string/ItemList" />
+                android:text="@string/ItemList"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -116,31 +143,39 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            tools:layout_editor_absoluteX="16dp">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <Button
                 android:id="@+id/btTaskCreation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/btTaskCreation" />
+                android:text="@string/btTaskCreation"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btTaskDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/btTaskDetails" />
+                android:text="@string/btTaskDetails"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/btTaskList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/btnwidthMain"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="@string/btTaskList" />
+                android:text="@string/btTaskList"
+                android:backgroundTint="@color/md_theme_light_primary"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

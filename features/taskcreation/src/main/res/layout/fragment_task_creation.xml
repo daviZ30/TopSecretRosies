@@ -34,13 +34,13 @@
             android:id="@+id/tilTaskCreationTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            style="@style/TextColorTaskDetail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/tieTaskCreationTitulo"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                android:hint="@string/tieTaskCreationTitulo"
                 android:inputType="textShortMessage" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,6 +94,7 @@
                 android:id="@+id/tilTaskCreationFecha"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:startIconDrawable="@drawable/baseline_calendar_month_24"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -115,6 +116,7 @@
             android:layout_gravity="bottom|center"
             android:backgroundTint="@color/md_theme_light_primary"
             android:fontFamily="@font/opensans_condensed_bold"
+            android:textColor="@color/white"
 
             android:text="@string/btnTaskCreationAdd" />
     </LinearLayout>

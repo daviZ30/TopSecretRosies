@@ -27,18 +27,30 @@
     <string name="btSignIn">Login</string>
     <string name="btSignUp">Registro</string>
     <string name="mainFragment">Pantalla Inicial</string>
-    <string name="btCustomerCreation">CurtomerCreation</string>
-    <string name="btCustomerDetails">CustomerDetails</string>
-    <string name="CustomerList">CustomerList</string>
-    <string name="btInvoiceCreation">InvoiceCreation</string>
-    <string name="btInvoiceDetails">InvoiceDetails</string>
-    <string name="btInvoiceList">InvoiceList</string>
-    <string name="btItemDetail">ItemDetail</string>
-    <string name="btItemCreation">ItemCreation</string>
-    <string name="ItemList">ItemList</string>
-    <string name="btTaskCreation">TaskCreation</string>
-    <string name="btTaskDetails">TaskDetail</string>
-    <string name="btTaskList">TaskList</string>
+    <string name="btCustomerCreation">Customer
+        Creation</string>
+    <string name="btCustomerDetails">Customer
+        Details</string>
+    <string name="CustomerList">Customer
+        List</string>
+    <string name="btInvoiceCreation">Invoice
+        Creation</string>
+    <string name="btInvoiceDetails">Invoice
+        Details</string>
+    <string name="btInvoiceList">Invoice
+        List</string>
+    <string name="btItemDetail">Item
+        Detail</string>
+    <string name="btItemCreation">Item
+        Creation</string>
+    <string name="ItemList">Item
+        List</string>
+    <string name="btTaskCreation">Task
+        Creation</string>
+    <string name="btTaskDetails">Task
+        Detail</string>
+    <string name="btTaskList">Task
+        List</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

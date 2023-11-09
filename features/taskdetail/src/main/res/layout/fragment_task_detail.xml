@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/paddingTask"/>
+        app:layout_constraintGuide_begin="@dimen/paddingTask" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDerTaskDetail"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="150dp"/>
+        app:layout_constraintGuide_begin="150dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDownTaskDetail"
@@ -40,12 +40,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/md_theme_light_primary"
+        android:src="@drawable/baseline_task_alt_24"
         app:layout_constraintBottom_toTopOf="@+id/glUpTaskDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@android:drawable/ic_menu_edit" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/llTaskDetail"
@@ -78,17 +77,19 @@
                 android:layout_gravity="left"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailCliente"
-                android:textSize="20dp"/>
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail" />
 
             <TextView
                 android:id="@+id/tvTaskDetailClienteCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/md_theme_light_outlineVariant"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="Juan Luis Guerra Gennich"
-                android:background="@color/md_theme_light_outlineVariant"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailCliente"
-                android:textSize="20dp" />
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailCliente" />
 
             <TextView
                 android:id="@+id/tvTaskDetailDesc"
@@ -98,17 +99,19 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailDesc"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailClienteCont" />
 
             <TextView
                 android:id="@+id/tvTaskDetailDescCont"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tieTaskCreationDescHeight"
-                android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:background="@color/md_theme_light_outlineVariant"
+                android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="Descripción de ejemplo"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDesc" />
 
             <TextView
@@ -119,7 +122,8 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailFecha"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDescCont" />
 
             <TextView
@@ -130,7 +134,9 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="13/04/2002"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
+
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDescCont" />
 
@@ -142,7 +148,8 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailHInicial"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailFecha" />
 
             <TextView
@@ -153,7 +160,8 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="00:00"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailFechaCont" />
 
@@ -165,7 +173,8 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailHFinal"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicial" />
 
             <TextView
@@ -175,13 +184,12 @@
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="21:00"
-                android:textSize="20dp"
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicialCont" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
