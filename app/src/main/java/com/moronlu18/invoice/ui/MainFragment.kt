@@ -35,50 +35,50 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btCustomerCreation.setOnClickListener {
+        /*binding.btCustomerCreation.setOnClickListener {
             //findNavController().navigate()
            findNavController().navigate(R.id.action_mainFragment_to_customerCreationFragment)
-        }
-        binding.btCustomerDetails.setOnClickListener {
+        }*/
+        /*binding.btCustomerDetails.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_customerDetailFragment)
-        }
+        }*/
         binding.btCustomerList.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_customerListFragment)
         }
-        binding.btInvoiceCreation.setOnClickListener {
+        /*binding.btInvoiceCreation.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_invoiceCreationFragment)
-        }
-        binding.btInvoiceDetails.setOnClickListener {
+        }*/
+        /*binding.btInvoiceDetails.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_invoicedetailFragment)
-        }
+        }*/
         binding.btInvoiceList.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_invoicelistFragment)
         }
-        binding.btItemCreation.setOnClickListener {
+        /*binding.btItemCreation.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_itemcreationFragment)
-        }
-        binding.btItemDetail.setOnClickListener {
+        }*/
+       /* binding.btItemDetail.setOnClickListener {
             //findNavController().navigate()
            findNavController().navigate(R.id.action_mainFragment_to_itemdetailFragment)
-        }
+        }*/
         binding.btItemList.setOnClickListener {
             //findNavController().navigate()
            findNavController().navigate(R.id.action_mainFragment_to_itemlistFragment)
         }
-        binding.btTaskCreation.setOnClickListener {
+       /* binding.btTaskCreation.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_taskcreationFragment)
-        }
-        binding.btTaskDetails.setOnClickListener {
+        }*/
+        /*binding.btTaskDetails.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_taskdetailFragment)
-        }
+        }*/
         binding.btTaskList.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_tasklistFragment)

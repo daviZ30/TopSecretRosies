@@ -1,182 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_primaryContainer"
     tools:context=".MainFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/dinero" />
 
-            <Button
-                android:id="@+id/btCustomerCreation"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/btCustomerCreation"
-                android:textColor="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingStart="6sp"
+            android:paddingEnd="6sp"
+            android:text="Top Secret Rosies"
+            android:textColor="@color/md_theme_light_onPrimaryContainer"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btCustomerDetails"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/btCustomerDetails"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btCustomerList"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="@string/CustomerList"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            tools:layout_editor_absoluteX="16dp">
-
-            <Button
-                android:id="@+id/btInvoiceCreation"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/btInvoiceCreation"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btInvoiceDetails"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/btInvoiceDetails"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btInvoiceList"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="@string/btInvoiceList"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:layout_editor_absoluteX="16dp">
-
-            <Button
-                android:id="@+id/btItemCreation"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/btItemCreation"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btItemDetail"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/btItemDetail"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btItemList"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="@string/ItemList"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <Button
-                android:id="@+id/btTaskCreation"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/btTaskCreation"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
 
-            <Button
-                android:id="@+id/btTaskDetails"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/btTaskDetails"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
+                <Button
+                    android:id="@+id/btCustomerList"
+                    android:layout_width="@dimen/btnwidthMain"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/md_theme_light_primary"
+                    android:fontFamily="@font/opensans_condensed_bold"
+                    android:text="@string/CustomerList"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btTaskList"
-                android:layout_width="@dimen/btnwidthMain"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="@string/btTaskList"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:textColor="@color/white"/>
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <Button
+                    android:id="@+id/btInvoiceList"
+                    android:layout_width="@dimen/btnwidthMain"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/md_theme_light_primary"
+                    android:fontFamily="@font/opensans_condensed_bold"
+                    android:text="@string/btInvoiceList"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <Button
+                    android:id="@+id/btItemList"
+                    android:layout_width="@dimen/btnwidthMain"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/md_theme_light_primary"
+                    android:fontFamily="@font/opensans_condensed_bold"
+                    android:text="@string/ItemList"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <Button
+                    android:id="@+id/btTaskList"
+                    android:layout_width="@dimen/btnwidthMain"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/md_theme_light_primary"
+                    android:fontFamily="@font/opensans_condensed_bold"
+                    android:text="@string/btTaskList"
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="David Zambrana Romero"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alex Carnero Tapia"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antonio Angel Salado Gomez"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Juan Luis Guerra Gennich"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
