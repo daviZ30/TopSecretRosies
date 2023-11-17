@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
@@ -44,6 +46,7 @@ class AccountSignUp : Fragment() {
         return binding.root
     }
 
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -66,18 +69,38 @@ class AccountSignUp : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemList = arrayListOf("Private","Public","Empty")
-        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,itemList)
+        val itemListString = arrayListOf("Private","Public","Empty")
+        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,itemListString)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spProfile.adapter=adapter;
         binding.spProfile.setSelection(2)
         //Inicializar el listener que se lanza cuando el usuario modifica el valor
 
+        val listener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val profile = parent?.adapter?.getItem(position)
+                Toast.makeText(requireContext(), "Elemento pulsado $profile", Toast.LENGTH_SHORT)
+                //El ArrayList del adapter se encuentra en esta funcion mediente itemList
+
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         //Se usa el modismo with que dado un objeto se puede modificar propiedades dentro dl bloque
         with(binding.spProfile){
             this.adapter = adapter
             setSelection(2)
+            onItemSelectedListener = listener
             onItemSelectedListener=null
         }
     }
