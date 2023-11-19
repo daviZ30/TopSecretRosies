@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 data class Cliente(val nombre:String,val apellidos:String,val email:String)
 class CustomerListFragment : Fragment() {
+    
     val clientes = listOf<Cliente>(
         Cliente("Alex","Carnero","carnero@gmail.com"),
         Cliente("Alex","Carnero","carnero@gmail.com"),
