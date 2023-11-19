@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="382dp"
-        android:layout_height="700dp"
+        android:layout_width="404dp"
+        android:layout_height="734dp"
         android:gravity="center_vertical|left"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
@@ -37,6 +37,7 @@
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:errorEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -56,7 +57,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvName"
             android:textColor="#039BE5"
@@ -67,6 +68,8 @@
             android:id="@+id/textInputLayout2"
             android:layout_width="369dp"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:layout_marginTop="16dp"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -95,6 +98,7 @@
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:errorEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +115,7 @@
             android:id="@+id/tvTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="7dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/tvType"
             android:textColor="#039BE5"
@@ -142,26 +146,28 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
-            android:layout_width="409dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             tools:ignore="MissingConstraints">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tilEditDescription"
+                android:layout_width="374dp"
+                android:layout_height="50dp"
+                android:background="@color/md_theme_light_inversePrimary"
+                android:textColor="@color/black"
+                android:textColorHint="@color/ic_launcher_background"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="90dp">
+
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tilEditDescription"
-            android:layout_width="372dp"
-            android:layout_height="52dp"
-            android:background="@color/md_theme_light_inversePrimary"
-            android:textColor="@color/black">
-
-        </com.google.android.material.textfield.TextInputEditText>
 
         <CheckBox
             android:layout_width="135dp"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="1dp"
             android:layout_marginEnd="188dp"
             android:fontFamily="@font/opensans_condensed_bold"
             android:text="@string/chbIsTaxable"
@@ -170,8 +176,8 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="53dp"
-            android:layout_marginTop="16dp"
             android:layout_height="76dp"
+            android:layout_marginTop="1dp"
             android:background="@color/md_theme_light_primary"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_input_add"
