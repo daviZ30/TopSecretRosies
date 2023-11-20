@@ -47,7 +47,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:startIconDrawable="@drawable/email"
+                app:startIconDrawable="@drawable/icon_email"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -59,7 +59,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:startIconDrawable="@drawable/telefono"
+                app:startIconDrawable="@drawable/icon_phone"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -104,7 +104,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:startIconDrawable="@drawable/calendario"
+                app:startIconDrawable="@drawable/icon_calendar"
                 app:helperText="@string/tieFormatoFecha">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +117,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:startIconDrawable="@drawable/calendario"
+                app:startIconDrawable="@drawable/icon_calendar"
                 app:helperText="@string/tieFormatoFecha">
 
                 <com.google.android.material.textfield.TextInputEditText

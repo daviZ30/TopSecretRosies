@@ -37,6 +37,7 @@
             style="@style/TextColorTaskDetail">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tieTaskCreationTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
@@ -91,7 +92,7 @@
                 android:id="@+id/tilTaskCreationFecha"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:startIconDrawable="@drawable/baseline_calendar_month_24"
+                app:startIconDrawable="@drawable/icon_calendar"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
