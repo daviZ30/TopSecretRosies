@@ -135,6 +135,12 @@
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
-
+    <!--Se incluye el grafo de navegacion con un id = "@+id" que se ha establecido en el fichero /res/navegation/
+    SOLO SE AÑADE EL + EN ESTE CODIGO-->
+    <include-dynamic
+        android:id="@+id/UnId"
+        app:graphPackage="${apliccation}.account"
+        app:graphResName="nav_graph_item"
+        app:moduleName="item"/>
 
 </navigation>
