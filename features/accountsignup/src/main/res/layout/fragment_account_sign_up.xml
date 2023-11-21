@@ -1,158 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TODO poner los ids a los widgets -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/started"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.moronlu18.accountsignup.ui.SignupViewModel" />
+    </data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ended"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/brStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="end"
-        app:constraint_referenced_ids="tvTipo,tvProfie" />
-
-    <TextView
-        android:id="@+id/tvTipo"
-        android:layout_width="115dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="100dp"
-        android:text="hazvsahbsab"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
-
-    <Spinner
-        android:entries="@array/typeuser"
-        android:id="@+id/sptype"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/brStart"
-        app:layout_constraintTop_toTopOf="@+id/tvTipo" />
-
-    <Spinner
-        android:id="@+id/spProfile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProfie"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/brStart"
-        app:layout_constraintTop_toTopOf="@+id/tvProfie" />
-
-    <TextView
-        android:id="@+id/tvProfie"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
-
-    <TextView
-        android:id="@+id/txvfavoritos_account_signup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/tvProfie" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/ended"
-        app:layout_constraintStart_toStartOf="@+id/started"
-        app:layout_constraintTop_toBottomOf="@+id/txvfavoritos_account_signup"
-        >
-
-        <RadioButton
-            android:id="@+id/radioButton"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RadioButton" />
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RadioButton" />
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RadioButton" />
-    </RadioGroup>
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint"
+                android:text="@={viewmodel.email}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint"
+                android:text="@={viewmodel.password}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/brStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvTipo,tvProfie" />
+
+        <TextView
+            android:id="@+id/tvTipo"
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="100dp"
+            android:text="hazvsahbsab"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+        <Spinner
+            android:entries="@array/typeuser"
+            android:id="@+id/sptype"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/brStart"
+            app:layout_constraintTop_toTopOf="@+id/tvTipo" />
+
+        <Spinner
+            android:id="@+id/spProfile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvProfie"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/brStart"
+            app:layout_constraintTop_toTopOf="@+id/tvProfie" />
+
+        <TextView
+            android:id="@+id/tvProfie"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
+
+        <TextView
+            android:id="@+id/txvfavoritos_account_signup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/tvProfie" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/ended"
+            app:layout_constraintStart_toStartOf="@+id/started"
+            app:layout_constraintTop_toBottomOf="@+id/txvfavoritos_account_signup">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="RadioButton" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="RadioButton" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="RadioButton" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:onClick="@{()->viewmodel.validate()}"
+            tools:layout_editor_absoluteX="182dp"
+            tools:layout_editor_absoluteY="636dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

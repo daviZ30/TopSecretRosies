@@ -8,33 +8,24 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountSignUp.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AccountSignUp : Fragment() {
-    private  var _binding : FragmentAccountSignUpBinding? =null ;
+    private var _binding: FragmentAccountSignUpBinding? = null;
     private val binding
         get() = _binding!!
 
+    //Se iniciará posteriormente
+    //private lateinit var viewModel: SignupViewModel
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val viewModel: SignupViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -42,41 +33,38 @@ class AccountSignUp : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding= FragmentAccountSignUpBinding.inflate(inflater,container,false)
+        _binding = FragmentAccountSignUpBinding.inflate(inflater, container, false)
+        //pasamos a la interfaz la instancia del ViewModel para que actualize
+        // o recoga los valores del email y password automaticamente y se asocia el evento onClick del boton a una funcion
+        binding.viewmodel = this.viewModel
+        //IMPORTANTE: hay que establecer el fragment/avtivity vinculado a binding para actualizar los valores de
+        // Binging en base al ciclo de vida
+        binding.lifecycleOwner = this
+
         return binding.root
     }
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountSignUp.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             AccountSignUp().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+
             }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemListString = arrayListOf("Private","Public","Empty")
-        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,itemListString)
+        val itemListString = arrayListOf("Private", "Public", "Empty")
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemListString)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spProfile.adapter=adapter;
+        binding.spProfile.adapter = adapter;
         binding.spProfile.setSelection(2)
         //Inicializar el listener que se lanza cuando el usuario modifica el valor
 
-        val listener = object : AdapterView.OnItemSelectedListener{
+        val listener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -93,15 +81,41 @@ class AccountSignUp : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
+        viewModel.getState().observe(viewLifecycleOwner, Observer {
+            when(it){
+                SignUpState.EmailEmptyError -> setEmailEmptyError()
+                SignUpState.PasswordEmptyError -> setPasswordEmptyError()
+                else -> onSuccess()
+            }
+        })
 
         //Se usa el modismo with que dado un objeto se puede modificar propiedades dentro dl bloque
-        with(binding.spProfile){
+        with(binding.spProfile) {
             this.adapter = adapter
             setSelection(2)
             onItemSelectedListener = listener
-            onItemSelectedListener=null
+            onItemSelectedListener = null
         }
+    }
+
+    private fun onSuccess() {
+        Toast.makeText(requireContext(),"Caso de éxito en el Login",Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Funcionq que muestra el error de Password Empty
+     */
+    private fun setPasswordEmptyError() {
+        binding.Email.error = getString(R.string.errPasswordEmptyError)
+        binding.Email.requestFocus() //El cursor del foco se coloca sobre el error
+    }
+
+    /**
+     * Funcionq que muestra el error de Email Empty
+     */
+    private fun setEmailEmptyError() {
+        binding.Email.error = getString(R.string.errEmailEmpty)
+        binding.Email.requestFocus() //El cursor del foco se coloca sobre el error
     }
 }
