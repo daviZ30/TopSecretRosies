@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.Repository.ProviderInvoice
+import com.moronlu18.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoicelist.databinding.FragmentInvoiceDetailsBinding
 
@@ -17,10 +19,7 @@ class InvoiceDetailsFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    val articulos = listOf<Articulo>(
-        Articulo("Mesa",222.2),
-        Articulo("Portaminas",1.0)
-    )
+    val articulos = ProviderInvoice.datasetArticulo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

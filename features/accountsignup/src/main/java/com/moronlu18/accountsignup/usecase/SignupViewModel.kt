@@ -1,10 +1,10 @@
-package com.moronlu18.accountsignup.ui
+package com.moronlu18.accountsignup.usecase
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.moronlu18.accountsignup.ui.SignUpState
 
 const val TAG = "ViewModel"
 

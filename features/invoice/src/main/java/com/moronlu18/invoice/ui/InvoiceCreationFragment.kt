@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoicelist.databinding.FragmentInvoiceCreationBinding
 
@@ -38,7 +39,6 @@ class InvoiceCreationFragment : Fragment() {
         binding.rvInvoiceArticulos.adapter = AdaptadorArticulos(articulos)
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 

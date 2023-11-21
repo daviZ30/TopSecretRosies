@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.invoice.ui.Articulo
+import com.moronlu18.entity.Articulo
+
 import com.moronlu18.invoicelist.R
 
 class AdaptadorArticulos(val articulos:List<Articulo>)

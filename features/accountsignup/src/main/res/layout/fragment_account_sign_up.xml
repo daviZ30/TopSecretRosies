@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.moronlu18.accountsignup.ui.SignupViewModel" />
+            type="com.moronlu18.accountsignup.usecase.SignupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

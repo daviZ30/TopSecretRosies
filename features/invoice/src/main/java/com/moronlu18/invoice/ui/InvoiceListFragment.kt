@@ -6,33 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moronlu18.Repository.ProviderInvoice
+import com.moronlu18.entity.Articulo
+import com.moronlu18.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
 import com.moronlu18.invoicelist.databinding.FragmentInvoiceListBinding
 
-
-data class Articulo(val nombre:String,val precio:Double)
-data class Factura(val Cliente:String, val FeEmision:String, val FeVencimiento:String, val Articulos:List<Articulo>, val total:Double)
 
 class InvoiceListFragment : Fragment() {
     private var _binding: FragmentInvoiceListBinding? = null
     private val binding
         get() = _binding!!
 
-    val facturas = listOf<Factura>(
-        Factura("Antonio","10/10/2020","20/20/2023", listOf(
-            Articulo("Patata",20.2),
-            Articulo("Zanahoria",2.2)
-        ),50.2),
-        Factura("Marta","10/10/2000","20/20/2023", listOf(
-            Articulo("Zapato",20.2),
-            Articulo("Cordón",2.2)
-        ),40.2),
-    )
-
+    val facturas = ProviderInvoice.datasetFactura
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
+import com.moronlu18.accountsignup.usecase.SignupViewModel
 
 
 class AccountSignUp : Fragment() {

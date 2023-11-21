@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.invoice.ui.Factura
+import com.moronlu18.entity.Factura
+
 import com.moronlu18.invoicelist.R
 
 
