@@ -69,7 +69,7 @@ class MainFragment : Fragment() {
         }*/
         binding.btItemList.setOnClickListener {
             //findNavController().navigate()
-           findNavController().navigate(R.id.action_mainFragment_to_itemlistFragment)
+           findNavController().navigate(R.id.action_mainFragment_to_itemFragment)
         }
        /* binding.btTaskCreation.setOnClickListener {
             //findNavController().navigate()

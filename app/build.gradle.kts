@@ -55,9 +55,9 @@ android {
         ":features:customerlist",
         ":domain:invoiceD",
         ":features:invoice",
-        ":features:itemcreation",
-        ":features:itemdetail",
-        ":features:itemlist",
+        ":features:item",
+        //":features:itemdetail",
+        //":features:itemlist",
         ":features:taskcreation",
         ":features:taskdetail",
         ":features:tasklist"
