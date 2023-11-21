@@ -34,25 +34,15 @@
         android:id="@+id/customerListFragment"
         android:name="com.moronlu18.customerlist.CustomerListFragment" />
     <fragment
-        app:moduleName="invoicecreation"
-        android:label="@string/title_invoicelist"
-        android:id="@+id/invoiceCreationFragment"
-        android:name="com.moronlu18.invoicecreation.InvoiceCreationFragment" />
-    <fragment
-        app:moduleName="invoicedetail"
-        android:label="@string/title_itemdetail"
-        android:id="@+id/invoicedetailFragment"
-        android:name="com.moronlu18.invoicedetail.InvoiceDetailsFragment" />
-    <fragment
         app:moduleName="taskcreation"
         android:label="@string/title_taskcreation"
         android:id="@+id/taskcreationFragment"
         android:name="com.moronlu18.taskcreation.TaskCreationFragment" />
     <fragment
-        app:moduleName="invoicelist"
+        app:moduleName="invoice"
         android:label="@string/title_invoicelist"
-        android:id="@+id/invoicelistFragment"
-        android:name="com.moronlu18.invoicelist.InvoiceListFragment" />
+        android:id="@+id/invoiceFragment"
+        android:name="com.moronlu18.invoice.ui.InvoiceListFragment" />
     <fragment
         app:moduleName="itemcreation"
         android:label="@string/title_itemcreation"
@@ -90,15 +80,6 @@
             android:id="@+id/action_mainFragment_to_featureAccountSignUp"
             app:destination="@+id/accountSignUpFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_invoicelistFragment"
-            app:destination="@id/invoicelistFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_invoiceCreationFragment"
-            app:destination="@id/invoiceCreationFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_invoicedetailFragment"
-            app:destination="@id/invoicedetailFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_taskcreationFragment"
             app:destination="@id/taskcreationFragment" />
         <action
@@ -125,6 +106,9 @@
         <action
             android:id="@+id/action_mainFragment_to_customerListFragment"
             app:destination="@id/customerListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -137,10 +121,10 @@
     </fragment>
     <!--Se incluye el grafo de navegacion con un id = "@+id" que se ha establecido en el fichero /res/navegation/
     SOLO SE AÑADE EL + EN ESTE CODIGO-->
-    <include-dynamic
+    <!--<include-dynamic
         android:id="@+id/UnId"
         app:graphPackage="${apliccation}.account"
         app:graphResName="nav_graph_item"
-        app:moduleName="item"/>
+        app:moduleName="item"/>-->
 
 </navigation>
