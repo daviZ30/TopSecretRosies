@@ -48,16 +48,12 @@ android {
     dynamicFeatures += setOf(
         ":features:accountsignin",
         ":features:accountsignup",
-        ":features:customercreation",
         ":infrastructure:firebase",
         ":infrastructure:printer",
-        ":features:customerdetail",
-        ":features:customerlist",
+        ":features:customerun",
         ":domain:invoiceD",
         ":features:invoice",
         ":features:item",
-        //":features:itemdetail",
-        //":features:itemlist",
         ":features:taskcreation",
         ":features:taskdetail",
         ":features:tasklist"

@@ -1,4 +1,4 @@
-package com.moronlu18.customercreation
+package com.moronlu18.customerlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
