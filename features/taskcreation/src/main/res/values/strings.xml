@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="abTaskCreationName">TAREA</string>
-    <string name="tieTaskCreationTitulo">Titulo</string>
-    <string name="spTaskCreationCliente">Cliente</string>
-    <string name="tieTaskCreationDescripcion">Descripción</string>
-    <string name="tieTaskCreationFecha">Fecha</string>
-    <string name="btnTaskCreationAdd">AÑADIR</string>
-</resources>

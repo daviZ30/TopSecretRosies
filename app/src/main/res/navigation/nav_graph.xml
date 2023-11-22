@@ -37,7 +37,7 @@
         app:moduleName="taskcreation"
         android:label="@string/title_taskcreation"
         android:id="@+id/taskcreationFragment"
-        android:name="com.moronlu18.taskcreation.TaskCreationFragment" />
+        android:name="com.moronlu18.task.TaskCreationFragment" />
     <fragment
         app:moduleName="invoice"
         android:label="@string/title_invoicelist"
@@ -54,12 +54,12 @@
         app:moduleName="taskdetail"
         android:label="@string/title_taskdetail"
         android:id="@+id/taskdetailFragment"
-        android:name="com.moronlu18.taskdetail.TaskDetailFragment" />
+        android:name="com.moronlu18.task.TaskDetailFragment" />
     <fragment
         app:moduleName="tasklist"
         android:label="@string/title_tasklist"
         android:id="@+id/tasklistFragment"
-        android:name="com.moronlu18.tasklist.TaskListFragment" />
+        android:name="com.moronlu18.task.TaskListFragment" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"

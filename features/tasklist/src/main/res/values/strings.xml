@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="tvTituloTaskList">Titulo</string>
-    <string name="tvClienteTaskList">Cliente</string>
-    <string name="tvFechaTaskList">Fecha</string>
-    <string name="tvHoraTaskList">Hora</string>
-</resources>

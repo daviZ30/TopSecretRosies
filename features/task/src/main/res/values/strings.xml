@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tvTituloTaskList">Titulo</string>
+    <string name="tvClienteTaskList">Cliente</string>
+    <string name="tvFechaTaskList">Fecha</string>
+    <string name="tvHoraTaskList">Hora</string>
+    <string name="abTaskCreationName">TAREA</string>
+    <string name="tieTaskCreationTitulo">Titulo</string>
+    <string name="spTaskCreationCliente">Cliente</string>
+    <string name="tieTaskCreationDescripcion">Descripción</string>
+    <string name="tieTaskCreationFecha">Fecha</string>
+    <string name="btnTaskCreationAdd">AÑADIR</string>
+    <string name="tvTaskDetailCliente">CLIENTE:</string>
+    <string name="tvTaskDetailDesc">DESCRIPCIÓN:</string>
+    <string name="tvTaskDetailHInicial">HORA INICIO:</string>
+    <string name="tvTaskDetailHFinal">HORA FIN</string>
+    <string name="tvTaskDetailFecha">FECHA</string>
+    <string name="tvTaskDetailEstado">COMPLETO</string>
+</resources>

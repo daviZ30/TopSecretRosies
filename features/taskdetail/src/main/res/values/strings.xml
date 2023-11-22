@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="tvTaskDetailCliente">CLIENTE:</string>
-    <string name="tvTaskDetailDesc">DESCRIPCIÓN:</string>
-    <string name="tvTaskDetailHInicial">HORA INICIO:</string>
-    <string name="tvTaskDetailHFinal">HORA FIN</string>
-    <string name="tvTaskDetailFecha">FECHA</string>
-    <string name="tvTaskDetailEstado">COMPLETO</string>
-</resources>
