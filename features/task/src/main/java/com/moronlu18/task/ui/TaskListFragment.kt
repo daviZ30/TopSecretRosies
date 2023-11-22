@@ -42,7 +42,9 @@ class TaskListFragment : Fragment() {
             Task("Más y más pruebas", "Antonio Salado Gomez", "07/01/2020", "00:01"),
         )
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        binding.rvTaskList.adapter = TaskListAdapter(tasks)
+        binding.rvTaskList.adapter = TaskListAdapter(tasks){
+            findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
+        }
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         return binding.root;
     }

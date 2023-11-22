@@ -4,23 +4,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.taskFragment.R
 import com.moronlu18.task.Task
 
-class TaskListAdapter(val tasks: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+class TaskListAdapter(val tasks: List<Task>, private val onClick:()->Unit) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var titulo: TextView
         var cliente: TextView
         var fecha: TextView
         var hora: TextView
+        var tarea : CardView
 
         init {
             titulo = v.findViewById(R.id.tvTituloTaskList)
             cliente = v.findViewById(R.id.tvClienteTaskList)
             fecha = v.findViewById(R.id.tvFechaTaskList)
             hora = v.findViewById(R.id.tvHoraTaskList)
+            tarea = v.findViewById(R.id.cvTaskAdapter)
         }
     }
 
@@ -35,6 +38,9 @@ class TaskListAdapter(val tasks: List<Task>) : RecyclerView.Adapter<TaskListAdap
         holder.cliente.text = task.cliente
         holder.fecha.text = task.fecha
         holder.hora.text = task.hora
+        holder.tarea.setOnClickListener{
+            onClick()
+        }
     }
 
     override fun getItemCount(): Int {
