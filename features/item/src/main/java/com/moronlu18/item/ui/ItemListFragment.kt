@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.moronlu18.item.adapter.ItemAdapter
 import com.moronlu18.item.item
 import com.moronlu18.item.itemType
@@ -53,7 +55,6 @@ class ItemListFragment : Fragment() {
 
     val itemList = listOf(staticItem, staticItem2, staticItem3, staticItem4)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,5 +79,18 @@ class ItemListFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val fabItemCreation = view.findViewById<FloatingActionButton>(R.id.fabitemcreation)
+
+
+        /**
+         * fabItemCreation.setOnClickListener {
+         *             findNavController().navigate(R.id.action_itemListFragment_to_itemCreationFragment)
+         *         }
+         */
+
+
+    }
 }
