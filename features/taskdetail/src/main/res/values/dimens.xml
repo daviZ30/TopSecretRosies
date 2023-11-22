@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="paddingTask">15dp</dimen>
+    <dimen name="clTaskWidth">15dp</dimen>
     <dimen name="tieTaskCreationDescHeight">150dp</dimen>
     <dimen name="marginTopTaskDetail">8dp</dimen>
     <dimen name="marginStartTaskDetail">16dp</dimen>

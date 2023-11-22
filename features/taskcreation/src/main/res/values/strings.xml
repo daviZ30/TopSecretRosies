@@ -6,7 +6,4 @@
     <string name="tieTaskCreationDescripcion">Descripción</string>
     <string name="tieTaskCreationFecha">Fecha</string>
     <string name="btnTaskCreationAdd">AÑADIR</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

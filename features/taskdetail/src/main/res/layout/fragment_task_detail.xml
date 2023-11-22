@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_inversePrimary"
     tools:context=".TaskDetailFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -12,21 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/paddingTask" />
+        app:layout_constraintGuide_begin="@dimen/clTaskWidth" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDerTaskDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/paddingTask" />
+        app:layout_constraintGuide_end="@dimen/clTaskWidth" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glUpTaskDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="150dp" />
+        app:layout_constraintGuide_begin="70dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDownTaskDetail"
@@ -35,16 +34,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="70dp" />
 
-    <ImageView
-        android:id="@+id/ivIcono"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/baseline_task_alt_24"
-        app:layout_constraintBottom_toTopOf="@+id/glUpTaskDetail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/llTaskDetail"
@@ -52,7 +41,7 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/md_theme_light_primaryContainer"
         app:cardCornerRadius="10dp"
-        app:contentPadding="@dimen/paddingTask"
+        app:contentPadding="@dimen/clTaskWidth"
         app:layout_constraintBottom_toTopOf="@+id/glDownTaskDetail"
         app:layout_constraintEnd_toStartOf="@+id/glDerTaskDetail"
         app:layout_constraintStart_toStartOf="@+id/glIzqTaskDetail"
@@ -62,13 +51,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrierTaskDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="end"
                 app:constraint_referenced_ids="tvTaskDetailCliente, tvTaskDetailHInicial,tvTaskDetailHFinal, cbTaskDetailEstado" />
+
+            <ImageView
+                android:id="@+id/ivIcono"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/icon_taskdone"
+                android:background="@drawable/shape_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tvTaskDetailCliente"
@@ -77,7 +74,8 @@
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/tvTaskDetailCliente"
                 android:textColor="@color/md_theme_dark_onPrimary"
-                android:textSize="@dimen/textSizeTaskDetail" />
+                android:textSize="@dimen/textSizeTaskDetail"
+                app:layout_constraintTop_toBottomOf="@id/ivIcono" />
 
             <TextView
                 android:id="@+id/tvTaskDetailClienteCont"

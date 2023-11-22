@@ -12,7 +12,7 @@
         android:id="@+id/ivTaskList"
         android:layout_width="@dimen/ivTaskList"
         android:layout_height="@dimen/ivTaskList"
-        android:src="@drawable/baseline_task_alt_24"
+        android:src="@drawable/icon_taskdone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
