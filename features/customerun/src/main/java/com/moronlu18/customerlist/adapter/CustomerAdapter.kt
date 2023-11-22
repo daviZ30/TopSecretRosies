@@ -1,14 +1,17 @@
-package com.moronlu18.customerlist
+package com.moronlu18.customerlist.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.customerlist.ui.Cliente
+import com.moronlu18.customerlist.R
+
 class CustomerAdapter(val clientes : List<Cliente>):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
     inner class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
-        fun  bind(customer:Cliente){
+        fun  bind(customer: Cliente){
             itemView.findViewById<TextView>(R.id.txtnombre_customer_list).text = "${customer.nombre}"
             itemView.findViewById<TextView>(R.id.txtapellidos_customer_list).text = "${customer.apellidos}"
             itemView.findViewById<TextView>(R.id.txtemail_customer_list).text = "${customer.email}"

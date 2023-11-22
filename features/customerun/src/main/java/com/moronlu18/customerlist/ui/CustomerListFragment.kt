@@ -1,4 +1,4 @@
-package com.moronlu18.customerlist
+package com.moronlu18.customerlist.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.customerlist.R
+import com.moronlu18.customerlist.adapter.CustomerAdapter
 
 data class Cliente(val nombre:String,val apellidos:String,val email:String)
 class CustomerListFragment : Fragment() {
@@ -14,7 +16,8 @@ class CustomerListFragment : Fragment() {
     val clientes = listOf<Cliente>(
         Cliente("Alex","Carnero","carnero@gmail.com"),
         Cliente("Alex","Carnero","carnero@gmail.com"),
-        Cliente("Alex","Carnero","carnero@gmail.com"))
+        Cliente("Alex","Carnero","carnero@gmail.com")
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

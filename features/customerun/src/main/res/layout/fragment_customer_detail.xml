@@ -7,7 +7,7 @@
     android:foregroundTint="@color/md_theme_light_primaryContainer"
     android:paddingLeft="16sp"
     android:paddingRight="16sp"
-    tools:context=".CustomerDetailFragment">
+    tools:context=".ui.CustomerDetailFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/started"
