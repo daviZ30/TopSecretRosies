@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.Repository.ProviderInvoice
 import com.moronlu18.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
-import com.moronlu18.invoicelist.databinding.FragmentInvoiceDetailsBinding
+import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 
 class InvoiceDetailsFragment : Fragment() {

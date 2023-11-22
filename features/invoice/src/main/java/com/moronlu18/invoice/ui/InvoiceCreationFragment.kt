@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
-import com.moronlu18.invoicelist.databinding.FragmentInvoiceCreationBinding
+import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 
 
 //data class Articulo(val nombre:String,val precio:Double)

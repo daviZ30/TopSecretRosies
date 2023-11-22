@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
         }*/
         binding.btInvoiceList.setOnClickListener {
             //findNavController().navigate()
-            findNavController().navigate(R.id.action_mainFragment_to_invoiceFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_nav_graph_invoice)
         }
         /*binding.btItemCreation.setOnClickListener {
             //findNavController().navigate()
