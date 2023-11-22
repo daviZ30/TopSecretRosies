@@ -34,11 +34,6 @@
         android:id="@+id/customerListFragment"
         android:name="com.moronlu18.customerlist.CustomerListFragment" />
     <fragment
-        app:moduleName="taskcreation"
-        android:label="@string/title_taskcreation"
-        android:id="@+id/taskcreationFragment"
-        android:name="com.moronlu18.task.TaskCreationFragment" />
-    <fragment
         app:moduleName="invoice"
         android:label="@string/title_invoicelist"
         android:id="@+id/invoiceFragment"
@@ -51,15 +46,10 @@
         android:name="com.moronlu18.item.ui.ItemListFragment" />
 
     <fragment
-        app:moduleName="taskdetail"
-        android:label="@string/title_taskdetail"
-        android:id="@+id/taskdetailFragment"
-        android:name="com.moronlu18.task.TaskDetailFragment" />
-    <fragment
-        app:moduleName="tasklist"
+        app:moduleName="task"
         android:label="@string/title_tasklist"
-        android:id="@+id/tasklistFragment"
-        android:name="com.moronlu18.task.TaskListFragment" />
+        android:id="@+id/taskFragment"
+        android:name="com.moronlu18.task.ui.TaskListFragment" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"
@@ -72,17 +62,11 @@
             android:id="@+id/action_mainFragment_to_featureAccountSignUp"
             app:destination="@+id/accountSignUpFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_taskcreationFragment"
-            app:destination="@id/taskcreationFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_taskdetailFragment"
-            app:destination="@id/taskdetailFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_tasklistFragment"
-            app:destination="@id/tasklistFragment" />
+            android:id="@+id/action_mainFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
         <action
             android:id="@+id/action_mainFragment_to_customerCreationFragment"
             app:destination="@id/customerCreationFragment" />

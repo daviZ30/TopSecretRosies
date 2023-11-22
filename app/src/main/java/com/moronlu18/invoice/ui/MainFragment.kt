@@ -81,7 +81,7 @@ class MainFragment : Fragment() {
         }*/
         binding.btTaskList.setOnClickListener {
             //findNavController().navigate()
-            findNavController().navigate(R.id.action_mainFragment_to_tasklistFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_taskFragment)
         }
     }
     override fun onDestroyView() {

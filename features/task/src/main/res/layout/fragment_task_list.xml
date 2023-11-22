@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaskListFragment">
+    tools:context=".ui.TaskListFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glInicial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/clTaskWidth"/>
+        app:layout_constraintGuide_begin="@dimen/clTaskWidth" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/clTaskWidth"/>
+        app:layout_constraintGuide_end="@dimen/clTaskWidth" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTaskList"
@@ -27,17 +27,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/glFinal"
         app:layout_constraintStart_toStartOf="@+id/glInicial"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabTaskList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/md_theme_light_primary"
         android:clickable="true"
-        android:layout_marginBottom="15dp"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/glFinal"/>
+        app:layout_constraintEnd_toStartOf="@+id/glFinal" />
 </androidx.constraintlayout.widget.ConstraintLayout>
