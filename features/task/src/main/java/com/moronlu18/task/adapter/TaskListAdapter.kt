@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.task.R
+import com.moronlu18.taskFragment.R
 import com.moronlu18.task.Task
 
 class TaskListAdapter(val tasks: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {

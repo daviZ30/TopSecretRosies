@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.moronlu18.task.R
+import com.moronlu18.taskFragment.R
 
 
 class TaskDetailFragment : Fragment() {

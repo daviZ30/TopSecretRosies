@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.task.Task
-import com.moronlu18.task.R
+import com.moronlu18.taskFragment.R
 import com.moronlu18.task.adapter.TaskListAdapter
-import com.moronlu18.task.databinding.FragmentTaskListBinding
+import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
 
 class TaskListFragment : Fragment() {
@@ -49,14 +49,15 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.fabTaskList.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
         }
     }
 
-    override fun onDestroyView() {
+    /*override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
+    }*/
 }
 
