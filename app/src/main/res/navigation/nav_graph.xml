@@ -12,7 +12,7 @@
         app:moduleName="accountsignin"
         android:label="@string/title_accountsigin"
         android:id="@+id/accountSignInFragment"
-        android:name="com.moronlu18.accountsignin.ui.AccountSignIn" />
+        android:name="com.moronlu18.accountsignin.ui. AccountSignIn" />
     <fragment
         app:moduleName="accountsignup"
         android:label="@string/title_accountsignup"
