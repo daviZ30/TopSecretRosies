@@ -193,7 +193,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_condensed_bold"
-            android:hint="@string/tie_telfono_customer_creation" />
+            android:hint="@string/tie_telfono_customer_creation"
+            android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
