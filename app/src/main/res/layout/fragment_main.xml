@@ -170,7 +170,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/txtInvoiceDetailsImpuestos"
+                android:id="@+id/txtInvoiceCreationImpuestos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Juan Luis Guerra Gennich"

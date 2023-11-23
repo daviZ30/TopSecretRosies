@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
+import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 
 
@@ -34,10 +36,18 @@ class InvoiceCreationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var precios = articulos.map { it.precio }
+        var SubTotal = precios.reduce { acc, ar -> acc + ar}
         _binding = FragmentInvoiceCreationBinding.inflate(inflater, container, false)
 
         binding.rvInvoiceArticulos.adapter = AdaptadorArticulos(articulos)
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
+
+        binding.txtInvoiceCreationSubtotal.text =  "${SubTotal.toString()} €"
+        binding.txtInvoiceCreationTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
+        binding.btnCrear.setOnClickListener{
+            findNavController().navigate(R.id.action_invoiceCreationFragment_to_invoiceListFragment)
+        }
 
         return binding.root
     }

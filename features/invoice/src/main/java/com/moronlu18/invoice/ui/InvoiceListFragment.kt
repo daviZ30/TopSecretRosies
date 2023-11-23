@@ -21,6 +21,15 @@ class InvoiceListFragment : Fragment() {
         get() = _binding!!
 
     val facturas = ProviderInvoice.datasetFactura
+    /*fun ViewImage(){
+        if (facturas.isEmpty()) {
+            binding.rvInvoiceList.visibility = View.GONE
+            binding.imgNada.visibility = View.VISIBLE
+        } else {
+            binding.rvInvoiceList.visibility = View.VISIBLE
+            binding.imgNada.visibility = View.GONE
+        }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +39,7 @@ class InvoiceListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        //ViewImage()
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
         binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas){
@@ -39,6 +48,7 @@ class InvoiceListFragment : Fragment() {
             parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
         }
+
         binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)
 
         return binding.root

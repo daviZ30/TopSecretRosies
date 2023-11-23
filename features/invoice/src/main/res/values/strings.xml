@@ -42,5 +42,6 @@
     <string name="rbInvoiceCreationPendiente">Pendiente</string>
     <string name="rbInvoiceDetailsPagada">Pagada</string>
     <string name="rbInvoiceDetailsVencida">Vencida</string>
+    <string name="InvoiceImpustos">21 %</string>
 
 </resources>

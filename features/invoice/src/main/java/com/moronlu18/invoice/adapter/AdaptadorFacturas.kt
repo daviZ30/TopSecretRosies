@@ -3,6 +3,7 @@ package com.moronlu18.invoice.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.moronlu18.invoiceFragment.R
 
 
 class AdaptadorFacturas(
-    val facturas: List<Factura>,
+    val facturas: MutableList<Factura>,
     private val onClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
 
@@ -22,6 +23,7 @@ class AdaptadorFacturas(
         var NumArticulos: TextView
         var Total: TextView
         var card: CardView
+        var eliminar : ImageView
 
         init {
             cliente = v.findViewById(R.id.txtLineaCliente)
@@ -30,6 +32,7 @@ class AdaptadorFacturas(
             NumArticulos = v.findViewById(R.id.txtLineaNumArticulos)
             Total = v.findViewById(R.id.txtLineaTotal)
             card = v.findViewById(R.id.cvFactura)
+            eliminar = v.findViewById(R.id.imgEliminar)
         }
     }
 
@@ -53,6 +56,12 @@ class AdaptadorFacturas(
         holder.card.setOnClickListener {
             onClick(position)
         }
+        holder.eliminar.setOnClickListener{
+            facturas.removeAt(position)
+            notifyItemRemoved(position)
+
+        }
+
     }
 
     override fun getItemCount(): Int {

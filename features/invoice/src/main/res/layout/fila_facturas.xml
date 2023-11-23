@@ -179,7 +179,7 @@
                     android:src="@drawable/edit" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imgEliminar"
                     android:layout_width="30dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"

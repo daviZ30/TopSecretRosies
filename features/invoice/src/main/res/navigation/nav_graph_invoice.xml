@@ -7,17 +7,29 @@
     <fragment
         android:id="@+id/invoiceCreationFragment"
         android:name="com.moronlu18.invoice.ui.InvoiceCreationFragment"
-        android:label="InvoiceCreationFragment" />
+        android:label="InvoiceCreationFragment" >
+        <action
+            android:id="@+id/action_invoiceCreationFragment_to_invoiceListFragment"
+            app:destination="@id/invoiceListFragment"
+            app:exitAnim="@android:anim/fade_out" />
+            <!--app:enterAnim="@android:anim/fade_out"--> />
+    </fragment>
     <fragment
         android:id="@+id/invoiceListFragment"
         android:name="com.moronlu18.invoice.ui.InvoiceListFragment"
         android:label="InvoiceListFragment" >
         <action
             android:id="@+id/action_invoiceListFragment_to_invoiceDetailsFragment"
-            app:destination="@id/invoiceDetailsFragment" />
+            app:destination="@id/invoiceDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+            <!--app:enterAnim="@android:anim/linear_interpolator"--> />
         <action
             android:id="@+id/action_invoiceListFragment_to_invoiceCreationFragment"
-            app:destination="@id/invoiceCreationFragment" />
+            app:destination="@id/invoiceCreationFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+            <!--app:enterAnim="@android:anim/bounce_interpolator"--> />
     </fragment>
     <fragment
         android:id="@+id/invoiceDetailsFragment"
