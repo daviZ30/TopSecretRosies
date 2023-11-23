@@ -45,6 +45,7 @@
         app:layout_constraintEnd_toStartOf="@+id/glDerTaskCreation"
         app:layout_constraintStart_toStartOf="@+id/glIzqTaskCreation"
         app:layout_constraintTop_toTopOf="@+id/glUpTaskCreation">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -54,6 +55,7 @@
                 android:layout_width="@dimen/spTaskCreationClienteWidth"
                 android:layout_height="50dp"
                 android:background="@drawable/shape_spinner"
+                android:entries="@array/spClienteTaskCreation"
                 android:spinnerMode="dropdown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -61,44 +63,44 @@
             </Spinner>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTaskCreationTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextColorTaskDetail"
-            app:layout_constraintTop_toBottomOf="@id/spTaskCreationCliente">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tieTaskCreationTitulo"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTaskCreationTitulo"
+                style="@style/TextColorTaskDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                android:hint="@string/tieTaskCreationTitulo"
-                android:inputType="textShortMessage" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@id/spTaskCreationCliente">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieTaskCreationTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieTaskCreationTitulo"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTaskCreationDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitulo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tieTaskCreationDesc"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTaskCreationDesc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tieTaskCreationDescHeight"
-                android:gravity="top"
-                android:hint="@string/tieTaskCreationDescripcion"
-                android:inputType="text"
-                android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                tools:ignore="MissingConstraints" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitulo"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieTaskCreationDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tieTaskCreationDescHeight"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:gravity="top"
+                    android:hint="@string/tieTaskCreationDescripcion"
+                    android:inputType="text"
+                    tools:ignore="MissingConstraints" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_marginVertical="@dimen/clTaskWidth"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,30 +109,35 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <Spinner
                         android:id="@+id/spHoraITaskCreation"
-                        android:layout_width="100dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/shape_spinner">
+                        android:layout_width="@dimen/spHoraWidthTaskCreation"
+                        android:layout_height="@dimen/spHoraHeightTaskCreation"
+                        android:layout_gravity="top"
+                        android:background="@drawable/shape_spinner"
+                        android:entries="@array/spHorasTaskCreation">
 
                     </Spinner>
 
                     <Spinner
                         android:id="@+id/spHoraFTaskCreation"
-                        android:layout_width="100dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/shape_spinner">
+                        android:layout_width="@dimen/spHoraWidthTaskCreation"
+                        android:layout_height="@dimen/spHoraHeightTaskCreation"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/shape_spinner"
+                        android:entries="@array/spHorasTaskCreation">
 
                     </Spinner>
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilTaskCreationFecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     app:errorEnabled="true"
                     app:startIconDrawable="@drawable/icon_calendar">
 
@@ -138,7 +145,6 @@
                         android:id="@+id/tieTaskCreationFecha"
                         android:layout_width="@dimen/tieTaskCreationFechaWidth"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
                         android:hint="@string/tieTaskCreationFecha"
                         android:inputType="date" />
