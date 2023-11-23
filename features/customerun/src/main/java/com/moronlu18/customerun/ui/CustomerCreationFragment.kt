@@ -1,11 +1,11 @@
-package com.moronlu18.customerlist.ui
+package com.moronlu18.customerun.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.moronlu18.customerlist.R
+import com.moronlu18.customerun.R
 
 
 class CustomerCreationFragment : Fragment() {

@@ -1,14 +1,16 @@
-package com.moronlu18.customerlist.adapter
+package com.moronlu18.customerun.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.customerlist.ui.Cliente
-import com.moronlu18.customerlist.R
+import com.moronlu18.customerun.R
+import com.moronlu18.customerun.ui.Cliente
 
-class CustomerAdapter(val clientes : List<Cliente>):
+
+class CustomerAdapter(val clientes : List<Cliente>,private val onItemClick: (Cliente) -> Unit):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
     inner class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
         fun  bind(customer: Cliente){
@@ -31,5 +33,8 @@ class CustomerAdapter(val clientes : List<Cliente>):
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         val item = clientes[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener{
+            onItemClick.invoke(item)
+        }
     }
 }

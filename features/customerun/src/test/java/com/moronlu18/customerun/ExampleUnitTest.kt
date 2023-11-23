@@ -1,4 +1,4 @@
-package com.moronlu18.customerlist
+package com.moronlu18.customerun
 
 import org.junit.Test
 

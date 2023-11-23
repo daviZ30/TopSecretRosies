@@ -1,4 +1,4 @@
-package com.moronlu18.customerlist
+package com.moronlu18.customerun
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

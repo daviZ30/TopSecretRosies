@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 android {
-    namespace = "com.moronlu18.customerlist"
+    namespace = "com.moronlu18.customerun"
     compileSdk = 33
 
     defaultConfig {
@@ -23,6 +23,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures{
+        viewBinding = true
     }
     kotlinOptions {
         jvmTarget = "17"

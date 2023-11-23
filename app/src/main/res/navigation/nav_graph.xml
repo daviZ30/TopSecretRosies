@@ -32,7 +32,7 @@
         app:moduleName="customerlist"
         android:label="@string/title_customerlist"
         android:id="@+id/customerListFragment"
-        android:name="com.moronlu18.customerlist.CustomerListFragment" />
+        android:name="com.moronlu18.customerun.CustomerListFragment" />
     <fragment
         app:moduleName="invoice"
         android:label="@string/title_invoicelist"
@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_mainFragment_to_nav_graph_task"
             app:destination="@id/nav_graph_task" />
+        <action
+            android:id="@+id/action_mainFragment_to_nav_graph_customer"
+            app:destination="@id/nav_graph_customer" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -105,6 +108,11 @@
         app:graphPackage="${applicationId}.invoice"
         app:graphResName="nav_graph_invoice"
         app:moduleName="invoice"/>
+    <include-dynamic
+        android:id="@+id/nav_graph_customer"
+        app:graphPackage="${applicationId}.customerun"
+        app:graphResName="nav_graph_customer"
+        app:moduleName="customerun"/>
     <include-dynamic
         android:id="@+id/nav_graph_item"
         app:graphPackage="${applicationId}.item"
