@@ -33,11 +33,6 @@
         android:label="@string/title_customerlist"
         android:id="@+id/customerListFragment"
         android:name="com.moronlu18.customerlist.CustomerListFragment" />
-    <fragment
-        app:moduleName="invoice"
-        android:label="@string/title_invoicelist"
-        android:id="@+id/invoiceFragment"
-        android:name="com.moronlu18.invoice.ui.InvoiceListFragment" />
 
     <fragment
         app:moduleName="item"
@@ -76,9 +71,6 @@
         <action
             android:id="@+id/action_mainFragment_to_customerListFragment"
             app:destination="@id/customerListFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_invoiceFragment"
-            app:destination="@id/invoiceFragment" />
         <action
             android:id="@+id/action_mainFragment_to_nav_graph_invoice"
             app:destination="@id/nav_graph_invoice" />
