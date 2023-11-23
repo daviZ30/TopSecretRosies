@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import com.moronlu18.itemcreation.R
 
 
@@ -59,7 +60,8 @@ class ItemCreationFragment : Fragment() {
 
         spinnerItemType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItemType = itemTypes[position]
+                val selectedType = parent?.getItemAtPosition(position).toString()
+                showToast("Tipo seleccionado: $selectedType")
 
             }
 
@@ -69,5 +71,9 @@ class ItemCreationFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

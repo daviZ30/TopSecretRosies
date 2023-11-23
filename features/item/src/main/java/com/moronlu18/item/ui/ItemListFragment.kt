@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.moronlu18.item.adapter.ItemAdapter
 import com.moronlu18.item.item
 import com.moronlu18.item.itemType
 import com.moronlu18.itemcreation.R
+import com.moronlu18.itemcreation.databinding.FragmentItemListBinding
 
 
 class ItemListFragment : Fragment() {
@@ -55,6 +55,10 @@ class ItemListFragment : Fragment() {
 
     val itemList = listOf(staticItem, staticItem2, staticItem3, staticItem4)
 
+    private var _binding: FragmentItemListBinding? = null
+    private val binding
+        get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,31 +69,24 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        _binding = FragmentItemListBinding.inflate(inflater, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvItemList)
+        binding.rvItemList.adapter = ItemAdapter(itemList){
+            findNavController().navigate(R.id.action_itemListFragment_to_itemDetailFragment)
+        }
+        binding.rvItemList.layoutManager = LinearLayoutManager(context)
 
-
-        val adapter = ItemAdapter(itemList)
-        recyclerView.adapter = adapter
-
-
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fabItemCreation = view.findViewById<FloatingActionButton>(R.id.fabitemcreation)
+        binding.fabitemcreation.setOnClickListener {
 
+            findNavController().navigate(R.id.action_itemListFragment_to_itemCreationFragment)
+        }
 
-        /**
-         * fabItemCreation.setOnClickListener {
-         *             findNavController().navigate(R.id.action_itemListFragment_to_itemCreationFragment)
-         *         }
-         */
 
 
     }

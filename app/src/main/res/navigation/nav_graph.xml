@@ -33,6 +33,11 @@
         android:label="@string/title_customerlist"
         android:id="@+id/customerListFragment"
         android:name="com.moronlu18.customerlist.CustomerListFragment" />
+    <fragment
+        app:moduleName="invoice"
+        android:label="@string/title_invoicelist"
+        android:id="@+id/invoiceFragment"
+        android:name="com.moronlu18.invoice.ui.InvoiceListFragment" />
 
     <fragment
         app:moduleName="item"
@@ -72,8 +77,14 @@
             android:id="@+id/action_mainFragment_to_customerListFragment"
             app:destination="@id/customerListFragment" />
         <action
+            android:id="@+id/action_mainFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_nav_graph_invoice"
             app:destination="@id/nav_graph_invoice" />
+        <action
+            android:id="@+id/action_mainFragment_to_nav_graph_item"
+            app:destination="@id/nav_graph_item" />
         <action
             android:id="@+id/action_mainFragment_to_nav_graph_task"
             app:destination="@id/nav_graph_task" />
@@ -95,8 +106,14 @@
         app:graphResName="nav_graph_invoice"
         app:moduleName="invoice"/>
     <include-dynamic
+        android:id="@+id/nav_graph_item"
+        app:graphPackage="${applicationId}.item"
+        app:graphResName="nav_graph_item"
+        app:moduleName="item"/>
+    <include-dynamic
         android:id="@+id/nav_graph_task"
         app:graphPackage="${applicationId}.task"
         app:graphResName="nav_graph_task"
         app:moduleName="task"/>
+
 </navigation>

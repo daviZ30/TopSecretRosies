@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.item.item
 import com.moronlu18.itemcreation.R
 
-class ItemAdapter(private val itemList: List<item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private val itemList: List<item>, private val onItemClick: (item) -> Unit) :
+    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -18,6 +19,9 @@ class ItemAdapter(private val itemList: List<item>) : RecyclerView.Adapter<ItemA
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = itemList[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(item)
+        }
     }
 
     override fun getItemCount(): Int {
