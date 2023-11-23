@@ -114,7 +114,9 @@
                         android:id="@+id/spHoraITaskCreation"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/shape_spinner"></Spinner>
+                        android:background="@drawable/shape_spinner">
+
+                    </Spinner>
 
                     <Spinner
                         android:id="@+id/spHoraFTaskCreation"

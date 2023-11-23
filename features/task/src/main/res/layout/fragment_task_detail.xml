@@ -25,14 +25,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="70dp" />
+        app:layout_constraintGuide_begin="50dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDownTaskDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="70dp" />
+        app:layout_constraintGuide_end="50dp" />
 
 
     <androidx.cardview.widget.CardView
@@ -41,7 +41,7 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/md_theme_light_primaryContainer"
         app:cardCornerRadius="10dp"
-        app:contentPadding="@dimen/clTaskWidth"
+        app:contentPadding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/glDownTaskDetail"
         app:layout_constraintEnd_toStartOf="@+id/glDerTaskDetail"
         app:layout_constraintStart_toStartOf="@+id/glIzqTaskDetail"
@@ -63,7 +63,6 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/icon_taskdone"
-                android:background="@drawable/shape_spinner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

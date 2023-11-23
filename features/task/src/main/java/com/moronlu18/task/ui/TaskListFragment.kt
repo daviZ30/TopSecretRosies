@@ -40,7 +40,8 @@ class TaskListFragment : Fragment() {
             Task("Partida Sudoku", "Carnero", "29/11/2023", "08:15"),
             Task("Comprar patatas", "David ", "30/08/2022", "10:00"),
             Task("Más y más pruebas", "Antonio Salado Gomez", "07/01/2020", "00:01"),
-        )
+            Task("Por que si", "Mohamed Wang Smith", "07/12/2023", "10:01"),
+            )
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         binding.rvTaskList.adapter = TaskListAdapter(tasks){
             findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)

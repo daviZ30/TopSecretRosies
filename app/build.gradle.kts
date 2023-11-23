@@ -54,8 +54,6 @@ android {
         ":domain:invoiceD",
         ":features:invoice",
         ":features:item",
-        ":features:taskcreation",
-        ":features:taskdetail",
         ":features:task"
     )
 }
