@@ -18,7 +18,7 @@ Para este modulo muestra basicamente un listado de articulos con sus atributos, 
 
 He tenido algunas dificultades como que en el itemcreation cuando lo ejecutaba en la aplicacion cuando esta unido en el nav_graph los componentes se me ponian encima de otro a pesar que cuando lo estoy editando el layout para que se ve bien, asi que puse un LinearLayout para posicionar los componentes de manera correcta, me cuesta un poco utilizar el LinearLayout pero poco a poco empiezo a entenderlo, me paso lo mismo en el itemlist pero tambien tuve otra dificultad en ese modulo y es que cuando cree los iten estaticos de prueba para ver si se creaban bien, estaban muy separados cuando estaba haciendo scroll veia el siguiente elemento y asi sucesivamente y estaba mal diseñado, asi estuve haciendo varias pruebas y llege a una solucion que era reducir de tamaño del ConstraintLayout que tenia asignado el layout de itemlist, lo pruebo ya me sale bien, no estan demasiado separados las vistas de los articulos en el RecyclerView. Tambien me costo un poco como hacer el Adapter del itemlist pero poco a poco iba saliendo bien. Me costo un poco al principio como poner en el nav_graph como poner el fragment de cada modulo, pero ya empece a entender como se hace.
 
-# INVOICE (David Zambrana)
+# INVOICE V1 (David Zambrana)
 En todos mis layout he implementado un constraintlayout como principal. En ellos me he basado en implementar varios cardview en los cuales distribuyó el contenido. Todo está construido con la misma gama de colores e intentando buscar una similitud en la distribución de los view.
 Para el funcionamiento de estos features cree varios fragment en el nav_gragh principal, después implemente varios actions y lo vincule a los botones previamente creados 
 ## InvoiceCreation
@@ -34,6 +34,13 @@ Nuevamente he implementado el mismo reciclerview que en InvoiceCreation.
 En este layout solo podemos ver el RecyclerView, en el layout de cada fila podemos ver un cardview con el contenido junto a una imagen y un textview. Para el recyclerview implemente el adapter necesario para construirlo pasándole una lista de facturas en la cual cada factura es una dataclass con el contenido necesario para los TextView, vinculandose gracias al adapter.
 
 ![](https://i.postimg.cc/Kcf54Dtm/list.png)
+
+# INVOICE V2 
+En esta parte del proyecto he implementado un poco la navegación del proyecto y lo he organizado de una forma más eficiente. 
+En primer lugar, he unificado los módulos en uno, en esta parte del proyecto tuve varios problemas con el gradle pero finalmente los conseguí solucionar haciendo un rollback y realizando el trabajo de nuevo, también me dio problemas la caché, cosa que se ha mantenido en todo el trabajo.
+Posteriormente implementé el módulo Invoice en domain e introducí todas las clases correspondientes como el provider y las clases POJO. También organize mi módulo incluyendo los package ui, adapter y usecase con sus correspondientes clases.
+Por último mejore un poco el aspecto visual de mis layouts.   
+
 
 # Customer (Alex Carnero)
 En todos mis layout he implementado un constrainlayout como container principal. He intentado usar la misma gama de colores y fuente de letra que mis compañeros para hacer una aplicación homogénea.
