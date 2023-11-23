@@ -1,5 +1,6 @@
 package com.moronlu18.accountsignup.usecase
 
+import android.accounts.Account
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

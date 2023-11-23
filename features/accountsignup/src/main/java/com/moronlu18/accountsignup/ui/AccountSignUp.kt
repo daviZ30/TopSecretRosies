@@ -1,6 +1,9 @@
 package com.moronlu18.accountsignup.ui
 
 import android.os.Bundle
+import android.renderscript.ScriptGroup.Binding
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +13,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
+
 import com.moronlu18.accountsignup.usecase.SignupViewModel
 
 
@@ -29,6 +35,21 @@ class AccountSignUp : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    /**
+     * Creamos una clase interna para haceder a las funciones de la clase externa
+     */
+    inner class textWatcher(var t: TextInputLayout) : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            t.isErrorEnabled = false
+            //binding.Email.requestFocus()
+        }
+
+        override fun afterTextChanged(s: Editable) {
+
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +59,7 @@ class AccountSignUp : Fragment() {
         //pasamos a la interfaz la instancia del ViewModel para que actualize
         // o recoga los valores del email y password automaticamente y se asocia el evento onClick del boton a una funcion
         binding.viewmodel = this.viewModel
+
         //IMPORTANTE: hay que establecer el fragment/avtivity vinculado a binding para actualizar los valores de
         // Binging en base al ciclo de vida
         binding.lifecycleOwner = this
@@ -60,9 +82,12 @@ class AccountSignUp : Fragment() {
         val itemListString = arrayListOf("Private", "Public", "Empty")
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemListString)
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         binding.spProfile.adapter = adapter;
         binding.spProfile.setSelection(2)
+        binding.Email.addTextChangedListener(textWatcher(binding.textInputLayout2))
         //Inicializar el listener que se lanza cuando el usuario modifica el valor
 
         val listener = object : AdapterView.OnItemSelectedListener {
@@ -83,8 +108,9 @@ class AccountSignUp : Fragment() {
                 TODO("Not yet implemented")
             }
         }
+        viewModel.validate()
         viewModel.getState().observe(viewLifecycleOwner, Observer {
-            when(it){
+            when (it) {
                 SignUpState.EmailEmptyError -> setEmailEmptyError()
                 SignUpState.PasswordEmptyError -> setPasswordEmptyError()
                 else -> onSuccess()
@@ -101,14 +127,14 @@ class AccountSignUp : Fragment() {
     }
 
     private fun onSuccess() {
-        Toast.makeText(requireContext(),"Caso de éxito en el Login",Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Caso de éxito en el Login", Toast.LENGTH_SHORT).show()
     }
 
     /**
      * Funcionq que muestra el error de Password Empty
      */
     private fun setPasswordEmptyError() {
-        binding.Email.error = getString(R.string.errPasswordEmptyError)
+        binding.textInputLayout3.error = getString(R.string.errPasswordEmptyError)
         binding.Email.requestFocus() //El cursor del foco se coloca sobre el error
     }
 
@@ -116,7 +142,7 @@ class AccountSignUp : Fragment() {
      * Funcionq que muestra el error de Email Empty
      */
     private fun setEmailEmptyError() {
-        binding.Email.error = getString(R.string.errEmailEmpty)
+        binding.textInputLayout2.error = getString(R.string.errEmailEmpty)
         binding.Email.requestFocus() //El cursor del foco se coloca sobre el error
     }
 }
