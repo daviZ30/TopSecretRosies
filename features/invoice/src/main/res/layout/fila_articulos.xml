@@ -20,10 +20,11 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosPrecio"
-        android:fontFamily="@font/opensans_variablefont_wdth_wght"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:paddingStart="6sp"
         android:text="@string/tvListaArticulosPrecio"
         app:layout_constraintBottom_toBottomOf="@+id/tvInvoiceListaArticulosLabPrecio"
         app:layout_constraintStart_toEndOf="@+id/tvInvoiceListaArticulosLabPrecio"
@@ -31,10 +32,11 @@
 
     <TextView
         android:id="@+id/tvInvoiceListaArticulosNombre"
-        android:fontFamily="@font/opensans_variablefont_wdth_wght"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:paddingStart="6dp"
         android:text="@string/tvListaArticulosNombre"
         app:layout_constraintBottom_toBottomOf="@+id/tvInvoiceListaArticulosLabNombre"
         app:layout_constraintStart_toEndOf="@+id/tvInvoiceListaArticulosLabNombre"

@@ -34,6 +34,9 @@ class InvoiceListFragment : Fragment() {
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
         binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas){
+            var bundle = Bundle();
+            bundle.putInt("pos",it)
+            parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
         }
         binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)

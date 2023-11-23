@@ -32,7 +32,7 @@ class AdaptadorArticulos(val articulos:List<Articulo>)
     override fun onBindViewHolder(holder: AdaptadorArticulos.ViewHolder, position: Int) {
         val f = articulos[position]
         holder.nombre.text = f.nombre
-        holder.precio.text = f.precio.toString()
+        holder.precio.text = "${f.precio.toString()} €"
 
     }
 

@@ -5,23 +5,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.Repository.ProviderInvoice
-import com.moronlu18.entity.Articulo
+import com.moronlu18.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 
 class InvoiceDetailsFragment : Fragment() {
+    val facturas = ProviderInvoice.datasetFactura
+    lateinit var factura:Factura ;
 
     private var _binding: FragmentInvoiceDetailsBinding? = null
     private val binding
         get() = _binding!!
 
-    val articulos = ProviderInvoice.datasetArticulo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        parentFragmentManager.setFragmentResultListener("key",this, FragmentResultListener { requestKey, result ->
+            var pos: Int = result.getInt("pos")
+            factura = facturas[pos]
+            var precios = factura.Articulos.map { it.precio }
+            binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos)
+            binding.txtInvoiceDetailsNombre.text = factura.Cliente
+            binding.txtInvoiceDetailsEmail.text = factura.Email
+            binding.txtInvoiceDetailsTelefono.text = factura.Telefono.toString()
+            binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision
+            binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento
+            var SubTotal = precios.reduce { acc, ar -> acc + ar}
+            binding.txtInvoiceDetailsSubtotal.text =  "${SubTotal.toString()} €"
+            binding.txtInvoiceDetailsImpuestos.text = "21 %"
+            binding.txtInvoiceDetailsTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
+
+
+        })
     }
 
     override fun onCreateView(
@@ -30,7 +48,6 @@ class InvoiceDetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
 
-        binding.rvInvoiceDetails.adapter = AdaptadorArticulos(articulos)
         binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
         // Inflate the layout for this fragment
         return binding.root

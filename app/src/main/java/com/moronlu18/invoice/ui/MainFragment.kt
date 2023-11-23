@@ -57,8 +57,8 @@ class MainFragment : Fragment() {
         }*/
         binding.btInvoiceList.setOnClickListener {
             //findNavController().navigate()
-            //findNavController().navigate(R.id.action_mainFragment_to_nav_graph_invoice)
-            findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
+            findNavController().navigate(R.id.action_mainFragment_to_nav_graph_invoice)
+            //findNavController().navigate(R.id.action_mainFragment_to_featureAccountSignUp)
         }
         /*binding.btItemCreation.setOnClickListener {
             //findNavController().navigate()

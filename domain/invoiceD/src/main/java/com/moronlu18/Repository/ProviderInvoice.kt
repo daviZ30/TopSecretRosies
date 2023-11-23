@@ -23,18 +23,18 @@ class ProviderInvoice private constructor() {
             var dataset: MutableList<Factura> = ArrayList()
             dataset.add(
                 Factura(
-                    "Marta", "10/10/2000", "20/20/2023", listOf(
+                    "Marta", "marta21@gmail.com",568558558,"10/10/2000", "20/20/2023", listOf(
                         Articulo("Zapato", 20.2),
                         Articulo("Cordón", 2.2)
-                    ), 40.2
+                    )
                 )
             )
             dataset.add(
                 Factura(
-                    "Antonio", "10/10/2020", "20/20/2023", listOf(
+                    "Antonio", "antonio217@gmail.com",668589858,"10/10/2020", "20/20/2023", listOf(
                         Articulo("Patata", 20.2),
                         Articulo("Zanahoria", 2.2)
-                    ), 50.2
+                    )
                 )
             )
             return dataset

@@ -12,7 +12,7 @@ import com.moronlu18.invoiceFragment.R
 
 class AdaptadorFacturas(
     val facturas: List<Factura>,
-    private val onClick: () -> Unit
+    private val onClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -43,13 +43,15 @@ class AdaptadorFacturas(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val f = facturas[position]
+        var precios = f.Articulos.map { it.precio }
+        var SubTotal = precios.reduce { acc, ar -> acc + ar}
         holder.cliente.text = f.Cliente
-        holder.Total.text = f.total.toString()
+        holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))
         holder.NumArticulos.text = f.Articulos.size.toString()
         holder.FeEmision.text = f.FeEmision
         holder.FeVencimiento.text = f.FeVencimiento
         holder.card.setOnClickListener {
-            onClick()
+            onClick(position)
         }
     }
 
