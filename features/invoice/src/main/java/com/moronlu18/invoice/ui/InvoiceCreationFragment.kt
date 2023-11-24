@@ -46,7 +46,7 @@ class InvoiceCreationFragment : Fragment() {
         binding.txtInvoiceCreationSubtotal.text =  "${SubTotal.toString()} €"
         binding.txtInvoiceCreationTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
         binding.btnCrear.setOnClickListener{
-            findNavController().navigate(R.id.action_invoiceCreationFragment_to_invoiceListFragment)
+            findNavController().popBackStack()
         }
 
         return binding.root

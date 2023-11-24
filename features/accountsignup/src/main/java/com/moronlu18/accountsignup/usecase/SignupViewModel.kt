@@ -2,10 +2,15 @@ package com.moronlu18.accountsignup.usecase
 
 import android.accounts.Account
 import android.text.TextUtils
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.moronlu18.accountsignup.network.Resorces
+import com.moronlu18.accountsignup.repository.UserRepository
 import com.moronlu18.accountsignup.ui.SignUpState
+import kotlinx.coroutines.launch
 
 const val TAG = "ViewModel"
 
@@ -28,7 +33,27 @@ class SignupViewModel : ViewModel() {
         when {
             TextUtils.isEmpty(email.value) -> state.value = SignUpState.EmailEmptyError
             TextUtils.isEmpty(password.value) -> state.value = SignUpState.PasswordEmptyError
-            else -> state.value = SignUpState.Success
+            //EmailFormat
+            //PasseordFormat
+            else -> {
+                //Se crea una corrutina qie suspenda el hilo principal hasta que el
+                // bloque withContext del repositotio termina de ejecutarse
+                viewModelScope.launch {
+                    //Vamos a ejecutar el login del repositorio -> que pregunta a la capa de la infraestructura
+                    val result = UserRepository.login(email.value!!, password.value!!)
+                    //is cuando sea un data class
+                    when (result) {
+                        is Resorces.Sucess<*> -> {
+                            //Aqui tenemos que hacer un Casting Seguro porque el tipo de dato es genérico T
+                        }
+
+                        is Resorces.Error -> {
+                            Log.i(TAG, "Informacion del dato ${result.exception.message}")
+                            state.value = SignUpState.AuthencationError(result.exception.message!!)
+                        }
+                    }
+                }
+            }
         }
     }
 

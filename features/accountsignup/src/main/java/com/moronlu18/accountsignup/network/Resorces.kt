@@ -8,6 +8,6 @@ import java.lang.Exception
  */
 sealed class Resorces {
    // data class Sucess<T, E>(var data: T, var settings: E):Resorces()
-   data class Sucess<T>(var data: Collection<T>):Resorces()
+   data class Sucess<T>(var data: T):Resorces()
     data class Error(var exception: Exception) : Resorces()
 }
