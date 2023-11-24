@@ -47,18 +47,18 @@ He usado varion linearlayout para dividir la información del cliente segun de l
 ## CustomerList
 Fragmento encargado de listar todos los clientes existentes en la lista de clientes aunque el modelo de datos no este todavia implementado he añadido una lista manualmente para saber como se posionarian los elementos.
 
-## TASK (Juan Luis Guerra Gennich)
+# TASK (Juan Luis Guerra Gennich)
 Mi trabajo consistió en la creación y visualización de las tareas. Mi idea fue hacer las tareas como notas comunes, con su fecha y horas en las que esté previsto hacerlas y vinculadas a un cliente.
 
-# TaskCreation
+## TaskCreation
 El layout principal, en el que se crearan las tareas y con la intención de implementar la posibilidad de editar dichas tareas. Aqui utilicé varios LinearLayout ordenar los componentes/widgets.
 Además se utilizará un Spinner para seleccionar el cliente que ya previamente se debió crear para enlazar esta tarea con un cliente especifico. También hay dos Spinner que servirán para poner la hora.
 La fecha de momento es un EditText en formato fecha, pero la intención es con código se pueda abrir un calendario y seleccionar la fecha.
 
-# TaskDetail
+## TaskDetail
 En está parte implemente Guideline y Barrier para probar su funcionamiento y hacer un layout sin LinearLayout y con mayor control de tamaños. 
 Se podrá visualizar a modo de ejemplo con datos inventados una tarea con sus respectivos datos.
 
-# TaskList
+## TaskList
 Layout que contiene la lista de todas las tareas creadas, de momento se visualizan tareas de ejemplo. Aqui se implementa el RecycleView para crear cada fragmento de información de las tareas y la función de hacer scroll.
 Después de que en TaskCreation se cree una tarea, se añadirá aquí y se podrá visualizar la lista completa de tareas.
