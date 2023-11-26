@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.moronlu18.item.itemType
 import com.moronlu18.itemcreation.R
 
 class ItemDetailFragment : Fragment() {
@@ -25,5 +27,37 @@ class ItemDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_item_detail, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        arguments?.let { args ->
+            val itemId = args.getInt("id")
+            val itemName = args.getString("name")
+            val itemRate = args.getDouble("rate")
+            val itemType = args.getSerializable("type") as itemType
+            val itemDescription = args.getString("description")
+            val isTaxable = args.getBoolean("isTaxable")
+            
+            updateDetail(itemId, itemName, itemRate, itemType, itemDescription, isTaxable)
+        }
+    }
+
+    private fun updateDetail(
+        itemId: Int,
+        itemName: String?,
+        itemRate: Double,
+        itemType: itemType,
+        itemDescription: String?,
+        isTaxable: Boolean
+    ) {
+        
+
+        view?.findViewById<TextView>(R.id.tvIdDetail)?.text = itemId.toString()
+        view?.findViewById<TextView>(R.id.tvNameDetail)?.text = itemName
+        view?.findViewById<TextView>(R.id.tvRateDetail)?.text = itemRate.toString()
+        view?.findViewById<TextView>(R.id.tvTypeDetail)?.text = itemType.toString()
+        view?.findViewById<TextView>(R.id.tvDescriptionDetail)?.text = itemDescription
+        view?.findViewById<TextView>(R.id.tvIstaxableDetail)?.text = isTaxable.toString()
+
+    }
 }

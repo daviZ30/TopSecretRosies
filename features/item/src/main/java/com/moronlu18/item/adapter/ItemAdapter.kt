@@ -3,12 +3,13 @@ package com.moronlu18.item.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.item.item
 import com.moronlu18.itemcreation.R
 
-class ItemAdapter(private val itemList: List<item>, private val onItemClick: (item) -> Unit) :
+class ItemAdapter(private var itemList: List<item>, private val onItemClick: (item) -> Unit, private val onDeleteClick: (item) -> Unit) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -24,6 +25,7 @@ class ItemAdapter(private val itemList: List<item>, private val onItemClick: (it
         }
     }
 
+
     override fun getItemCount(): Int {
         return itemList.size
     }
@@ -36,6 +38,12 @@ class ItemAdapter(private val itemList: List<item>, private val onItemClick: (it
             itemView.findViewById<TextView>(R.id.tvTypeCard).text = "${item.type}"
             itemView.findViewById<TextView>(R.id.tvDescriptionCard).text = "${item.description}"
             itemView.findViewById<TextView>(R.id.tvIsTaxable).text = "${item.isTaxable}"
+        }
+
+        init {
+            itemView.findViewById<ImageView>(R.id.ivDelete).setOnClickListener {
+                onDeleteClick.invoke(itemList[adapterPosition])
+            }
         }
     }
 }

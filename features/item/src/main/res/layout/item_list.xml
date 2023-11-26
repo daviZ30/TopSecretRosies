@@ -6,12 +6,14 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="386dp"
-        android:layout_height="211dp"
+        android:layout_width="367dp"
+        android:layout_height="192dp"
         android:layout_marginTop="32dp"
-        app:cardBackgroundColor="@color/md_theme_dark_primary"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,6 +24,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -87,17 +90,20 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout8"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tvIdCard"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
@@ -105,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/tvNameCard"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
@@ -113,7 +119,7 @@
 
                 <TextView
                     android:id="@+id/tvDescriptionCard"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
@@ -121,7 +127,7 @@
 
                 <TextView
                     android:id="@+id/tvIsTaxable"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
@@ -129,7 +135,7 @@
 
                 <TextView
                     android:id="@+id/tvTypeCard"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
@@ -137,13 +143,34 @@
 
                 <TextView
                     android:id="@+id/tvRateCard"
-                    android:layout_width="255dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_condensed_bold"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
                     tools:ignore="UnknownId" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="47dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="28dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout9"
+                app:srcCompat="@drawable/delete" />
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="47dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/ivDelete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/edit" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

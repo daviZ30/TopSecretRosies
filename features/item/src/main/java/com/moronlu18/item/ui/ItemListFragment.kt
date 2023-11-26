@@ -1,10 +1,12 @@
 package com.moronlu18.item.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +55,10 @@ class ItemListFragment : Fragment() {
         isTaxable = false
     )
 
-    val itemList = listOf(staticItem, staticItem2, staticItem3, staticItem4)
+
+
+    var itemList = mutableListOf(staticItem, staticItem2, staticItem3, staticItem4)
+
 
     private var _binding: FragmentItemListBinding? = null
     private val binding
@@ -71,9 +76,29 @@ class ItemListFragment : Fragment() {
 
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
 
-        binding.rvItemList.adapter = ItemAdapter(itemList){
-            findNavController().navigate(R.id.action_itemListFragment_to_itemDetailFragment)
-        }
+        val adapter = ItemAdapter(
+            itemList,
+            { item ->
+                val bundle = Bundle().apply {
+                    putInt("id", item.id)
+                    putString("name", item.name)
+                    putDouble("rate", item.rate)
+                    putSerializable("type", item.type)
+                    putString("description", item.description)
+                    putBoolean("isTaxable", item.isTaxable)
+                }
+
+                findNavController().navigate(
+                    R.id.action_itemListFragment_to_itemDetailFragment,
+                    bundle
+                )
+            },
+            {
+                showDeleteConfirmationDialog(it)
+            }
+        )
+
+        binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(context)
 
         return binding.root
@@ -86,8 +111,21 @@ class ItemListFragment : Fragment() {
 
             findNavController().navigate(R.id.action_itemListFragment_to_itemCreationFragment)
         }
+    }
 
+    private fun showDeleteConfirmationDialog(item: item) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Eliminar artículo")
+            .setMessage("¿Estás seguro de que quieres eliminar este artículo?")
+            .setPositiveButton("Eliminar") { _, _ ->
 
+                itemList.remove(item)
 
+                binding.rvItemList.adapter?.notifyDataSetChanged()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 }
+
+
