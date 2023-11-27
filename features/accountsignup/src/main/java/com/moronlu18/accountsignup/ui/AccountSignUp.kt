@@ -133,6 +133,7 @@ class AccountSignUp : Fragment() {
             findNavController().navigate(com.moronlu18.invoice.R.id.action_accountSignUpFragment_to_fragmentProgressDialog)
         else
             findNavController().popBackStack()
+
     }
 
     /**

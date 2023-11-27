@@ -19,7 +19,6 @@ class FragmentProgressDialog : DialogFragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(view)
         builder.setTitle("Esperando...")
-
         // Devuelve el cuadro de diálogo creado
         return builder.create()
     }
