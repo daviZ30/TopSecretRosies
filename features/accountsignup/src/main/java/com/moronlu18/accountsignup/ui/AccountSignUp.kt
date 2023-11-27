@@ -13,10 +13,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
+import com.moronlu18.accountsignup.ui.AccountSignUpDirections
 
 import com.moronlu18.accountsignup.usecase.SignupViewModel
 
@@ -112,6 +114,7 @@ class AccountSignUp : Fragment() {
                 SignUpState.PasswordEmptyError -> setPasswordEmptyError()
                 //Se pode is cuando es un dataclass
                 is SignUpState.AuthencationError -> showMessage(it.message)
+                is SignUpState.Loading-> showProgessbar(it.value)
                 else -> onSuccess()
             }
         })
@@ -125,11 +128,21 @@ class AccountSignUp : Fragment() {
         }
     }
 
+    private fun showProgessbar(value: Boolean) {
+        if (value)
+            findNavController().navigate(com.moronlu18.invoice.R.id.action_accountSignUpFragment_to_fragmentProgressDialog)
+        else
+            findNavController().popBackStack()
+    }
+
     /**
      * Funcion que muestra al usuario un mensaje
      */
     private fun showMessage(message: String) {
-        Toast.makeText(requireContext(),"Mi primer MVVM $message",Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(),"Mi primer MVVM $message",Toast.LENGTH_SHORT).show()
+        val action = AccountSignUpDirections.actionAccountSignUpFragmentToBaseFragmentDialog("Error",message)
+
+        findNavController().navigate(action)
     }
 
     private fun onSuccess() {

@@ -17,7 +17,14 @@
         app:moduleName="accountsignup"
         android:label="@string/title_accountsignup"
         android:id="@+id/accountSignUpFragment"
-        android:name="com.moronlu18.accountsignup.ui.AccountSignUp" />
+        android:name="com.moronlu18.accountsignup.ui.AccountSignUp" >
+        <action
+            android:id="@+id/action_accountSignUpFragment_to_baseFragmentDialog"
+            app:destination="@id/baseFragmentDialog" />
+        <action
+            android:id="@+id/action_accountSignUpFragment_to_fragmentProgressDialog"
+            app:destination="@id/fragmentProgressDialog" />
+    </fragment>
     <fragment
         app:moduleName="customercreation"
         android:label="@string/title_customercreation"
@@ -124,5 +131,21 @@
         app:graphPackage="${applicationId}.task"
         app:graphResName="nav_graph_task"
         app:moduleName="task"/>
+    <dialog
+        android:id="@+id/baseFragmentDialog"
+        android:name="com.moronlu18.invoice.ui.base.BaseFragmentDialog"
+        android:label="BaseFragmentDialog" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/fragmentProgressDialog"
+        android:name="com.moronlu18.invoice.ui.base.FragmentProgressDialog"
+        android:label="FragmentProgressDialog" />
+
 
 </navigation>

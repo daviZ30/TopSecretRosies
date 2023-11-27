@@ -39,9 +39,11 @@ class SignupViewModel : ViewModel() {
                 //Se crea una corrutina qie suspenda el hilo principal hasta que el
                 // bloque withContext del repositotio termina de ejecutarse
                 viewModelScope.launch {
+                    state.value = SignUpState.Loading(true)
                     //Vamos a ejecutar el login del repositorio -> que pregunta a la capa de la infraestructura
                     val result = UserRepository.login(email.value!!, password.value!!)
                     //is cuando sea un data class
+                    state.value = SignUpState.Loading(false)
                     when (result) {
                         is Resorces.Sucess<*> -> {
                             //Aqui tenemos que hacer un Casting Seguro porque el tipo de dato es genérico T

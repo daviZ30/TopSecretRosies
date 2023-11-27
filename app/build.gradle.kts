@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -45,6 +46,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
     dynamicFeatures += setOf(
         ":features:accountsignin",
         ":features:accountsignup",
@@ -57,6 +60,7 @@ android {
         ":features:task"
     )
 }
+
 
 dependencies {
 
