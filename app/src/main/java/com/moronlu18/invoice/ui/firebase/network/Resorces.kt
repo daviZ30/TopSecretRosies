@@ -1,4 +1,4 @@
-package com.moronlu18.accountsignup.network
+package com.moronlu18.invoice.ui.firebase.network
 
 import java.lang.Exception
 
@@ -8,6 +8,6 @@ import java.lang.Exception
  */
 sealed class Resorces {
    // data class Sucess<T, E>(var data: T, var settings: E):Resorces()
-   data class Sucess<T>(var data: T):Resorces()
+   data class Sucess<T>(var data: T): Resorces()
     data class Error(var exception: Exception) : Resorces()
 }

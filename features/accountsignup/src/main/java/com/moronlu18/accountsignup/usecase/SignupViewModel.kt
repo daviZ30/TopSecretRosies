@@ -1,6 +1,5 @@
 package com.moronlu18.accountsignup.usecase
 
-import android.accounts.Account
 import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,8 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moronlu18.AuthDirebaseRepository
-import com.moronlu18.accountsignup.network.Resorces
-import com.moronlu18.accountsignup.repository.UserRepository
+import com.moronlu18.invoice.ui.firebase.network.Resorces
 import com.moronlu18.accountsignup.ui.SignUpState
 import kotlinx.coroutines.launch
 
@@ -47,7 +45,7 @@ class SignupViewModel : ViewModel() {
                     state.value = SignUpState.Loading(false)
                     when (result) {
                         is Resorces.Sucess<*> -> {
-                            //Aqui tenemos que hacer un Casting Seguro porque el tipo de dato es genérico T
+                            Log.i(TAG, "Login correcto del usuario")
                         }
 
                         is Resorces.Error -> {

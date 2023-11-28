@@ -1,13 +1,13 @@
 package com.moronlu18.accountsignup.ui
 
-import android.accounts.Account
+import com.moronlu18.invoice.ui.firebase.network.Resorces
 
 sealed class SignUpState {
     object EmailEmptyError : SignUpState()
     data object EmailFormatError : SignUpState()
     data object PasswordEmptyError : SignUpState()
     data object PasswordFormatError : SignUpState()
-    data object Success  /*(var account: Account)*/ : SignUpState()
+    data class Success(var account: Resorces) : SignUpState()
     data class AuthencationError(var message:String):SignUpState()
 
     //Se debe crear una clase que contiene un valor booleano que indica si se uestra el Progresvar

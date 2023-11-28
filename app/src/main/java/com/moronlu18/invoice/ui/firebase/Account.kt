@@ -1,4 +1,4 @@
-package com.moronlu18
+package com.moronlu18.invoice.ui.firebase
 
 class Account private constructor(
     val id: Int,
