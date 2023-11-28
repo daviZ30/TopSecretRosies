@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.taskFragment.R
-import com.moronlu18.task.Task
+import com.moronlu18.task.data.model.Task
 
 class TaskListAdapter(val tasks: List<Task>, private val onClick:()->Unit) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
@@ -34,10 +34,10 @@ class TaskListAdapter(val tasks: List<Task>, private val onClick:()->Unit) : Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
-        holder.titulo.text = task.titulo
+        holder.titulo.text = task.title
         holder.cliente.text = task.cliente
-        holder.fecha.text = task.fecha
-        holder.hora.text = task.hora
+        holder.fecha.text = task.createdDate
+        holder.hora.text = task.endDate
         holder.tarea.setOnClickListener{
             onClick()
         }
