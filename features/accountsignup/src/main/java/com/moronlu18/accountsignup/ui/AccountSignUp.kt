@@ -43,12 +43,12 @@ class AccountSignUp : Fragment() {
     inner class textWatcher(var t: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            t.isErrorEnabled = false
-            //binding.Email.requestFocus()
+
         }
 
         override fun afterTextChanged(s: Editable) {
-
+            t.isErrorEnabled = false
+            //binding.Email.requestFocus()
         }
     }
 
@@ -147,8 +147,12 @@ class AccountSignUp : Fragment() {
     }
 
     private fun onSuccess() {
-        Toast.makeText(requireContext(), "Caso de éxito en el Login", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Caso de éxito en el Login", Toast.LENGTH_SHORT).show()
+        val action = AccountSignUpDirections.actionAccountSignUpFragmentToBaseFragmentDialog("Bien hecho","Eres un crack")
+
+        findNavController().navigate(action)
     }
+
 
     /**
      * Funcionq que muestra el error de Password Empty

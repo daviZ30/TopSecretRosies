@@ -1,7 +1,7 @@
 package com.moronlu18.invoice.ui.firebase
 
 class Account private constructor(
-    val id: Int,
+    val id: String,
     val email: Email,
     val password: String?,
     val displayName: String?,
@@ -54,7 +54,7 @@ class Account private constructor(
      */
     companion object {
         fun create(
-            id: Int,
+            id: String,
             email: Email,
             password: String?,
             displayName: String?,

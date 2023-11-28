@@ -46,6 +46,7 @@ class SignupViewModel : ViewModel() {
                     when (result) {
                         is Resorces.Sucess<*> -> {
                             Log.i(TAG, "Login correcto del usuario")
+                            state.value = SignUpState.Success(result)
                         }
 
                         is Resorces.Error -> {
