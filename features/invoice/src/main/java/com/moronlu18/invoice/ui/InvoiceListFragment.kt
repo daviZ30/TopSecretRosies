@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.Repository.ProviderInvoice
-import com.moronlu18.invoice.entity.Articulo
-import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceListBinding
@@ -42,11 +40,16 @@ class InvoiceListFragment : Fragment() {
         //ViewImage()
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
-        binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas){
+        binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas){ i:Int, n:Int ->
             var bundle = Bundle();
-            bundle.putInt("pos",it)
+            bundle.putInt("pos",i)
             parentFragmentManager.setFragmentResult("key",bundle)
-            findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
+            if(n == 0){
+                findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
+            }else if( n == 1){
+                findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
+            }
+
         }
 
         binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)

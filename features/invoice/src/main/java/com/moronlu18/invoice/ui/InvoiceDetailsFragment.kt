@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.Repository.ProviderInvoice
-import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
+import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 

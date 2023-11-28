@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.InvoiceCreationFragment">
+    tools:context=".ui.InvoiceCreationFragment"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
     
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFactura"
@@ -40,11 +41,12 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieInvoiceCreationNombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                    android:hint="@string/tieInvoiceCreationNombre" />
+                    android:hint="@string/tieInvoiceCreationNombre"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -53,13 +55,13 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieInvoiceCreationEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:fontFamily="@font/opensans_variablefont_wdth_wght"
 
                     android:hint="@string/tieInvoiceCreationEmail"
-              />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -68,12 +70,12 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieInvoiceCreationTelefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
 
-                    android:hint="@string/tieÍnvoiceCreationTelefono"
-                     />
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieÍnvoiceCreationTelefono" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -115,10 +117,11 @@
                 app:helperText="@string/tieFormatoFecha">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieInvoiceFeEmi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tieInvoicecreationFeEmision"
                     android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieInvoicecreationFeEmision"
                     android:inputType="datetime" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,10 +132,11 @@
                 app:helperText="@string/tieFormatoFecha">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieInvoiceCreationFeVen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tieInvoiceCreationFeVencimiento"
                     android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieInvoiceCreationFeVencimiento"
                     android:inputType="datetime" />
             </com.google.android.material.textfield.TextInputLayout>
 

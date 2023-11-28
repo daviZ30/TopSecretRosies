@@ -172,7 +172,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imgEditar"
                     android:layout_width="30dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"

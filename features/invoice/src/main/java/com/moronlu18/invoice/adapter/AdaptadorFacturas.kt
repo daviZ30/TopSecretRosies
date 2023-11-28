@@ -13,7 +13,7 @@ import com.moronlu18.invoiceFragment.R
 
 class AdaptadorFacturas(
     val facturas: MutableList<Factura>,
-    private val onClick: (position: Int) -> Unit
+    private val onClick: (position: Int, navegar: Int) -> Unit
 ) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -24,6 +24,8 @@ class AdaptadorFacturas(
         var Total: TextView
         var card: CardView
         var eliminar : ImageView
+        var editar : ImageView
+
 
         init {
             cliente = v.findViewById(R.id.txtLineaCliente)
@@ -33,6 +35,7 @@ class AdaptadorFacturas(
             Total = v.findViewById(R.id.txtLineaTotal)
             card = v.findViewById(R.id.cvFactura)
             eliminar = v.findViewById(R.id.imgEliminar)
+            editar = v.findViewById(R.id.imgEditar)
         }
     }
 
@@ -54,12 +57,14 @@ class AdaptadorFacturas(
         holder.FeEmision.text = f.FeEmision
         holder.FeVencimiento.text = f.FeVencimiento
         holder.card.setOnClickListener {
-            onClick(position)
+            onClick(position, 0)
         }
         holder.eliminar.setOnClickListener{
             facturas.removeAt(position)
             notifyItemRemoved(position)
-
+        }
+        holder.editar.setOnClickListener{
+            onClick(position, 1)
         }
 
     }
