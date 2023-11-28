@@ -1,5 +1,6 @@
 package com.moronlu18.item.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
+import com.moronlu18.item.item
+import com.moronlu18.item.usecase.ItemViewModel
 import com.moronlu18.itemcreation.R
 
 
 class ItemCreationFragment : Fragment() {
 
-
     private lateinit var spinnerItemType: Spinner
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +33,7 @@ class ItemCreationFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,9 +42,7 @@ class ItemCreationFragment : Fragment() {
 
         spinnerItemType = view.findViewById(R.id.spnType)
 
-
         val itemTypes = arrayOf("PRODUCT", "SERVICE")
-
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemTypes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -48,16 +55,16 @@ class ItemCreationFragment : Fragment() {
                 showToast("Tipo seleccionado: $selectedType")
 
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-
         return view
     }
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+
 }
