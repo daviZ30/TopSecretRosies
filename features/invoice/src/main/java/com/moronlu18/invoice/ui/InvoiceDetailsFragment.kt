@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moronlu18.Repository.ProviderInvoice
-import com.moronlu18.entity.Factura
+import com.moronlu18.invoice.Repository.ProviderInvoice
+import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 
 class InvoiceDetailsFragment : Fragment() {
     val facturas = ProviderInvoice.datasetFactura
-    lateinit var factura:Factura ;
+    lateinit var factura: Factura;
 
     private var _binding: FragmentInvoiceDetailsBinding? = null
     private val binding

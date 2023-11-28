@@ -1,7 +1,7 @@
-package com.moronlu18.Repository
+package com.moronlu18.invoice.Repository
 
-import com.moronlu18.entity.Articulo
-import com.moronlu18.entity.Factura
+import com.moronlu18.invoice.entity.Articulo
+import com.moronlu18.invoice.entity.Factura
 
 class ProviderInvoice private constructor() {
     companion object {

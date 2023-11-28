@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moronlu18.Repository.ProviderInvoice
-import com.moronlu18.entity.Articulo
-import com.moronlu18.entity.Factura
+import com.moronlu18.invoice.Repository.ProviderInvoice
+import com.moronlu18.invoice.entity.Articulo
+import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceListBinding

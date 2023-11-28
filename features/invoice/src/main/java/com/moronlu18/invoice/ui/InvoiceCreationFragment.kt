@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.entity.Articulo
+import com.moronlu18.invoice.entity.Articulo
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding

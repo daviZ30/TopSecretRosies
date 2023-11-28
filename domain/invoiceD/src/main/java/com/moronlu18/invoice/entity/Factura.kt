@@ -1,4 +1,4 @@
-package com.moronlu18.entity
+package com.moronlu18.invoice.entity
 
 data class Factura(
     val Cliente: String,
@@ -8,4 +8,4 @@ data class Factura(
     val FeVencimiento: String,
     val Articulos: List<Articulo>,
 
-)
+    )

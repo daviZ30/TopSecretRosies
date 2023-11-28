@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.entity.Factura
+import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoiceFragment.R
 
 
