@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moronlu18.AuthDirebaseRepository
 import com.moronlu18.accountsignup.network.Resorces
 import com.moronlu18.accountsignup.repository.UserRepository
 import com.moronlu18.accountsignup.ui.SignUpState
@@ -41,7 +42,7 @@ class SignupViewModel : ViewModel() {
                 viewModelScope.launch {
                     state.value = SignUpState.Loading(true)
                     //Vamos a ejecutar el login del repositorio -> que pregunta a la capa de la infraestructura
-                    val result = UserRepository.login(email.value!!, password.value!!)
+                    val result = AuthDirebaseRepository().login(email.value!!, password.value!!)
                     //is cuando sea un data class
                     state.value = SignUpState.Loading(false)
                     when (result) {

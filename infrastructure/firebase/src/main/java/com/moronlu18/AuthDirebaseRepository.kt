@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import com.moronlu18.Account
 
 class AuthDirebaseRepository() {
     private var authFirebase = FirebaseAuth.getInstance()
@@ -17,7 +18,8 @@ class AuthDirebaseRepository() {
         withContext(Dispatchers.IO){
             try {
                 val authResult: AuthResult = authFirebase.signInWithEmailAndPassword(email,password).await()
-                val account : Account
+                val account =Account.create(authResult.user!!.providerId.toInt(),
+                    Email(email),password,authResult.additionalUserInfo!!.username,AccountState.UNVERIFIED)
             }catch (e: Exception){
                 Resorces.Error(e)
             }

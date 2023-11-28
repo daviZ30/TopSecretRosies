@@ -3,7 +3,7 @@ package com.moronlu18
 class Account private constructor(
     val id: Int,
     val email: Email,
-    val password: Password?,
+    val password: String?,
     val displayName: String?,
     state: AccountState = AccountState.UNVERIFIED,
     private var businessProfile: BusinessProfile,
@@ -48,11 +48,15 @@ class Account private constructor(
         hasActiveSession = false
     }
 
+    /**
+     * Al utilizar un objeto acompañante con una función y el constructor privado la clase Account gantiza el modo/restricciones que tenga
+     * al crear un objeto de la clase
+     */
     companion object {
         fun create(
             id: Int,
             email: Email,
-            password: Password?,
+            password: String?,
             displayName: String?,
             state: AccountState
         ): Account {
