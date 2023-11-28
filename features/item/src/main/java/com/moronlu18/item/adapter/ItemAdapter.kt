@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.item.item
+import com.moronlu18.item.entity.item
 import com.moronlu18.itemcreation.R
 
 class ItemAdapter(private var itemList: List<item>, private val onItemClick: (item) -> Unit, private val onDeleteClick: (item) -> Unit) :
@@ -31,7 +31,7 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: item) {
+        fun bind(item: com.moronlu18.item.entity.item) {
             itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"
             itemView.findViewById<TextView>(R.id.tvNameCard).text = "${item.name}"
             itemView.findViewById<TextView>(R.id.tvRateCard).text = "${item.rate}"

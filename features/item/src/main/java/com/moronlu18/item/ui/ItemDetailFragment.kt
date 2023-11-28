@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.moronlu18.item.itemType
+import com.moronlu18.item.entity.itemType
 import com.moronlu18.itemcreation.R
 
 class ItemDetailFragment : Fragment() {
