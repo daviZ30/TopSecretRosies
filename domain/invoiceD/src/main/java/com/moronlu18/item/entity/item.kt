@@ -1,6 +1,6 @@
-package com.moronlu18.item
+package com.moronlu18.item.entity
 
-data class item(
+class item(
     val id: Int,
     val name: String,
     val rate: Double,
