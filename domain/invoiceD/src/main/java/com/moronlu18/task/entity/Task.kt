@@ -1,4 +1,4 @@
-package com.moronlu18.task.data.model
+package com.moronlu18.task.entity
 
 data class Task(
     val idTask: Int,

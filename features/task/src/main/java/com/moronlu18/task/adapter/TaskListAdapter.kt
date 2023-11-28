@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.taskFragment.R
-import com.moronlu18.task.data.model.Task
+import com.moronlu18.task.entity.Task
 
 class TaskListAdapter(val tasks: List<Task>, private val onClick:()->Unit) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
