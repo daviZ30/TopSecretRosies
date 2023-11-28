@@ -9,21 +9,19 @@ import androidx.fragment.app.FragmentTransitionImpl
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.R
 import com.moronlu18.customerun.adapter.CustomerAdapter
 import com.moronlu18.customerun.databinding.FragmentCustomerListBinding
 
-data class Cliente(val nombre: String, val apellidos: String, val email: String)
+
 class CustomerListFragment : Fragment() {
     private var _binding: FragmentCustomerListBinding? = null
 
     private  val binding get()=_binding!!
 
-    val clientes = listOf<Cliente>(
-        Cliente("Alex", "Carnero", "carnero@gmail.com"),
-        Cliente("Alex", "Carnero", "carnero@gmail.com"),
-        Cliente("Alex", "Carnero", "carnero@gmail.com")
-    )
+    val clientes = ProviderCustomer.datasetCustomer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
