@@ -35,7 +35,7 @@ class TaskListAdapter(val tasks: List<Task>, private val onClick:()->Unit) : Rec
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
         holder.titulo.text = task.title
-        holder.cliente.text = task.cliente
+        holder.cliente.text = task.nameCustomer
         holder.fecha.text = task.createdDate
         holder.hora.text = task.endDate
         holder.tarea.setOnClickListener{

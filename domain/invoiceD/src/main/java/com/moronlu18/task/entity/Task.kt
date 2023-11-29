@@ -5,7 +5,7 @@ data class Task(
     val customerId : Int,
     val title: String,
     val description : String,
-    val cliente: String,// Borrar
+    val nameCustomer: String,
     val type : TaskType,
     val state: TaskStatus,
     val createdDate: String, //Instant

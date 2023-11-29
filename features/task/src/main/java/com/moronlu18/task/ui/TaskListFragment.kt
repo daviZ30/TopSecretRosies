@@ -12,7 +12,6 @@ import com.moronlu18.task.adapter.TaskListAdapter
 import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
-
 class TaskListFragment : Fragment() {
 
     private var _binding: FragmentTaskListBinding? = null
