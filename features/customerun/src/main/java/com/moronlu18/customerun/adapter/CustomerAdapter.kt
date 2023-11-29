@@ -3,6 +3,7 @@ package com.moronlu18.customerun.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Cliente
@@ -10,7 +11,7 @@ import com.moronlu18.customerun.R
 
 
 
-class CustomerAdapter(val clientes : List<Cliente>, private val onItemClick: (position:Int) -> Unit):
+class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int) -> Unit):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
     inner class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
         fun  bind(customer: Cliente){
@@ -35,6 +36,13 @@ class CustomerAdapter(val clientes : List<Cliente>, private val onItemClick: (po
         holder.bind(item)
         holder.itemView.setOnClickListener{
             onItemClick.invoke(position)
+        }
+       holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
+           clientes.removeAt(position)
+           notifyItemRemoved(position)
+       }
+        holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
+
         }
     }
 }
