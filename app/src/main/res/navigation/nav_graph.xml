@@ -26,21 +26,6 @@
             app:destination="@id/fragmentProgressDialog" />
     </fragment>
     <fragment
-        app:moduleName="customercreation"
-        android:label="@string/title_customercreation"
-        android:id="@+id/customerCreationFragment"
-        android:name="com.moronlu18.customercreation.CustomerCreationFragment" />
-    <fragment
-        app:moduleName="customerdetail"
-        android:label="@string/title_customerdetail"
-        android:id="@+id/customerDetailFragment"
-        android:name="com.moronlu18.customerdetail.CustomerDetailFragment" />
-    <fragment
-        app:moduleName="customerlist"
-        android:label="@string/title_customerlist"
-        android:id="@+id/customerListFragment"
-        android:name="com.moronlu18.customerun.CustomerListFragment" />
-    <fragment
         app:moduleName="invoice"
         android:label="@string/title_invoicelist"
         android:id="@+id/invoiceFragment"
@@ -74,15 +59,6 @@
         <action
             android:id="@+id/action_mainFragment_to_taskFragment"
             app:destination="@id/taskFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_customerCreationFragment"
-            app:destination="@id/customerCreationFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_customerDetailFragment"
-            app:destination="@id/customerDetailFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_customerListFragment"
-            app:destination="@id/customerListFragment" />
         <action
             android:id="@+id/action_mainFragment_to_invoiceFragment"
             app:destination="@id/invoiceFragment" />

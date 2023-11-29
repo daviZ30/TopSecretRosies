@@ -28,9 +28,9 @@ class InvoiceDetailsFragment : Fragment() {
             factura = facturas[pos]
             var precios = factura.Articulos.map { it.precio }
             binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos)
-            binding.txtInvoiceDetailsNombre.text = factura.Cliente
-            binding.txtInvoiceDetailsEmail.text = factura.Email
-            binding.txtInvoiceDetailsTelefono.text = factura.Telefono.toString()
+            binding.txtInvoiceDetailsNombre.text = factura.Cliente.nombre
+            binding.txtInvoiceDetailsEmail.text = factura.Cliente.email
+            binding.txtInvoiceDetailsTelefono.text = factura.Cliente.telefono.toString()
             binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision
             binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento
             var SubTotal = precios.reduce { acc, ar -> acc + ar}

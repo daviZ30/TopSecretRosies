@@ -43,5 +43,14 @@
     <string name="rbInvoiceDetailsPagada">Pagada</string>
     <string name="rbInvoiceDetailsVencida">Vencida</string>
     <string name="InvoiceImpustos">21 %</string>
+    <string name="tvInvoiceCreationTelefono" />
+    <string name="tvInvoiceCreationLabTelefono">Teléfono:</string>
+    <string name="tvInvoiceCreationEmail" />
+    <string name="tvInvoiceCreationLabEmail">Email:</string>
+    <string name="tvInvoiceCreationCliente" />
+    <string name="tvInvoiceCreationLabCliente">Cliente:</string>
+    <string name="tvInvoiceCreationfactura">Factura</string>
+    <string name="hInvoiceCreationIdFactura">Id de la Factura</string>
+    <string name="hInvoiceCreationIdCliente">Id del Cliente</string>
 
 </resources>

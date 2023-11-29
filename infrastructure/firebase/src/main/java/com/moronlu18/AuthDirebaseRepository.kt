@@ -1,6 +1,7 @@
 package com.moronlu18
 
 
+import android.nfc.Tag
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
@@ -33,13 +34,14 @@ class AuthDirebaseRepository() {
             }catch (e: Exception){
                 Resorces.Error(e)
                 su = false;
-                //println("Error en el catch: ${e.message}")
+               // println("Error en el catch: ${e.message}")
             }
             //Se ejecutara el codigo de consulta a FireBase. Que puede tardar mas de 5s y en ese
             //caso se obtiene el error ANR (Android Not Responding) porque puede bloquear la vista
         }
         if(su){
             //println("bien")
+            println("Ha pasado por aqui")
             return Resorces.Sucess(account)
         }else{
             //println("mal")

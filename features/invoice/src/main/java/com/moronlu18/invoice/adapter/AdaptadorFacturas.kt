@@ -51,7 +51,7 @@ class AdaptadorFacturas(
         val f = facturas[position]
         var precios = f.Articulos.map { it.precio }
         var SubTotal = precios.reduce { acc, ar -> acc + ar}
-        holder.cliente.text = f.Cliente
+        holder.cliente.text = ""//f.Cliente.nombre
         holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))
         holder.NumArticulos.text = f.Articulos.size.toString()
         holder.FeEmision.text = f.FeEmision
