@@ -43,8 +43,10 @@
         app:contentPadding="@dimen/clTaskWidth"
         app:layout_constraintBottom_toTopOf="@+id/glDownTaskCreation"
         app:layout_constraintEnd_toStartOf="@+id/glDerTaskCreation"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/glIzqTaskCreation"
-        app:layout_constraintTop_toTopOf="@+id/glUpTaskCreation">
+        app:layout_constraintTop_toTopOf="@+id/glUpTaskCreation"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,59 +100,43 @@
                     tools:ignore="MissingConstraints" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginVertical="@dimen/clTaskWidth"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTaskCreationFCreation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc">
+                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc"
+                app:startIconDrawable="@drawable/icon_calendar">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/spHoraITaskCreation"
-                        android:layout_width="@dimen/spHoraWidthTaskCreation"
-                        android:layout_height="@dimen/spHoraHeightTaskCreation"
-                        android:layout_gravity="top"
-                        android:background="@drawable/shape_spinner"
-                        android:entries="@array/spHorasTaskCreation">
-
-                    </Spinner>
-
-                    <Spinner
-                        android:id="@+id/spHoraFTaskCreation"
-                        android:layout_width="@dimen/spHoraWidthTaskCreation"
-                        android:layout_height="@dimen/spHoraHeightTaskCreation"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/shape_spinner"
-                        android:entries="@array/spHorasTaskCreation">
-
-                    </Spinner>
-                </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilTaskCreationFecha"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieTaskCreationFCreation"
+                    android:layout_width="@dimen/tieTaskCreationFechaWidth"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    app:errorEnabled="true"
-                    app:startIconDrawable="@drawable/icon_calendar">
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieTaskCreationFStart"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieTaskCreationFecha"
-                        android:layout_width="@dimen/tieTaskCreationFechaWidth"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:hint="@string/tieTaskCreationFecha"
-                        android:inputType="date" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTaskCreationFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc"
+                app:startIconDrawable="@drawable/icon_calendar">
 
-            </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieTaskCreationFecha"
+                    android:layout_width="@dimen/tieTaskCreationFechaWidth"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:hint="@string/tieTaskCreationFEnd"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnTaskCreationAdd"

@@ -10,16 +10,11 @@ class TaskRepository {
     //Ejmplos de Task
     private var aux : Int = 0
     private val customer : MutableList<Cliente> = ProviderCustomer.datasetCustomer
-    val taskExample : List<Task> = listOf(
+    val taskExample : MutableList<Task> = arrayListOf(
         Task(aux + 1,customer[aux].id,"Crear Tarea", "Crear layout tareas",customer[aux++].nombre, TaskType.private, TaskStatus.pending,"13/04/2002", "13/04/2024"),
         Task(aux + 1,customer[aux].id,"Prueba List","Probar listas", customer[aux++].nombre, TaskType.private, TaskStatus.pending, "09/11/2023", "31/12/2023"),
         Task(aux + 1,customer[aux].id,"Exponer proyecto", "Primera exposición del proyecto",customer[aux++].nombre, TaskType.private, TaskStatus.pending, "10/11/2023", "10/11/2023"),
 
-        /*
-        Task(aux,customer[aux - 1].id,"Crear Tarea", "Crear layout tareas",customer[aux -1].nombre, TaskType.private, TaskStatus.pending,"13/04/2002", "13/04/2024"),
-        Task(++aux,customer[aux - 1].id,"Prueba List","Probar listas", customer[aux - 1].nombre, TaskType.private, TaskStatus.pending, "09/11/2023", "31/12/2023"),
-        Task(++aux,customer[aux - 1].id,"Exponer proyecto", "Primera exposición del proyecto",customer[aux - 1].nombre, TaskType.private, TaskStatus.pending, "10/11/2023", "10/11/2023"),
-        */
         /*Task(idTask++,cliente[0].id,"Más pruebas", "Probando el proyecto","Antonio Angel Salado Gomez", TaskType.private, TaskStatus.pending, "01/01/2000", "00:01"),
         Task(idTask++,cliente[1].id,"Crear Nueva Tarea", "Crear primera tarea","Juan Lucas",  TaskType.private, TaskStatus.pending,"21/11/2003", "22:22"),
         Task(idTask++,cliente[2].id,"Partida Sudoku", "Partidita chill","Carnero", TaskType.private, TaskStatus.pending, "29/11/2023", "08:15"),

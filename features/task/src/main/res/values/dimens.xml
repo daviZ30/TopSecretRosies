@@ -4,7 +4,7 @@
     <dimen name="textSizeTaskList">15dp</dimen>
     <dimen name="spTaskCreationClienteWidth">150dp</dimen>
     <dimen name="tieTaskCreationDescHeight">150dp</dimen>
-    <dimen name="tieTaskCreationFechaWidth">200dp</dimen>
+    <dimen name="tieTaskCreationFechaWidth">150dp</dimen>
     <dimen name="marginTopTaskDetail">8dp</dimen>
     <dimen name="marginStartTaskDetail">16dp</dimen>
     <dimen name="textSizeTaskDetail">20dp</dimen>

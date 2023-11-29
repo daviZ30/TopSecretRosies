@@ -29,6 +29,9 @@ class TaskListFragment : Fragment() {
 
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         binding.rvTaskList.adapter = TaskListAdapter(TaskRepository().taskExample) {
+                pos:Int, nav:Int -> var bundle = Bundle()
+            bundle.putInt("position",pos)
+            parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
         }
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
