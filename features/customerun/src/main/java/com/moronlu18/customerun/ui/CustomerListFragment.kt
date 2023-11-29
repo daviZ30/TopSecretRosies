@@ -1,15 +1,12 @@
 package com.moronlu18.customerun.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransitionImpl
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.R
 import com.moronlu18.customerun.adapter.CustomerAdapter
@@ -34,7 +31,10 @@ class CustomerListFragment : Fragment() {
     ): View? {
         _binding = FragmentCustomerListBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
-        binding.listcustomer.adapter = CustomerAdapter(clientes){
+        binding.listcustomer.adapter = CustomerAdapter(clientes){i:Int->
+            var bundle = Bundle();
+            bundle.putInt("pos",i)
+            parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
         }
         binding.listcustomer.layoutManager = LinearLayoutManager(context)

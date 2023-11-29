@@ -3,7 +3,6 @@ package com.moronlu18.customerun.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Cliente
@@ -11,7 +10,7 @@ import com.moronlu18.customerun.R
 
 
 
-class CustomerAdapter(val clientes : List<Cliente>, private val onItemClick: (Cliente) -> Unit):
+class CustomerAdapter(val clientes : List<Cliente>, private val onItemClick: (position:Int) -> Unit):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
     inner class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
         fun  bind(customer: Cliente){
@@ -35,7 +34,7 @@ class CustomerAdapter(val clientes : List<Cliente>, private val onItemClick: (Cl
         val item = clientes[position]
         holder.bind(item)
         holder.itemView.setOnClickListener{
-            onItemClick.invoke(item)
+            onItemClick.invoke(position)
         }
     }
 }
