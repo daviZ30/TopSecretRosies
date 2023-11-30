@@ -52,8 +52,8 @@ class TaskListAdapter(
         }
         holder.ivEliminar.setOnClickListener {
             tasks.removeAt(position)
-            notifyDataSetChanged()
-            //notifyItemRemoved(position)
+            //notifyDataSetChanged()
+            notifyItemRemoved(position)
         }
         holder.ivEditar.setOnClickListener {
             onClick(position, 1)
