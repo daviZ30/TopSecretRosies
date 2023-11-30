@@ -9,13 +9,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.taskFragment.R
 import com.moronlu18.task.adapter.TaskListAdapter
-import com.moronlu18.task.repository.TaskRepository
+import com.moronlu18.task.entity.Task
+import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
 class TaskListFragment : Fragment() {
 
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
+
+    val tasks : MutableList<Task> = ProviderTask().taskExample
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,14 +28,16 @@ class TaskListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_task_list, container, false)
-
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        binding.rvTaskList.adapter = TaskListAdapter(TaskRepository().taskExample) {
-                pos:Int, nav:Int -> var bundle = Bundle()
+        binding.rvTaskList.adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
+            var bundle = Bundle()
             bundle.putInt("position",pos)
             parentFragmentManager.setFragmentResult("key",bundle)
-            findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
+            if(nav == 0){
+                findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
+            } else if(nav == 1){
+                findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
+            }
         }
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         return binding.root;

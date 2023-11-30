@@ -6,7 +6,7 @@ import com.moronlu18.task.entity.TaskType
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 
-class TaskRepository {
+class ProviderTask {
     //Ejmplos de Task
     private var aux : Int = 0
     private val customer : MutableList<Cliente> = ProviderCustomer.datasetCustomer

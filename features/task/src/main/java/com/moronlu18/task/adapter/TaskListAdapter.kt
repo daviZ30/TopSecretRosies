@@ -13,8 +13,7 @@ import com.moronlu18.task.entity.Task
 class TaskListAdapter(
     val tasks: MutableList<Task>,
     private val onClick: (pos: Int, nav: Int) -> Unit
-) :
-    RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var titulo: TextView
@@ -22,8 +21,8 @@ class TaskListAdapter(
         var fecha: TextView
         var hora: TextView
         var tarea: CardView
-        var btnEditar: ImageView
-        var btnEliminar: ImageView
+        var ivEditar: ImageView
+        var ivEliminar: ImageView
 
         init {
             titulo = v.findViewById(R.id.tvTituloTaskList)
@@ -31,8 +30,8 @@ class TaskListAdapter(
             fecha = v.findViewById(R.id.tvFStartTaskList)
             hora = v.findViewById(R.id.tvFEndTaskList)
             tarea = v.findViewById(R.id.cvTaskAdapter)
-            btnEditar = v.findViewById(R.id.ivEdit)
-            btnEliminar = v.findViewById(R.id.ivDelete)
+            ivEditar = v.findViewById(R.id.ivEdit)
+            ivEliminar = v.findViewById(R.id.ivDelete)
         }
     }
 
@@ -50,12 +49,13 @@ class TaskListAdapter(
         holder.tarea.setOnClickListener {
             onClick(position, 0)
         }
-        holder.btnEliminar.setOnClickListener {
+        holder.ivEliminar.setOnClickListener {
             tasks.removeAt(position)
-            notifyItemRemoved(position)
+            notifyDataSetChanged()
+            //notifyItemRemoved(position)
         }
-        holder.btnEditar.setOnClickListener {
-
+        holder.ivEditar.setOnClickListener {
+            onClick(position, 1)
         }
     }
 
