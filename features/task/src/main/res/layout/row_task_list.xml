@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                android:text="@string/tvTaskListFEnd"
+                android:text="@string/tvTaskListDateEnd"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSizeTaskList"
 
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                android:text="@string/tvTaskListFStart"
+                android:text="@string/tvTaskListDateStart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSizeTaskList"
                 app:layout_constraintStart_toEndOf="@+id/ivTaskList"

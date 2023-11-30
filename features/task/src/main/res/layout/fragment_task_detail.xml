@@ -56,15 +56,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="end"
-                app:constraint_referenced_ids="tvTaskDetailCliente, tvTaskDetailHInicial,tvTaskDetailHFinal, cbTaskDetailEstado" />
+                app:constraint_referenced_ids="tvTaskDetailCliente, tvTaskDetailDateEnd,tvTaskDetailDateStart, tvTaskDetailState" />
 
             <ImageView
                 android:id="@+id/ivIcono"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/icon_taskdone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTaskDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_condensed_bold"
+                android:text="TITULO"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivIcono" />
 
             <TextView
                 android:id="@+id/tvTaskDetailCliente"
@@ -74,7 +86,7 @@
                 android:text="@string/tvTaskDetailCliente"
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="@dimen/textSizeTaskDetail"
-                app:layout_constraintTop_toBottomOf="@id/ivIcono" />
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailTitle" />
 
             <TextView
                 android:id="@+id/tvTaskDetailClienteCont"
@@ -101,7 +113,7 @@
             <TextView
                 android:id="@+id/tvTaskDetailDescCont"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tieTaskCreationDescHeight"
+                android:layout_height="@dimen/tvTaskDetailDescHeight"
                 android:background="@color/md_theme_light_outlineVariant"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
                 android:text="Descripción de ejemplo"
@@ -110,24 +122,24 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDesc" />
 
             <TextView
-                android:id="@+id/tvTaskDetailFecha"
+                android:id="@+id/tvTaskDetailDateStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/tvTaskDetailFecha"
+                android:text="@string/tvTaskDetailDateStart"
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDescCont" />
 
             <TextView
-                android:id="@+id/tvTaskDetailFechaCont"
+                android:id="@+id/tvTaskDetailDateStartCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
-                android:text="13/04/2002"
+                android:text="01/01/2000"
                 android:textColor="@color/md_theme_dark_background"
                 android:textSize="@dimen/textSizeTaskDetail"
 
@@ -135,70 +147,76 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDescCont" />
 
             <TextView
-                android:id="@+id/tvTaskDetailHInicial"
+                android:id="@+id/tvTaskDetailDateEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/tvTaskDetailHInicial"
+                android:text="@string/tvTaskDetailDateEnd"
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="@dimen/textSizeTaskDetail"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailFecha" />
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDateStart" />
 
             <TextView
-                android:id="@+id/tvTaskDetailHInicialCont"
+                android:id="@+id/tvTaskDetailDateEndCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
-                android:text="00:00"
+                android:text="31/12/2023"
                 android:textColor="@color/md_theme_dark_background"
                 android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailFechaCont" />
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDateStartCont" />
 
             <TextView
-                android:id="@+id/tvTaskDetailHFinal"
+                android:id="@+id/tvTaskDetailType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/tvTaskDetailHFinal"
+                android:text="@string/tvTaskDetailType"
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="@dimen/textSizeTaskDetail"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicial" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailDateEnd" />
 
             <TextView
-                android:id="@+id/tvTaskDetailHFinalCont"
+                android:id="@+id/tvTaskDetailTypeCont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginStartTaskDetail"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
-                android:text="21:00"
+                android:text="PRIVADO"
                 android:textColor="@color/md_theme_dark_background"
                 android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailHInicialCont" />
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailDateEndCont" />
 
             <TextView
-                android:id="@+id/tvTaskDetailEstado"
+                android:id="@+id/tvTaskDetailState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopTaskDetail"
                 android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/tvTaskDetailEstado"
+                android:text="@string/tvTaskDetailState"
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="@dimen/textSizeTaskDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailHFinal" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailType" />
 
-            <CheckBox
-                android:id="@+id/cbTaskDetailEstado"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
+            <TextView
+                android:id="@+id/tvTaskDetailStateCont"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginStartTaskDetail"
+                android:layout_marginTop="@dimen/marginTopTaskDetail"
+                android:fontFamily="@font/opensans_italic_variablefont_wdth_wght"
+                android:text="PENDIENTE"
+                android:textColor="@color/md_theme_dark_background"
+                android:textSize="@dimen/textSizeTaskDetail"
                 app:layout_constraintStart_toEndOf="@+id/barrierTaskDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailHFinalCont" />
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDetailTypeCont" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
