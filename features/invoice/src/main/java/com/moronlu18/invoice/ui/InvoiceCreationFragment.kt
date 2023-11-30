@@ -98,6 +98,7 @@ class InvoiceCreationFragment : Fragment() {
                 binding.tieInvoiceCreationIdCliente.addTextChangedListener(textWatcher(binding.tieInvoiceCreationIdCliente.text))
                 binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString())
                 binding.tieInvoiceCreationFeVen.setText(factura.FeVencimiento.toString())
+                binding.tieInvoiceCreationIdFactura.setText(factura.id.toString())
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
                 binding.txtInvoiceCreationTotal.text =
@@ -164,7 +165,7 @@ class InvoiceCreationFragment : Fragment() {
                     factura.Articulos.size == 0 ->  Toast.makeText(requireContext(), "Introduce algún artículo", Toast.LENGTH_SHORT).show()
 
                     binding.tvInvoiceCreationNombre.text.isEmpty() ->Toast.makeText(requireContext(), "Introduce un cliente", Toast.LENGTH_SHORT).show()
-                    !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> Toast.makeText(requireContext(), "Id de la factura invalido", Toast.LENGTH_SHORT).show()
+                    nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> Toast.makeText(requireContext(), "Id de la factura invalido, para editar el id debe existir", Toast.LENGTH_SHORT).show()
                     else -> CrearFactura(editar)
                 }
             } else {
@@ -178,6 +179,20 @@ class InvoiceCreationFragment : Fragment() {
 
 
         }
+    }
+
+    fun nuevoId(cadena:String):Boolean{
+        try {
+            var i = cadena.toInt()
+            facturas.forEach {
+                if (it.id == i){
+                    return false
+                }
+            }
+        }catch (e:Exception){
+            return false
+        }
+        return true
     }
     fun validarIdFactura(cadena:String):Boolean{
         try {
@@ -216,15 +231,16 @@ class InvoiceCreationFragment : Fragment() {
 
     fun CrearFactura(editar: Boolean){
         if (editar) {
+            facturas.remove(ObtenerFactura(binding.tieInvoiceCreationIdFactura.text.toString().toInt()))
            var f =  Factura(
-               2,
+               binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
                clien, binding.tieInvoiceFeEmi.text.toString(),  binding.tieInvoiceCreationFeVen.text.toString(), factura.Articulos
            )
             facturas.add(f)
 
         } else {
             var f =  Factura(
-                2,
+                binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
                 clien, binding.tieInvoiceFeEmi.text.toString(),  binding.tieInvoiceCreationFeVen.text.toString(), CreArticulos
             )
             facturas.add(f)
@@ -237,17 +253,19 @@ class InvoiceCreationFragment : Fragment() {
 
     }
     fun ObtenerItem(nombre: String):item?{
-        /*
-               val id: Int,
-   val name: String,
-   val rate: Double,
-   val type: itemType,
-   val description: String,
-   val isTaxable: Boolean
-                */
+
         articulos.forEach{
 
             if(nombre.trim().equals(it.name)){
+
+                return it
+            }
+        }
+        return null;
+    }
+    fun ObtenerFactura(id: Int):Factura?{
+        facturas.forEach{
+            if(id == it.id){
 
                 return it
             }
