@@ -6,6 +6,6 @@ data class Factura(
     val Cliente: Cliente,
     val FeEmision: String,
     val FeVencimiento: String,
-    val Articulos: List<Articulo>,
+    val Articulos: MutableList<Articulo>,
 
     )

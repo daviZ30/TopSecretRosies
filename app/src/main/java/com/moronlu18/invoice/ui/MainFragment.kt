@@ -61,18 +61,18 @@ class MainFragment : Fragment() {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_itemcreationFragment)
         }*/
-       /* binding.btItemDetail.setOnClickListener {
-            //findNavController().navigate()
-           findNavController().navigate(R.id.action_mainFragment_to_itemdetailFragment)
-        }*/
+        /* binding.btItemDetail.setOnClickListener {
+             //findNavController().navigate()
+            findNavController().navigate(R.id.action_mainFragment_to_itemdetailFragment)
+         }*/
         binding.btItemList.setOnClickListener {
             //findNavController().navigate()
-           findNavController().navigate(R.id.action_mainFragment_to_nav_graph_item)
+            findNavController().navigate(R.id.action_mainFragment_to_nav_graph_item)
         }
-       /* binding.btTaskCreation.setOnClickListener {
-            //findNavController().navigate()
-            findNavController().navigate(R.id.action_mainFragment_to_taskcreationFragment)
-        }*/
+        /* binding.btTaskCreation.setOnClickListener {
+             //findNavController().navigate()
+             findNavController().navigate(R.id.action_mainFragment_to_taskcreationFragment)
+         }*/
         /*binding.btTaskDetails.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_taskdetailFragment)
@@ -82,6 +82,7 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_nav_graph_task)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

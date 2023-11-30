@@ -59,8 +59,14 @@
                         android:textSize="@dimen/txtdInvoiceCreationCliente"
                         android:textStyle="bold" />
 
+                    <Spinner
+                        android:id="@+id/spArticulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp" />
+
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btnArticulos"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="60dp"
@@ -294,7 +300,7 @@
                                     android:id="@+id/tvInvoiceCreationNombre"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:text="@string/tvInvoiceCreationCliente"
                                     android:textColor="@color/white" />
                             </LinearLayout>
@@ -318,7 +324,7 @@
                                     android:id="@+id/tvInvoiceCreationEmail"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:text="@string/tvInvoiceCreationEmail"
                                     android:textColor="@color/white" />
                             </LinearLayout>
@@ -342,7 +348,7 @@
                                     android:id="@+id/tvInvoiceCreationTelefono"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:text="@string/tvInvoiceCreationTelefono"
                                     android:textColor="@color/white" />
                             </LinearLayout>

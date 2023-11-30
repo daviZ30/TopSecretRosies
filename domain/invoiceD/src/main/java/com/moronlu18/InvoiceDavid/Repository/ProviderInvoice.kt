@@ -19,6 +19,23 @@ class ProviderInvoice private constructor() {
             dataset.add(
                 Articulo("Portaminas", 1.0)
             )
+
+            dataset.add(
+                Articulo("Zapato", 20.2),
+            )
+            dataset.add(
+                Articulo("Cordón", 2.2)
+            )
+            dataset.add(
+                Articulo("Patata", 20.2),
+            )
+            dataset.add(
+                Articulo("Zanahoria", 2.2)
+            )
+
+
+
+
             return dataset
         }
 
@@ -34,7 +51,7 @@ class ProviderInvoice private constructor() {
                         6824556414,
                         "Málaga",
                         "Calle Leonora n46"
-                    ), "10/10/2000", "20/20/2023", listOf(
+                    ), "10/10/2000", "20/20/2023", mutableListOf(
                         Articulo("Zapato", 20.2),
                         Articulo("Cordón", 2.2)
                     )
@@ -50,7 +67,7 @@ class ProviderInvoice private constructor() {
                         6824556414,
                         "Málaga",
                         "Calle Leonora n46"
-                    ), "10/10/2020", "20/20/2023", listOf(
+                    ), "10/10/2020", "20/20/2023", mutableListOf(
                         Articulo("Patata", 20.2),
                         Articulo("Zanahoria", 2.2)
                     )
