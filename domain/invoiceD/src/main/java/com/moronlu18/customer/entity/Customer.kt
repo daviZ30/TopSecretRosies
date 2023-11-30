@@ -6,7 +6,8 @@ data class Cliente(
     val telefono: Long,
     val city: String,
     val direction: String
-) {
+)
+{
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
     }
