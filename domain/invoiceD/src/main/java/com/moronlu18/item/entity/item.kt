@@ -7,7 +7,11 @@ class item(
     val type: itemType,
     val description: String,
     val isTaxable: Boolean
-)
+){
+    override fun toString(): String {
+        return "$name - $rate€"
+    }
+}
 
 enum class itemType {
     PRODUCT,

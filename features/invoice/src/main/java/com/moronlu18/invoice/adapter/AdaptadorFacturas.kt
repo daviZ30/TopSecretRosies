@@ -49,13 +49,13 @@ class AdaptadorFacturas(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val f = facturas[position]
-        var precios = f.Articulos.map { it.precio }
+        var precios = f.Articulos.map { it.rate }
         var SubTotal = precios.reduce { acc, ar -> acc + ar}
         holder.cliente.text = ""//f.Cliente.nombre
         holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))
         holder.NumArticulos.text = f.Articulos.size.toString()
-        holder.FeEmision.text = f.FeEmision
-        holder.FeVencimiento.text = f.FeVencimiento
+        holder.FeEmision.text = f.FeEmision.toString()
+        holder.FeVencimiento.text = f.FeVencimiento.toString()
         holder.card.setOnClickListener {
             onClick(position, 0)
         }

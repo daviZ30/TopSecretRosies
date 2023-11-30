@@ -1,48 +1,26 @@
 package com.moronlu18.invoice.Repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.customer.repository.ProviderCustomer
-import com.moronlu18.invoice.entity.Articulo
 import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.item.repository.ItemRepository
 
 class ProviderInvoice private constructor() {
     companion object {
         val datasetFactura: MutableList<Factura> = setUpDataSetFactura()
-        val datasetArticulo: MutableList<Articulo> = setUpDataSetArticulo()
-        private var clientes = ProviderCustomer.datasetCustomer
-
-        private fun setUpDataSetArticulo(): MutableList<Articulo> {
-            var dataset: MutableList<Articulo> = ArrayList()
-            dataset.add(
-                Articulo("Mesa", 222.2),
-            )
-            dataset.add(
-                Articulo("Portaminas", 1.0)
-            )
-
-            dataset.add(
-                Articulo("Zapato", 20.2),
-            )
-            dataset.add(
-                Articulo("Cordón", 2.2)
-            )
-            dataset.add(
-                Articulo("Patata", 20.2),
-            )
-            dataset.add(
-                Articulo("Zanahoria", 2.2)
-            )
 
 
 
-
-            return dataset
-        }
-
+        @RequiresApi(Build.VERSION_CODES.O)
         private fun setUpDataSetFactura(): MutableList<Factura> {
             var dataset: MutableList<Factura> = ArrayList()
+           // val format = SimpleDateFormat("yyyy-MM-dd")
+            //val date = format.parse(dateString)
+            val articulos = ItemRepository().getItemList()
             dataset.add(
                 Factura(
+                    1,
                     Cliente(
                         1,
                         "Juanlu",
@@ -51,14 +29,18 @@ class ProviderInvoice private constructor() {
                         6824556414,
                         "Málaga",
                         "Calle Leonora n46"
-                    ), "10/10/2000", "20/20/2023", mutableListOf(
-                        Articulo("Zapato", 20.2),
-                        Articulo("Cordón", 2.2)
-                    )
+                    ),  "10/10/2000", "20/20/2023", mutableListOf(
+                        //Articulo("Zapato", 20.2),
+                        //Articulo("Cordón", 2.2)
+                        articulos[0],
+                        articulos[1],
+
+                        )
                 )
             )
             dataset.add(
                 Factura(
+                    2,
                     Cliente(
                         1,
                         "Juanlu",
@@ -68,8 +50,8 @@ class ProviderInvoice private constructor() {
                         "Málaga",
                         "Calle Leonora n46"
                     ), "10/10/2020", "20/20/2023", mutableListOf(
-                        Articulo("Patata", 20.2),
-                        Articulo("Zanahoria", 2.2)
+                        articulos[2],
+                        articulos[3],
                     )
                 )
             )

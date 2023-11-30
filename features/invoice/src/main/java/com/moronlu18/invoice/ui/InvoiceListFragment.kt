@@ -40,7 +40,7 @@ class InvoiceListFragment : Fragment() {
         //ViewImage()
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
-        binding.rvInvoiceList.adapter = AdaptadorFacturas(facturas){ i:Int, n:Int ->
+        var adapter = AdaptadorFacturas(facturas){ i:Int, n:Int ->
             var bundle = Bundle();
             bundle.putInt("pos",i)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -51,13 +51,17 @@ class InvoiceListFragment : Fragment() {
             }
 
         }
-
+        binding.rvInvoiceList.adapter = adapter
+        adapter.notifyDataSetChanged()
+        binding.rvInvoiceList.scrollToPosition(facturas.size - 1)
         binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         binding.fabInvoice.setOnClickListener {
             //findNavController().navigate()

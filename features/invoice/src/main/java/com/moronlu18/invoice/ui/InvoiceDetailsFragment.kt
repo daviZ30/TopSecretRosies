@@ -26,13 +26,13 @@ class InvoiceDetailsFragment : Fragment() {
         parentFragmentManager.setFragmentResultListener("key",this, FragmentResultListener { requestKey, result ->
             var pos: Int = result.getInt("pos")
             factura = facturas[pos]
-            var precios = factura.Articulos.map { it.precio }
+            var precios = factura.Articulos.map { it.rate }
             binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos)
             binding.txtInvoiceDetailsNombre.text = factura.Cliente.nombre
             binding.txtInvoiceDetailsEmail.text = factura.Cliente.email
             binding.txtInvoiceDetailsTelefono.text = factura.Cliente.telefono.toString()
-            binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision
-            binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento
+            binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision.toString()
+            binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento.toString()
             var SubTotal = precios.reduce { acc, ar -> acc + ar}
             binding.txtInvoiceDetailsSubtotal.text =  "${SubTotal.toString()} €"
             binding.txtInvoiceDetailsImpuestos.text = "21 %"
