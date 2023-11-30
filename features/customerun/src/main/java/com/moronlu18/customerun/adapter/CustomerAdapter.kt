@@ -13,7 +13,7 @@ import com.moronlu18.customerun.R
 
 class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int) -> Unit):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
-    inner class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
+     class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
         fun  bind(customer: Cliente){
             itemView.findViewById<TextView>(R.id.txtnombre_customer_list).text = "${customer.nombre}"
             itemView.findViewById<TextView>(R.id.txtapellidos_customer_list).text = "${customer.apellidos}"
@@ -27,9 +27,6 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
         return CustomerViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return clientes.size
-    }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         val item = clientes[position]
@@ -39,10 +36,14 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
         }
        holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
            clientes.removeAt(position)
-           notifyItemRemoved(position)
+           notifyDataSetChanged();
        }
         holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
 
         }
     }
+    override fun getItemCount(): Int {
+        return clientes.size
+    }
+
 }

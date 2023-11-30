@@ -1,7 +1,6 @@
 package com.moronlu18.accountsignup.ui
 
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -14,12 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.accountsignup.R
 import com.moronlu18.accountsignup.databinding.FragmentAccountSignUpBinding
-import com.moronlu18.accountsignup.ui.AccountSignUpDirections
-
 import com.moronlu18.accountsignup.usecase.SignupViewModel
 
 
@@ -43,12 +39,10 @@ class AccountSignUp : Fragment() {
     inner class textWatcher(var t: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
         }
 
         override fun afterTextChanged(s: Editable) {
             t.isErrorEnabled = false
-            //binding.Email.requestFocus()
         }
     }
 
