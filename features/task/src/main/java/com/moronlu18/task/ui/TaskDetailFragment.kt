@@ -12,7 +12,7 @@ import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskDetailBinding
 
 class TaskDetailFragment : Fragment() {
-    val tasks : MutableList<Task> = ProviderTask().taskExample
+    val tasks : MutableList<Task> = ProviderTask.taskExample
 
     private var _binding: FragmentTaskDetailBinding? = null
     private val binding get() = _binding!!

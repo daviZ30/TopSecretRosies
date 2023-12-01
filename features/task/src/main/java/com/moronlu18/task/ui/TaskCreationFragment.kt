@@ -20,7 +20,7 @@ import java.util.Locale
 
 
 class TaskCreationFragment : Fragment() {
-    val tasks: MutableList<Task> = ProviderTask().taskExample
+    val tasks: MutableList<Task> = ProviderTask.taskExample
     val clientes = ProviderCustomer.datasetCustomer
 
     private var _binding: FragmentTaskCreationBinding? = null

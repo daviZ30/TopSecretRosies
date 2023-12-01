@@ -19,7 +19,7 @@ class TaskListFragment : Fragment() {
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
 
-    private val tasks : MutableList<Task> =  ProviderTask().taskExample
+    private val tasks : MutableList<Task> =  ProviderTask.taskExample
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)/*
