@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.item.adapter.ItemAdapter
@@ -13,15 +14,16 @@ import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
 import com.moronlu18.itemcreation.R
 import com.moronlu18.item.repository.ItemRepository
+import com.moronlu18.item.usecase.ItemViewModel
 
 import com.moronlu18.itemcreation.databinding.FragmentItemListBinding
 
 
 class ItemListFragment : Fragment() {
 
-    private val itemRepository = ItemRepository()
+    private val itemRepository = ItemRepository.getInstance()
 
-
+    private lateinit var itemViewModel: ItemViewModel
 
     private var _binding: FragmentItemListBinding? = null
     private val binding
@@ -63,6 +65,16 @@ class ItemListFragment : Fragment() {
 
         binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(context)
+
+        itemViewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
+
+
+        itemViewModel.newItem.observe(viewLifecycleOwner) { newItem ->
+            if (newItem != null) {
+                itemRepository.addItem(newItem)
+                binding.rvItemList.adapter?.notifyDataSetChanged()
+            }
+        }
 
         return binding.root
     }
