@@ -24,7 +24,7 @@
                 android:id="@+id/ivTaskList"
                 android:layout_width="@dimen/ivTaskList"
                 android:layout_height="@dimen/ivTaskList"
-                android:src="@drawable/icon_taskdone"
+                android:src="@drawable/icon_taskoverdue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

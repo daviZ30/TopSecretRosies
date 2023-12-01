@@ -20,7 +20,7 @@ class TaskDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentFragmentManager.setFragmentResultListener("key", this,
-            FragmentResultListener { requestKey, result ->
+            FragmentResultListener { _, result ->
                 var pos: Int = result.getInt("pos")
                 val task = tasks[pos]
                 binding.tvTaskDetailTitle.text = task.title
