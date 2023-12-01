@@ -52,7 +52,6 @@ class TaskCreationFragment : Fragment() {
             val endDate = binding.tieTaskCreationDateEnd.text.toString() ?: getCurrentDate()
             tasks.add(Task(idTask, 4, title, desc, "A", type, status, createdDate, endDate))
             var bundle = Bundle()
-            bundle.putInt("position",idTask)
             parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().popBackStack()
         }

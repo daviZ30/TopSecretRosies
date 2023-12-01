@@ -10,7 +10,7 @@ class ProviderTask {
     //Ejmplos de Task
     private var aux : Int = 0
     private val customer : MutableList<Cliente> = ProviderCustomer.datasetCustomer
-    val taskExample : MutableList<Task> = arrayListOf(
+    val taskExample : MutableList<Task> = mutableListOf(
         Task(aux + 1,customer[aux].id,"Crear Tarea", "Crear layout tareas",customer[aux++].getFullName(), TaskType.private, TaskStatus.overdue,"13/04/2002", "10/09/2023"),
         Task(aux + 1,customer[aux].id,"Prueba List","Probar listas", customer[aux++].getFullName(), TaskType.private, TaskStatus.pending, "09/11/2023", "31/12/2023"),
         Task(aux + 1,customer[aux].id,"Exponer proyecto", "Exposición del proyecto",customer[aux++].getFullName(), TaskType.private, TaskStatus.pending, "10/11/2023", "10/11/2023"),

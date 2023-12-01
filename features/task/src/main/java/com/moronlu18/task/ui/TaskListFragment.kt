@@ -19,25 +19,20 @@ class TaskListFragment : Fragment() {
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
 
-    val tasks : MutableList<Task> = ProviderTask().taskExample
+    private val tasks : MutableList<Task> =  ProviderTask().taskExample
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)/*
         parentFragmentManager.setFragmentResultListener("key", this,
-            FragmentResultListener { requestKey, result ->
+            FragmentResultListener { _, result ->
                 var pos: Int = result.getInt("pos")
-                binding.rvTaskList.adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
+                binding.rvTaskList.adapter = TaskListAdapter(tasks) { _, _ ->
                     var bundle = Bundle()
                     bundle.putInt("position",pos)
                     parentFragmentManager.setFragmentResult("key",bundle)
-                    if(nav == 0){
-                        findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
-                    } else if(nav == 1){
-                        findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
-                    }
                 }
                 binding.rvTaskList.layoutManager = LinearLayoutManager(context)
-            })
+            })*/
     }
 
     override fun onCreateView(
@@ -45,7 +40,7 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        binding.rvTaskList.adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
+        val adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
             var bundle = Bundle()
             bundle.putInt("position",pos)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -55,6 +50,8 @@ class TaskListFragment : Fragment() {
                 findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
             }
         }
+        binding.rvTaskList.adapter = adapter
+        binding.rvTaskList.scrollToPosition(tasks.size - 1)
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         return binding.root;
     }
