@@ -1,6 +1,7 @@
 package com.moronlu18.customer.repository
 
 import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.invoice.ui.firebase.network.Resorces
 
 class ProviderCustomer private constructor() {
     companion object{
@@ -13,5 +14,14 @@ class ProviderCustomer private constructor() {
             dataset.add(Cliente(3,"Alex","Carnero Tapia","carnetaadspjf@gmail.com",6864646414,"Málaga","Calle Leonora n46"))
             return dataset
         }
+         fun login (email: String, nombre: String, value: String): Resorces {
+          /*   var cliente:Cliente
+            try {
+                cliente = Cliente()
+            }catch (Exception ){
+                return Resorces.Error()
+            }*/
+             return Resorces.Error(Exception("Error"))
+         }
     }
 }
