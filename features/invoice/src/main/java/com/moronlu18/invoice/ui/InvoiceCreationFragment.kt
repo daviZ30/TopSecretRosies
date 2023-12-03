@@ -11,13 +11,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
@@ -39,21 +42,26 @@ class InvoiceCreationFragment : Fragment() {
 
     val articulos = ItemRepository().getItemList()
 
+    private val viewModel: InvoiceViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    inner class textWatcher(var t: Editable?) : TextWatcher {
+
+    inner class textWatcher(var e: Editable?, var t: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 
         }
 
         override fun afterTextChanged(s: Editable) {
-            println("illoooooo ${t.toString()}")
-            rellenarCliente(t)
-
+            // println("illoooooo ${t.toString()}")
+            if (e != null) {
+                rellenarCliente(e)
+            }
+            t.isErrorEnabled = false
             //binding.Email.requestFocus()
         }
     }
@@ -62,8 +70,12 @@ class InvoiceCreationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentInvoiceCreationBinding.inflate(inflater, container, false)
+        binding.viewmodel = this.viewModel
+
+        binding.lifecycleOwner = this
+
+
 
 
         return binding.root
@@ -77,12 +89,36 @@ class InvoiceCreationFragment : Fragment() {
 
         adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
+
+        viewModel.getState().observe(viewLifecycleOwner) {
+            when (it) {
+                InvoiceState.idClienteEmtyError -> {
+                    println("1111")
+                    binding.tilInvoiceCreationIdCliente.error =
+                        "Introduce un id de Cliente existente"
+                    binding.tilInvoiceCreationIdCliente.requestFocus()
+                }
+
+                InvoiceState.idFacturaEmtyError -> {
+                    println("2222")
+                    // if(editar == false){
+                    binding.tilInvoiceCreationIdFactura.error = "Introduce un id para la factura"
+                    //}
+                    binding.tilInvoiceCreationIdFactura.requestFocus()
+                }
+
+                else -> Validate()
+            }
+
+
+        }
+
         var rvadapter = AdaptadorArticulos(CreArticulos)
         binding.rvInvoiceArticulos.adapter = rvadapter
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
-
-
         binding.spArticulo.adapter = adaptersp
+
+
 
         parentFragmentManager.setFragmentResultListener(
             "key",
@@ -94,19 +130,36 @@ class InvoiceCreationFragment : Fragment() {
                 var precios = factura.Articulos.map { it.rate }
                 binding.rvInvoiceArticulos.adapter = AdaptadorArticulos(factura.Articulos)
                 binding.tieInvoiceCreationIdCliente.setText(factura.Cliente.id.toString())
+                viewModel.idFactura.value = factura.Cliente.id.toString()
+                //viewModel.idCliente.value = factura.id.toString()
                 rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
-                binding.tieInvoiceCreationIdCliente.addTextChangedListener(textWatcher(binding.tieInvoiceCreationIdCliente.text))
+                /*binding.tieInvoiceCreationIdCliente.addTextChangedListener(
+                    textWatcherCliente(
+                        binding.tieInvoiceCreationIdCliente.text
+                    )
+                )*/
                 binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString())
                 binding.tieInvoiceCreationFeVen.setText(factura.FeVencimiento.toString())
-                binding.tieInvoiceCreationIdFactura.setText(factura.id.toString())
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-
+                //binding.tilInvoiceCreationIdFactura.isErrorEnabled = false
+                binding.tieInvoiceCreationIdCliente.addTextChangedListener(
+                    textWatcher(
+                        binding.tieInvoiceCreationIdCliente.text,
+                        binding.tilInvoiceCreationIdCliente
+                    )
+                )
+                binding.tieInvoiceCreationIdFactura.addTextChangedListener(
+                    textWatcher(
+                        null,
+                        binding.tilInvoiceCreationIdFactura
+                    )
+                )
 
             })
-
+        viewModel.validate()
 
 
 
@@ -130,84 +183,105 @@ class InvoiceCreationFragment : Fragment() {
 
         }
 
-
-        binding.tieInvoiceCreationIdCliente.addTextChangedListener(textWatcher(binding.tieInvoiceCreationIdCliente.text))
-        //Inicializar el listener que se lanza cuando el usuario modifica el valor
-
-        /*
-          viewModel.validate()
-
-          viewModel.getState().observe(viewLifecycleOwner, Observer {
-              when (it) {
-                  SignUpState.EmailEmptyError -> setEmailEmptyError()
-                  SignUpState.PasswordEmptyError -> setPasswordEmptyError()
-                  //Se pode is cuando es un dataclass
-                  is SignUpState.AuthencationError -> showMessage(it.message)
-                  is SignUpState.Loading-> showProgessbar(it.value)
-                  else -> onSuccess()
-              }
-          })
-
-          //Se usa el modismo with que dado un objeto se puede modificar propiedades dentro dl bloque
-          with(binding.spProfile) {
-              this.adapter = adapter
-              setSelection(2)
-              onItemSelectedListener = listener
-              onItemSelectedListener = null
-          }*/
         binding.btnCrear.setOnClickListener {
-            //var a = Factura("");
-            //factura.Articulos.add(a)
-            //rvadapter.notifyDataSetChanged()
-            //binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
-            if (editar) {
-                when {
-                    factura.Articulos.size == 0 ->  Toast.makeText(requireContext(), "Introduce algún artículo", Toast.LENGTH_SHORT).show()
+            viewModel.validate()
+        }
 
-                    binding.tvInvoiceCreationNombre.text.isEmpty() ->Toast.makeText(requireContext(), "Introduce un cliente", Toast.LENGTH_SHORT).show()
-                    nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> Toast.makeText(requireContext(), "Id de la factura invalido, para editar el id debe existir", Toast.LENGTH_SHORT).show()
-                    else -> CrearFactura(editar)
+        binding.tieInvoiceCreationIdCliente.addTextChangedListener(
+            textWatcher(
+                binding.tieInvoiceCreationIdCliente.text,
+                binding.tilInvoiceCreationIdCliente
+            )
+        )
+        binding.tieInvoiceCreationIdFactura.addTextChangedListener(
+            textWatcher(
+                null,
+                binding.tilInvoiceCreationIdFactura
+            )
+        )
+
+
+    }
+
+    fun Validate() {
+        println("3333")
+        if (editar) {
+            when {
+                factura.Articulos.size == 0 -> Toast.makeText(
+                    requireContext(),
+                    "Introduce algún artículo",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                /*binding.tvInvoiceCreationNombre.text.isEmpty() -> Toast.makeText(
+                    requireContext(),
+                    "Introduce un cliente",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+
+                nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
+                    binding.tilInvoiceCreationIdFactura.error =
+                        "Id de la factura invalido, para editar el id debe existir"
+                    binding.tilInvoiceCreationIdFactura.requestFocus()
                 }
-            } else {
-                when {
-                    CreArticulos.size == 0 ->  Toast.makeText(requireContext(), "Introduce algún artículo", Toast.LENGTH_SHORT).show()
-                    binding.tvInvoiceCreationNombre.text.isEmpty() -> Toast.makeText(requireContext(), "Introduce un cliente", Toast.LENGTH_SHORT).show()
-                    !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> Toast.makeText(requireContext(), "Id de la factura invalido", Toast.LENGTH_SHORT).show()
-                    else -> CrearFactura(editar)
-                }
+
+                else -> CrearFactura(editar)
             }
+        } else {
+            when {
+                CreArticulos.size == 0 -> Toast.makeText(
+                    requireContext(),
+                    "Introduce algún artículo",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                /*binding.tvInvoiceCreationNombre.text.isEmpty() -> Toast.makeText(
+                    requireContext(),
+                    "Introduce un cliente",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+
+                !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
+                    binding.tilInvoiceCreationIdFactura.error =
+                        "Id de la factura invalido, debe ser un id no existente"
+                    binding.tilInvoiceCreationIdFactura.requestFocus()
+                }
 
 
+                else -> CrearFactura(editar)
+            }
         }
     }
 
-    fun nuevoId(cadena:String):Boolean{
+    fun nuevoId(cadena: String): Boolean {
         try {
             var i = cadena.toInt()
             facturas.forEach {
-                if (it.id == i){
+                if (it.id == i) {
                     return false
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             return false
         }
         return true
     }
-    fun validarIdFactura(cadena:String):Boolean{
+
+    fun validarIdFactura(cadena: String): Boolean {
         try {
             var i = cadena.toInt()
             facturas.forEach {
-                if (it.id == i){
+                if (it.id == i) {
                     return false
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             return false
         }
         return true
     }
-    fun rellenarCliente(t: Editable?){
+
+    fun rellenarCliente(t: Editable?) {
         try {
             var i: Int = t.toString().toInt()
             if (i != null) {
@@ -229,19 +303,29 @@ class InvoiceCreationFragment : Fragment() {
         }
     }
 
-    fun CrearFactura(editar: Boolean){
+    fun CrearFactura(editar: Boolean) {
         if (editar) {
-            facturas.remove(ObtenerFactura(binding.tieInvoiceCreationIdFactura.text.toString().toInt()))
-           var f =  Factura(
-               binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-               clien, binding.tieInvoiceFeEmi.text.toString(),  binding.tieInvoiceCreationFeVen.text.toString(), factura.Articulos
-           )
+            facturas.remove(
+                ObtenerFactura(
+                    binding.tieInvoiceCreationIdFactura.text.toString().toInt()
+                )
+            )
+            var f = Factura(
+                binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
+                clien,
+                binding.tieInvoiceFeEmi.text.toString(),
+                binding.tieInvoiceCreationFeVen.text.toString(),
+                factura.Articulos
+            )
             facturas.add(f)
 
         } else {
-            var f =  Factura(
+            var f = Factura(
                 binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                clien, binding.tieInvoiceFeEmi.text.toString(),  binding.tieInvoiceCreationFeVen.text.toString(), CreArticulos
+                clien,
+                binding.tieInvoiceFeEmi.text.toString(),
+                binding.tieInvoiceCreationFeVen.text.toString(),
+                CreArticulos
             )
             facturas.add(f)
 
@@ -252,20 +336,22 @@ class InvoiceCreationFragment : Fragment() {
         findNavController().popBackStack()
 
     }
-    fun ObtenerItem(nombre: String):item?{
 
-        articulos.forEach{
+    fun ObtenerItem(nombre: String): item? {
 
-            if(nombre.trim().equals(it.name)){
+        articulos.forEach {
+
+            if (nombre.trim().equals(it.name)) {
 
                 return it
             }
         }
         return null;
     }
-    fun ObtenerFactura(id: Int):Factura?{
-        facturas.forEach{
-            if(id == it.id){
+
+    fun ObtenerFactura(id: Int): Factura? {
+        facturas.forEach {
+            if (id == it.id) {
 
                 return it
             }
