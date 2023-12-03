@@ -45,7 +45,6 @@
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:errorEnabled="true"
                 tools:ignore="MissingConstraints">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,6 +85,7 @@
                     android:layout_height="50dp"
                     android:background="@color/md_theme_light_inversePrimary"
                     android:textColor="@color/black"
+                    android:text="@={viewModel.name}"
                     tools:layout_editor_absoluteX="1dp"
                     tools:layout_editor_absoluteY="235dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +115,7 @@
                     android:layout_height="52dp"
                     android:background="@color/md_theme_light_inversePrimary"
                     android:textColor="@color/black"
+                    android:text="@={viewModel.rate}"
                     tools:layout_editor_absoluteX="1dp"
                     tools:layout_editor_absoluteY="376dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -180,6 +181,7 @@
                 android:layout_marginEnd="188dp"
                 android:fontFamily="@font/opensans_condensed_bold"
                 android:text="@string/chbIsTaxable"
+                android:checked="@={viewModel.isTaxable}"
                 tools:ignore="MissingConstraints" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
