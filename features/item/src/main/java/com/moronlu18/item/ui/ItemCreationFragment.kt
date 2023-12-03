@@ -19,6 +19,7 @@ import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
 import com.moronlu18.item.usecase.ItemViewModel
 import com.moronlu18.itemcreation.R
+import com.moronlu18.itemcreation.databinding.FragmentItemCreationBinding
 
 
 class ItemCreationFragment : Fragment() {
@@ -33,11 +34,17 @@ class ItemCreationFragment : Fragment() {
 
     private lateinit var itemViewModel: ItemViewModel
 
+    private var _binding: FragmentItemCreationBinding? = null
+
+    private val binding
+        get() = _binding!!
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
 
         }
     }
@@ -47,7 +54,8 @@ class ItemCreationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_creation, container, false)
+        _binding = FragmentItemCreationBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         tilEditId = view.findViewById(R.id.tilEditId)
         tilEditName = view.findViewById(R.id.tilEditName)
@@ -63,8 +71,35 @@ class ItemCreationFragment : Fragment() {
 
         fabAdd.setOnClickListener {
             val newItem = createItemFromInput()
-            itemViewModel.addItem(newItem)
-            findNavController().navigateUp()
+            val itemName = tilEditName.text.toString()
+            val itemRate = tilEditRate.text.toString()
+            itemViewModel.isTaxable.value = chbIsTaxable.isChecked
+            itemViewModel.validateFields(itemName, itemRate)
+
+            itemViewModel.itemState.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    is ItemState.NameEmptyError -> {
+                        showValidationError(state.message, null)
+                    }
+                    is ItemState.RateFormatError -> {
+                        showValidationError(null, state.message)
+                    }
+                    is ItemState.TaxableItem -> {
+                        itemViewModel.applyTaxToRate()
+
+                    }
+                    else -> {
+
+                        showValidationError(null, null)
+
+                        if (state == null) {
+                            itemViewModel.addItem(newItem)
+
+
+                        }
+                    }
+                }
+            }
         }
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemTypes)
@@ -99,6 +134,20 @@ class ItemCreationFragment : Fragment() {
         val isTaxable = chbIsTaxable.isChecked
 
         return item(id, name, rate, type, description, isTaxable)
+    }
+
+    private fun showValidationError(nameError: String?, rateError: String?) {
+        if (nameError != null) {
+            binding.textInputLayout2.error = nameError
+        } else {
+            binding.textInputLayout2.error = null
+        }
+
+        if (rateError != null) {
+            binding.textInputLayout3.error = rateError
+        } else {
+            binding.textInputLayout3.error = null
+        }
     }
 
 

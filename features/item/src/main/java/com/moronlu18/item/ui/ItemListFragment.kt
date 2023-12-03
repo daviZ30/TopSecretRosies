@@ -73,6 +73,7 @@ class ItemListFragment : Fragment() {
             if (newItem != null) {
                 itemRepository.addItem(newItem)
                 binding.rvItemList.adapter?.notifyDataSetChanged()
+                itemViewModel.clearNewItem()
             }
         }
 
