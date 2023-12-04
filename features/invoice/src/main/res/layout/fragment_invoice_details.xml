@@ -222,7 +222,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/rbInvoiceDetails"
                 android:layout_weight="1"
-                android:checked="true"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
                 android:text="@string/rbInvoiceCreationPendiente" />
 

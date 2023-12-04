@@ -1,7 +1,6 @@
 package com.moronlu18.invoice.Repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.item.repository.ItemRepository
@@ -35,7 +34,8 @@ class ProviderInvoice private constructor() {
                         articulos[0],
                         articulos[1],
 
-                        )
+                        ),
+                    InvoiceStatus.Pending
                 )
             )
             dataset.add(
@@ -52,7 +52,8 @@ class ProviderInvoice private constructor() {
                     ), "10/10/2020", "20/20/2023", mutableListOf(
                         articulos[2],
                         articulos[3],
-                    )
+                    ),
+                    InvoiceStatus.Pending
                 )
             )
             return dataset

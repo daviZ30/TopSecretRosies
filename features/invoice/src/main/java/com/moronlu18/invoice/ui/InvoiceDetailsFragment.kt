@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
@@ -24,6 +25,22 @@ class InvoiceDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
+
+        binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.setFragmentResultListener("key",this, FragmentResultListener { requestKey, result ->
             var pos: Int = result.getInt("pos")
             factura = facturas[pos]
@@ -38,20 +55,35 @@ class InvoiceDetailsFragment : Fragment() {
             binding.txtInvoiceDetailsSubtotal.text =  "${SubTotal.toString()} €"
             binding.txtInvoiceDetailsImpuestos.text = "21 %"
             binding.txtInvoiceDetailsTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
-
+            ComRadio(factura.Estado)
+            binding.rbInvoiceDetailsPendiente.setOnClickListener{
+                binding.rbInvoiceDetailsPendiente.isChecked = false
+                ComRadio(factura.Estado)
+            }
+            binding.rbInvoiceDetailsPagada.setOnClickListener{
+                binding.rbInvoiceDetailsPagada.isChecked = false
+                ComRadio(factura.Estado)
+            }
+            binding.rbInvoiceDetailsPagadaVencida.setOnClickListener{
+                binding.rbInvoiceDetailsPagadaVencida.isChecked = false
+                ComRadio(factura.Estado)
+            }
 
         })
     }
+fun ComRadio(s: InvoiceStatus){
+    when(s){
+        InvoiceStatus.Overdue ->{
+            binding.rbInvoiceDetailsPagadaVencida.isChecked = true
+        }
+        InvoiceStatus.Paid ->{
+            binding.rbInvoiceDetailsPagada.isChecked = true
+        }
+        InvoiceStatus.Pending ->{
+            binding.rbInvoiceDetailsPendiente.isChecked = true
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
-
-        binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
-        // Inflate the layout for this fragment
-        return binding.root
+        else -> {}
     }
-
+}
 }

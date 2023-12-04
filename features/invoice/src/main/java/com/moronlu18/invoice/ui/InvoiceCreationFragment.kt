@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
+import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
@@ -315,7 +316,8 @@ class InvoiceCreationFragment : Fragment() {
                 clien,
                 binding.tieInvoiceFeEmi.text.toString(),
                 binding.tieInvoiceCreationFeVen.text.toString(),
-                factura.Articulos
+                factura.Articulos,
+                InvoiceStatus.Pending
             )
             facturas.add(f)
 
@@ -325,7 +327,8 @@ class InvoiceCreationFragment : Fragment() {
                 clien,
                 binding.tieInvoiceFeEmi.text.toString(),
                 binding.tieInvoiceCreationFeVen.text.toString(),
-                CreArticulos
+                CreArticulos,
+                InvoiceStatus.Pending
             )
             facturas.add(f)
 
