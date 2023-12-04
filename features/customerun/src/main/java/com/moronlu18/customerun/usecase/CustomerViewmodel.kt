@@ -12,14 +12,12 @@ import kotlinx.coroutines.launch
 class CustomerViewModel:ViewModel() {
     var email = MutableLiveData<String>()
     var nombre = MutableLiveData<String>()
-    var apellidos = MutableLiveData<String>()
 
     private  var state = MutableLiveData<CustomerState>()
 
     fun  validate () {
         when{
             TextUtils.isEmpty(nombre.value)->state.value = CustomerState.NombreEmtyError
-            TextUtils.isEmpty(apellidos.value)->state.value = CustomerState.ApellidosEmtyError
             TextUtils.isEmpty(email.value) -> state.value = CustomerState.EmailEmtyError
 
 
@@ -27,7 +25,7 @@ class CustomerViewModel:ViewModel() {
                 viewModelScope.launch{
                     state.value = CustomerState.Loading(true)
 
-                    val  result = ProviderCustomer.login(email.value!!, nombre.value!!,apellidos.value!!)
+                    val  result = ProviderCustomer.login(email.value!!, nombre.value!!)
                     state.value = CustomerState.Loading(false)
                     when(result){
                         is Resorces.Sucess<*> -> {
