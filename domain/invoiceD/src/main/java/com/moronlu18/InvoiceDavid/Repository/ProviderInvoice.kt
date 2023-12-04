@@ -3,6 +3,7 @@ package com.moronlu18.invoice.Repository
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.item.repository.ItemRepository
 
 class ProviderInvoice private constructor() {
@@ -24,8 +25,8 @@ class ProviderInvoice private constructor() {
                         1,
                         "Juanlu",
                         "Cabrera Jimenez",
-                        "carnetaadspjf@gmail.com",
-                        6824556414,
+                        Email("carnetaadspjf@gmail.com"),
+                        "6824556414",
                         "Málaga",
                         "Calle Leonora n46"
                     ),  "10/10/2000", "20/20/2023", mutableListOf(
@@ -45,8 +46,8 @@ class ProviderInvoice private constructor() {
                         1,
                         "Juanlu",
                         "Cabrera Jimenez",
-                        "carnetaadspjf@gmail.com",
-                        6824556414,
+                        Email("carnetaadspjf@gmail.com"),
+                        "6824556414",
                         "Málaga",
                         "Calle Leonora n46"
                     ), "10/10/2020", "20/20/2023", mutableListOf(

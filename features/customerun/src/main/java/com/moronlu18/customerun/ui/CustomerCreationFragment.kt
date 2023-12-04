@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputLayout
@@ -58,7 +59,6 @@ class CustomerCreationFragment : Fragment() {
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 CustomerState.NombreEmtyError -> setNombreEmptyError()
-                CustomerState.ApellidosEmtyError -> SetApellidoEmptyError()
                 CustomerState.EmailEmtyError -> SetEmailEmptyError()
                 is CustomerState.AuthencationError -> mostrarMensaje(it.message)
 
@@ -66,12 +66,6 @@ class CustomerCreationFragment : Fragment() {
             }
         }
     }
-
-    private fun SetApellidoEmptyError() {
-        binding.tilApellidosCustomerCreation.error ="Vacio"
-        binding.tieApellidosCustomerCreation.requestFocus()
-    }
-
     private fun SetEmailEmptyError() {
         binding.tilCorreoCustomerCreation.error = "Email nunca puede estar vacio"
         binding.tieCorreoCustomerCreation.requestFocus()
@@ -79,16 +73,17 @@ class CustomerCreationFragment : Fragment() {
     }
 
     private fun setNombreEmptyError() {
-        binding.tilNombreCustomerCreation.error = "Nombre"
+        binding.tilNombreCustomerCreation.error = "Nombre vacio"
         binding.tieNombreCustomerCreation.requestFocus()
 
     }
 
     private fun mostrarMensaje(message: String) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
     }
 
     private fun onSuccess() {
-
+        Toast.makeText(requireContext(), "todo correcto", Toast.LENGTH_SHORT).show()
     }
 }

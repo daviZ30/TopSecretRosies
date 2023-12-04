@@ -4,12 +4,12 @@ import android.R
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -291,7 +291,7 @@ class InvoiceCreationFragment : Fragment() {
                         clien = it
                         //println(clien)
                         binding.tvInvoiceCreationNombre.text = it.nombre
-                        binding.tvInvoiceCreationEmail.text = it.email
+                        binding.tvInvoiceCreationEmail.text = it.email.value
                         binding.tvInvoiceCreationTelefono.text = it.telefono.toString()
 
                     }

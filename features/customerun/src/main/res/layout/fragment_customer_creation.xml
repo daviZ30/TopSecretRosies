@@ -47,6 +47,7 @@
         android:layout_height="61dp"
         android:layout_marginTop="32dp"
         app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/opensans_condensed_bold"
             android:hint="@string/tie_nombre_customer_creation"
-            android:text="@={viewmodel.nombre}"/>
+            android:text="@={viewmodel.nombre}" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -85,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         app:boxBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ended"
         app:layout_constraintHorizontal_bias="0.0"
@@ -99,7 +101,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_condensed_bold"
             android:hint="@string/tie_correo_customer_creation"
-            android:text="@={viewmodel.email}"/>
+            android:text="@={viewmodel.email}" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

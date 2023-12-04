@@ -29,7 +29,7 @@ class CustomerDetailFragment : Fragment() {
                 cliente = clientes[pos]
                 binding.txvnombreCustomerDetail.text = cliente.nombre + " " + cliente.apellidos
                 binding.txvidCustomerDetail.text = cliente.id.toString()
-                binding.txvemailCustomerDetail.text = cliente.email
+                binding.txvemailCustomerDetail.text = cliente.email.value
                 binding.txvciudadCustomerDetail.text = cliente.city
                 binding.txvdireccionCustomerDetail.text = cliente.direction
                 binding.txvtelefonoCustomerDetail.text = cliente.telefono.toString()
