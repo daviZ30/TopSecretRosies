@@ -1,10 +1,12 @@
 package com.moronlu18.invoice.ui
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.Repository.ProviderInvoice
@@ -18,6 +20,7 @@ class InvoiceListFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.O)
     val facturas = ProviderInvoice.datasetFactura
     /*fun ViewImage(){
         if (facturas.isEmpty()) {

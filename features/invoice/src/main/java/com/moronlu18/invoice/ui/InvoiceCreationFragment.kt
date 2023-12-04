@@ -1,6 +1,8 @@
 package com.moronlu18.invoice.ui
 
 import android.R
+import android.content.ClipData.Item
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
@@ -25,6 +28,7 @@ import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
+import java.time.Instant
 
 
 //data class Articulo(val nombre:String,val precio:Double)
@@ -32,7 +36,7 @@ class InvoiceCreationFragment : Fragment() {
     val facturas = ProviderInvoice.datasetFactura
     val clientes = ProviderCustomer.datasetCustomer
     lateinit var factura: Factura;
-    lateinit var clien: Cliente;
+    var clien: Cliente? = null;
     private var editar = false;
     var CreArticulos: MutableList<item> = ArrayList<item>()
 
@@ -94,18 +98,26 @@ class InvoiceCreationFragment : Fragment() {
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 InvoiceState.idClienteEmtyError -> {
-                    println("1111")
                     binding.tilInvoiceCreationIdCliente.error =
                         "Introduce un id de Cliente existente"
                     binding.tilInvoiceCreationIdCliente.requestFocus()
                 }
 
                 InvoiceState.idFacturaEmtyError -> {
-                    println("2222")
-                    // if(editar == false){
                     binding.tilInvoiceCreationIdFactura.error = "Introduce un id para la factura"
-                    //}
                     binding.tilInvoiceCreationIdFactura.requestFocus()
+                }
+
+                InvoiceState.feVenEmtyError -> {
+                    binding.tilInvoiceCreationFeVen.error =
+                        "Introduce una fecha con formato YYYY/MM/DD"
+                    binding.tilInvoiceCreationFeVen.requestFocus()
+                }
+
+                InvoiceState.feEmiEmtyError -> {
+                    binding.tilInvoiceFeEmi.error =
+                        "Introduce una fecha con formato YYYY/MM/DD"
+                    binding.tilInvoiceFeEmi.requestFocus()
                 }
 
                 else -> Validate()
@@ -139,10 +151,15 @@ class InvoiceCreationFragment : Fragment() {
                         binding.tieInvoiceCreationIdCliente.text
                     )
                 )*/
-                binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString())
-                binding.tieInvoiceCreationFeVen.setText(factura.FeVencimiento.toString())
+                val posEmi = factura.FeEmision.toString().indexOf('T')
+                val posVen = factura.FeVencimiento.toString().indexOf('T')
+
+                binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString().substring(0, posEmi))
+                binding.tieInvoiceCreationFeVen.setText(
+                    factura.FeVencimiento.toString().substring(0, posVen)
+                )
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
-                binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+                binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
                 //binding.tilInvoiceCreationIdFactura.isErrorEnabled = false
@@ -181,6 +198,7 @@ class InvoiceCreationFragment : Fragment() {
                 rvadapter.notifyDataSetChanged()
                 binding.rvInvoiceArticulos.scrollToPosition(CreArticulos.size - 1)
             }
+            updateTotal()
 
         }
 
@@ -200,12 +218,56 @@ class InvoiceCreationFragment : Fragment() {
                 binding.tilInvoiceCreationIdFactura
             )
         )
+        binding.tieInvoiceFeEmi.addTextChangedListener(
+            textWatcher(
+                null,
+                binding.tilInvoiceFeEmi
+            )
+        )
+        binding.tieInvoiceCreationFeVen.addTextChangedListener(
+            textWatcher(
+                null,
+                binding.tilInvoiceCreationFeVen
+            )
+        )
 
 
     }
 
+    private fun updateTotal() {
+        if (editar) {
+            var precios = factura.Articulos.map { it.rate }
+            var SubTotal = precios.reduce { acc, ar -> acc + ar }
+            binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+            binding.txtInvoiceCreationTotal.text =
+                String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+        } else {
+            var precios = CreArticulos.map { it.rate }
+            var SubTotal = precios.reduce { acc, ar -> acc + ar }
+            binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
+            binding.txtInvoiceCreationTotal.text =
+                String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+        }
+
+    }
+
+    private fun ValidarFecha(s: String): Boolean {
+        try {
+            val dateString = s + "T00:00:00Z"
+            Instant.parse(dateString)
+
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
+
+    private fun fechaMayor(t1: Instant, t2: Instant): Boolean {
+        return t1.isBefore(t2)
+
+    }
+
     fun Validate() {
-        println("3333")
         if (editar) {
             when {
                 factura.Articulos.size == 0 -> Toast.makeText(
@@ -214,16 +276,39 @@ class InvoiceCreationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                /*binding.tvInvoiceCreationNombre.text.isEmpty() -> Toast.makeText(
-                    requireContext(),
-                    "Introduce un cliente",
-                    Toast.LENGTH_SHORT
-                ).show()*/
+                !rellenarCliente(binding.tieInvoiceCreationIdCliente.text) -> {
+                    binding.tilInvoiceCreationIdCliente.error =
+                        "Introduce un id de cliente existente"
+                    binding.tilInvoiceCreationIdCliente.requestFocus()
+                }
+
+                !ValidarFecha(binding.tieInvoiceFeEmi.text.toString()) -> {
+                    binding.tilInvoiceFeEmi.error = "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceFeEmi.requestFocus()
+                }
+
+                !ValidarFecha(binding.tieInvoiceCreationFeVen.text.toString()) -> {
+                    binding.tilInvoiceCreationFeVen.error =
+                        "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceCreationFeVen.requestFocus()
+                }
+
 
                 nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
                     binding.tilInvoiceCreationIdFactura.error =
                         "Id de la factura invalido, para editar el id debe existir"
                     binding.tilInvoiceCreationIdFactura.requestFocus()
+                }
+
+                !fechaMayor(
+                    SetFecha(binding.tieInvoiceFeEmi.text.toString()),
+                    SetFecha(binding.tieInvoiceCreationFeVen.text.toString())
+                ) -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "La fecha de vencimiento debe ser mayor que la fecha de Emisión",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
                 else -> CrearFactura(editar)
@@ -236,11 +321,22 @@ class InvoiceCreationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                /*binding.tvInvoiceCreationNombre.text.isEmpty() -> Toast.makeText(
-                    requireContext(),
-                    "Introduce un cliente",
-                    Toast.LENGTH_SHORT
-                ).show()*/
+                !rellenarCliente(binding.tieInvoiceCreationIdCliente.text) -> {
+                    binding.tilInvoiceCreationIdCliente.error =
+                        "Introduce un id de cliente existente"
+                    binding.tilInvoiceCreationIdCliente.requestFocus()
+                }
+
+                !ValidarFecha(binding.tieInvoiceFeEmi.text.toString()) -> {
+                    binding.tilInvoiceFeEmi.error = "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceFeEmi.requestFocus()
+                }
+
+                !ValidarFecha(binding.tieInvoiceCreationFeVen.text.toString()) -> {
+                    binding.tilInvoiceCreationFeVen.error =
+                        "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceCreationFeVen.requestFocus()
+                }
 
                 !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
                     binding.tilInvoiceCreationIdFactura.error =
@@ -263,7 +359,7 @@ class InvoiceCreationFragment : Fragment() {
                 }
             }
         } catch (e: Exception) {
-            return false
+            return true
         }
         return true
     }
@@ -282,18 +378,20 @@ class InvoiceCreationFragment : Fragment() {
         return true
     }
 
-    fun rellenarCliente(t: Editable?) {
+    fun rellenarCliente(t: Editable?): Boolean {
         try {
             var i: Int = t.toString().toInt()
             if (i != null) {
                 clientes.forEach {
+                    println("forEach")
                     if (it.id == i) {
+                        println("dentro del if")
                         clien = it
                         //println(clien)
                         binding.tvInvoiceCreationNombre.text = it.nombre
                         binding.tvInvoiceCreationEmail.text = it.email.value
                         binding.tvInvoiceCreationTelefono.text = it.telefono.toString()
-
+                        return true
                     }
                 }
             }
@@ -301,9 +399,24 @@ class InvoiceCreationFragment : Fragment() {
             binding.tvInvoiceCreationNombre.text = ""
             binding.tvInvoiceCreationEmail.text = ""
             binding.tvInvoiceCreationTelefono.text = ""
+            return false
         }
+        return false
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun SetFecha(fecha: String): Instant {
+        val dateString = fecha + "T00:00:00Z"
+        //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        //val localDateTime = LocalDateTime.parse(dateString, formatter)
+        val instant = Instant.parse(dateString)
+        //return localDateTime.toInstant(ZoneOffset.MAX)
+        return instant
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     fun CrearFactura(editar: Boolean) {
         if (editar) {
             facturas.remove(
@@ -313,9 +426,9 @@ class InvoiceCreationFragment : Fragment() {
             )
             var f = Factura(
                 binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                clien,
-                binding.tieInvoiceFeEmi.text.toString(),
-                binding.tieInvoiceCreationFeVen.text.toString(),
+                clien!!,
+                SetFecha(binding.tieInvoiceFeEmi.text.toString()),
+                SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
                 factura.Articulos,
                 InvoiceStatus.Pending
             )
@@ -324,9 +437,9 @@ class InvoiceCreationFragment : Fragment() {
         } else {
             var f = Factura(
                 binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                clien,
-                binding.tieInvoiceFeEmi.text.toString(),
-                binding.tieInvoiceCreationFeVen.text.toString(),
+                clien!!,
+                SetFecha(binding.tieInvoiceFeEmi.text.toString()),
+                SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
                 CreArticulos,
                 InvoiceStatus.Pending
             )

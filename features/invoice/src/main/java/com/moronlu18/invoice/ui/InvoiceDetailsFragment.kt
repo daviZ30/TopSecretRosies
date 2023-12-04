@@ -12,6 +12,7 @@ import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
+import java.time.ZoneId
 
 
 class InvoiceDetailsFragment : Fragment() {
@@ -47,27 +48,22 @@ class InvoiceDetailsFragment : Fragment() {
             var precios = factura.Articulos.map { it.rate }
             binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos)
             binding.txtInvoiceDetailsNombre.text = factura.Cliente.nombre
-            binding.txtInvoiceDetailsEmail.text = factura.Cliente.email
+            binding.txtInvoiceDetailsEmail.text = factura.Cliente.email.value
             binding.txtInvoiceDetailsTelefono.text = factura.Cliente.telefono.toString()
-            binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision.toString()
-            binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento.toString()
+            //val zoneId = ZoneId.systemDefault()
+            val posEmi = factura.FeEmision.toString().indexOf('T')
+            val posVen = factura.FeVencimiento.toString().indexOf('T')
+            binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision.toString().substring(0,posEmi)
+            binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento.toString().substring(0,posVen)
             var SubTotal = precios.reduce { acc, ar -> acc + ar}
             binding.txtInvoiceDetailsSubtotal.text =  "${SubTotal.toString()} €"
             binding.txtInvoiceDetailsImpuestos.text = "21 %"
             binding.txtInvoiceDetailsTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
             ComRadio(factura.Estado)
-            binding.rbInvoiceDetailsPendiente.setOnClickListener{
-                binding.rbInvoiceDetailsPendiente.isChecked = false
-                ComRadio(factura.Estado)
-            }
-            binding.rbInvoiceDetailsPagada.setOnClickListener{
-                binding.rbInvoiceDetailsPagada.isChecked = false
-                ComRadio(factura.Estado)
-            }
-            binding.rbInvoiceDetailsPagadaVencida.setOnClickListener{
-                binding.rbInvoiceDetailsPagadaVencida.isChecked = false
-                ComRadio(factura.Estado)
-            }
+            binding.rbInvoiceDetailsPendiente.isEnabled = false
+            binding.rbInvoiceDetailsPagada.isEnabled = false
+            binding.rbInvoiceDetailsPagadaVencida.isEnabled = false
+
 
         })
     }

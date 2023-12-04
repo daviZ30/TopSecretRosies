@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 class InvoiceViewModel:ViewModel() {
     var idFactura = MutableLiveData<String>()
     var idCliente = MutableLiveData<String>()
+    var FeEmi = MutableLiveData<String>()
+    var FeVen = MutableLiveData<String>()
     //var email = MutableLiveData<String>()
     //var password = MutableLiveData<String>()
     private  var state = MutableLiveData<InvoiceState>()
@@ -20,7 +22,8 @@ class InvoiceViewModel:ViewModel() {
         when{
             TextUtils.isEmpty(idFactura.value)->state.value = InvoiceState.idFacturaEmtyError
             TextUtils.isEmpty(idCliente.value)->state.value = InvoiceState.idClienteEmtyError
-
+            TextUtils.isEmpty(FeEmi.value)->state.value = InvoiceState.feEmiEmtyError
+            TextUtils.isEmpty(FeVen.value)->state.value = InvoiceState.feVenEmtyError
             else ->{
                 state.value = InvoiceState.Success
             }

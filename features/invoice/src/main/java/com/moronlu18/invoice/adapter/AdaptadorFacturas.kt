@@ -54,8 +54,10 @@ class AdaptadorFacturas(
         holder.cliente.text = ""//f.Cliente.nombre
         holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))
         holder.NumArticulos.text = f.Articulos.size.toString()
-        holder.FeEmision.text = f.FeEmision.toString()
-        holder.FeVencimiento.text = f.FeVencimiento.toString()
+        val posEmi = f.FeEmision.toString().indexOf('T')
+        val posVen = f.FeVencimiento.toString().indexOf('T')
+         holder.FeEmision.text = f.FeEmision.toString().substring(0,posEmi)
+        holder.FeVencimiento.text = f.FeVencimiento.toString().substring(0,posVen)
         holder.card.setOnClickListener {
             onClick(position, 0)
         }
