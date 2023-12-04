@@ -12,7 +12,7 @@ class ProviderInvoice private constructor() {
 
 
 
-        @RequiresApi(Build.VERSION_CODES.O)
+        //@RequiresApi(Build.VERSION_CODES.O)
         private fun setUpDataSetFactura(): MutableList<Factura> {
             var dataset: MutableList<Factura> = ArrayList()
            // val format = SimpleDateFormat("yyyy-MM-dd")

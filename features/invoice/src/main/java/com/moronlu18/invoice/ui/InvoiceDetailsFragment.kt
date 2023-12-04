@@ -15,9 +15,10 @@ import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 class InvoiceDetailsFragment : Fragment() {
     val facturas = ProviderInvoice.datasetFactura
-    lateinit var factura: Factura;
 
+    lateinit var factura: Factura;
     private var _binding: FragmentInvoiceDetailsBinding? = null
+    
     private val binding
         get() = _binding!!
 
