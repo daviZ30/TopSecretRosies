@@ -8,34 +8,28 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.task.calendar.CalendarInvoice
+import com.moronlu18.task.calendar.DatePickerFragment
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
-import com.moronlu18.taskFragment.R
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class TaskCreationFragment : Fragment() {
     val tasks: MutableList<Task> = ProviderTask.taskExample
     val clientes = ProviderCustomer.datasetCustomer
+    val c = CalendarInvoice()
 
     private var _binding: FragmentTaskCreationBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
-    private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment{day: Int, month : Int, year: Int -> onDateSelected(day, month , year)}
+    fun showDatePickerDialog(listener : (day: Int, month : Int, year: Int) -> Unit){
+        val datePicker = DatePickerFragment{day: Int, month : Int, year: Int -> listener(day,month,year)}
         datePicker.show(parentFragmentManager, "datePicker")
-    }
-
-    fun onDateSelected(day: Int, month : Int, year: Int){
-        binding.tieTaskCreationDateStart.setText("$day/${month+1}/$year")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,11 +46,20 @@ class TaskCreationFragment : Fragment() {
         }
         binding.spTaskCreationCliente.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
-        binding.tieTaskCreationDateStart.setText(getCurrentDate())
+        binding.tieTaskCreationDateStart.setText(c.getCurrentDate())
 
-        binding.tieTaskCreationDateStart.setOnClickListener{
-            showDatePickerDialog()
+        binding.tieTaskCreationDateStart.setOnClickListener {
+            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieTaskCreationDateStart.setText("$day/${month + 1}/$year")
+            }
         }
+
+        binding.tieTaskCreationDateEnd.setOnClickListener {
+            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieTaskCreationDateEnd.setText("$day/${month + 1}/$year")
+            }
+        }
+
         binding.btnTaskCreationAdd.setOnClickListener {
             val idTask = tasks.last().idTask + 1
             val idCliente =  4 // binding.spTaskCreationCliente.selectedItem
@@ -64,8 +67,8 @@ class TaskCreationFragment : Fragment() {
             val desc = binding.tieTaskCreationDesc.text.toString() ?: ""
             val type = TaskType.private
             val status = TaskStatus.pending
-            val createdDate = binding.tieTaskCreationDateStart.text.toString() ?: getCurrentDate()
-            val endDate = binding.tieTaskCreationDateEnd.text.toString() ?: getCurrentDate()
+            val createdDate = binding.tieTaskCreationDateStart.text.toString() ?: c.getCurrentDate()
+            val endDate = binding.tieTaskCreationDateEnd.text.toString() ?: c.getCurrentDate()
             tasks.add(Task(idTask, idCliente, title, desc, "A", type, status, createdDate, endDate))
             var bundle = Bundle()
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -82,11 +85,5 @@ class TaskCreationFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * Función que devuelve la fecha actual y formateada
-     */
-    private fun getCurrentDate(): String {
-        return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-    }//Implementarlo más tarde para que todos puedan usarlo
 
 }

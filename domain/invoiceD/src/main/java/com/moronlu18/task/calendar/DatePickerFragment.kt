@@ -1,4 +1,4 @@
-package com.moronlu18.task.ui
+package com.moronlu18.task.calendar
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import com.moronlu18.taskFragment.R
+import com.moronlu18.invoice.R
 import java.util.Calendar
 
 class DatePickerFragment(val listener: (day: Int, month : Int, year: Int) -> Unit):DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -17,6 +17,7 @@ class DatePickerFragment(val listener: (day: Int, month : Int, year: Int) -> Uni
         val year : Int = c.get(Calendar.YEAR)
 
         val picker = DatePickerDialog(activity as Context, R.style.datePickerTheme, this , year, month, day)
+        picker.datePicker.minDate = c.timeInMillis
         return picker
     }
 
