@@ -29,9 +29,20 @@ class TaskCreationFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment{day: Int, month : Int, year: Int -> onDateSelected(day, month , year)}
+        datePicker.show(parentFragmentManager, "datePicker")
+    }
+
+    fun onDateSelected(day: Int, month : Int, year: Int){
+        binding.tieTaskCreationDateStart.setText("$day/${month+1}/$year")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var names: MutableList<String> = mutableListOf()
+
+        //        var names: Map<Int,String> = mutableListOf()
         if (clientes.isEmpty()) {
             names.add("<No Existen Clientes>")
         } else {
@@ -42,15 +53,20 @@ class TaskCreationFragment : Fragment() {
         binding.spTaskCreationCliente.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
         binding.tieTaskCreationDateStart.setText(getCurrentDate())
+
+        binding.tieTaskCreationDateStart.setOnClickListener{
+            showDatePickerDialog()
+        }
         binding.btnTaskCreationAdd.setOnClickListener {
             val idTask = tasks.last().idTask + 1
+            val idCliente =  4 // binding.spTaskCreationCliente.selectedItem
             val title = binding.tieTaskCreationTitulo.text.toString() ?: "<Sin Titulo>"
             val desc = binding.tieTaskCreationDesc.text.toString() ?: ""
             val type = TaskType.private
             val status = TaskStatus.pending
             val createdDate = binding.tieTaskCreationDateStart.text.toString() ?: getCurrentDate()
             val endDate = binding.tieTaskCreationDateEnd.text.toString() ?: getCurrentDate()
-            tasks.add(Task(idTask, 4, title, desc, "A", type, status, createdDate, endDate))
+            tasks.add(Task(idTask, idCliente, title, desc, "A", type, status, createdDate, endDate))
             var bundle = Bundle()
             parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().popBackStack()
