@@ -18,8 +18,9 @@ import com.moronlu18.customerun.usecase.CustomerViewModel
 
 
 class CustomerCreationFragment : Fragment() {
+    private var editar: Boolean = false
     private var _binding: FragmentCustomerCreationBinding? = null
-
+    private var pos: Int = 0
 
     private val binding
         get() = _binding!!
@@ -64,12 +65,13 @@ class CustomerCreationFragment : Fragment() {
             when (it) {
                 CustomerState.NombreEmtyError -> setNombreEmptyError()
                 CustomerState.EmailEmtyError -> SetEmailEmptyError()
-                CustomerState.EmailFormatError-> SetEmailFormatError()
+                CustomerState.EmailFormatError -> SetEmailFormatError()
                 else -> onSuccess()
             }
         }
-        parentFragmentManager.setFragmentResultListener("key",this) { key, result ->
-            var pos:Int = result.getInt("pos")
+        parentFragmentManager.setFragmentResultListener("key", this) { key, result ->
+            pos = result.getInt("pos")
+            editar = true
             var cliente: Cliente = ProviderCustomer.datasetCustomer[pos]
             binding.tieNombreCustomerCreation.setText(cliente.nombre)
             binding.tieApellidosCustomerCreation.setText(cliente.apellidos)
@@ -82,7 +84,8 @@ class CustomerCreationFragment : Fragment() {
 
     private fun SetEmailFormatError() {
         binding.tilCorreoCustomerCreation.error = "Formato del email no es correcto"
-        binding.tieCorreoCustomerCreation.requestFocus()    }
+        binding.tieCorreoCustomerCreation.requestFocus()
+    }
 
     private fun SetEmailEmptyError() {
         binding.tilCorreoCustomerCreation.error = "Email nunca puede estar vacio"
@@ -100,5 +103,10 @@ class CustomerCreationFragment : Fragment() {
     private fun onSuccess() {
         Toast.makeText(requireContext(), "todo correcto", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
+        if (editar){
+            ProviderCustomer.datasetCustomer.removeAt(pos)
+            editar =false
+
+        }
     }
 }
