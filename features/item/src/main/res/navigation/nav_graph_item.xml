@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_itemListFragment_to_itemDetailFragment"
             app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_itemListFragment_to_itemCreationFragment2"
+            app:destination="@id/itemCreationFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemCreationFragment"

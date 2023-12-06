@@ -60,6 +60,21 @@ class ItemListFragment : Fragment() {
             },
             {
                 showDeleteConfirmationDialog(it)
+            },
+            {  item ->
+                val bundle = Bundle().apply {
+                    putInt("id", item.id)
+                    putString("name", item.name)
+                    putDouble("rate", item.rate)
+                    putSerializable("type", item.type)
+                    putString("description", item.description)
+                    putBoolean("isTaxable", item.isTaxable)
+                }
+
+                findNavController().navigate(
+                    R.id.action_itemListFragment_to_itemCreationFragment2,
+                    bundle
+                )
             }
         )
 

@@ -23,6 +23,18 @@ import com.moronlu18.item.entity.itemType
         itemList.remove(item)
     }
 
+     fun updateItem(updatedItem: item) {
+         val existingItem = itemList.find { it.id == updatedItem.id }
+
+         existingItem?.apply {
+             name = updatedItem.name
+             rate = updatedItem.rate
+             type = updatedItem.type
+             description = updatedItem.description
+             isTaxable = updatedItem.isTaxable
+         }
+     }
+
     companion object {
         // Singleton
         @Volatile

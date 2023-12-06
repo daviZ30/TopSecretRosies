@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
+import com.moronlu18.item.repository.ItemRepository
 import com.moronlu18.item.usecase.ItemViewModel
 import com.moronlu18.itemcreation.R
 import com.moronlu18.itemcreation.databinding.FragmentItemCreationBinding
@@ -39,12 +41,50 @@ class ItemCreationFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        itemViewModel.clearNewItem()
+        itemViewModel.clearItemDetails()
+
+        itemViewModel.description.removeObservers(viewLifecycleOwner)
+        itemViewModel.itemId.removeObservers(viewLifecycleOwner)
+
+        arguments?.let { args ->
+            val itemId = args.getInt("id")
+            val itemName = args.getString("name")
+            val itemRate = args.getDouble("rate")
+            val itemType_ = args.getSerializable("type") as itemType
+            val itemDescription = args.getString("description")
+            val isTaxable = args.getBoolean("isTaxable")
+
+            itemViewModel.updateItemDetails(itemId, itemName, itemRate, itemType_, itemDescription, isTaxable)
+
+            itemViewModel.description.observe(viewLifecycleOwner) { newDescription ->
+                binding.tilEditDescription.setText(newDescription)
+            }
+
+            itemViewModel.itemId.observe(viewLifecycleOwner) { newId ->
+                binding.tilEditId.setText(newId)
+            }
+
+            itemViewModel.itemType.observe(viewLifecycleOwner) { newType ->
+                val position = when (newType) {
+                    itemType.PRODUCT -> 0
+                    itemType.SERVICE -> 1
+                    null -> {
+                        0
+                    }
+                }
+                binding.spnType.setSelection(position)
+            }
 
         }
     }
@@ -69,8 +109,10 @@ class ItemCreationFragment : Fragment() {
 
         itemViewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
 
+        binding.viewModel = itemViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         fabAdd.setOnClickListener {
-            val newItem = createItemFromInput()
             val itemName = tilEditName.text.toString()
             val itemRate = tilEditRate.text.toString()
             itemViewModel.isTaxable.value = chbIsTaxable.isChecked
@@ -84,18 +126,24 @@ class ItemCreationFragment : Fragment() {
                     is ItemState.RateFormatError -> {
                         showValidationError(null, state.message)
                     }
-                    is ItemState.TaxableItem -> {
-                        itemViewModel.applyTaxToRate()
-
-                    }
                     else -> {
-
                         showValidationError(null, null)
 
                         if (state == null) {
-                            itemViewModel.addItem(newItem)
+                            if (itemViewModel.isTaxable.value == true) {
+                                itemViewModel.applyTaxToRate()
+                            } else {
+                                itemViewModel.rateWithTax.value = itemRate.toDoubleOrNull() ?: 0.0
+                            }
 
+                            val newItem = createItemFromInput()
 
+                            if (itemViewModel.itemId.value.isNullOrEmpty()) {
+                                itemViewModel.addItem(newItem)
+                            } else {
+                                itemViewModel.updateItem(newItem)
+                                itemViewModel.clearNewItem()
+                            }
                         }
                     }
                 }
@@ -119,6 +167,8 @@ class ItemCreationFragment : Fragment() {
         }
         return view
     }
+
+
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

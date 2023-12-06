@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.item.entity.item
 import com.moronlu18.itemcreation.R
 
-class ItemAdapter(private var itemList: List<item>, private val onItemClick: (item) -> Unit, private val onDeleteClick: (item) -> Unit) :
+class ItemAdapter(private var itemList: List<item>, private val onItemClick: (item) -> Unit, private val onDeleteClick: (item) -> Unit, private val onEditClick: (item) -> Unit) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -31,7 +31,7 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: com.moronlu18.item.entity.item) {
+        fun bind(item:item) {
             itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"
             itemView.findViewById<TextView>(R.id.tvNameCard).text = "${item.name}"
             itemView.findViewById<TextView>(R.id.tvRateCard).text = "${item.rate}"
@@ -40,10 +40,17 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
             itemView.findViewById<TextView>(R.id.tvIsTaxable).text = "${item.isTaxable}"
         }
 
+
+
         init {
             itemView.findViewById<ImageView>(R.id.ivDelete).setOnClickListener {
                 onDeleteClick.invoke(itemList[adapterPosition])
             }
+
+            itemView.findViewById<ImageView>(R.id.ivEdit).setOnClickListener {
+                onEditClick.invoke(itemList[adapterPosition])
+            }
+
         }
     }
 }
