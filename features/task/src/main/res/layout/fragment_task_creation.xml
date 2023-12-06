@@ -1,161 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.TaskCreationFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glIzqTaskCreation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/clTaskWidth" />
+    <data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glDerTaskCreation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/clTaskWidth" />
+    </data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glUpTaskCreation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="70dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.TaskCreationFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glDownTaskCreation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="70dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glIzqTaskCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/clTaskWidth" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvTaskCreationPrincipal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/md_theme_light_primaryContainer"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="@dimen/clTaskWidth"
-        app:layout_constraintBottom_toTopOf="@+id/glDownTaskCreation"
-        app:layout_constraintEnd_toStartOf="@+id/glDerTaskCreation"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/glIzqTaskCreation"
-        app:layout_constraintTop_toTopOf="@+id/glUpTaskCreation"
-        app:layout_constraintVertical_bias="0.0">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glDerTaskCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/clTaskWidth" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glUpTaskCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="70dp" />
 
-            <Spinner
-                android:id="@+id/spTaskCreationCliente"
-                android:layout_width="@dimen/spTaskCreationClienteWidth"
-                android:layout_height="50dp"
-                android:background="@drawable/shape_spinner"
-                android:entries="@array/spClienteTaskCreation"
-                android:spinnerMode="dropdown"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glDownTaskCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="70dp" />
 
-            </Spinner>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTaskCreationPrincipal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/md_theme_light_primaryContainer"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="@dimen/clTaskWidth"
+            app:layout_constraintBottom_toTopOf="@+id/glDownTaskCreation"
+            app:layout_constraintEnd_toStartOf="@+id/glDerTaskCreation"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/glIzqTaskCreation"
+            app:layout_constraintTop_toTopOf="@+id/glUpTaskCreation"
+            app:layout_constraintVertical_bias="0.0">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilTaskCreationTitulo"
-                style="@style/TextColorTaskDetail"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/spTaskCreationCliente">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieTaskCreationTitulo"
+                <Spinner
+                    android:id="@+id/spTaskCreationCliente"
+                    android:layout_width="@dimen/spTaskCreationClienteWidth"
+                    android:layout_height="50dp"
+                    android:background="@drawable/shape_spinner"
+                    android:entries="@array/spClienteTaskCreation"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </Spinner>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTaskCreationTitulo"
+                    style="@style/TextColorTaskDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                    android:hint="@string/tieTaskCreationTitulo"
-                    android:inputType="textShortMessage" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:errorEnabled="true"
+                    app:layout_constraintTop_toBottomOf="@id/spTaskCreationCliente">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieTaskCreationTitulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:hint="@string/tieTaskCreationTitulo"
+                        android:inputType="textShortMessage" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilTaskCreationDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitulo"
-                tools:ignore="MissingConstraints">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieTaskCreationDesc"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTaskCreationDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/tieTaskCreationDescHeight"
-                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                    android:gravity="top"
-                    android:hint="@string/tieTaskCreationDescripcion"
-                    android:inputType="text"
-                    tools:ignore="MissingConstraints" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitulo">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilTaskCreationDateStart"
-                android:layout_width="@dimen/tieTaskCreationFechaWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:clickable="false"
-                android:focusable="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc"
-                app:startIconDrawable="@drawable/icon_calendar">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieTaskCreationDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tieTaskCreationDescHeight"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:gravity="top"
+                        android:hint="@string/tieTaskCreationDescripcion"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieTaskCreationDateStart"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTaskCreationDateStart"
                     android:layout_width="@dimen/tieTaskCreationFechaWidth"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
                     android:clickable="false"
                     android:focusable="false"
-                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                    android:hint="@string/tieTaskCreationFStart"
-                    android:inputType="date" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:errorEnabled="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc"
+                    app:startIconDrawable="@drawable/icon_calendar">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilTaskCreationDateEnd"
-                android:layout_width="@dimen/tieTaskCreationFechaWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:clickable="false"
-                android:focusable="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilTaskCreationDateStart"
-                app:startIconDrawable="@drawable/icon_calendar">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieTaskCreationDateStart"
+                        android:layout_width="@dimen/tieTaskCreationFechaWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:hint="@string/tieTaskCreationFStart"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieTaskCreationDateEnd"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTaskCreationDateEnd"
                     android:layout_width="@dimen/tieTaskCreationFechaWidth"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="10dp"
                     android:clickable="false"
                     android:focusable="false"
-                    android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                    android:hint="@string/tieTaskCreationFEnd"
-                    android:inputType="date" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:errorEnabled="true"
+                    app:layout_constraintStart_toEndOf="@+id/tilTaskCreationDateStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tilTaskCreationDesc"
+                    app:startIconDrawable="@drawable/icon_calendar">
 
-            <Button
-                android:id="@+id/btnTaskCreationAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:fontFamily="@font/opensans_condensed_bold"
-                android:text="@string/btnTaskCreationAdd"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieTaskCreationDateEnd"
+                        android:layout_width="@dimen/tieTaskCreationFechaWidth"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:hint="@string/tieTaskCreationFEnd"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/btnTaskCreationAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/md_theme_light_primary"
+                    android:fontFamily="@font/opensans_condensed_bold"
+                    android:text="@string/btnTaskCreationAdd"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
