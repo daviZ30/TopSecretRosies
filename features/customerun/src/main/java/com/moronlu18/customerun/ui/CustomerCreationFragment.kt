@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.customerun.databinding.FragmentCustomerCreationBinding
 import com.moronlu18.customerun.usecase.CustomerViewModel
@@ -60,12 +61,16 @@ class CustomerCreationFragment : Fragment() {
             when (it) {
                 CustomerState.NombreEmtyError -> setNombreEmptyError()
                 CustomerState.EmailEmtyError -> SetEmailEmptyError()
-                is CustomerState.AuthencationError -> mostrarMensaje(it.message)
-
+                CustomerState.EmailFormatError-> SetEmailFormatError()
                 else -> onSuccess()
             }
         }
     }
+
+    private fun SetEmailFormatError() {
+        binding.tilCorreoCustomerCreation.error = "Formato del email no es correcto"
+        binding.tieCorreoCustomerCreation.requestFocus()    }
+
     private fun SetEmailEmptyError() {
         binding.tilCorreoCustomerCreation.error = "Email nunca puede estar vacio"
         binding.tieCorreoCustomerCreation.requestFocus()
@@ -78,12 +83,9 @@ class CustomerCreationFragment : Fragment() {
 
     }
 
-    private fun mostrarMensaje(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-
-    }
 
     private fun onSuccess() {
         Toast.makeText(requireContext(), "todo correcto", Toast.LENGTH_SHORT).show()
+        findNavController().popBackStack()
     }
 }

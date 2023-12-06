@@ -121,7 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/opensans_condensed_bold"
-            android:hint="@string/tie_apellidos_customer_creation" />
+            android:hint="@string/tie_apellidos_customer_creation"
+            android:text="@={viewmodel.apellidos}"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -143,7 +144,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_condensed_bold"
-            android:hint="@string/tie_ciudad_customer_creation" />
+            android:hint="@string/tie_ciudad_customer_creation"
+            android:text="@={viewmodel.ciudad}"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
@@ -180,7 +182,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_condensed_bold"
-            android:hint="@string/tie_direccion_customer_creation" />
+            android:hint="@string/tie_direccion_customer_creation"
+            android:text="@={viewmodel.direccion}"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -204,6 +207,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_condensed_bold"
             android:hint="@string/tie_telfono_customer_creation"
+            android:text="@={viewmodel.telefono}"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 

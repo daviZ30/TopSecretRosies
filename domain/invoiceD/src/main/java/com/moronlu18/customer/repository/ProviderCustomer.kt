@@ -16,10 +16,17 @@ class ProviderCustomer private constructor() {
                 Email("carnetaadspjf@gmail.com"),"6864646414","Málaga","Calle Leonora n46"))
             return dataset
         }
-         fun login (email: String, nombre: String): Resorces {
+         fun login (
+             email: String,
+             nombre: String,
+             apellidos: String = "",
+             telfono: String= "",
+             ciudad: String= "",
+             direccion: String= ""
+         ): Resorces {
              var cliente:Cliente
              try {
-                 cliente= Cliente(datasetCustomer.size+1,nombre,"", Email(email),"","","")
+                 cliente= Cliente(datasetCustomer.size+1,nombre,apellidos, Email(email),telfono,ciudad,direccion)
                  return Resorces.Sucess<Cliente>(cliente)
              }catch (e :Exception){
                  return Resorces.Error(e)

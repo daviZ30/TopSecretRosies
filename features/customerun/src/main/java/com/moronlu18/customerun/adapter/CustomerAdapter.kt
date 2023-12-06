@@ -17,7 +17,7 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
         fun  bind(customer: Cliente){
             itemView.findViewById<TextView>(R.id.txtnombre_customer_list).text = "${customer.nombre}"
             itemView.findViewById<TextView>(R.id.txtapellidos_customer_list).text = "${customer.apellidos}"
-            itemView.findViewById<TextView>(R.id.txtemail_customer_list).text = "${customer.email}"
+            itemView.findViewById<TextView>(R.id.txtemail_customer_list).text = "${customer.email.value}"
         }
 
     }
