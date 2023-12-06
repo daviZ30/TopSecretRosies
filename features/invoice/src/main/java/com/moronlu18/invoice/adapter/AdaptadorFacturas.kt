@@ -13,7 +13,8 @@ import com.moronlu18.invoiceFragment.R
 
 class AdaptadorFacturas(
     val facturas: MutableList<Factura>,
-    private val onClick: (position: Int, navegar: Int) -> Unit
+    private val onClick: (position: Int, navegar: Int) -> Unit,
+    private val onDelete: (position: Int) -> Unit,
 ) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -62,8 +63,8 @@ class AdaptadorFacturas(
             onClick(position, 0)
         }
         holder.eliminar.setOnClickListener{
-            facturas.removeAt(position)
-            notifyItemRemoved(position)
+            onDelete(position)
+
         }
         holder.editar.setOnClickListener{
             onClick(position, 1)

@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoiceFragment.R
+import com.moronlu18.invoiceFragment.databinding.FilaArticulosBinding
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 import java.time.ZoneId
 
@@ -20,9 +23,12 @@ class InvoiceDetailsFragment : Fragment() {
 
     lateinit var factura: Factura;
     private var _binding: FragmentInvoiceDetailsBinding? = null
-    
+    private var _bindingAr: FilaArticulosBinding? = null
+
     private val binding
         get() = _binding!!
+    private val bindingAr
+        get() = _bindingAr!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +40,7 @@ class InvoiceDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
-
+        _bindingAr = FilaArticulosBinding.inflate(inflater,container,false)
         binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
         // Inflate the layout for this fragment
         return binding.root
@@ -46,7 +52,10 @@ class InvoiceDetailsFragment : Fragment() {
             var pos: Int = result.getInt("pos")
             factura = facturas[pos]
             var precios = factura.Articulos.map { it.rate }
-            binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos)
+            binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos){
+                Toast.makeText(requireContext(),"No puedes borrar un Articulo en la pestaña de detalles",Toast.LENGTH_LONG).show()
+            }
+            bindingAr.imgEliminarArticulo.visibility = View.GONE
             binding.txtInvoiceDetailsNombre.text = factura.Cliente.nombre
             binding.txtInvoiceDetailsEmail.text = factura.Cliente.email.value
             binding.txtInvoiceDetailsTelefono.text = factura.Cliente.telefono.toString()

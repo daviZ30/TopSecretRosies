@@ -126,7 +126,14 @@ class InvoiceCreationFragment : Fragment() {
 
         }
 
-        var rvadapter = AdaptadorArticulos(CreArticulos)
+        var rvadapter = AdaptadorArticulos(CreArticulos) { i: Int ->
+            CreArticulos.removeAt(i)
+            //notifyItemRemoved(position)
+
+            binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
+            updateTotal()
+
+        }
         binding.rvInvoiceArticulos.adapter = rvadapter
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
         binding.spArticulo.adapter = adaptersp
@@ -141,7 +148,14 @@ class InvoiceCreationFragment : Fragment() {
                 var pos: Int = result.getInt("pos")
                 factura = facturas[pos]
                 var precios = factura.Articulos.map { it.rate }
-                binding.rvInvoiceArticulos.adapter = AdaptadorArticulos(factura.Articulos)
+                binding.rvInvoiceArticulos.adapter =
+                    AdaptadorArticulos(factura.Articulos) { i: Int ->
+                        factura.Articulos.removeAt(i)
+                        //notifyItemRemoved(position)
+                        binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
+                        updateTotal()
+
+                    }
                 binding.tieInvoiceCreationIdCliente.setText(factura.Cliente.id.toString())
                 viewModel.idFactura.value = factura.Cliente.id.toString()
                 //viewModel.idCliente.value = factura.id.toString()
@@ -236,17 +250,27 @@ class InvoiceCreationFragment : Fragment() {
 
     private fun updateTotal() {
         if (editar) {
-            var precios = factura.Articulos.map { it.rate }
-            var SubTotal = precios.reduce { acc, ar -> acc + ar }
-            binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
-            binding.txtInvoiceCreationTotal.text =
-                String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+            if (factura.Articulos.size < 1) {
+                binding.txtInvoiceCreationSubtotal.text = ""
+                binding.txtInvoiceCreationTotal.text = ""
+            } else {
+                var precios = factura.Articulos.map { it.rate }
+                var SubTotal = precios.reduce { acc, ar -> acc + ar }
+                binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+                binding.txtInvoiceCreationTotal.text =
+                    String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+            }
         } else {
-            var precios = CreArticulos.map { it.rate }
-            var SubTotal = precios.reduce { acc, ar -> acc + ar }
-            binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
-            binding.txtInvoiceCreationTotal.text =
-                String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+            if (CreArticulos.size < 1) {
+                binding.txtInvoiceCreationSubtotal.text = ""
+                binding.txtInvoiceCreationTotal.text = ""
+            } else {
+                var precios = CreArticulos.map { it.rate }
+                var SubTotal = precios.reduce { acc, ar -> acc + ar }
+                binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+                binding.txtInvoiceCreationTotal.text =
+                    String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+            }
         }
 
     }

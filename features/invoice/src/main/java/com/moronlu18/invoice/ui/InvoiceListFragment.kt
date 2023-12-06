@@ -1,5 +1,6 @@
 package com.moronlu18.invoice.ui
 
+
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,27 +44,55 @@ class InvoiceListFragment : Fragment() {
         //ViewImage()
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
 
-        var adapter = AdaptadorFacturas(facturas){ i:Int, n:Int ->
-            var bundle = Bundle();
-            bundle.putInt("pos",i)
-            parentFragmentManager.setFragmentResult("key",bundle)
-            if(n == 0){
-                findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
-            }else if( n == 1){
-                findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
-            }
 
+        if(facturas.size < 1){
+            binding.rvInvoiceList.visibility = View.GONE
+            binding.imgNada.visibility = View.VISIBLE
+        }else{
+            binding.rvInvoiceList.visibility = View.VISIBLE
+            binding.imgNada.visibility = View.GONE
         }
+        var adapter = AdaptadorFacturas(facturas,
+            { i:Int, n:Int ->
+                var bundle = Bundle();
+                bundle.putInt("pos",i)
+                parentFragmentManager.setFragmentResult("key",bundle)
+                if(n == 0){
+                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
+                }else if( n == 1){
+                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
+                }
+
+            },
+            { i:Int ->
+                facturas.removeAt(i)
+                //notifyItemRemoved(position)
+                if(facturas.size < 1){
+                    binding.rvInvoiceList.visibility = View.GONE
+                    binding.imgNada.visibility = View.VISIBLE
+                }else{
+                    binding.rvInvoiceList.visibility = View.VISIBLE
+                    binding.imgNada.visibility = View.GONE
+                }
+                binding.rvInvoiceList.adapter?.notifyDataSetChanged()
+
+            }
+        )
+        println("OnCreateView")
+
         binding.rvInvoiceList.adapter = adapter
-        adapter.notifyDataSetChanged()
-        binding.rvInvoiceList.scrollToPosition(facturas.size - 1)
+        //adapter.notifyDataSetChanged()
+        //binding.rvInvoiceList.scrollToPosition(facturas.size - 1)
         binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        println("OnViewCreated")
 
 
         binding.fabInvoice.setOnClickListener {
