@@ -40,9 +40,9 @@
                     android:id="@+id/txtLineaCliente"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="4dp"
-                    android:gravity="center_horizontal"
                     android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="10dp"
                     android:text="TextView"
                     android:textSize="18dp" />
 

@@ -1,7 +1,6 @@
 package com.moronlu18.invoice.ui
 
 import android.R
-import android.content.ClipData.Item
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -63,9 +62,7 @@ class InvoiceCreationFragment : Fragment() {
 
         override fun afterTextChanged(s: Editable) {
             // println("illoooooo ${t.toString()}")
-            if (e != null) {
-                rellenarCliente(e)
-            }
+            viewModel.introduceCliente()
             t.isErrorEnabled = false
             //binding.Email.requestFocus()
         }
@@ -79,9 +76,6 @@ class InvoiceCreationFragment : Fragment() {
         binding.viewmodel = this.viewModel
 
         binding.lifecycleOwner = this
-
-
-
 
         return binding.root
     }
@@ -120,6 +114,32 @@ class InvoiceCreationFragment : Fragment() {
                     binding.tilInvoiceFeEmi.requestFocus()
                 }
 
+                InvoiceState.idClienteInvalidError -> {
+                    binding.tilInvoiceCreationIdCliente.error =
+                        "Introduce un id de cliente existente"
+                    binding.tilInvoiceCreationIdCliente.requestFocus()
+                }
+
+                InvoiceState.feVenInvalidError -> {
+                    binding.tilInvoiceCreationFeVen.error =
+                        "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceCreationFeVen.requestFocus()
+                }
+
+                InvoiceState.feEmiInvalidError -> {
+                    binding.tilInvoiceFeEmi.error = "Formato de la fecha no válido, YYYY-MM-DD"
+                    binding.tilInvoiceFeEmi.requestFocus()
+                }
+
+                InvoiceState.dateInvalidError -> {
+                    println("Erroe en la fecha")
+                    Toast.makeText(
+                        requireContext(),
+                        "La fecha de vencimiento debe ser mayor que la fecha de Emisión",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
                 else -> Validate()
             }
 
@@ -139,7 +159,6 @@ class InvoiceCreationFragment : Fragment() {
         binding.spArticulo.adapter = adaptersp
 
 
-
         parentFragmentManager.setFragmentResultListener(
             "key",
             this,
@@ -154,29 +173,24 @@ class InvoiceCreationFragment : Fragment() {
                         //notifyItemRemoved(position)
                         binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
                         updateTotal()
-
                     }
                 binding.tieInvoiceCreationIdCliente.setText(factura.Cliente.id.toString())
-                viewModel.idFactura.value = factura.Cliente.id.toString()
-                //viewModel.idCliente.value = factura.id.toString()
-                rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
-                /*binding.tieInvoiceCreationIdCliente.addTextChangedListener(
-                    textWatcherCliente(
-                        binding.tieInvoiceCreationIdCliente.text
-                    )
-                )*/
+                viewModel.idFactura.value = factura.id.toString()
+                //rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
+                viewModel.introduceCliente()
+
                 val posEmi = factura.FeEmision.toString().indexOf('T')
                 val posVen = factura.FeVencimiento.toString().indexOf('T')
-
                 binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString().substring(0, posEmi))
                 binding.tieInvoiceCreationFeVen.setText(
                     factura.FeVencimiento.toString().substring(0, posVen)
                 )
+
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-                //binding.tilInvoiceCreationIdFactura.isErrorEnabled = false
+
                 binding.tieInvoiceCreationIdCliente.addTextChangedListener(
                     textWatcher(
                         binding.tieInvoiceCreationIdCliente.text,
@@ -191,8 +205,7 @@ class InvoiceCreationFragment : Fragment() {
                 )
 
             })
-        viewModel.validate()
-
+        //viewModel.validate()
 
 
         binding.btnArticulos.setOnClickListener {
@@ -256,7 +269,7 @@ class InvoiceCreationFragment : Fragment() {
             } else {
                 var precios = factura.Articulos.map { it.rate }
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
-                binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+                binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
             }
@@ -267,27 +280,11 @@ class InvoiceCreationFragment : Fragment() {
             } else {
                 var precios = CreArticulos.map { it.rate }
                 var SubTotal = precios.reduce { acc, ar -> acc + ar }
-                binding.txtInvoiceCreationSubtotal.text = "${SubTotal.toString()} €"
+                binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
             }
         }
-
-    }
-
-    private fun ValidarFecha(s: String): Boolean {
-        try {
-            val dateString = s + "T00:00:00Z"
-            Instant.parse(dateString)
-
-        } catch (e: Exception) {
-            return false
-        }
-        return true
-    }
-
-    private fun fechaMayor(t1: Instant, t2: Instant): Boolean {
-        return t1.isBefore(t2)
 
     }
 
@@ -300,39 +297,10 @@ class InvoiceCreationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                !rellenarCliente(binding.tieInvoiceCreationIdCliente.text) -> {
-                    binding.tilInvoiceCreationIdCliente.error =
-                        "Introduce un id de cliente existente"
-                    binding.tilInvoiceCreationIdCliente.requestFocus()
-                }
-
-                !ValidarFecha(binding.tieInvoiceFeEmi.text.toString()) -> {
-                    binding.tilInvoiceFeEmi.error = "Formato de la fecha no válido, YYYY-MM-DD"
-                    binding.tilInvoiceFeEmi.requestFocus()
-                }
-
-                !ValidarFecha(binding.tieInvoiceCreationFeVen.text.toString()) -> {
-                    binding.tilInvoiceCreationFeVen.error =
-                        "Formato de la fecha no válido, YYYY-MM-DD"
-                    binding.tilInvoiceCreationFeVen.requestFocus()
-                }
-
-
                 nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
                     binding.tilInvoiceCreationIdFactura.error =
                         "Id de la factura invalido, para editar el id debe existir"
                     binding.tilInvoiceCreationIdFactura.requestFocus()
-                }
-
-                !fechaMayor(
-                    SetFecha(binding.tieInvoiceFeEmi.text.toString()),
-                    SetFecha(binding.tieInvoiceCreationFeVen.text.toString())
-                ) -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "La fecha de vencimiento debe ser mayor que la fecha de Emisión",
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
 
                 else -> CrearFactura(editar)
@@ -345,29 +313,11 @@ class InvoiceCreationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                !rellenarCliente(binding.tieInvoiceCreationIdCliente.text) -> {
-                    binding.tilInvoiceCreationIdCliente.error =
-                        "Introduce un id de cliente existente"
-                    binding.tilInvoiceCreationIdCliente.requestFocus()
-                }
-
-                !ValidarFecha(binding.tieInvoiceFeEmi.text.toString()) -> {
-                    binding.tilInvoiceFeEmi.error = "Formato de la fecha no válido, YYYY-MM-DD"
-                    binding.tilInvoiceFeEmi.requestFocus()
-                }
-
-                !ValidarFecha(binding.tieInvoiceCreationFeVen.text.toString()) -> {
-                    binding.tilInvoiceCreationFeVen.error =
-                        "Formato de la fecha no válido, YYYY-MM-DD"
-                    binding.tilInvoiceCreationFeVen.requestFocus()
-                }
-
                 !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
                     binding.tilInvoiceCreationIdFactura.error =
                         "Id de la factura invalido, debe ser un id no existente"
                     binding.tilInvoiceCreationIdFactura.requestFocus()
                 }
-
 
                 else -> CrearFactura(editar)
             }
@@ -402,31 +352,6 @@ class InvoiceCreationFragment : Fragment() {
         return true
     }
 
-    fun rellenarCliente(t: Editable?): Boolean {
-        try {
-            var i: Int = t.toString().toInt()
-            if (i != null) {
-                clientes.forEach {
-                    println("forEach")
-                    if (it.id == i) {
-                        println("dentro del if")
-                        clien = it
-                        //println(clien)
-                        binding.tvInvoiceCreationNombre.text = it.nombre
-                        binding.tvInvoiceCreationEmail.text = it.email.value
-                        binding.tvInvoiceCreationTelefono.text = it.telefono.toString()
-                        return true
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            binding.tvInvoiceCreationNombre.text = ""
-            binding.tvInvoiceCreationEmail.text = ""
-            binding.tvInvoiceCreationTelefono.text = ""
-            return false
-        }
-        return false
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun SetFecha(fecha: String): Instant {
@@ -443,36 +368,24 @@ class InvoiceCreationFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun CrearFactura(editar: Boolean) {
         if (editar) {
-            facturas.remove(
-                ObtenerFactura(
-                    binding.tieInvoiceCreationIdFactura.text.toString().toInt()
-                )
-            )
-            var f = Factura(
+            ProviderInvoice.editInvoice(
                 binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                clien!!,
+                viewModel.cliente,
                 SetFecha(binding.tieInvoiceFeEmi.text.toString()),
                 SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
                 factura.Articulos,
                 InvoiceStatus.Pending
             )
-            facturas.add(f)
-
         } else {
-            var f = Factura(
+            ProviderInvoice.CreateInvoice(
                 binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                clien!!,
+                viewModel.cliente,
                 SetFecha(binding.tieInvoiceFeEmi.text.toString()),
                 SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
                 CreArticulos,
                 InvoiceStatus.Pending
             )
-            facturas.add(f)
-
         }
-        /*var bundle = Bundle();
-        bundle.putInt("pos",1)
-        parentFragmentManager.setFragmentResult("key",bundle)*/
         findNavController().popBackStack()
 
     }
@@ -489,14 +402,5 @@ class InvoiceCreationFragment : Fragment() {
         return null;
     }
 
-    fun ObtenerFactura(id: Int): Factura? {
-        facturas.forEach {
-            if (id == it.id) {
-
-                return it
-            }
-        }
-        return null;
-    }
 
 }

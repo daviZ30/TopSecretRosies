@@ -1,8 +1,13 @@
 package com.moronlu18.customer.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.invoice.ui.firebase.network.Resorces
+import java.time.Instant
 
 class ProviderCustomer private constructor() {
     companion object{
@@ -37,5 +42,6 @@ class ProviderCustomer private constructor() {
              }
 
          }
+
     }
 }

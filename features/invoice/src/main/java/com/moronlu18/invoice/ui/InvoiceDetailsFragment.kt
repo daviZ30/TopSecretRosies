@@ -65,7 +65,7 @@ class InvoiceDetailsFragment : Fragment() {
             binding.txtInvoiceDetailsFechaEmision.text = factura.FeEmision.toString().substring(0,posEmi)
             binding.txtInvoiceDetailsFechaVencimiento.text = factura.FeVencimiento.toString().substring(0,posVen)
             var SubTotal = precios.reduce { acc, ar -> acc + ar}
-            binding.txtInvoiceDetailsSubtotal.text =  "${SubTotal.toString()} €"
+            binding.txtInvoiceDetailsSubtotal.text =  String.format("%.2f €", SubTotal)
             binding.txtInvoiceDetailsImpuestos.text = "21 %"
             binding.txtInvoiceDetailsTotal.text =  String.format("%.2f €",SubTotal + (SubTotal * 0.21))
             ComRadio(factura.Estado)
