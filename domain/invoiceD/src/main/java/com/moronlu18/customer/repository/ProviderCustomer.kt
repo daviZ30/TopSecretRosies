@@ -26,7 +26,11 @@ class ProviderCustomer private constructor() {
          ): Resorces {
              var cliente:Cliente
              try {
-                 cliente= Cliente(datasetCustomer.size+1,nombre,apellidos, Email(email),telfono,ciudad,direccion)
+                 if (datasetCustomer.size>1){
+                 cliente= Cliente(datasetCustomer.last().id+1,nombre,apellidos, Email(email),telfono,ciudad,direccion)
+                 }else{
+                     cliente= Cliente(1,nombre,apellidos, Email(email),telfono,ciudad,direccion)
+                 }
                  return Resorces.Sucess<Cliente>(cliente)
              }catch (e :Exception){
                  return Resorces.Error(e)

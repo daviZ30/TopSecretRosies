@@ -40,6 +40,7 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
        }
         holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
             onItemClick.invoke(position,1)
+
         }
     }
     override fun getItemCount(): Int {

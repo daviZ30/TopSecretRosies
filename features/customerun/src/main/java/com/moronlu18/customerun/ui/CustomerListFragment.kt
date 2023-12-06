@@ -30,6 +30,14 @@ class CustomerListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCustomerListBinding.inflate(inflater,container,false)
+        if (clientes.size<1){
+            binding.textView5.visibility=View.VISIBLE
+            binding.listcustomer.visibility = View.GONE
+        }
+        else{
+            binding.textView5.visibility=View.GONE
+            binding.listcustomer.visibility = View.VISIBLE
+        }
         // Inflate the layout for this fragment
         binding.listcustomer.adapter = CustomerAdapter(clientes){i:Int,n:Int->
             var bundle = Bundle();
