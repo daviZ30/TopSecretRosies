@@ -31,11 +31,16 @@ class CustomerListFragment : Fragment() {
     ): View? {
         _binding = FragmentCustomerListBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
-        binding.listcustomer.adapter = CustomerAdapter(clientes){i:Int->
+        binding.listcustomer.adapter = CustomerAdapter(clientes){i:Int,n:Int->
             var bundle = Bundle();
             bundle.putInt("pos",i)
             parentFragmentManager.setFragmentResult("key",bundle)
-            findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
+            if (n==0){
+                findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
+            }else if (n==1){
+                findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
+            }
+
         }
         binding.listcustomer.layoutManager = LinearLayoutManager(context)
         return binding.root
