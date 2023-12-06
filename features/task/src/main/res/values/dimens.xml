@@ -2,7 +2,7 @@
     <dimen name="clTaskWidth">15dp</dimen>
     <dimen name="ivTaskList">60dp</dimen>
     <dimen name="textSizeTaskList">15dp</dimen>
-    <dimen name="spTaskCreationClienteWidth">150dp</dimen>
+    <dimen name="spTaskCreationCustomerWidth">200dp</dimen>
     <dimen name="tieTaskCreationDescHeight">150dp</dimen>
     <dimen name="tvTaskDetailDescHeight">120dp</dimen>
     <dimen name="tieTaskCreationFechaWidth">160dp</dimen>
