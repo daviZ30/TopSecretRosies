@@ -18,7 +18,7 @@ class TaskViewModel : ViewModel() {
     fun validate(){
         when{
             TextUtils.isEmpty(title.value)->state.value = TaskState.TitleIsMandatoryError
-            //customer.value == "--Selecciona un cliente--" -> state.value = TaskState.CustomerUnspecified
+            customer.value == "--Selecciona un cliente--" -> state.value = TaskState.CustomerUnspecified
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{ state.value = TaskState.Success }
         }

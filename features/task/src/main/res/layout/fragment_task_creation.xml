@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewmodel"
             type="com.moronlu18.task.usecase.TaskViewModel" />
@@ -66,7 +65,6 @@
                     android:layout_width="@dimen/spTaskCreationCustomerWidth"
                     android:layout_height="50dp"
                     android:background="@drawable/shape_spinner"
-                    android:entries="@array/spClienteTaskCreation"
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
