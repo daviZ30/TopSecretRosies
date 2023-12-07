@@ -1,5 +1,6 @@
 <resources>
     <dimen name="clTaskWidth">15dp</dimen>
+    <dimen name="clTaskHeight">50dp</dimen>
     <dimen name="ivTaskList">60dp</dimen>
     <dimen name="textSizeTaskList">15dp</dimen>
     <dimen name="spTaskCreationCustomerWidth">200dp</dimen>

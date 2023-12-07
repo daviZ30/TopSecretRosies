@@ -1,6 +1,8 @@
 package com.moronlu18.task.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.calendar.CalendarInvoice
 import com.moronlu18.task.entity.Task
@@ -33,31 +35,19 @@ class TaskCreationFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    inner class textWatcher(var til: TextInputLayout) : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        }
+        override fun afterTextChanged(s: Editable) {
+            til.isErrorEnabled = false
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var names: MutableList<String> = mutableListOf()
-        //Añade los clientes al spinner y si no hay no puedes crear una tarea
-        if (customer.isEmpty()) {
-            names.add("<No Existen Clientes>")
-            binding.btnTaskCreationAdd.isEnabled = false
-        } else {
-            names.add("--Selecciona un cliente--")
-            for (cliente in customer) {
-                names.add("${cliente.id}.-" + cliente.getFullName())
-            }
-        }
-        binding.spTaskCreationCliente.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
 
-        viewModel.getState().observe(viewLifecycleOwner){
-            when(it){
-                TaskState.TitleIsMandatoryError -> {}
-                TaskState.CustomerUnspecified -> {}
-                TaskState.IncorrectDateRangeError -> {}
-                TaskState.Success -> {}
-            }
-        }
-
+        inicializeSpinners()
 
         binding.tieTaskCreationDateStart.setText(c.getCurrentDate()) //Valor por defecto
         //PopUp de Calendario
@@ -73,22 +63,40 @@ class TaskCreationFragment : Fragment() {
             }
         }
 
-        binding.btnTaskCreationAdd.setOnClickListener {
-            val idTask = tasks.last().idTask + 1
-            val idCliente = getIdCliente(binding.spTaskCreationCliente.selectedItem.toString())
-            val title = binding.tieTaskCreationTitulo.text.toString() ?: "<Sin Titulo>"
-            val nameCustomer = customer.find { it.id == idCliente }?.getFullName()
-            val desc = binding.tieTaskCreationDesc.text.toString() ?: ""
-            val type = TaskType.private
-            val status = TaskStatus.pending
-            val createdDate = binding.tieTaskCreationDateStart.text.toString() ?: c.getCurrentDate()
-            val endDate = binding.tieTaskCreationDateEnd.text.toString() ?: c.getCurrentDate()
-            tasks.add(Task(idTask, idCliente, title, desc, nameCustomer!!, type, status, createdDate, endDate))
-            Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
-            val bundle = Bundle()
-            parentFragmentManager.setFragmentResult("key", bundle)
-            findNavController().popBackStack()
+        viewModel.getState().observe(viewLifecycleOwner){
+            when(it){
+                TaskState.TitleIsMandatoryError -> {}
+                TaskState.CustomerUnspecified -> {
+                    Toast.makeText(requireContext(), "Elige un cliente", Toast.LENGTH_SHORT).show()
+                }
+                TaskState.IncorrectDateRangeError -> {
+                    binding.tilTaskCreationDateEnd.error =
+                        "La fecha fin no puede ser antes que la fecha inicio"}
+                TaskState.Success -> {onSuccess()}
+            }
         }
+    }
+
+    private fun inicializeSpinners() {
+        val names: MutableList<String> = mutableListOf()
+        //Añade los clientes al spinner y si no hay no puedes crear una tarea
+        if (customer.isEmpty()) {
+            names.add("<No Existen Clientes>")
+            binding.btnTaskCreationAdd.isEnabled = false
+        } else {
+            names.add("--Selecciona un cliente--")
+            for (cliente in customer) {
+                names.add("${cliente.id}.-" + cliente.getFullName())
+            }
+        }
+        binding.spTaskCreationCliente.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
+
+        binding.spTaskCreationType.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, TaskType.values())
+
+        binding.spTaskCreationStatus.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, TaskStatus.values())
     }
 
     override fun onCreateView(
@@ -112,5 +120,24 @@ class TaskCreationFragment : Fragment() {
     fun getIdCliente(customer : String) : Int{
         var id : Int = customer.split(".").first().toInt()
         return id
+    }
+
+    private fun onSuccess() {
+        binding.btnTaskCreationAdd.setOnClickListener {
+            val idTask = tasks.last().idTask + 1
+            val idCliente = getIdCliente(binding.spTaskCreationCliente.selectedItem.toString())
+            val title = binding.tieTaskCreationTitulo.text.toString()
+            val nameCustomer = customer.find { it.id == idCliente }?.getFullName()
+            val desc = binding.tieTaskCreationDesc.text.toString()
+            val type = TaskType.private
+            val status = TaskStatus.pending
+            val createdDate = binding.tieTaskCreationDateStart.text.toString()
+            val endDate = binding.tieTaskCreationDateEnd.text.toString()
+            tasks.add(Task(idTask, idCliente, title, desc, nameCustomer!!, type, status, createdDate, endDate))
+            Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            parentFragmentManager.setFragmentResult("key", bundle)
+            findNavController().popBackStack()
+        }
     }
 }
