@@ -86,7 +86,7 @@ class ItemViewModel:ViewModel() {
     fun updateItemDetails(itemId: Int, itemName: String?, itemRate: Double, itemType: itemType, itemDescription: String?, isTaxable: Boolean) {
         this.itemId.value = itemId.toString()
         this.name.value = itemName
-        this.rate.value = itemRate.toString()
+        this.rate.value = String.format("%.2f", itemRate)
         this.itemType.value = itemType
         this.description.value = itemDescription
         this.isTaxable.value = isTaxable
