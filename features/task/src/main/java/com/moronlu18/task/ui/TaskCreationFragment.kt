@@ -61,15 +61,13 @@ class TaskCreationFragment : Fragment() {
                 binding.tieTaskCreationDateEnd.setText("$day/${month + 1}/$year")
             }
         }
-        //Para comprobar que el valor del spinner de clientes no sea el texto de ayuda
-        viewModel.customer.value = binding.spTaskCreationCliente.selectedItem.toString()
 
         viewModel.getState().observe(viewLifecycleOwner){
             when(it){
                 TaskState.TitleIsMandatoryError -> {
                     binding.tilTaskCreationTitulo.error = "Titulo obligatorio"
                 }
-                TaskState.CustomerUnspecified -> {
+                TaskState.CustomerUnspecifiedError -> {
                     Toast.makeText(requireContext(), "Selecciona un cliente", Toast.LENGTH_SHORT).show()
                 }
                 TaskState.IncorrectDateRangeError -> {
@@ -138,23 +136,20 @@ class TaskCreationFragment : Fragment() {
     }
 
     private fun createTask() {
+        val idTask = tasks.last().idTask + 1
         val customerId = getIdCustomer(binding.spTaskCreationCliente.selectedItem.toString())
-        if (customerId != -1){
-            val idTask = tasks.last().idTask + 1
-            val title = binding.tieTaskCreationTitulo.text.toString()
-            val nameCustomer = customer.find { it.id == customerId }?.getFullName()
-            val desc = binding.tieTaskCreationDesc.text.toString()
-            val type = TaskType.valueOf(binding.spTaskCreationType.selectedItem.toString())
-            val status = TaskStatus.valueOf(binding.spTaskCreationStatus.selectedItem.toString())
-            val createdDate = binding.tieTaskCreationDateStart.text.toString()
-            val endDate = binding.tieTaskCreationDateEnd.text.toString()
-            tasks.add(Task(idTask, customerId, title, desc, nameCustomer!!, type, status, createdDate, endDate))
-            Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
-            val bundle = Bundle()
-            parentFragmentManager.setFragmentResult("key", bundle)
-            findNavController().popBackStack()
-        }
-        else {
-        }
+        val title = binding.tieTaskCreationTitulo.text.toString()
+        val nameCustomer = customer.find { it.id == customerId }?.getFullName()
+        val desc = binding.tieTaskCreationDesc.text.toString()
+        val type = TaskType.valueOf(binding.spTaskCreationType.selectedItem.toString())
+        val status = TaskStatus.valueOf(binding.spTaskCreationStatus.selectedItem.toString())
+        val createdDate = binding.tieTaskCreationDateStart.text.toString()
+        val endDate = binding.tieTaskCreationDateEnd.text.toString()
+        tasks.add(Task(idTask, customerId,title, desc, nameCustomer!!, type, status, createdDate, endDate))
+        Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        parentFragmentManager.setFragmentResult("key", bundle)
+        findNavController().popBackStack()
+
     }
 }

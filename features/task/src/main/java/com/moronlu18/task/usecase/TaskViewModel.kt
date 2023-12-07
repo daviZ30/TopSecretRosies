@@ -11,14 +11,15 @@ import com.moronlu18.task.calendar.CalendarInvoice
 
 class TaskViewModel : ViewModel() {
     val title = MutableLiveData<String>()
-    val customer = MutableLiveData<String>()
-    val createdDate = MutableLiveData<String>(CalendarInvoice.getCurrentDate())
+    val customer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
+    val createdDate = MutableLiveData(CalendarInvoice.getCurrentDate())
     val endDate = MutableLiveData<String>()
     private val state = MutableLiveData<TaskState>()
     fun validate(){
+        val customerSelected = customer.value == 0
         when{
             TextUtils.isEmpty(title.value)->state.value = TaskState.TitleIsMandatoryError
-            customer.value == "--Selecciona un cliente--" -> state.value = TaskState.CustomerUnspecified
+            customerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{ state.value = TaskState.Success }
         }

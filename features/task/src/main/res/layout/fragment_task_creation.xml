@@ -67,8 +67,8 @@
                     android:background="@drawable/shape_spinner"
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:selectedItemPosition="@={viewmodel.customer}"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilTaskCreationTitulo"
