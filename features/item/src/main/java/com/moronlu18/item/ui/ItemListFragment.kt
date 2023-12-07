@@ -1,14 +1,17 @@
 package com.moronlu18.item.ui
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.item.adapter.ItemAdapter
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
@@ -104,18 +107,47 @@ class ItemListFragment : Fragment() {
         }
     }
 
-    private fun showDeleteConfirmationDialog(item:item) {
+    private fun showDeleteConfirmationDialog(item: item) {
+
+        val isItemInInvoice = isItemInAnyInvoice(item)
+
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Eliminar artículo")
-            .setMessage("¿Estás seguro de que quieres eliminar este artículo?")
-            .setPositiveButton("Eliminar") { _, _ ->
 
+        if (isItemInInvoice) {
+            builder.setMessage("Este artículo está presente en una factura. ¿Estás seguro de que quieres eliminarlo?")
+        } else {
+            builder.setMessage("¿Estás seguro de que quieres eliminar este artículo?")
+        }
+
+        builder.setPositiveButton("Eliminar") { _, _ ->
+
+            if (!isItemInInvoice) {
                 itemRepository.removeItem(item)
-
                 binding.rvItemList.adapter?.notifyDataSetChanged()
+            } else {
+
+                Toast.makeText(
+                    requireContext(),
+                    "No se puede eliminar el artículo, ya está en una factura.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        }
+
+        builder.setNegativeButton("Cancelar", null)
+        builder.show()
+    }
+
+    private fun isItemInAnyInvoice(item: item): Boolean {
+        val invoicesWithItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ProviderInvoice.datasetFactura.filter { factura ->
+                factura.Articulos.any { it.id == item.id }
+            }
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        return invoicesWithItem.isNotEmpty()
     }
 }
 

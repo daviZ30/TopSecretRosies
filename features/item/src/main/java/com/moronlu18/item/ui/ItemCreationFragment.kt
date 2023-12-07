@@ -75,6 +75,11 @@ class ItemCreationFragment : Fragment() {
                 binding.tilEditId.setText(newId)
             }
 
+            itemViewModel.rateWithTax.observe(viewLifecycleOwner) { rateWithTax ->
+                tilEditRate.setText(rateWithTax.toString())
+            }
+
+
             itemViewModel.itemType.observe(viewLifecycleOwner) { newType ->
                 val position = when (newType) {
                     itemType.PRODUCT -> 0
