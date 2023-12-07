@@ -134,9 +134,8 @@ class TaskCreationFragment : Fragment() {
             return -1
         }
     }
-
     private fun createTask() {
-        val idTask = tasks.last().idTask + 1
+        val idTask = tasks.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
         val customerId = getIdCustomer(binding.spTaskCreationCliente.selectedItem.toString())
         val title = binding.tieTaskCreationTitulo.text.toString()
         val nameCustomer = customer.find { it.id == customerId }?.getFullName()
