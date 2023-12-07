@@ -1,6 +1,5 @@
 package com.moronlu18.item.usecase
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.item.entity.item
@@ -38,7 +37,7 @@ class ItemViewModel:ViewModel() {
     val rateWithTax = MutableLiveData<Double>().apply { value = 0.0 }
     val rate = MutableLiveData<String?>()
     val isTaxable = MutableLiveData<Boolean?>()
-    val taxRate = MutableLiveData<Double>().apply { value = 10.0 }
+    val taxRate = MutableLiveData<Double>().apply { value = 0.02 }
 
 
     fun validateFields(itemName: String, itemRate: String) {
@@ -57,6 +56,9 @@ class ItemViewModel:ViewModel() {
             _itemState.value = ItemState.RequiredDataMissing
             return
         }
+
+        _originalRate.value = itemRate.toDoubleOrNull() ?: 0.0
+
 
         if (isTaxable.value == true) {
             applyTaxToRate()

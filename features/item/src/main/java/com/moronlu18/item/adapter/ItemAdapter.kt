@@ -34,7 +34,7 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
         fun bind(item:item) {
             itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"
             itemView.findViewById<TextView>(R.id.tvNameCard).text = "${item.name}"
-            itemView.findViewById<TextView>(R.id.tvRateCard).text = "${item.rate}"
+            itemView.findViewById<TextView>(R.id.tvRateCard).text = String.format("%.2f", item.rate)
             itemView.findViewById<TextView>(R.id.tvTypeCard).text = "${item.type}"
             itemView.findViewById<TextView>(R.id.tvDescriptionCard).text = "${item.description}"
             itemView.findViewById<TextView>(R.id.tvIsTaxable).text = "${item.isTaxable}"

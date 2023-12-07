@@ -54,7 +54,7 @@ class ItemDetailFragment : Fragment() {
 
         view?.findViewById<TextView>(R.id.tvIdDetail)?.text = itemId.toString()
         view?.findViewById<TextView>(R.id.tvNameDetail)?.text = itemName
-        view?.findViewById<TextView>(R.id.tvRateDetail)?.text = itemRate.toString()
+        view?.findViewById<TextView>(R.id.tvRateDetail)?.text = String.format("%.2f", itemRate)
         view?.findViewById<TextView>(R.id.tvTypeDetail)?.text = itemType.toString()
         view?.findViewById<TextView>(R.id.tvDescriptionDetail)?.text = itemDescription
         view?.findViewById<TextView>(R.id.tvIstaxableDetail)?.text = isTaxable.toString()

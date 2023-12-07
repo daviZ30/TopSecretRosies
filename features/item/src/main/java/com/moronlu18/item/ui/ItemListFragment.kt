@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.item.adapter.ItemAdapter
 import com.moronlu18.item.entity.item
-import com.moronlu18.item.entity.itemType
 import com.moronlu18.itemcreation.R
 import com.moronlu18.item.repository.ItemRepository
 import com.moronlu18.item.usecase.ItemViewModel

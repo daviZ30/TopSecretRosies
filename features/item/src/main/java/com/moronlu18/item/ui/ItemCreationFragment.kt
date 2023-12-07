@@ -18,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
-import com.moronlu18.item.repository.ItemRepository
 import com.moronlu18.item.usecase.ItemViewModel
 import com.moronlu18.itemcreation.R
 import com.moronlu18.itemcreation.databinding.FragmentItemCreationBinding
@@ -73,10 +72,6 @@ class ItemCreationFragment : Fragment() {
 
             itemViewModel.itemId.observe(viewLifecycleOwner) { newId ->
                 binding.tilEditId.setText(newId)
-            }
-
-            itemViewModel.rateWithTax.observe(viewLifecycleOwner) { rateWithTax ->
-                tilEditRate.setText(rateWithTax.toString())
             }
 
 
@@ -182,7 +177,7 @@ class ItemCreationFragment : Fragment() {
     private fun createItemFromInput(): item {
         val id = tilEditId.text.toString().toIntOrNull() ?: 0
         val name = tilEditName.text.toString()
-        val rate = tilEditRate.text.toString().toDoubleOrNull() ?: 0.0
+        val rate = itemViewModel.rateWithTax.value ?: 0.0
         val typeString = spinnerItemType.selectedItem.toString()
         val type = itemType.valueOf(typeString)
         val description = tilEditDescription.text.toString()
