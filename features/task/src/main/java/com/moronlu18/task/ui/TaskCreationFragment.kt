@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
@@ -49,14 +50,12 @@ class TaskCreationFragment : Fragment() {
 
         inicializeSpinners()
 
-        binding.tieTaskCreationDateStart.setText(c.getCurrentDate()) //Valor por defecto
         //PopUp de Calendario
         binding.tieTaskCreationDateStart.setOnClickListener {
             c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
                 binding.tieTaskCreationDateStart.setText("$day/${month + 1}/$year")
             }
         }
-
         binding.tieTaskCreationDateEnd.setOnClickListener {
             c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
                 binding.tieTaskCreationDateEnd.setText("$day/${month + 1}/$year")
@@ -65,17 +64,27 @@ class TaskCreationFragment : Fragment() {
 
         viewModel.getState().observe(viewLifecycleOwner){
             when(it){
-                TaskState.TitleIsMandatoryError -> {}
+                TaskState.TitleIsMandatoryError -> {
+                    binding.tilTaskCreationTitulo.error = "Titulo obligatorio"
+                }
                 TaskState.CustomerUnspecified -> {
                     Toast.makeText(requireContext(), "Elige un cliente", Toast.LENGTH_SHORT).show()
                 }
                 TaskState.IncorrectDateRangeError -> {
                     binding.tilTaskCreationDateEnd.error =
-                        "La fecha fin no puede ser antes que la fecha inicio"}
-                TaskState.Success -> {onSuccess()}
+                        "La fecha fin no puede ser menor que la fecha inicio"}
+                TaskState.Success -> {createTask()}
             }
         }
-    }
+
+        binding.btnTaskCreationAdd.setOnClickListener {
+                viewModel.validate()
+            }
+
+        binding.tieTaskCreationTitulo.addTextChangedListener {
+            textWatcher(binding.tilTaskCreationTitulo)
+        }
+        }
 
     private fun inicializeSpinners() {
         val names: MutableList<String> = mutableListOf()
@@ -122,15 +131,14 @@ class TaskCreationFragment : Fragment() {
         return id
     }
 
-    private fun onSuccess() {
-        binding.btnTaskCreationAdd.setOnClickListener {
+    private fun createTask() {
             val idTask = tasks.last().idTask + 1
             val idCliente = getIdCliente(binding.spTaskCreationCliente.selectedItem.toString())
             val title = binding.tieTaskCreationTitulo.text.toString()
             val nameCustomer = customer.find { it.id == idCliente }?.getFullName()
             val desc = binding.tieTaskCreationDesc.text.toString()
-            val type = TaskType.private
-            val status = TaskStatus.pending
+            val type = TaskType.valueOf(binding.spTaskCreationType.selectedItem.toString())
+            val status = TaskStatus.valueOf(binding.spTaskCreationStatus.selectedItem.toString())
             val createdDate = binding.tieTaskCreationDateStart.text.toString()
             val endDate = binding.tieTaskCreationDateEnd.text.toString()
             tasks.add(Task(idTask, idCliente, title, desc, nameCustomer!!, type, status, createdDate, endDate))
@@ -138,6 +146,5 @@ class TaskCreationFragment : Fragment() {
             val bundle = Bundle()
             parentFragmentManager.setFragmentResult("key", bundle)
             findNavController().popBackStack()
-        }
     }
 }

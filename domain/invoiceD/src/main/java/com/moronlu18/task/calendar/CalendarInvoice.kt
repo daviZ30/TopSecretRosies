@@ -10,10 +10,12 @@ class CalendarInvoice {
         val datePicker = DatePickerFragment{day: Int, month : Int, year: Int -> listener(day,month,year)}
         datePicker.show(manager, "datePicker")
     }
-    /**
-     * Función que devuelve la fecha actual y formateada
-     */
-    public fun getCurrentDate(): String {
-        return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-    }//Implementarlo más tarde para que todos puedan usarlo
+    companion object{
+        /**
+         * Función que devuelve la fecha actual y formateada
+         */
+        public fun getCurrentDate(): String {
+            return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        }//Implementarlo más tarde para que todos puedan usarlo
+    }
 }

@@ -85,6 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:text="@={viewmodel.title}"
                         android:hint="@string/tieTaskCreationTitulo"
                         android:inputType="textShortMessage" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -117,7 +118,6 @@
                     android:layout_gravity="start"
                     android:clickable="false"
                     android:focusable="false"
-                    app:errorEnabled="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tilTaskCreationDesc"
                     app:startIconDrawable="@drawable/icon_calendar">
@@ -129,6 +129,7 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:text="@={viewmodel.createdDate}"
                         android:hint="@string/tieTaskCreationFStart"
                         android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -152,6 +153,7 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:text="@={viewmodel.endDate}"
                         android:hint="@string/tieTaskCreationFEnd"
                         android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -174,7 +176,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/shape_spinner"
                     android:spinnerMode="dropdown"
-                    android:layout_marginVertical="30dp"
+                    android:layout_marginVertical="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tilTaskCreationDateEnd"
                     app:layout_constraintTop_toBottomOf="@+id/spTaskCreationType" />
@@ -189,7 +191,8 @@
                     android:text="@string/btnTaskCreationAdd"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{()->viewmodel.validate()}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

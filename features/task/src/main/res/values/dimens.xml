@@ -6,7 +6,7 @@
     <dimen name="spTaskCreationCustomerWidth">200dp</dimen>
     <dimen name="tieTaskCreationDescHeight">150dp</dimen>
     <dimen name="tvTaskDetailDescHeight">120dp</dimen>
-    <dimen name="tieTaskCreationFechaWidth">160dp</dimen>
+    <dimen name="tieTaskCreationFechaWidth">170dp</dimen>
     <dimen name="marginTopTaskDetail">8dp</dimen>
     <dimen name="marginStartTaskDetail">16dp</dimen>
     <dimen name="textSizeTaskDetail">18dp</dimen>
