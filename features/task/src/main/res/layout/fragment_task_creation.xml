@@ -68,10 +68,10 @@
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:selectedItemPosition="@={viewmodel.customer}"/>
+                    android:selectedItemPosition="@={viewmodel.idCustomer}"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilTaskCreationTitulo"
+                    android:id="@+id/tilTaskCreationTitle"
                     style="@style/TextColorTaskDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     app:layout_constraintTop_toBottomOf="@id/spTaskCreationCliente">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieTaskCreationTitulo"
+                        android:id="@+id/tieTaskCreationTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
@@ -96,7 +96,7 @@
                     android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitulo">
+                    app:layout_constraintTop_toBottomOf="@id/tilTaskCreationTitle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tieTaskCreationDesc"
@@ -104,6 +104,7 @@
                         android:layout_height="@dimen/tieTaskCreationDescHeight"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
+                        android:text="@={viewmodel.description}"
                         android:gravity="top"
                         android:hint="@string/tieTaskCreationDescripcion"
                         android:inputType="text" />
