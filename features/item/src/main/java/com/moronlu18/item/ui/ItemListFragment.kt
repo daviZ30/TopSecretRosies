@@ -2,15 +2,24 @@ package com.moronlu18.item.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.item.adapter.ItemAdapter
 import com.moronlu18.item.entity.item
@@ -21,7 +30,7 @@ import com.moronlu18.item.usecase.ItemViewModel
 import com.moronlu18.itemcreation.databinding.FragmentItemListBinding
 
 
-class ItemListFragment : Fragment() {
+class ItemListFragment : Fragment(), MenuProvider {
 
     private val itemRepository = ItemRepository.getInstance()
 
@@ -31,8 +40,12 @@ class ItemListFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+    private var isSortedByName = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
     }
 
@@ -42,6 +55,7 @@ class ItemListFragment : Fragment() {
     ): View? {
 
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
+
 
         val adapter = ItemAdapter(
             itemRepository.getItemList(),
@@ -54,6 +68,8 @@ class ItemListFragment : Fragment() {
                     putString("description", item.description)
                     putBoolean("isTaxable", item.isTaxable)
                 }
+
+                itemRepository.getItemList().sortedDescending()
 
                 findNavController().navigate(
                     R.id.action_itemListFragment_to_itemDetailFragment,
@@ -80,6 +96,8 @@ class ItemListFragment : Fragment() {
             }
         )
 
+
+
         binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(context)
 
@@ -89,10 +107,21 @@ class ItemListFragment : Fragment() {
         itemViewModel.newItem.observe(viewLifecycleOwner) { newItem ->
             if (newItem != null) {
                 itemRepository.addItem(newItem)
-                binding.rvItemList.adapter?.notifyDataSetChanged()
+                sortItemList(itemRepository.getItemList())
                 itemViewModel.clearNewItem()
             }
         }
+
+
+
+        binding.rvItemList.adapter = adapter
+        binding.rvItemList.layoutManager = LinearLayoutManager(context)
+
+
+        val initialList = itemRepository.getItemList()
+        sortItemList(initialList)
+
+
 
         return binding.root
     }
@@ -100,11 +129,79 @@ class ItemListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Funcion que personaliza el fav
+        setUpFav()
+        //Funcion que personaliza el menu de la toolbar
+        setUpToolbar()
+
+
         binding.fabitemcreation.setOnClickListener {
 
             findNavController().navigate(R.id.action_itemListFragment_to_itemCreationFragment)
         }
     }
+
+    /**
+     * Esta funcion personaliza el comportamiento del boton flotante de la activity
+     */
+    private fun setUpFav() {
+        val fab = (requireActivity() as? MainActivity)?.fab?.apply {
+            visibility = View.VISIBLE
+            setOnClickListener { view ->
+                Snackbar.make(view,"soy el fragment", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+      //Opcion 1
+      //val fab =  (requireActivity() as? MainActivity)?.fab
+        //fab?.visibility=View.VISIBLE
+        //fab?.setOnClickListener { view ->
+            // aqui la accion del listener
+        //    Snackbar.make(view,"soy el fragment", Snackbar.LENGTH_LONG).show()
+       // }
+    }
+
+    /**
+     * Esta funcion personaliza el comportamiento de la toolbat de la activity
+     */
+    private fun setUpToolbar() {
+        //Modismo Apply de kotlin
+        (requireActivity() as? MainActivity)?.toolbar?.apply {
+            visibility = View.VISIBLE
+           val menuhost : MenuHost = requireActivity()
+          // menuhost.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
+        }
+    }
+
+    /**
+     * Se añade
+     */
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_list_items, menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Log.d("TAG", "onCreateOptionsMenu called")
+        inflater.inflate(R.menu.menu_list_items, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return onMenuItemSelected(item)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_sort -> {
+                isSortedByName = !isSortedByName
+                sortItemList(itemRepository.getItemList())
+                true
+            }
+            else -> false
+        }
+    }
+
+
 
     private fun showDeleteConfirmationDialog(item: item) {
 
@@ -148,6 +245,23 @@ class ItemListFragment : Fragment() {
         }
         return invoicesWithItem.isNotEmpty()
     }
+
+    private fun sortItemList(itemList: List<item>) {
+        val sortedList = if (isSortedByName) {
+            itemList.sortedBy { it.name }
+        } else {
+            itemList
+        }
+        updateAdapter(sortedList)
+    }
+
+    private fun updateAdapter(updatedList: List<item>) {
+        val adapter = binding.rvItemList.adapter as? ItemAdapter
+        adapter?.updateItemList(updatedList)
+        adapter?.notifyDataSetChanged()
+    }
+
+
 }
 
 
