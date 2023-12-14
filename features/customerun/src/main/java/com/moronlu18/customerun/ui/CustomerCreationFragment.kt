@@ -59,8 +59,6 @@ class CustomerCreationFragment : Fragment() {
         binding.tieApellidosCustomerCreation.addTextChangedListener(textWatcher(binding.tilApellidosCustomerCreation))
         binding.tieCorreoCustomerCreation.addTextChangedListener(textWatcher(binding.tilCorreoCustomerCreation))
 
-        viewModel.validate()
-
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 CustomerState.NombreEmtyError -> setNombreEmptyError()
@@ -103,10 +101,6 @@ class CustomerCreationFragment : Fragment() {
     private fun onSuccess() {
         Toast.makeText(requireContext(), "todo correcto", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
-        if (editar){
-            ProviderCustomer.datasetCustomer.removeAt(pos)
-            editar =false
 
-        }
     }
 }

@@ -4,12 +4,11 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.ui.CustomerState
-import com.moronlu18.invoice.ui.firebase.network.Resorces
-import kotlinx.coroutines.launch
+import com.moronlu18.invoice.ui.firebase.Email
+import java.util.regex.Pattern
 
 class CustomerViewModel : ViewModel() {
     var email = MutableLiveData<String>()
@@ -24,36 +23,49 @@ class CustomerViewModel : ViewModel() {
         when {
             TextUtils.isEmpty(nombre.value) -> state.value = CustomerState.NombreEmtyError
             TextUtils.isEmpty(email.value) -> state.value = CustomerState.EmailEmtyError
+            ValidarEmail(email.value) -> state.value = CustomerState.EmailFormatError
 
 
             else -> {
-                viewModelScope.launch {
-                    state.value = CustomerState.Loading(true)
-                    val result = ProviderCustomer.login(
-                        email.value!!,
-                        nombre.value!!,
-                        apellidos.value!!,
-                        telefono.value!!,
-                        ciudad.value!!,
-                        direccion.value!!
+                state.value = CustomerState.Success
+                if (ProviderCustomer.datasetCustomer.size > 0) {
+                    ProviderCustomer.datasetCustomer.add(
+                        Cliente(
+                            ProviderCustomer.datasetCustomer.last().id + 1,
+                            nombre.value!!,
+                            apellidos.value!!,
+                            Email(email.value!!),
+                            telefono.value!!,
+                            ciudad.value!!,
+                            direccion.value!!
+                        )
                     )
-                    state.value = CustomerState.Loading(false)
+                } else {
+                    ProviderCustomer.datasetCustomer.add(
+                        Cliente(
+                            1,
+                            nombre.value!!,
+                            apellidos.value!!,
+                            Email(email.value!!),
+                            telefono.value!!,
+                            ciudad.value!!,
+                            direccion.value!!
+                        )
+                    )
 
-                    when (result) {
-                        is Resorces.Sucess<*> -> {
-                            ProviderCustomer.datasetCustomer.add(result.data as Cliente)
-                            state.value = CustomerState.Success(result)
-
-                        }
-
-                        is Resorces.Error -> {
-                            state.value = CustomerState.EmailFormatError
-                        }
-                    }
                 }
             }
 
         }
+    }
+
+    private fun ValidarEmail(value: String?): Boolean {
+        val pattern = Pattern.compile("^\\S+@\\S+\\.\\S+")
+
+        if (!pattern.matcher(value).matches()) {
+            return true
+        }
+        return false
     }
 
     fun getState(): LiveData<CustomerState> {
