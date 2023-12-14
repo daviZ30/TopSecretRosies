@@ -7,19 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
-import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
-import com.moronlu18.invoiceFragment.R
+import com.moronlu18.invoice.usecase.InvoiceDetailsViewModel
 import com.moronlu18.invoiceFragment.databinding.FilaArticulosBinding
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
-import java.time.ZoneId
 
 
 class InvoiceDetailsFragment : Fragment() {
-    val facturas = ProviderInvoice.datasetFactura
 
     lateinit var factura: Factura;
     private var _binding: FragmentInvoiceDetailsBinding? = null
@@ -29,6 +27,8 @@ class InvoiceDetailsFragment : Fragment() {
         get() = _binding!!
     private val bindingAr
         get() = _bindingAr!!
+
+    private val viewModel: InvoiceDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +42,10 @@ class InvoiceDetailsFragment : Fragment() {
         _binding = FragmentInvoiceDetailsBinding.inflate(inflater, container, false)
         _bindingAr = FilaArticulosBinding.inflate(inflater,container,false)
         binding.rvInvoiceDetails.layoutManager = LinearLayoutManager(context)
+        binding.viewmodel = this.viewModel
+
+        binding.lifecycleOwner = this
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -50,9 +54,9 @@ class InvoiceDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.setFragmentResultListener("key",this, FragmentResultListener { requestKey, result ->
             var pos: Int = result.getInt("pos")
-            factura = facturas[pos]
+            factura = viewModel.facturas[pos]
             var precios = factura.Articulos.map { it.rate }
-            binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos){
+            binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos, true){
                 Toast.makeText(requireContext(),"No puedes borrar un Articulo en la pestaña de detalles",Toast.LENGTH_LONG).show()
             }
             bindingAr.imgEliminarArticulo.visibility = View.GONE

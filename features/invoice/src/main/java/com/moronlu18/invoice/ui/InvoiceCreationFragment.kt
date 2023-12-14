@@ -15,8 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
-import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
-import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.usecase.InvoiceViewModel
@@ -151,7 +149,7 @@ class InvoiceCreationFragment : Fragment() {
 
         }
 
-        val rvadapter = AdaptadorArticulos(viewModel.articulos) { i: Int ->
+        val rvadapter = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
             viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)
 
@@ -174,8 +172,9 @@ class InvoiceCreationFragment : Fragment() {
                 viewModel.editar = editar
                 val precios = factura.Articulos.map { it.rate }
                 binding.rvInvoiceArticulos.adapter =
-                    AdaptadorArticulos(factura.Articulos) { i: Int ->
+                    AdaptadorArticulos(factura.Articulos,false) { i: Int ->
                         factura.Articulos.removeAt(i)
+
                         //notifyItemRemoved(position)
                         binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
                         updateTotal()

@@ -12,6 +12,7 @@ import com.moronlu18.item.entity.item
 
 class AdaptadorArticulos(
     val articulos: List<item>,
+    val mostrar : Boolean,
     private val onDelete: (position: Int) -> Unit,
 ) : RecyclerView.Adapter<AdaptadorArticulos.ViewHolder>() {
 
@@ -38,8 +39,14 @@ class AdaptadorArticulos(
 
     override fun onBindViewHolder(holder: AdaptadorArticulos.ViewHolder, position: Int) {
         val f = articulos[position]
+
         holder.nombre.text = f.name
         holder.precio.text = "${f.rate.toString()} €"
+        if(mostrar){
+            holder.img.visibility = View.GONE
+        }else{
+            holder.img.visibility = View.VISIBLE
+        }
         holder.img.setOnClickListener{
             onDelete(position)
         }
