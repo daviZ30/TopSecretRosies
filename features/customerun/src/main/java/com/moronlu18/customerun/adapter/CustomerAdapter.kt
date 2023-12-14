@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customerun.R
-
+import com.moronlu18.task.repository.ProviderTask
 
 
 class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int,nav:Int) -> Unit):
@@ -35,8 +35,17 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
             onItemClick.invoke(position,0)
         }
        holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
-           clientes.removeAt(position)
-           notifyDataSetChanged();
+           var eliminado:Boolean = true
+           for (task in ProviderTask.taskExample){
+               if (task.customerId == clientes[position].id){
+                   eliminado = false
+                   break
+               }
+           }
+           if (eliminado){
+               clientes.removeAt(position)
+               notifyDataSetChanged()
+           }
        }
         holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
             onItemClick.invoke(position,1)
