@@ -31,7 +31,7 @@ class TaskViewModel : ViewModel() {
     fun validate(){
         val customerSelected = idCustomer.value == 0
         when{
-            TextUtils.isEmpty(title.value)->state.value = TaskState.TitleIsMandatoryError
+            TextUtils.isEmpty(title.value) || title.value?.isBlank()!!  ->state.value = TaskState.TitleIsMandatoryError
             customerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{ state.value = TaskState.Success }
@@ -42,11 +42,15 @@ class TaskViewModel : ViewModel() {
         val customerId = idCustomer.value!!
         val title = this.title.value!!
         val nameCustomer = customerList.find { it.id == customerId }?.getFullName()!!
-        val desc = description.value!!
-        val type = TaskType.valueOf(this.type.value.toString())
-        val status = TaskStatus.valueOf(this.status.value.toString())
+        val desc = description.value ?: ""
+
+        /*val type = TaskType.valueOf(this.type.value.toString())
+        val status = TaskStatus.valueOf(this.status.value.toString())*/
+
+         val type = TaskType.private
+         val status = TaskStatus.pending
         val createdDate = this.createdDate.value!!
-        val endDate = this.endDate.value!!
+        val endDate = this.endDate.value ?: ""
         tasksList.add(Task(idTask, customerId,title, desc, nameCustomer, type, status, createdDate, endDate))
     }
     private fun incorrectDateRange(created: String?, end :String? ) : Boolean{
