@@ -30,6 +30,11 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
         return itemList.size
     }
 
+    fun updateItemList(updatedList: List<item>) {
+        itemList = updatedList.toMutableList()
+        notifyDataSetChanged()
+    }
+
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item:item) {
             itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"

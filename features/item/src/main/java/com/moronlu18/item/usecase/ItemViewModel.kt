@@ -21,6 +21,8 @@ class ItemViewModel:ViewModel() {
 
     }
 
+
+
     fun updateItem(updatedItem: item) {
         ItemRepository.getInstance().updateItem(updatedItem)
         newItem.value = updatedItem
