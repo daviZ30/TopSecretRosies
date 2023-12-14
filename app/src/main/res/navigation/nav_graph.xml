@@ -42,6 +42,12 @@
         android:label="@string/title_tasklist"
         android:id="@+id/taskFragment"
         android:name="com.moronlu18.task.ui.TaskListFragment" />
+
+    <fragment
+        app:moduleName="customer"
+        android:label="@string/title_customerlist"
+        android:id="@+id/customerFragment"
+        android:name="com.moronlu18.customerun.ui.CustomerListFragment" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.moronlu18.invoice.MainFragment"

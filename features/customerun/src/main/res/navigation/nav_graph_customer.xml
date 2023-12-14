@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/customerListFragment2"
         android:name="com.moronlu18.customerun.ui.CustomerListFragment"
-        android:label="fragment_customer__list_"
+        android:label="Lista Clientes"
         tools:layout="@layout/fragment_customer__list_" >
         <action
             android:id="@+id/action_customerListFragment_to_customerCreationFragment2"
@@ -20,10 +20,10 @@
     <fragment
         android:id="@+id/customerCreationFragment"
         android:name="com.moronlu18.customerun.ui.CustomerCreationFragment"
-        android:label="CustomerCreationFragment" />
+        android:label="Creacion Cliente" />
     <fragment
         android:id="@+id/customerDetailFragment"
         android:name="com.moronlu18.customerun.ui.CustomerDetailFragment"
-        android:label="fragment_customer_detail"
+        android:label="Datos Cliente"
         tools:layout="@layout/fragment_customer_detail" />
 </navigation>
