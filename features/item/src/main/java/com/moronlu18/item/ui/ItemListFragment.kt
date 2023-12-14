@@ -145,12 +145,12 @@ class ItemListFragment : Fragment(), MenuProvider {
      * Esta funcion personaliza el comportamiento del boton flotante de la activity
      */
     private fun setUpFav() {
-        val fab = (requireActivity() as? MainActivity)?.fab?.apply {
+        /*val fab = (requireActivity() as? MainActivity)?.fab?.apply {
             visibility = View.VISIBLE
             setOnClickListener { view ->
                 Snackbar.make(view,"soy el fragment", Snackbar.LENGTH_LONG).show()
             }
-        }
+        }*/
 
       //Opcion 1
       //val fab =  (requireActivity() as? MainActivity)?.fab
