@@ -1,21 +1,24 @@
 package com.moronlu18.invoice.usecase
 
 import android.os.Build
-import android.text.Editable
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceState
-import com.moronlu18.invoice.ui.firebase.network.Resorces
-import kotlinx.coroutines.launch
+import com.moronlu18.item.entity.item
+
 import java.time.Instant
 
 class InvoiceViewModel : ViewModel() {
+    var articulos: MutableList<item> = ArrayList<item>()
+    var editar: Boolean = false
     var idFactura = MutableLiveData<String>()
     var idCliente = MutableLiveData<String>()
     var FeEmi = MutableLiveData<String>()
@@ -25,35 +28,116 @@ class InvoiceViewModel : ViewModel() {
     var telefono = MutableLiveData<String>()
     val clientes = ProviderCustomer.datasetCustomer
     private var _cliente: Cliente? = null
+    val _facturas = ProviderInvoice.datasetFactura
+    val facturas
+        get() = _facturas!!
+
     val cliente
         get() = _cliente!!
+
 
     //var email = MutableLiveData<String>()
     //var password = MutableLiveData<String>()
     private var state = MutableLiveData<InvoiceState>()
+
+
+    fun setLista(listaArticulos: MutableList<item>){
+        articulos = listaArticulos;
+
+    }
     fun validate() {
         when {
             TextUtils.isEmpty(idFactura.value) -> state.value = InvoiceState.idFacturaEmtyError
             TextUtils.isEmpty(idCliente.value) -> state.value = InvoiceState.idClienteEmtyError
             TextUtils.isEmpty(FeEmi.value) -> state.value = InvoiceState.feEmiEmtyError
             TextUtils.isEmpty(FeVen.value) -> state.value = InvoiceState.feVenEmtyError
+            nuevoId(idFactura.value) && editar -> state.value = InvoiceState.facturaNewIdError
+            !validarIdFactura(idFactura.value) && !editar -> state.value =
+                InvoiceState.facturaValidateError
+
             !introduceCliente() -> state.value = InvoiceState.idClienteInvalidError
             !ValidateFecha(FeEmi.value) -> state.value = InvoiceState.feEmiInvalidError
             !ValidateFecha(FeVen.value) -> state.value = InvoiceState.feVenInvalidError
-            !olderDate(SetDate(FeEmi.value!!)!!,SetDate(FeVen.value!!)!!) ->  state.value = InvoiceState.dateInvalidError
+            !olderDate(SetDate(FeEmi.value!!)!!, SetDate(FeVen.value!!)!!) -> state.value =
+                InvoiceState.dateInvalidError
+
+            articulos.size == 0 -> state.value = InvoiceState.ArticulosEmptyError
+
             else -> {
+                CrearFactura(editar)
                 state.value = InvoiceState.Success
             }
 
         }
     }
+
+    fun CrearFactura(editar: Boolean) {
+        if (editar) {
+            ProviderInvoice.editInvoice(
+                idFactura.value!!.toInt(),
+                cliente,
+                SetFecha(FeEmi.value!!),
+                SetFecha(FeVen.value!!),
+                articulos,
+                InvoiceStatus.Pending
+            )
+        } else {
+            ProviderInvoice.CreateInvoice(
+                idFactura.value!!.toInt(),
+                cliente,
+                SetFecha(FeEmi.value!!),
+                SetFecha(FeVen.value!!),
+                articulos,
+                InvoiceStatus.Pending
+            )
+        }
+
+
+    }
+
+    private fun SetFecha(fecha: String): Instant {
+        val dateString = fecha + "T00:00:00Z"
+        val instant = Instant.parse(dateString)
+        return instant
+
+
+    }
+
     private fun olderDate(t1: Instant, t2: Instant): Boolean {
-        if(t1 != null && t2 != null){
+        if (t1 != null && t2 != null) {
             return t1.isBefore(t2)
-        }else{
+        } else {
             return false
         }
 
+    }
+
+    fun nuevoId(cadena: String?): Boolean {
+        try {
+            val i = cadena?.toInt()
+            facturas.forEach {
+                if (it.id == i) {
+                    return false
+                }
+            }
+        } catch (e: Exception) {
+            return true
+        }
+        return true
+    }
+
+    fun validarIdFactura(cadena: String?): Boolean {
+        try {
+            val i = cadena?.toInt()
+            facturas.forEach {
+                if (it.id == i) {
+                    return false
+                }
+            }
+        } catch (e: Exception) {
+            return false
+        }
+        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -64,6 +148,7 @@ class InvoiceViewModel : ViewModel() {
 
 
     }
+
     private fun ValidateFecha(s: String?): Boolean {
         try {
             if (s != null) {
@@ -104,5 +189,6 @@ class InvoiceViewModel : ViewModel() {
     fun getState(): LiveData<InvoiceState> {
         return state;
     }
+
 
 }

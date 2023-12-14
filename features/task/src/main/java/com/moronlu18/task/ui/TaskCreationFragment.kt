@@ -65,7 +65,7 @@ class TaskCreationFragment : Fragment() {
         viewModel.getState().observe(viewLifecycleOwner){
             when(it){
                 TaskState.TitleIsMandatoryError -> {
-                    binding.tilTaskCreationTitulo.error = "Titulo obligatorio"
+                    binding.tilTaskCreationTitle.error = "Titulo obligatorio"
                 }
                 TaskState.CustomerUnspecifiedError -> {
                     Toast.makeText(requireContext(), "Selecciona un cliente", Toast.LENGTH_SHORT).show()
@@ -73,7 +73,12 @@ class TaskCreationFragment : Fragment() {
                 TaskState.IncorrectDateRangeError -> {
                     binding.tilTaskCreationDateEnd.error =
                         "La fecha fin no puede ser menor que la fecha inicio"}
-                TaskState.Success -> {createTask()}
+                //TaskState.Success -> {createTask()}
+                TaskState.Success -> {viewModel.createTask()
+                    Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    parentFragmentManager.setFragmentResult("key", bundle)
+                    findNavController().popBackStack()}
             }
         }
 
@@ -81,8 +86,8 @@ class TaskCreationFragment : Fragment() {
                 viewModel.validate()
             }
 
-        binding.tieTaskCreationTitulo.addTextChangedListener {
-            textWatcher(binding.tilTaskCreationTitulo)
+        binding.tieTaskCreationTitle.addTextChangedListener {
+                textWatcher(binding.tilTaskCreationTitle)
         }
         }
 
@@ -137,7 +142,7 @@ class TaskCreationFragment : Fragment() {
     private fun createTask() {
         val idTask = tasks.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
         val customerId = getIdCustomer(binding.spTaskCreationCliente.selectedItem.toString())
-        val title = binding.tieTaskCreationTitulo.text.toString()
+        val title = binding.tieTaskCreationTitle.text.toString()
         val nameCustomer = customer.find { it.id == customerId }?.getFullName()
         val desc = binding.tieTaskCreationDesc.text.toString()
         val type = TaskType.valueOf(binding.spTaskCreationType.selectedItem.toString())

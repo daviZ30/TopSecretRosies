@@ -1,7 +1,6 @@
 package com.moronlu18.invoice.ui
 
 import android.R
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
@@ -18,8 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
-import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
@@ -32,12 +28,9 @@ import java.time.Instant
 
 //data class Articulo(val nombre:String,val precio:Double)
 class InvoiceCreationFragment : Fragment() {
-    val facturas = ProviderInvoice.datasetFactura
-    val clientes = ProviderCustomer.datasetCustomer
-    lateinit var factura: Factura;
-    var clien: Cliente? = null;
-    private var editar = false;
-    var CreArticulos: MutableList<item> = ArrayList<item>()
+    lateinit var factura: Factura
+    private var editar = false
+
 
 
     private var _binding: FragmentInvoiceCreationBinding? = null
@@ -54,7 +47,7 @@ class InvoiceCreationFragment : Fragment() {
     }
 
 
-    inner class textWatcher(var e: Editable?, var t: TextInputLayout) : TextWatcher {
+    inner class textWatcher(var t: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 
@@ -69,9 +62,8 @@ class InvoiceCreationFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentInvoiceCreationBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
 
@@ -83,10 +75,9 @@ class InvoiceCreationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // val itemListString = articulos.map { articulo -> articulo.nombre }
-        val adaptersp =
-            ArrayAdapter(requireContext(), R.layout.simple_spinner_item, articulos)
+        val adaptersp = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, articulos)
 
-        adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
 
         viewModel.getState().observe(viewLifecycleOwner) {
@@ -109,9 +100,20 @@ class InvoiceCreationFragment : Fragment() {
                 }
 
                 InvoiceState.feEmiEmtyError -> {
-                    binding.tilInvoiceFeEmi.error =
-                        "Introduce una fecha con formato YYYY/MM/DD"
+                    binding.tilInvoiceFeEmi.error = "Introduce una fecha con formato YYYY/MM/DD"
                     binding.tilInvoiceFeEmi.requestFocus()
+                }
+
+                InvoiceState.facturaValidateError -> {
+                    binding.tilInvoiceCreationIdFactura.error =
+                        "Id de la factura invalido, debe ser un id no existente"
+                    binding.tilInvoiceCreationIdFactura.requestFocus()
+                }
+
+                InvoiceState.facturaNewIdError -> {
+                    binding.tilInvoiceCreationIdFactura.error =
+                        "Id de la factura invalido, para editar el id debe existir"
+                    binding.tilInvoiceCreationIdFactura.requestFocus()
                 }
 
                 InvoiceState.idClienteInvalidError -> {
@@ -139,15 +141,18 @@ class InvoiceCreationFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
+                InvoiceState.ArticulosEmptyError -> Toast.makeText(
+                    requireContext(), "Introduce algún artículo", Toast.LENGTH_SHORT
+                ).show()
 
-                else -> Validate()
+                else -> Created()
             }
 
 
         }
 
-        var rvadapter = AdaptadorArticulos(CreArticulos) { i: Int ->
-            CreArticulos.removeAt(i)
+        val rvadapter = AdaptadorArticulos(viewModel.articulos) { i: Int ->
+            viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)
 
             binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
@@ -159,14 +164,15 @@ class InvoiceCreationFragment : Fragment() {
         binding.spArticulo.adapter = adaptersp
 
 
-        parentFragmentManager.setFragmentResultListener(
-            "key",
+        parentFragmentManager.setFragmentResultListener("key",
             this,
             FragmentResultListener { requestKey, result ->
                 editar = true
-                var pos: Int = result.getInt("pos")
-                factura = facturas[pos]
-                var precios = factura.Articulos.map { it.rate }
+                val pos: Int = result.getInt("pos")
+                factura = viewModel.facturas[pos]
+                viewModel.setLista(factura.Articulos)
+                viewModel.editar = editar
+                val precios = factura.Articulos.map { it.rate }
                 binding.rvInvoiceArticulos.adapter =
                     AdaptadorArticulos(factura.Articulos) { i: Int ->
                         factura.Articulos.removeAt(i)
@@ -186,74 +192,71 @@ class InvoiceCreationFragment : Fragment() {
                     factura.FeVencimiento.toString().substring(0, posVen)
                 )
 
-                var SubTotal = precios.reduce { acc, ar -> acc + ar }
+                val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
 
                 binding.tieInvoiceCreationIdCliente.addTextChangedListener(
                     textWatcher(
-                        binding.tieInvoiceCreationIdCliente.text,
                         binding.tilInvoiceCreationIdCliente
                     )
                 )
                 binding.tieInvoiceCreationIdFactura.addTextChangedListener(
                     textWatcher(
-                        null,
                         binding.tilInvoiceCreationIdFactura
                     )
                 )
 
             })
-        //viewModel.validate()
-
 
         binding.btnArticulos.setOnClickListener {
             if (editar) {
-                var b: String = binding.spArticulo.selectedItem.toString()
-                var datos = b.split('-')
+                val b: String = binding.spArticulo.selectedItem.toString()
+                val datos = b.split('-')
 
-                var a = ObtenerItem(datos[0])
+                val a = ObtenerItem(datos[0])
                 factura.Articulos.add(a!!)
                 rvadapter.notifyDataSetChanged()
                 binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
             } else {
-                var b: String = binding.spArticulo.selectedItem.toString()
-                var datos = b.split('-')
-                var a = ObtenerItem(datos[0])
-                CreArticulos.add(a!!)
+                val b: String = binding.spArticulo.selectedItem.toString()
+                val datos = b.split('-')
+                val a = ObtenerItem(datos[0])
+                viewModel.articulos.add(a!!)
                 rvadapter.notifyDataSetChanged()
-                binding.rvInvoiceArticulos.scrollToPosition(CreArticulos.size - 1)
+                binding.rvInvoiceArticulos.scrollToPosition(viewModel.articulos.size - 1)
             }
             updateTotal()
 
         }
 
         binding.btnCrear.setOnClickListener {
-            viewModel.validate()
+            if (editar) {
+                viewModel.validate()
+            } else {
+                viewModel.validate()
+            }
+
         }
 
         binding.tieInvoiceCreationIdCliente.addTextChangedListener(
             textWatcher(
-                binding.tieInvoiceCreationIdCliente.text,
                 binding.tilInvoiceCreationIdCliente
             )
         )
         binding.tieInvoiceCreationIdFactura.addTextChangedListener(
             textWatcher(
-                null,
                 binding.tilInvoiceCreationIdFactura
             )
         )
         binding.tieInvoiceFeEmi.addTextChangedListener(
             textWatcher(
-                null,
                 binding.tilInvoiceFeEmi
             )
         )
         binding.tieInvoiceCreationFeVen.addTextChangedListener(
             textWatcher(
-                null,
                 binding.tilInvoiceCreationFeVen
             )
         )
@@ -267,19 +270,19 @@ class InvoiceCreationFragment : Fragment() {
                 binding.txtInvoiceCreationSubtotal.text = ""
                 binding.txtInvoiceCreationTotal.text = ""
             } else {
-                var precios = factura.Articulos.map { it.rate }
-                var SubTotal = precios.reduce { acc, ar -> acc + ar }
+                val precios = factura.Articulos.map { it.rate }
+                val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
             }
         } else {
-            if (CreArticulos.size < 1) {
+            if (viewModel.articulos.size < 1) {
                 binding.txtInvoiceCreationSubtotal.text = ""
                 binding.txtInvoiceCreationTotal.text = ""
             } else {
-                var precios = CreArticulos.map { it.rate }
-                var SubTotal = precios.reduce { acc, ar -> acc + ar }
+                val precios = viewModel.articulos.map { it.rate }
+                val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
                     String.format("%.2f €", SubTotal + (SubTotal * 0.21))
@@ -288,118 +291,27 @@ class InvoiceCreationFragment : Fragment() {
 
     }
 
-    fun Validate() {
-        if (editar) {
-            when {
-                factura.Articulos.size == 0 -> Toast.makeText(
-                    requireContext(),
-                    "Introduce algún artículo",
-                    Toast.LENGTH_SHORT
-                ).show()
 
-                nuevoId(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
-                    binding.tilInvoiceCreationIdFactura.error =
-                        "Id de la factura invalido, para editar el id debe existir"
-                    binding.tilInvoiceCreationIdFactura.requestFocus()
-                }
-
-                else -> CrearFactura(editar)
-            }
-        } else {
-            when {
-                CreArticulos.size == 0 -> Toast.makeText(
-                    requireContext(),
-                    "Introduce algún artículo",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                !validarIdFactura(binding.tieInvoiceCreationIdFactura.text.toString()) -> {
-                    binding.tilInvoiceCreationIdFactura.error =
-                        "Id de la factura invalido, debe ser un id no existente"
-                    binding.tilInvoiceCreationIdFactura.requestFocus()
-                }
-
-                else -> CrearFactura(editar)
-            }
-        }
-    }
-
-    fun nuevoId(cadena: String): Boolean {
-        try {
-            var i = cadena.toInt()
-            facturas.forEach {
-                if (it.id == i) {
-                    return false
-                }
-            }
-        } catch (e: Exception) {
-            return true
-        }
-        return true
-    }
-
-    fun validarIdFactura(cadena: String): Boolean {
-        try {
-            var i = cadena.toInt()
-            facturas.forEach {
-                if (it.id == i) {
-                    return false
-                }
-            }
-        } catch (e: Exception) {
-            return false
-        }
-        return true
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun SetFecha(fecha: String): Instant {
         val dateString = fecha + "T00:00:00Z"
-        //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
-        //val localDateTime = LocalDateTime.parse(dateString, formatter)
         val instant = Instant.parse(dateString)
-        //return localDateTime.toInstant(ZoneOffset.MAX)
         return instant
 
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun CrearFactura(editar: Boolean) {
-        if (editar) {
-            ProviderInvoice.editInvoice(
-                binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                viewModel.cliente,
-                SetFecha(binding.tieInvoiceFeEmi.text.toString()),
-                SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
-                factura.Articulos,
-                InvoiceStatus.Pending
-            )
-        } else {
-            ProviderInvoice.CreateInvoice(
-                binding.tieInvoiceCreationIdFactura.text.toString().toInt(),
-                viewModel.cliente,
-                SetFecha(binding.tieInvoiceFeEmi.text.toString()),
-                SetFecha(binding.tieInvoiceCreationFeVen.text.toString()),
-                CreArticulos,
-                InvoiceStatus.Pending
-            )
-        }
+    fun Created() {
         findNavController().popBackStack()
-
     }
 
     fun ObtenerItem(nombre: String): item? {
-
         articulos.forEach {
-
             if (nombre.trim().equals(it.name)) {
 
                 return it
             }
         }
-        return null;
+        return null
     }
 
 
