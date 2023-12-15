@@ -1,12 +1,9 @@
 package com.moronlu18.task.usecase
 
-import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.ui.TaskState
 import java.text.SimpleDateFormat
@@ -40,8 +37,7 @@ class TaskViewModel : ViewModel() {
             else ->{ state.value = TaskState.Success }
         }
     }
-     fun createTask() {
-         val idTask = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+     fun makeTask(edit : Boolean) {
          val customerId = idCustomer.value!!
          val title = this.title.value!!
          val nameCustomer = customerList.find { it.id == customerId }?.getFullName()!!
@@ -50,7 +46,12 @@ class TaskViewModel : ViewModel() {
          val status = getStatus()
          val createdDate = this.createdDate.value!!
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
-        tasksList.add(Task(idTask, customerId,title, desc, nameCustomer, type, status, createdDate, endDate))
+         if (!edit){
+            val idTask = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+            tasksList.add(Task(idTask, customerId,title, desc, nameCustomer, type, status, createdDate, endDate))
+         }else{
+
+         }
     }
 
     /**

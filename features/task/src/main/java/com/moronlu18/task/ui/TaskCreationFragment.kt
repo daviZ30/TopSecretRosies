@@ -1,5 +1,6 @@
 package com.moronlu18.task.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,8 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.calendar.CalendarInvoice
-import com.moronlu18.task.entity.Task
-import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
@@ -24,9 +23,10 @@ import com.moronlu18.task.usecase.TaskViewModel
 
 
 class TaskCreationFragment : Fragment() {
-    private val tasks: MutableList<Task> = ProviderTask.taskExample
+    //private val tasks: MutableList<Task> = ProviderTask.taskExample
     private val customer = ProviderCustomer.datasetCustomer
     private val c = CalendarInvoice()
+    private val edit : Boolean = false
 
     private var _binding: FragmentTaskCreationBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +36,7 @@ class TaskCreationFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    inner class textWatcher(var til: TextInputLayout) : TextWatcher {
+    inner class TextWatcherTask(private var til: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         }
@@ -46,6 +46,7 @@ class TaskCreationFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -80,9 +81,8 @@ class TaskCreationFragment : Fragment() {
                 }
 
                 TaskState.Success -> {
-                    viewModel.createTask()
-                    Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT)
-                        .show()
+                    viewModel.makeTask(edit)
+                    Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
                     val bundle = Bundle()
                     parentFragmentManager.setFragmentResult("key", bundle)
                     findNavController().popBackStack()
@@ -95,7 +95,7 @@ class TaskCreationFragment : Fragment() {
         }
 
         binding.tieTaskCreationTitle.addTextChangedListener {
-            textWatcher(binding.tilTaskCreationTitle)
+            TextWatcherTask(binding.tilTaskCreationTitle)
         }
     }
 
@@ -133,7 +133,7 @@ class TaskCreationFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTaskCreationBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
@@ -157,7 +157,6 @@ class TaskCreationFragment : Fragment() {
             return -1
         }
     }*/
-
 
     /*   private fun createTask() {
            val idTask = tasks.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
