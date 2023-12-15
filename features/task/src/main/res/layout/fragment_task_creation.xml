@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.moronlu18.task.usecase.TaskViewModel" />
@@ -65,10 +66,10 @@
                     android:layout_width="@dimen/spTaskCreationCustomerWidth"
                     android:layout_height="50dp"
                     android:background="@drawable/shape_spinner"
+                    android:selectedItemPosition="@={viewmodel.idCustomer}"
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:selectedItemPosition="@={viewmodel.idCustomer}"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilTaskCreationTitle"
@@ -83,9 +84,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@={viewmodel.title}"
                         android:hint="@string/tieTaskCreationTitulo"
-                        android:inputType="textShortMessage" />
+                        android:inputType="textShortMessage"
+                        android:text="@={viewmodel.title}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -104,10 +105,10 @@
                         android:layout_height="@dimen/tieTaskCreationDescHeight"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@={viewmodel.description}"
                         android:gravity="top"
                         android:hint="@string/tieTaskCreationDescripcion"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:text="@={viewmodel.description}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -128,9 +129,9 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@={viewmodel.createdDate}"
                         android:hint="@string/tieTaskCreationFStart"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.createdDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -152,9 +153,9 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@={viewmodel.endDate}"
                         android:hint="@string/tieTaskCreationFEnd"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.endDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -162,25 +163,25 @@
                     android:id="@+id/spTaskCreationType"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@drawable/shape_spinner"
+                    android:selectedItemPosition="@={viewmodel.typeselected}"
                     android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginVertical="10dp"
                     app:layout_constraintStart_toEndOf="@+id/tilTaskCreationDateStart"
-                    app:layout_constraintTop_toBottomOf="@+id/tilTaskCreationDesc"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tilTaskCreationDesc" />
 
                 <Spinner
                     android:id="@+id/spTaskCreationStatus"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/shape_spinner"
-                    android:spinnerMode="dropdown"
                     android:layout_marginVertical="10dp"
+                    android:background="@drawable/shape_spinner"
+                    android:selectedItemPosition="@={viewmodel.statusselected}"
+                    android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tilTaskCreationDateEnd"
-                    app:layout_constraintTop_toBottomOf="@+id/spTaskCreationType"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/spTaskCreationType" />
 
                 <Button
                     android:id="@+id/btnTaskCreationAdd"
@@ -189,11 +190,11 @@
                     android:layout_gravity="end"
                     android:backgroundTint="@color/md_theme_light_primary"
                     android:fontFamily="@font/opensans_condensed_bold"
+                    android:onClick="@{()->viewmodel.validate()}"
                     android:text="@string/btnTaskCreationAdd"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:onClick="@{()->viewmodel.validate()}"/>
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

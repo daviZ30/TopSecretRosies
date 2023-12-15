@@ -145,17 +145,18 @@ class TaskCreationFragment : Fragment() {
         _binding = null
     }
 
+
     /**
      * Devuelve el id del spinner
      */
-    private fun getIdCustomer(customer: String): Int {
+   /* private fun getIdCustomer(customer: String): Int {
         try {
-            var id: Int = customer.split(".").first().toInt()
+            val id: Int = customer.split(".").first().toInt()
             return id
         } catch (e: NumberFormatException) {
             return -1
         }
-    }
+    }*/
 
 
     /*   private fun createTask() {
