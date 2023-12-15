@@ -75,13 +75,13 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
         println("OnViewCreated")
 
-        viewModel.getState().observe(viewLifecycleOwner){
+        /*viewModel.getState().observe(viewLifecycleOwner){
             when(it){
                 else -> Toast.makeText(
                     requireContext(), "Lista Ordenada", Toast.LENGTH_SHORT
                 ).show()
             }
-        }
+        }*/
         if(viewModel.facturas.size < 1){
             binding.rvInvoiceList.visibility = View.GONE
             binding.imgNada.visibility = View.VISIBLE
@@ -99,7 +99,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 }else if( n == 1){
                     findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
                 }
-
             },
             { i:Int ->
                 viewModel.facturas.removeAt(i)
@@ -124,6 +123,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             //findNavController().navigate()
            findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
         }
+
         viewModel.validate()
     }
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -148,6 +148,10 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             else -> false
 
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

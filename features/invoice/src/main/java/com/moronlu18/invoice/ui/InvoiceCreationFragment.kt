@@ -30,7 +30,6 @@ class InvoiceCreationFragment : Fragment() {
     private var editar = false
 
 
-
     private var _binding: FragmentInvoiceCreationBinding? = null
     private val binding
         get() = _binding!!
@@ -139,6 +138,7 @@ class InvoiceCreationFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
+
                 InvoiceState.ArticulosEmptyError -> Toast.makeText(
                     requireContext(), "Introduce algún artículo", Toast.LENGTH_SHORT
                 ).show()
@@ -172,7 +172,7 @@ class InvoiceCreationFragment : Fragment() {
                 viewModel.editar = editar
                 val precios = factura.Articulos.map { it.rate }
                 binding.rvInvoiceArticulos.adapter =
-                    AdaptadorArticulos(factura.Articulos,false) { i: Int ->
+                    AdaptadorArticulos(factura.Articulos, false) { i: Int ->
                         factura.Articulos.removeAt(i)
 
                         //notifyItemRemoved(position)
@@ -290,13 +290,10 @@ class InvoiceCreationFragment : Fragment() {
 
     }
 
-
     private fun SetFecha(fecha: String): Instant {
         val dateString = fecha + "T00:00:00Z"
         val instant = Instant.parse(dateString)
         return instant
-
-
     }
 
     fun Created() {
@@ -311,6 +308,11 @@ class InvoiceCreationFragment : Fragment() {
             }
         }
         return null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
