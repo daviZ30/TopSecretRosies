@@ -3,8 +3,7 @@
     <style name="TextColorTaskDetail">
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="datePickerTheme" parent="android:Theme.Material.Light.Dialog">
-        <item name="android:colorAccent">@color/md_theme_light_primary</item>
-<!--        <item name="android:colorButtonNormal">@color/md_theme_light_primary</item>-->
+    <style name="datePickerTheme" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:background">@color/md_theme_light_primary</item>
     </style>
 </resources>

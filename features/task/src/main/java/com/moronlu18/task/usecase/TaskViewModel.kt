@@ -16,7 +16,7 @@ import com.moronlu18.task.repository.ProviderTask
 
 class TaskViewModel : ViewModel() {
     private val tasksList: MutableList<Task> = ProviderTask.taskExample
-    private val customerList = ProviderCustomer.datasetCustomer
+    val customerList = ProviderCustomer.datasetCustomer
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
     val description = MutableLiveData<String>()

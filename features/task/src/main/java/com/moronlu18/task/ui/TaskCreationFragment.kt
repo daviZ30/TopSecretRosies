@@ -23,8 +23,6 @@ import com.moronlu18.task.usecase.TaskViewModel
 
 
 class TaskCreationFragment : Fragment() {
-    //private val tasks: MutableList<Task> = ProviderTask.taskExample
-    private val customer = ProviderCustomer.datasetCustomer
     private val c = CalendarInvoice()
     private val edit : Boolean = false
 
@@ -32,6 +30,7 @@ class TaskCreationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TaskViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -99,9 +98,13 @@ class TaskCreationFragment : Fragment() {
         }
     }
 
+    /**
+     * Inicializa los spinners que hay en taskcreation
+     */
     private fun inicializeSpinners() {
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
+        val customer = viewModel.customerList
         if (customer.isEmpty()) {
             names.add("<No Existen Clientes>")
             binding.btnTaskCreationAdd.isEnabled = false
