@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.taskFragment.R
 import com.moronlu18.task.adapter.TaskListAdapter
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
 class TaskListFragment : Fragment() {
@@ -19,7 +21,9 @@ class TaskListFragment : Fragment() {
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
 
-    private val tasks : MutableList<Task> =  ProviderTask.taskExample
+    private val viewModel: TaskViewModel by viewModels()
+
+    private lateinit var tasks : MutableList<Task>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)/*
@@ -39,6 +43,7 @@ class TaskListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        tasks = viewModel.tasksList
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         val adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
             var bundle = Bundle()

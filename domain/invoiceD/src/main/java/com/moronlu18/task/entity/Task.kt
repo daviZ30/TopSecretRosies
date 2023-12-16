@@ -2,12 +2,12 @@ package com.moronlu18.task.entity
 
 data class Task(
     val idTask: Int,
-    val customerId : Int,
-    val title: String,
-    val description : String,
-    val nameCustomer: String,
-    val type : TaskType,
-    val state: TaskStatus,
-    val createdDate: String, //Instant
-    val endDate: String //Instant y cambiar datos
+    var customerId : Int,
+    var title: String,
+    var description : String,
+    var nameCustomer: String,
+    var type : TaskType,
+    var state: TaskStatus,
+    var createdDate: String, //Instant
+    var endDate: String //Instant
 )

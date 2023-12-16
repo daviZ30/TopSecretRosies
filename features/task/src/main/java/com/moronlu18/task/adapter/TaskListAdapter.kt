@@ -47,6 +47,7 @@ class TaskListAdapter(
         holder.cliente.text = task.nameCustomer
         holder.fecha.text = task.createdDate
         holder.hora.text = task.endDate
+
         holder.tarea.setOnClickListener {
             onClick(position, 0)
         }

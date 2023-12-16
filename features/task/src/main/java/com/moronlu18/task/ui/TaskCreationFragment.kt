@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.calendar.CalendarInvoice
 import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 import com.moronlu18.task.entity.TaskStatus
@@ -24,7 +24,6 @@ import com.moronlu18.task.usecase.TaskViewModel
 
 class TaskCreationFragment : Fragment() {
     private val c = CalendarInvoice()
-    private val edit : Boolean = false
 
     private var _binding: FragmentTaskCreationBinding? = null
     private val binding get() = _binding!!
@@ -45,23 +44,25 @@ class TaskCreationFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        inicializeSpinners()
+        initializeWidgetsValues()
+        parentFragmentManager.setFragmentResultListener("key", this,
+            FragmentResultListener { _, result ->
+                var pos: Int = result.getInt("position")
+                val task = viewModel.tasksList[pos]
+                viewModel.idTask.value = task.idTask
+                binding.tieTaskCreationTitle.setText(task.title)
+                binding.spTaskCreationCustomer.setSelection(task.customerId)
+                binding.tieTaskCreationDesc.setText(task.description)
+                binding.tieTaskCreationDateStart.setText(task.createdDate)
+                binding.tieTaskCreationDateEnd.setText(task.endDate)
+                //binding.tvTaskDetailTypeCont.text = task.type.toString()
+                //binding.tvTaskDetailStateCont.text = task.state.toString()
+                viewModel.edit = true
+            })
 
-        //PopUp de Calendario
-        binding.tieTaskCreationDateStart.setOnClickListener {
-            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
-                binding.tieTaskCreationDateStart.setText("$day/${month + 1}/$year")
-            }
-        }
-        binding.tieTaskCreationDateEnd.setOnClickListener {
-            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
-                binding.tieTaskCreationDateEnd.setText("$day/${month + 1}/$year")
-            }
-        }
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
@@ -80,10 +81,8 @@ class TaskCreationFragment : Fragment() {
                 }
 
                 TaskState.Success -> {
-                    viewModel.makeTask(edit)
+                    viewModel.makeTask()
                     Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
-                    val bundle = Bundle()
-                    parentFragmentManager.setFragmentResult("key", bundle)
                     findNavController().popBackStack()
                 }
             }
@@ -99,9 +98,22 @@ class TaskCreationFragment : Fragment() {
     }
 
     /**
-     * Inicializa los spinners que hay en taskcreation
+     * Inicializa los spinners y los tie date que hay en taskcreation
      */
-    private fun inicializeSpinners() {
+    @SuppressLint("SetTextI18n")
+    private fun initializeWidgetsValues() {
+        //PopUp de Calendario
+        binding.tieTaskCreationDateStart.setOnClickListener {
+            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieTaskCreationDateStart.setText("$day/${month + 1}/$year")
+            }
+        }
+        binding.tieTaskCreationDateEnd.setOnClickListener {
+            c.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieTaskCreationDateEnd.setText("$day/${month + 1}/$year")
+            }
+        }
+
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
         val customer = viewModel.customerList
@@ -114,7 +126,7 @@ class TaskCreationFragment : Fragment() {
                 names.add("${cliente.id}.-" + cliente.getFullName())
             }
         }
-        binding.spTaskCreationCliente.adapter =
+        binding.spTaskCreationCustomer.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
 
         binding.spTaskCreationType.adapter =

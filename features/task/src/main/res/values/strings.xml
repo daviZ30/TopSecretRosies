@@ -10,7 +10,7 @@
     <string name="tieTaskCreationDescripcion">Descripción</string>
     <string name="tieTaskCreationFStart">Inicio</string>
     <string name="tieTaskCreationFEnd">Fin</string>
-    <string name="btnTaskCreationAdd">AÑADIR</string>
+    <string name="btnTaskCreationAccept">ACEPTAR</string>
     <string name="tvTaskDetailCliente">CLIENTE:</string>
     <string name="tvTaskDetailDesc">DESCRIPCIÓN:</string>
     <string name="tvTaskDetailDateStart">FECHA INICIO:</string>

@@ -6,23 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.viewModels
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskDetailBinding
 
 class TaskDetailFragment : Fragment() {
-    val tasks : MutableList<Task> = ProviderTask.taskExample
-
     private var _binding: FragmentTaskDetailBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: TaskViewModel by viewModels()
+
+    private lateinit var tasks : MutableList<Task>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tasks = viewModel.tasksList
         parentFragmentManager.setFragmentResultListener("key", this,
             FragmentResultListener { _, result ->
                 var pos: Int = result.getInt("position")

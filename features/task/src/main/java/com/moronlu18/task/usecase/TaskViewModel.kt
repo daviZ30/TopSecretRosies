@@ -15,8 +15,9 @@ import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
 
 class TaskViewModel : ViewModel() {
-    private val tasksList: MutableList<Task> = ProviderTask.taskExample
+    val tasksList: MutableList<Task> = ProviderTask.taskExample
     val customerList = ProviderCustomer.datasetCustomer
+    var idTask = MutableLiveData<Int>()
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
     val description = MutableLiveData<String>()
@@ -26,6 +27,8 @@ class TaskViewModel : ViewModel() {
     val endDate = MutableLiveData<String>()
     val typeselected = MutableLiveData<Int>()
     val statusselected = MutableLiveData<Int>()
+    var edit : Boolean = false
+
 
     private val state = MutableLiveData<TaskState>()
     fun validate(){
@@ -37,7 +40,7 @@ class TaskViewModel : ViewModel() {
             else ->{ state.value = TaskState.Success }
         }
     }
-     fun makeTask(edit : Boolean) {
+     fun makeTask() {
          val customerId = idCustomer.value!!
          val title = this.title.value!!
          val nameCustomer = customerList.find { it.id == customerId }?.getFullName()!!
@@ -46,11 +49,12 @@ class TaskViewModel : ViewModel() {
          val status = getStatus()
          val createdDate = this.createdDate.value!!
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
+         var task : Task =  Task(idTask.value!!, customerId,title, desc, nameCustomer, type, status, createdDate, endDate)
          if (!edit){
-            val idTask = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
-            tasksList.add(Task(idTask, customerId,title, desc, nameCustomer, type, status, createdDate, endDate))
+             idTask.value = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+            tasksList.add(task)
          }else{
-
+             ProviderTask.updateTask(task)
          }
     }
 
