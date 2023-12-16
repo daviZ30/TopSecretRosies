@@ -19,6 +19,7 @@ class CustomerViewModel : ViewModel() {
     var direccion = MutableLiveData<String>("")
     var editar: Boolean = false
     var id: Int = 0
+    var position:Int =0
     private var state = MutableLiveData<CustomerState>()
 
     fun validate() {
@@ -56,9 +57,9 @@ class CustomerViewModel : ViewModel() {
 
                     }
                 } else {
-                    ProviderCustomer.datasetCustomer.removeAt(id-1)
+                    ProviderCustomer.datasetCustomer.removeAt(position)
                     ProviderCustomer.datasetCustomer.add(
-                        id-1, Cliente(
+                        position, Cliente(
                             id,
                             nombre.value!!,
                             apellidos.value!!,
