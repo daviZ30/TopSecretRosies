@@ -11,6 +11,8 @@ class ItemViewModel:ViewModel() {
 
     val newItem = MutableLiveData<item?>()
 
+    private val itemRepository = ItemRepository.getInstance()
+
 
     fun clearNewItem() {
         newItem.value = null
@@ -102,5 +104,13 @@ class ItemViewModel:ViewModel() {
         description.value = null
         isTaxable.value = null
     }
+
+    fun sortItemListByDescription() {
+        val itemList = ItemRepository.getInstance().getItemList()
+        val sortedList = itemList.sortedBy { it.description }
+        newItem.value = null
+        newItem.value = sortedList.firstOrNull()
+    }
+
 
 }

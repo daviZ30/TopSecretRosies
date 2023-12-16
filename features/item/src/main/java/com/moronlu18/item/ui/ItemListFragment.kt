@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +40,8 @@ class ItemListFragment : Fragment(), MenuProvider {
         get() = _binding!!
 
     private var isSortedByName = false
+    private var isSortedByDescription = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +70,6 @@ class ItemListFragment : Fragment(), MenuProvider {
                     putBoolean("isTaxable", item.isTaxable)
                 }
 
-                itemRepository.getItemList().sortedDescending()
-
                 findNavController().navigate(
                     R.id.action_itemListFragment_to_itemDetailFragment,
                     bundle
@@ -96,8 +95,6 @@ class ItemListFragment : Fragment(), MenuProvider {
             }
         )
 
-
-
         binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(context)
 
@@ -120,8 +117,6 @@ class ItemListFragment : Fragment(), MenuProvider {
 
         val initialList = itemRepository.getItemList()
         sortItemList(initialList)
-
-
 
         return binding.root
     }
@@ -197,6 +192,10 @@ class ItemListFragment : Fragment(), MenuProvider {
                 sortItemList(itemRepository.getItemList())
                 true
             }
+            //R.id.action_refresh -> {
+               // itemViewModel.sortItemListByDescription()
+               // true
+           // }
             else -> false
         }
     }
@@ -259,6 +258,11 @@ class ItemListFragment : Fragment(), MenuProvider {
         val adapter = binding.rvItemList.adapter as? ItemAdapter
         adapter?.updateItemList(updatedList)
         adapter?.notifyDataSetChanged()
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
 

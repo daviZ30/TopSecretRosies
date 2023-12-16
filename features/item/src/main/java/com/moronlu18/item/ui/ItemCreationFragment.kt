@@ -140,8 +140,10 @@ class ItemCreationFragment : Fragment() {
 
                             if (itemViewModel.itemId.value.isNullOrEmpty()) {
                                 itemViewModel.addItem(newItem)
+                                findNavController().popBackStack()
                             } else {
                                 itemViewModel.updateItem(newItem)
+                                findNavController().popBackStack()
                                 itemViewModel.clearNewItem()
                             }
                         }
@@ -200,5 +202,8 @@ class ItemCreationFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 }

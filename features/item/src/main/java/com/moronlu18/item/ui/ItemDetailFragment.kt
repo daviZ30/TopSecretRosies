@@ -60,4 +60,5 @@ class ItemDetailFragment : Fragment() {
         view?.findViewById<TextView>(R.id.tvIstaxableDetail)?.text = isTaxable.toString()
 
     }
+
 }
