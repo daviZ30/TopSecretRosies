@@ -21,6 +21,7 @@ import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
+import com.moronlu18.task.calendar.CalendarInvoice
 import java.time.Instant
 
 
@@ -29,7 +30,7 @@ class InvoiceCreationFragment : Fragment() {
     lateinit var factura: Factura
     private var editar = false
 
-
+    private var calendar = CalendarInvoice()
     private var _binding: FragmentInvoiceCreationBinding? = null
     private val binding
         get() = _binding!!
@@ -149,6 +150,16 @@ class InvoiceCreationFragment : Fragment() {
 
         }
 
+        binding.tieInvoiceFeEmi.setOnClickListener{
+            calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieInvoiceFeEmi.setText(String.format("%04d-%02d-%02d",year,month + 1,day))
+            }
+        }
+        binding.tieInvoiceCreationFeVen.setOnClickListener{
+            calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
+                binding.tieInvoiceCreationFeVen.setText(String.format("%04d-%02d-%02d",year,month + 1,day))
+            }
+        }
         val rvadapter = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
             viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)

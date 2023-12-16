@@ -7,11 +7,11 @@
     <fragment
         android:id="@+id/invoiceCreationFragment"
         android:name="com.moronlu18.invoice.ui.InvoiceCreationFragment"
-        android:label="InvoiceCreationFragment" />
+        android:label="@string/title_invoicecreation" />
     <fragment
         android:id="@+id/invoiceListFragment"
         android:name="com.moronlu18.invoice.ui.InvoiceListFragment"
-        android:label="InvoiceListFragment" >
+        android:label="@string/title_invoicelist" >
         <action
             android:id="@+id/action_invoiceListFragment_to_invoiceDetailsFragment"
             app:destination="@id/invoiceDetailsFragment"
@@ -28,5 +28,5 @@
     <fragment
         android:id="@+id/invoiceDetailsFragment"
         android:name="com.moronlu18.invoice.ui.InvoiceDetailsFragment"
-        android:label="InvoiceDetailsFragment" />
+        android:label="@string/title_invoicedetail" />
 </navigation>

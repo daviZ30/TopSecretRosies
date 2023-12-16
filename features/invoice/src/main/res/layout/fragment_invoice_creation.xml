@@ -209,12 +209,17 @@
                             android:layout_height="match_parent"
                             app:helperText="@string/tieFormatoFecha"
                             app:errorEnabled="true"
+                            android:clickable="false"
+                            android:focusable="false"
                             app:startIconDrawable="@drawable/icon_calendar">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tieInvoiceFeEmi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:focusable="false"
+
                                 android:text="@={viewmodel.feEmi}"
                                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
                                 android:hint="@string/tieInvoicecreationFeEmision"
@@ -225,6 +230,9 @@
                             android:id="@+id/tilInvoiceCreationFeVen"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:clickable="false"
+                            android:focusable="false"
+
                             app:helperText="@string/tieFormatoFecha"
                             app:errorEnabled="true"
                             app:startIconDrawable="@drawable/icon_calendar">
@@ -233,6 +241,9 @@
                                 android:id="@+id/tieInvoiceCreationFeVen"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:focusable="false"
+
                                 android:text="@={viewmodel.feVen}"
                                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
                                 android:hint="@string/tieInvoiceCreationFeVencimiento"
