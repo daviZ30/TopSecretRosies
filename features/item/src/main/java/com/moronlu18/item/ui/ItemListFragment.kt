@@ -219,7 +219,7 @@ class ItemListFragment : Fragment(), MenuProvider {
 
             if (!isItemInInvoice) {
                 itemRepository.removeItem(item)
-                binding.rvItemList.adapter?.notifyDataSetChanged()
+                updateAdapter(itemRepository.getItemList())
             } else {
 
                 Toast.makeText(
