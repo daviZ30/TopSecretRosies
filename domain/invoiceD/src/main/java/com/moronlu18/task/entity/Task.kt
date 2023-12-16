@@ -7,7 +7,7 @@ data class Task(
     var description : String,
     var nameCustomer: String,
     var type : TaskType,
-    var state: TaskStatus,
+    var status: TaskStatus,
     var createdDate: String, //Instant
     var endDate: String //Instant
 )

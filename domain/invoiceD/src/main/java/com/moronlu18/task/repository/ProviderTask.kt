@@ -31,7 +31,7 @@ class ProviderTask private constructor(){
                 task.description  = editTask.description
                 task.nameCustomer = editTask.nameCustomer
                 task.type = editTask.type
-                task.state  = editTask.state
+                task.status  = editTask.status
                 task.createdDate  = editTask.createdDate
                 task.endDate  = editTask.endDate
             }

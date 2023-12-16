@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import com.moronlu18.task.entity.Task
-import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
-import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskDetailBinding
 
 class TaskDetailFragment : Fragment() {
@@ -37,7 +35,7 @@ class TaskDetailFragment : Fragment() {
                 binding.tvTaskDetailDateStartCont.text = task.createdDate
                 binding.tvTaskDetailDateEndCont.text = task.endDate
                 binding.tvTaskDetailTypeCont.text = task.type.toString()
-                binding.tvTaskDetailStateCont.text = task.state.toString()
+                binding.tvTaskDetailStateCont.text = task.status.toString()
             })
     }
 

@@ -13,6 +13,7 @@ import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
+import android.widget.Toast
 
 class TaskViewModel : ViewModel() {
     val tasksList: MutableList<Task> = ProviderTask.taskExample
@@ -40,6 +41,10 @@ class TaskViewModel : ViewModel() {
             else ->{ state.value = TaskState.Success }
         }
     }
+
+    /**
+     * Función que crea o edita una tarea
+     */
      fun makeTask() {
          val customerId = idCustomer.value!!
          val title = this.title.value!!
@@ -49,9 +54,10 @@ class TaskViewModel : ViewModel() {
          val status = getStatus()
          val createdDate = this.createdDate.value!!
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
-         var task : Task =  Task(idTask.value!!, customerId,title, desc, nameCustomer, type, status, createdDate, endDate)
+        if (idTask.value == null)
+            idTask.value = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+        val task =  Task(idTask.value!!, customerId,title, desc, nameCustomer, type, status, createdDate, endDate)
          if (!edit){
-             idTask.value = tasksList.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
             tasksList.add(task)
          }else{
              ProviderTask.updateTask(task)
@@ -63,7 +69,7 @@ class TaskViewModel : ViewModel() {
      */
     private fun incorrectDateRange(created: String?, end :String? ) : Boolean{
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        if (end == null){
+        if (end.isNullOrBlank()){
             return false //Si no hay fecha fin, el rango no es incorrecto
         }
         val createdDate = dateFormat.parse(created!!) //Siempre tendrá un valor por defecto

@@ -58,8 +58,8 @@ class TaskCreationFragment : Fragment() {
                 binding.tieTaskCreationDesc.setText(task.description)
                 binding.tieTaskCreationDateStart.setText(task.createdDate)
                 binding.tieTaskCreationDateEnd.setText(task.endDate)
-                //binding.tvTaskDetailTypeCont.text = task.type.toString()
-                //binding.tvTaskDetailStateCont.text = task.state.toString()
+                binding.spTaskCreationType.setSelection(task.type.ordinal)
+                binding.spTaskCreationStatus.setSelection(task.status.ordinal)
                 viewModel.edit = true
             })
 
@@ -82,7 +82,11 @@ class TaskCreationFragment : Fragment() {
 
                 TaskState.Success -> {
                     viewModel.makeTask()
-                    Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+                    if (viewModel.edit)
+                        Toast.makeText(requireContext(), "Tarea editada", Toast.LENGTH_SHORT).show()
+                    else
+                        Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+
                     findNavController().popBackStack()
                 }
             }
