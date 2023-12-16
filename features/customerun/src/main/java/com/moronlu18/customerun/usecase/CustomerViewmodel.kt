@@ -17,6 +17,8 @@ class CustomerViewModel : ViewModel() {
     var telefono = MutableLiveData<String>("")
     var ciudad = MutableLiveData<String>("")
     var direccion = MutableLiveData<String>("")
+    var editar: Boolean = false
+    var id: Int = 0
     private var state = MutableLiveData<CustomerState>()
 
     fun validate() {
@@ -24,35 +26,48 @@ class CustomerViewModel : ViewModel() {
             TextUtils.isEmpty(nombre.value) -> state.value = CustomerState.NombreEmtyError
             TextUtils.isEmpty(email.value) -> state.value = CustomerState.EmailEmtyError
             ValidarEmail(email.value) -> state.value = CustomerState.EmailFormatError
-
-
             else -> {
                 state.value = CustomerState.Success
-                if (ProviderCustomer.datasetCustomer.size > 0) {
-                    ProviderCustomer.datasetCustomer.add(
-                        Cliente(
-                            ProviderCustomer.datasetCustomer.last().id + 1,
-                            nombre.value!!,
-                            apellidos.value!!,
-                            Email(email.value!!),
-                            telefono.value!!,
-                            ciudad.value!!,
-                            direccion.value!!
+                if (!editar) {
+                    if (ProviderCustomer.datasetCustomer.size > 0) {
+                        ProviderCustomer.datasetCustomer.add(
+                            Cliente(
+                                ProviderCustomer.datasetCustomer.last().id + 1,
+                                nombre.value!!,
+                                apellidos.value!!,
+                                Email(email.value!!),
+                                telefono.value!!,
+                                ciudad.value!!,
+                                direccion.value!!
+                            )
                         )
-                    )
-                } else {
-                    ProviderCustomer.datasetCustomer.add(
-                        Cliente(
-                            1,
-                            nombre.value!!,
-                            apellidos.value!!,
-                            Email(email.value!!),
-                            telefono.value!!,
-                            ciudad.value!!,
-                            direccion.value!!
+                    } else {
+                        ProviderCustomer.datasetCustomer.add(
+                            Cliente(
+                                1,
+                                nombre.value!!,
+                                apellidos.value!!,
+                                Email(email.value!!),
+                                telefono.value!!,
+                                ciudad.value!!,
+                                direccion.value!!
+                            )
                         )
-                    )
 
+                    }
+                } else {
+                    ProviderCustomer.datasetCustomer.removeAt(id-1)
+                    ProviderCustomer.datasetCustomer.add(
+                        id-1, Cliente(
+                            id,
+                            nombre.value!!,
+                            apellidos.value!!,
+                            Email(email.value!!),
+                            telefono.value!!,
+                            ciudad.value!!,
+                            direccion.value!!
+                        )
+                    )
                 }
             }
 

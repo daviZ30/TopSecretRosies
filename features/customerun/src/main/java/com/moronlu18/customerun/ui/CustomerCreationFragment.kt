@@ -18,7 +18,6 @@ import com.moronlu18.customerun.usecase.CustomerViewModel
 
 
 class CustomerCreationFragment : Fragment() {
-    private var editar: Boolean = false
     private var _binding: FragmentCustomerCreationBinding? = null
     private var pos: Int = 0
 
@@ -69,7 +68,6 @@ class CustomerCreationFragment : Fragment() {
         }
         parentFragmentManager.setFragmentResultListener("key", this) { key, result ->
             pos = result.getInt("pos")
-            editar = true
             var cliente: Cliente = ProviderCustomer.datasetCustomer[pos]
             binding.tieNombreCustomerCreation.setText(cliente.nombre)
             binding.tieApellidosCustomerCreation.setText(cliente.apellidos)
@@ -77,6 +75,9 @@ class CustomerCreationFragment : Fragment() {
             binding.tieTeledonoCustomerCreation.setText(cliente.telefono)
             binding.tieCiudadCustomerCreation.setText(cliente.city)
             binding.tieDireccionCustomerCreation.setText(cliente.direction)
+            binding.btnCrearCustomerCreation.setText("Editar")
+            viewModel.editar=true
+            viewModel.id=cliente.id
         }
     }
 
