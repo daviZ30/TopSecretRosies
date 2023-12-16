@@ -13,7 +13,6 @@ import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
-import android.widget.Toast
 
 class TaskViewModel : ViewModel() {
     val tasksList: MutableList<Task> = ProviderTask.taskExample

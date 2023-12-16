@@ -47,7 +47,8 @@ He usado varion linearlayout para dividir la información del cliente segun de l
 ## CustomerList
 Fragmento encargado de listar todos los clientes existentes en la lista de clientes aunque el modelo de datos no este todavia implementado he añadido una lista manualmente para saber como se posionarian los elementos.
 
-# TASK (Juan Luis Guerra Gennich)
+# TASK (Juan Luis Guerra Gennich) 
+### v1
 Mi trabajo consistió en la creación y visualización de las tareas. Mi idea fue hacer las tareas como notas comunes, con su fecha y horas en las que esté previsto hacerlas y vinculadas a un cliente.
 
 ## TaskCreation
@@ -62,3 +63,10 @@ Se podrá visualizar a modo de ejemplo con datos inventados una tarea con sus re
 ## TaskList
 Layout que contiene la lista de todas las tareas creadas, de momento se visualizan tareas de ejemplo. Aqui se implementa el RecycleView para crear cada fragmento de información de las tareas y la función de hacer scroll.
 Después de que en TaskCreation se cree una tarea, se añadirá aquí y se podrá visualizar la lista completa de tareas.
+
+### v2
+## TaskViewModel y nuevos cambios
+He implementado la funcionalidad del viewModel para task y diversos cambios en los layouts y nuevas funcionalidades. También he creado un repositorio estático con un Sigleton para tener tareas de ejemplo. 
+Se ha implementado la funcionalidad de editar y borrar una tarea además de vincular estas tareas con un cliente de Customer. También creé un popUp para las fechas donde se mostrará un calentario, 
+que puedes elegir cualquier fecha que no haya pasado y en mi caso consideré que la fecha por defecto de creación sea la que esté en la fecha actual cuando se crea, pero no es obligatorio fecha final. 
+Además, la creación y edición tiene control de errores como tituló y cliente obligatorios y fecha fin no puede ocurrir antes que fecha inicial/creación. 
