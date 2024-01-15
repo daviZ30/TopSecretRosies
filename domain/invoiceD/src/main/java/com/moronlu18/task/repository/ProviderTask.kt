@@ -12,9 +12,9 @@ class ProviderTask private constructor(){
         private var aux : Int = 0 //Creación de idTask autoincrementado
         private val customer : MutableList<Cliente> = ProviderCustomer.datasetCustomer
         val taskExample : MutableList<Task> = mutableListOf(
-            Task(aux + 1,customer[aux].id,"Crear Tarea", "Crear layout tareas",customer[aux++].getFullName(), TaskType.private, TaskStatus.overdue,"13/04/2002", "10/09/2023"),
-            Task(aux + 1,customer[aux].id,"Prueba List","Probar listas", customer[aux++].getFullName(), TaskType.call, TaskStatus.modified, "09/11/2023", "31/12/2023"),
-            Task(aux + 1,customer[aux].id,"Exponer proyecto", "Exposición del proyecto",customer[aux++].getFullName(), TaskType.visitor, TaskStatus.pending, "10/11/2023", "10/11/2023"),
+            Task(aux + 1,customer[aux],"Crear Tarea", "Crear layout tareas", TaskType.private, TaskStatus.overdue,"13/04/2002", "10/09/2023"),
+            Task(aux + 1,customer[aux],"Prueba List","Probar listas",  TaskType.call, TaskStatus.modified, "09/11/2023", "31/12/2023"),
+            Task(aux + 1,customer[aux],"Exponer proyecto", "Exposición del proyecto", TaskType.visitor, TaskStatus.pending, "10/11/2023", "10/11/2023"),
 
         /*Task(idTask++,cliente[0].id,"Más pruebas", "Probando el proyecto","Antonio Angel Salado Gomez", TaskType.private, TaskStatus.pending, "01/01/2000", "00:01"),
         Task(idTask++,cliente[1].id,"Crear Nueva Tarea", "Crear primera tarea","Juan Lucas",  TaskType.private, TaskStatus.pending,"21/11/2003", "22:22"),
@@ -26,10 +26,9 @@ class ProviderTask private constructor(){
         public fun updateTask(editTask: Task){
             val task = taskExample.find { it.idTask == editTask.idTask }
             task!!.apply {
-                task.customerId = editTask.customerId
+                task.customer = editTask.customer
                 task.title = editTask.title
                 task.description  = editTask.description
-                task.nameCustomer = editTask.nameCustomer
                 task.type = editTask.type
                 task.status  = editTask.status
                 task.createdDate  = editTask.createdDate
