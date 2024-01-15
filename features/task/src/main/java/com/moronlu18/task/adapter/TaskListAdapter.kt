@@ -44,7 +44,7 @@ class TaskListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
         holder.titulo.text = task.title
-        holder.cliente.text = task.nameCustomer
+        holder.cliente.text = task.customer.getFullName()
         holder.fecha.text = task.createdDate
         holder.hora.text = task.endDate
 

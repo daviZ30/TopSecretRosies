@@ -35,9 +35,9 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
             onItemClick.invoke(position,0)
         }
        holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
-           var eliminado:Boolean = true
+           var eliminado:Boolean     = true
            for (task in ProviderTask.taskExample){
-               if (task.customerId == clientes[position].id){
+               if (task.customer.id == clientes[position].id){
                    eliminado = false
                    break
                }

@@ -30,7 +30,7 @@ class TaskDetailFragment : Fragment() {
                 var pos: Int = result.getInt("position")
                 val task = tasks[pos]
                 binding.tvTaskDetailTitle.text = task.title
-                binding.tvTaskDetailClienteCont.text = task.nameCustomer
+                binding.tvTaskDetailClienteCont.text = task.customer.getFullName()
                 binding.tvTaskDetailDescCont.text = task.description
                 binding.tvTaskDetailDateStartCont.text = task.createdDate
                 binding.tvTaskDetailDateEndCont.text = task.endDate
