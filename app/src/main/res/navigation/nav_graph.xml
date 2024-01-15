@@ -128,6 +128,10 @@
         android:id="@+id/fragmentProgressDialog"
         android:name="com.moronlu18.invoice.ui.base.FragmentProgressDialog"
         android:label="FragmentProgressDialog" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.signup.ui.preferences.SettingsFragment"
+        android:label="SettingsFragment" />
 
 
 </navigation>
