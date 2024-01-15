@@ -40,6 +40,7 @@ class ItemDetailFragment : Fragment() {
             
             updateDetail(itemId, itemName, itemRate, itemType, itemDescription, isTaxable)
         }
+
     }
 
     private fun updateDetail(

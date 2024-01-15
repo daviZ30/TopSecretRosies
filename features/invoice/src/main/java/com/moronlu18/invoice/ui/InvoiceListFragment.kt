@@ -19,11 +19,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
-import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.usecase.InvoiceListViewModel
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceListBinding
-import com.moronlu18.item.entity.item
 
 
 class InvoiceListFragment : Fragment(), MenuProvider {
@@ -64,7 +62,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
-        //setUpToolbar()
+        setUpToolbar()
 
         //adapter.notifyDataSetChanged()
         //binding.rvInvoiceList.scrollToPosition(facturas.size - 1)
@@ -78,13 +76,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
         println("OnViewCreated")
 
-        /*viewModel.getState().observe(viewLifecycleOwner){
-            when(it){
-                else -> Toast.makeText(
-                    requireContext(), "Lista Ordenada", Toast.LENGTH_SHORT
-                ).show()
-            }
-        }*/
         if (viewModel.facturas.size < 1) {
             binding.rvInvoiceList.visibility = View.GONE
             binding.imgNada.visibility = View.VISIBLE
@@ -151,11 +142,13 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             R.id.action_sort -> {
                 //ordenar la lista del adapter aqui, con una funcion dentro del adapter, utilizar sortBy { it.propiedadPorLaQueOrdenar} y hacer el notifyDataSetChanged()
                 viewModel.sortNombre()
+                binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
             }
 
             R.id.action_refresh -> {
                 viewModel.validate()
+                binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
                 //viewmodel.sortId
             }

@@ -12,6 +12,7 @@ import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceState
 import com.moronlu18.item.entity.item
+import com.moronlu18.item.repository.ItemRepository
 
 import java.time.Instant
 
@@ -28,6 +29,8 @@ class InvoiceViewModel : ViewModel() {
     val clientes = ProviderCustomer.datasetCustomer
     private var _cliente: Cliente? = null
     val _facturas = ProviderInvoice.datasetFactura
+    val RawArticulos = ItemRepository().getItemList()
+
     val facturas
         get() = _facturas!!
 

@@ -20,7 +20,6 @@ import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
-import com.moronlu18.item.repository.ItemRepository
 import com.moronlu18.task.calendar.CalendarInvoice
 import java.time.Instant
 
@@ -35,7 +34,6 @@ class InvoiceCreationFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    val articulos = ItemRepository().getItemList()
 
     private val viewModel: InvoiceViewModel by viewModels()
 
@@ -73,7 +71,7 @@ class InvoiceCreationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // val itemListString = articulos.map { articulo -> articulo.nombre }
-        val adaptersp = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, articulos)
+        val adaptersp = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, viewModel.RawArticulos)
 
         adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
@@ -312,7 +310,7 @@ class InvoiceCreationFragment : Fragment() {
     }
 
     fun ObtenerItem(nombre: String): item? {
-        articulos.forEach {
+        viewModel.RawArticulos.forEach {
             if (nombre.trim().equals(it.name)) {
 
                 return it
