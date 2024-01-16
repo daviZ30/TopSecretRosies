@@ -6,7 +6,8 @@
         android:key="@string/key_customer_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="@string/list_customer" />
+        android:title="@string/list_customer"
+        />
     <ListPreference
         android:key="@string/key_item_order"
         android:layout_width="wrap_content"
@@ -16,7 +17,9 @@
         android:key="@string/key_ivoice_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="@string/list_invoice" />
+        android:title="@string/list_invoice"
+        android:entryValues="@array/entriesValuesInvoice"
+        android:entries="@array/entriesInvoice"/>
     <ListPreference
         android:key="@string/key_task_order"
         android:layout_width="wrap_content"

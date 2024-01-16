@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@string/txtInvoiceDetailsNombre"
+                        android:text=""
                         android:textSize="@dimen/sizeContent" />
                 </LinearLayout>
 
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@string/txtInvoiceDetailsEmail"
+                        android:text=""
                         android:textSize="@dimen/sizeContent" />
                 </LinearLayout>
 
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:text="@string/txtInvoiceDetailsTelefono"
+                        android:text=""
                         android:textSize="@dimen/sizeContent" />
                 </LinearLayout>
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="@string/txtInvoiceDetailsFeEmision"
+                        android:text=""
                         android:textSize="@dimen/sizeContent" />
                 </LinearLayout>
 
@@ -196,7 +196,7 @@
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="@string/txtInvoiceDetailsFeVencimiento"
+                        android:text=""
                         android:textSize="@dimen/sizeContent" />
                 </LinearLayout>
 
@@ -314,7 +314,7 @@
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
                         android:paddingStart="6dp"
 
-                        android:text="@string/txtInvoiceDetailsSubTotal"
+                        android:text=""
                         android:textSize="@dimen/sizeSecondContent" />
 
                     <TextView
@@ -335,7 +335,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
                         android:paddingStart="6dp"
-                        android:text="@string/txtInvoiceDetailsImpuestos"
+                        android:text=""
                         android:textSize="@dimen/sizeSecondContent" />
 
                 </LinearLayout>
@@ -363,7 +363,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
                         android:paddingStart="6dp"
-                        android:text="@string/txtInvoiceDetailsTotal"
+                        android:text=""
                         android:textSize="18sp" />
 
                 </LinearLayout>
