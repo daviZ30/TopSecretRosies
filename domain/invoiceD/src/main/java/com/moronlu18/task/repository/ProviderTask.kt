@@ -5,8 +5,9 @@ import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.invoice.entity.Provider
 
-class ProviderTask private constructor(){
+class ProviderTask private constructor() : Provider {
     //Ejemplos de Task
     companion object{
         private var aux : Int = 0 //Creación de idTask autoincrementado
@@ -35,6 +36,10 @@ class ProviderTask private constructor(){
                 task.endDate  = editTask.endDate
             }
         }
+    }
+
+    override fun sortId(id: Int) {
+       taskExample.sortBy { it.id}
     }
 
 }
