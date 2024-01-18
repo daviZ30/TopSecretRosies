@@ -1,5 +1,6 @@
 package com.moronlu18.customer.entity
 
+import com.moronlu18.invoice.entity.Identificator
 import com.moronlu18.invoice.ui.firebase.Email
 
 data class Cliente(
@@ -10,7 +11,7 @@ data class Cliente(
     val telefono: String,
     val city: String,
     val direction: String
-) {
+): Identificator(id) {
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
     }
