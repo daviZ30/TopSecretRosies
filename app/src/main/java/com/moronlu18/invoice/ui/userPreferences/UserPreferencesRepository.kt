@@ -25,6 +25,22 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
             }.first()
         }
     }
+
+    fun saveItemOrder(order: String) {
+        runBlocking {
+            dataStore.edit { preferences ->
+                preferences[ITEM_ORDER] = order
+            }
+        }
+    }
+
+    fun getItemOrder(): String {
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[ITEM_ORDER] ?: "default_value"
+            }.first()
+        }
+    }
 /*
     fun getPassword(): String {
         return runBlocking {
@@ -47,6 +63,7 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
     companion object {
         private val INVOICE_OR = stringPreferencesKey("invoice_or")
         private val PASSWORD = stringPreferencesKey("password")
+        private val ITEM_ORDER = stringPreferencesKey("item_order")
 
     }
 }

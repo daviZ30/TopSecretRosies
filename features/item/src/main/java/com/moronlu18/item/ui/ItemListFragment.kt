@@ -17,6 +17,7 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.signup.utils.Locator
 import com.google.android.material.snackbar.Snackbar
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.Repository.ProviderInvoice
@@ -184,16 +185,18 @@ class ItemListFragment : Fragment(), MenuProvider {
         return onMenuItemSelected(item)
     }
 
+
+
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_sort -> {
                 isSortedByName = !isSortedByName
-                sortItemList(ItemRepository.getItemList())
+               // sortItemList(ItemRepository.getItemList())
                 true
             }
             R.id.action_refresh -> {
                 isSortedByRate = !isSortedByRate
-                sortItemListRate(ItemRepository.getItemList())
+               // sortItemListRate(ItemRepository.getItemList())
                 true
             }
             else -> false
@@ -246,14 +249,19 @@ class ItemListFragment : Fragment(), MenuProvider {
     }
 
     private fun sortItemList(itemList: List<item>) {
-        val sortedList = if (isSortedByName) {
-            itemList.sortedBy { it.name }
-        } else {
-            itemList
+        val sortOrder = Locator.userPreferencesRepository.getItemOrder()
+
+        val sortedList = when (sortOrder) {
+            "Name" -> itemList.sortedBy { it.name }
+            "Rate" -> itemList.sortedBy { it.rate }
+            else -> itemList
         }
+
         updateAdapter(sortedList)
     }
 
+
+    /*
     private fun sortItemListRate(itemList: List<item>) {
         val sortedList = if (isSortedByRate) {
             itemList.sortedBy { it.rate }
@@ -262,6 +270,8 @@ class ItemListFragment : Fragment(), MenuProvider {
         }
         updateAdapter(sortedList)
     }
+     */
+
 
     private fun updateAdapter(updatedList: List<item>) {
         val adapter = binding.rvItemList.adapter as? ItemAdapter

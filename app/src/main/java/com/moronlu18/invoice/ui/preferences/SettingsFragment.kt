@@ -16,10 +16,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting, rootKey)
         initPreferencesInvoice()
+        initPreferencesItem()
         //preferenceManager.preferenceDataStore = Locator.settingsPreferencesRepository
 
 
     }
+
 
     private fun initPreferencesInvoice() {
         val option = preferenceManager.findPreference<Preference>(getString(R.string.key_ivoice_order)) as ListPreference?
@@ -37,4 +39,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
     }
+
+    private fun initPreferencesItem() {
+        findPreference<ListPreference>(getString(R.string.key_item_order))?.apply {
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+                if (preference is ListPreference) {
+
+                    val index = preference.findIndexOfValue(newValue.toString())
+
+                    val entryValue = preference.entryValues.getOrNull(index)
+
+                    entryValue?.let {
+                        Locator.userPreferencesRepository.saveItemOrder(it.toString())
+                    }
+
+                }
+
+                true
+            }
+        }
+    }
+
+
+
 }

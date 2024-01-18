@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     implementation(project(":domain:invoiceD"))
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("androidx.preference:preference-ktx:1.1.1")
 
 
     //Implementar la navegación por módulos
