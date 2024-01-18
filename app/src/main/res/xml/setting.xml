@@ -18,11 +18,11 @@
             android:key="@string/key_item_order"
             android:title="@string/list_item" />
         <ListPreference
+            android:key="@string/key_ivoice_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/entriesInvoice"
             android:entryValues="@array/entriesValuesInvoice"
-            android:key="@string/key_ivoice_order"
             android:title="@string/list_invoice" />
         <ListPreference
             android:layout_width="wrap_content"

@@ -13,4 +13,9 @@ data class Factura(
     val FeVencimiento: Instant,
     val Articulos: MutableList<item>,
     val Estado: InvoiceStatus
-    )
+    ){
+    /*fun Cantidad():Int {
+
+    }*/
+}
+
