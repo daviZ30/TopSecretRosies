@@ -31,7 +31,6 @@ import com.moronlu18.itemcreation.databinding.FragmentItemListBinding
 
 class ItemListFragment : Fragment(), MenuProvider {
 
-    private val itemRepository = ItemRepository.getInstance()
 
     private lateinit var itemViewModel: ItemViewModel
 
@@ -59,7 +58,7 @@ class ItemListFragment : Fragment(), MenuProvider {
 
 
         val adapter = ItemAdapter(
-            itemRepository.getItemList(),
+            ItemRepository.getItemList(),
             { item ->
                 val bundle = Bundle().apply {
                     putInt("id", item.id)
@@ -103,8 +102,8 @@ class ItemListFragment : Fragment(), MenuProvider {
 
         itemViewModel.newItem.observe(viewLifecycleOwner) { newItem ->
             if (newItem != null) {
-                itemRepository.addItem(newItem)
-                sortItemList(itemRepository.getItemList())
+                ItemRepository.addItem(newItem)
+                sortItemList(ItemRepository.getItemList())
                 itemViewModel.clearNewItem()
             }
         }
@@ -115,7 +114,7 @@ class ItemListFragment : Fragment(), MenuProvider {
         binding.rvItemList.layoutManager = LinearLayoutManager(context)
 
 
-        val initialList = itemRepository.getItemList()
+        val initialList = ItemRepository.getItemList()
         sortItemList(initialList)
 
         return binding.root
@@ -189,12 +188,12 @@ class ItemListFragment : Fragment(), MenuProvider {
         return when (menuItem.itemId) {
             R.id.action_sort -> {
                 isSortedByName = !isSortedByName
-                sortItemList(itemRepository.getItemList())
+                sortItemList(ItemRepository.getItemList())
                 true
             }
             R.id.action_refresh -> {
                 isSortedByRate = !isSortedByRate
-                sortItemListRate(itemRepository.getItemList())
+                sortItemListRate(ItemRepository.getItemList())
                 true
             }
             else -> false
@@ -219,8 +218,8 @@ class ItemListFragment : Fragment(), MenuProvider {
         builder.setPositiveButton("Eliminar") { _, _ ->
 
             if (!isItemInInvoice) {
-                itemRepository.removeItem(item)
-                updateAdapter(itemRepository.getItemList())
+                ItemRepository.removeItem(item)
+                updateAdapter(ItemRepository.getItemList())
             } else {
 
                 Toast.makeText(

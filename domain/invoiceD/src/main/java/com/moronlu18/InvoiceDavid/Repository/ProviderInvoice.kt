@@ -35,7 +35,7 @@ class ProviderInvoice  private constructor()  {
         private fun setUpDataSetFactura(): MutableList<Factura> {
             var dataset: MutableList<Factura> = ArrayList()
 
-            val articulos = ItemRepository().getItemList()
+            val articulos = ItemRepository.getItemList()
             dataset.add(
                 Factura(
                     1,

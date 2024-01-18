@@ -30,7 +30,7 @@ class InvoiceViewModel : ViewModel() {
     val clientes = ProviderCustomer.datasetCustomer
     private var _cliente: Cliente? = null
     val _facturas = ProviderInvoice.datasetFactura
-    val RawArticulos = ItemRepository().getItemList()
+    val RawArticulos = ItemRepository.getItemList()
 
     val facturas
         get() = _facturas!!

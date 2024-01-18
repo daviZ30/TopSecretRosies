@@ -11,7 +11,6 @@ class ItemViewModel:ViewModel() {
 
     val newItem = MutableLiveData<item?>()
 
-    private val itemRepository = ItemRepository.getInstance()
 
 
     fun clearNewItem() {
@@ -26,7 +25,7 @@ class ItemViewModel:ViewModel() {
 
 
     fun updateItem(updatedItem: item) {
-        ItemRepository.getInstance().updateItem(updatedItem)
+        ItemRepository.updateItem(updatedItem)
         newItem.value = updatedItem
     }
 
@@ -106,7 +105,7 @@ class ItemViewModel:ViewModel() {
     }
 
     fun sortItemListByDescription() {
-        val itemList = ItemRepository.getInstance().getItemList()
+        val itemList = ItemRepository.getItemList()
         val sortedList = itemList.sortedBy { it.description }
         newItem.value = null
         newItem.value = sortedList.firstOrNull()

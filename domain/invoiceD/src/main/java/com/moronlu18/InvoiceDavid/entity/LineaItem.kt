@@ -17,7 +17,7 @@ data class LineaItem(
     companion object {
 
         fun getName(id:Int):String?{
-            return ItemRepository.getInstance().getName(id)
+            return ItemRepository.getName(id)
         }
         fun ToLineaItem(lista: MutableList<item>, id_invoice: Int): MutableList<LineaItem> {
             val newlist: MutableList<LineaItem> = mutableListOf()
