@@ -11,10 +11,7 @@ import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
 
-class ProviderInvoice  private constructor() : Provider {
-    override fun sortId() {
-        datasetFactura.sortBy { it.id }
-    }
+class ProviderInvoice  private constructor() {
 
     companion object {
 

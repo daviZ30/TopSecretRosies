@@ -7,12 +7,13 @@ import java.time.Instant
 
 
 data class Factura(
+    val id: Int,
     val Cliente: Cliente,
     val FeEmision: Instant,
     val FeVencimiento: Instant,
     val Articulos: MutableList<item>,
-    val Estado: InvoiceStatus,
-    val id: Int
+    val Estado: InvoiceStatus
+
 ):Identificator(id) {
     public fun CantidadArticulos(): Map<item,Int> {
         val DiferencesItem: MutableMap<item, Int> = mutableMapOf()
