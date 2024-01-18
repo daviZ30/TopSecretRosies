@@ -5,8 +5,6 @@ import com.moronlu18.item.entity.itemType
 
  class ItemRepository() {
 
-
-
      private val itemList = mutableListOf(
         item(1, "Lápiz", 3.55, itemType.PRODUCT, "Lápiz pequeño", false, 0.02),
         item(2, "Goma", 1.23, itemType.PRODUCT, "Goma cuadrada", false, 0.02),
@@ -17,6 +15,14 @@ import com.moronlu18.item.entity.itemType
     fun getItemList(): List<item> {
         return itemList
     }
+     fun getName(id:Int):String?{
+         itemList.forEach{
+             if(it.id == id){
+                 return it.name
+             }
+         }
+         return null
+     }
 
     fun addItem(item: item) {
         itemList.add(item)

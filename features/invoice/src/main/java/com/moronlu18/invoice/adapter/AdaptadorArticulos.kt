@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.item.entity.item
 
 
 class AdaptadorArticulos(
-    val articulos: List<item>,
+    val articulos: List<LineaItem>,
     val mostrar : Boolean,
     private val onDelete: (position: Int) -> Unit,
 ) : RecyclerView.Adapter<AdaptadorArticulos.ViewHolder>() {
@@ -40,8 +41,8 @@ class AdaptadorArticulos(
     override fun onBindViewHolder(holder: AdaptadorArticulos.ViewHolder, position: Int) {
         val f = articulos[position]
 
-        holder.nombre.text = f.name
-        holder.precio.text = "${f.rate.toString()} €"
+        holder.nombre.text = LineaItem.getName(f.id_item)
+        holder.precio.text = "${f.precio.toString()} €"
         if(mostrar){
             holder.img.visibility = View.GONE
         }else{

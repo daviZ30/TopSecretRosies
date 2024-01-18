@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
@@ -17,7 +18,7 @@ import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
 
 class InvoiceViewModel : ViewModel() {
-    var articulos: MutableList<item> = ArrayList<item>()
+    var articulos: MutableList<LineaItem> = ArrayList<LineaItem>()
     var editar: Boolean = false
     var idFactura = MutableLiveData<String>()
     var idCliente = MutableLiveData<String>()
@@ -43,10 +44,11 @@ class InvoiceViewModel : ViewModel() {
     private var state = MutableLiveData<InvoiceState>()
 
 
-    fun setLista(listaArticulos: MutableList<item>){
+    fun setLista(listaArticulos: MutableList<LineaItem>) {
         articulos = listaArticulos;
 
     }
+
     fun validate() {
         when {
             TextUtils.isEmpty(idFactura.value) -> state.value = InvoiceState.idFacturaEmtyError
@@ -72,6 +74,19 @@ class InvoiceViewModel : ViewModel() {
             }
 
         }
+    }
+
+    fun idInvoice(): Int? {
+        try {
+            if (idFactura != null) {
+                return idFactura.value!!.toInt()
+            } else {
+                return null
+            }
+        } catch (e: Exception) {
+            return null
+        }
+
     }
 
     fun CrearFactura(editar: Boolean) {

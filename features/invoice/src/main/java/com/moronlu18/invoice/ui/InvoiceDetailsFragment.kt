@@ -58,7 +58,7 @@ class InvoiceDetailsFragment : Fragment() {
             FragmentResultListener { requestKey, result ->
                 var pos: Int = result.getInt("pos")
                 factura = viewModel.facturas[pos]
-                var precios = factura.Articulos.map { it.rate }
+                var precios = factura.Articulos.map { it.precio }
                 binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos, true) {
                     Toast.makeText(
                         requireContext(),

@@ -11,7 +11,7 @@ data class Cliente(
     val telefono: String,
     val city: String,
     val direction: String
-): Identificator(id) {
+)/*: Identificator(id)*/ {
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
     }

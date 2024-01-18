@@ -238,7 +238,7 @@ class ItemListFragment : Fragment(), MenuProvider {
     private fun isItemInAnyInvoice(item: item): Boolean {
         val invoicesWithItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ProviderInvoice.datasetFactura.filter { factura ->
-                factura.Articulos.any { it.id == item.id }
+                factura.Articulos.any { it.id_item == item.id }
             }
         } else {
             TODO("VERSION.SDK_INT < O")

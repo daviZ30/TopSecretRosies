@@ -50,7 +50,7 @@ class AdaptadorFacturas(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val f = facturas[position]
-        var precios = f.Articulos.map { it.rate }
+        var precios = f.Articulos.map { it.precio }
         var SubTotal = precios.reduce { acc, ar -> acc + ar}
         holder.cliente.text = "Id: ${f.id}"
         holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))

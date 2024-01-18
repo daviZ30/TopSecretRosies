@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
 import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.usecase.InvoiceViewModel
@@ -71,7 +72,8 @@ class InvoiceCreationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // val itemListString = articulos.map { articulo -> articulo.nombre }
-        val adaptersp = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, viewModel.RawArticulos)
+        val adaptersp =
+            ArrayAdapter(requireContext(), R.layout.simple_spinner_item, viewModel.RawArticulos)
 
         adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
@@ -148,14 +150,28 @@ class InvoiceCreationFragment : Fragment() {
 
         }
 
-        binding.tieInvoiceFeEmi.setOnClickListener{
+        binding.tieInvoiceFeEmi.setOnClickListener {
             calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
-                binding.tieInvoiceFeEmi.setText(String.format("%04d-%02d-%02d",year,month + 1,day))
+                binding.tieInvoiceFeEmi.setText(
+                    String.format(
+                        "%04d-%02d-%02d",
+                        year,
+                        month + 1,
+                        day
+                    )
+                )
             }
         }
-        binding.tieInvoiceCreationFeVen.setOnClickListener{
+        binding.tieInvoiceCreationFeVen.setOnClickListener {
             calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
-                binding.tieInvoiceCreationFeVen.setText(String.format("%04d-%02d-%02d",year,month + 1,day))
+                binding.tieInvoiceCreationFeVen.setText(
+                    String.format(
+                        "%04d-%02d-%02d",
+                        year,
+                        month + 1,
+                        day
+                    )
+                )
             }
         }
         val rvadapter = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
@@ -179,7 +195,7 @@ class InvoiceCreationFragment : Fragment() {
                 factura = viewModel.facturas[pos]
                 viewModel.setLista(factura.Articulos)
                 viewModel.editar = editar
-                val precios = factura.Articulos.map { it.rate }
+                val precios = factura.Articulos.map { it.precio }
                 binding.rvInvoiceArticulos.adapter =
                     AdaptadorArticulos(factura.Articulos, false) { i: Int ->
                         factura.Articulos.removeAt(i)
@@ -219,23 +235,28 @@ class InvoiceCreationFragment : Fragment() {
             })
 
         binding.btnArticulos.setOnClickListener {
-            if (editar) {
-                val b: String = binding.spArticulo.selectedItem.toString()
-                val datos = b.split('-')
+            if (viewModel.idInvoice() != null) {
+                if (editar) {
+                    val b: String = binding.spArticulo.selectedItem.toString()
+                    val datos = b.split('-')
 
-                val a = ObtenerItem(datos[0])
-                factura.Articulos.add(a!!)
-                rvadapter.notifyDataSetChanged()
-                binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
-            } else {
-                val b: String = binding.spArticulo.selectedItem.toString()
-                val datos = b.split('-')
-                val a = ObtenerItem(datos[0])
-                viewModel.articulos.add(a!!)
-                rvadapter.notifyDataSetChanged()
-                binding.rvInvoiceArticulos.scrollToPosition(viewModel.articulos.size - 1)
+                    val a = ObtenerItem(datos[0])
+                    factura.Articulos.add(LineaItem(a!!.id, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
+                    rvadapter.notifyDataSetChanged()
+                    binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
+                } else {
+                    val b: String = binding.spArticulo.selectedItem.toString()
+                    val datos = b.split('-')
+                    val a = ObtenerItem(datos[0])
+                    viewModel.articulos.add(LineaItem(a!!.id, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
+                    rvadapter.notifyDataSetChanged()
+                    binding.rvInvoiceArticulos.scrollToPosition(viewModel.articulos.size - 1)
+                }
+                updateTotal()
+
+            }else{
+                Toast.makeText(requireContext(),"Introduzca un id válido",Toast.LENGTH_LONG).show()
             }
-            updateTotal()
 
         }
 
@@ -278,7 +299,7 @@ class InvoiceCreationFragment : Fragment() {
                 binding.txtInvoiceCreationSubtotal.text = ""
                 binding.txtInvoiceCreationTotal.text = ""
             } else {
-                val precios = factura.Articulos.map { it.rate }
+                val precios = factura.Articulos.map { it.precio }
                 val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =
@@ -289,7 +310,7 @@ class InvoiceCreationFragment : Fragment() {
                 binding.txtInvoiceCreationSubtotal.text = ""
                 binding.txtInvoiceCreationTotal.text = ""
             } else {
-                val precios = viewModel.articulos.map { it.rate }
+                val precios = viewModel.articulos.map { it.precio }
                 val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =

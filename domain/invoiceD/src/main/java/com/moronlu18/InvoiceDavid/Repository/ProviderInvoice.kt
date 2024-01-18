@@ -3,6 +3,7 @@ package com.moronlu18.invoice.Repository
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.entity.Factura
 import com.moronlu18.invoice.ui.firebase.Email
@@ -49,8 +50,8 @@ class ProviderInvoice  private constructor()  {
                     ),  SetFecha("2020-10-20"), SetFecha("2021-01-20") , mutableListOf(
                         //Articulo("Zapato", 20.2),
                         //Articulo("Cordón", 2.2)
-                        articulos[0],
-                        articulos[1],
+                        LineaItem(articulos[0].id,1,1,articulos[0].rate,articulos[0].Iva),
+                        LineaItem(articulos[1].id,1,1,articulos[1].rate,articulos[1].Iva),
 
                         ),
                     InvoiceStatus.Pending
@@ -68,8 +69,8 @@ class ProviderInvoice  private constructor()  {
                         "Málaga",
                         "Calle Leonora n46"
                     ), SetFecha("2010-10-02"), SetFecha("2019-10-23"), mutableListOf(
-                        articulos[2],
-                        articulos[3],
+                        LineaItem(articulos[0].id,1,1,articulos[0].rate,articulos[0].Iva),
+                        LineaItem(articulos[1].id,1,1,articulos[1].rate,articulos[1].Iva),
                     ),
                     InvoiceStatus.Pending
                 )
@@ -77,7 +78,7 @@ class ProviderInvoice  private constructor()  {
             return dataset
         }
         @RequiresApi(Build.VERSION_CODES.O)
-        fun CreateInvoice(idFactura:Int, cliente:Cliente, feEmi:Instant, feVen:Instant, articulos:MutableList<item>, status:InvoiceStatus) {
+        fun CreateInvoice(idFactura:Int, cliente:Cliente, feEmi:Instant, feVen:Instant, articulos:MutableList<LineaItem>, status:InvoiceStatus) {
             var f = Factura(
                 idFactura,
                 cliente,
@@ -90,7 +91,7 @@ class ProviderInvoice  private constructor()  {
             ProviderInvoice.datasetFactura.add(f)
         }
         @RequiresApi(Build.VERSION_CODES.O)
-        fun editInvoice(idFactura:Int,cliente:Cliente,feEmi:Instant,feVen:Instant,articulos:MutableList<item>,status:InvoiceStatus) {
+        fun editInvoice(idFactura:Int,cliente:Cliente,feEmi:Instant,feVen:Instant,articulos:MutableList<LineaItem>,status:InvoiceStatus) {
             datasetFactura.remove(
                 getInvoice(
                     idFactura

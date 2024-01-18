@@ -1,6 +1,7 @@
 package com.moronlu18.invoice.entity
 
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.item.entity.item
 import java.time.Instant
@@ -11,12 +12,12 @@ data class Factura(
     val Cliente: Cliente,
     val FeEmision: Instant,
     val FeVencimiento: Instant,
-    val Articulos: MutableList<item>,
+    val Articulos: MutableList<LineaItem>,
     val Estado: InvoiceStatus
 
-):Identificator(id) {
-    public fun CantidadArticulos(): Map<item,Int> {
-        val DiferencesItem: MutableMap<item, Int> = mutableMapOf()
+)/*:Identificator(id)*/ {
+    public fun CantidadArticulos(): Map<LineaItem,Int> {
+        val DiferencesItem: MutableMap<LineaItem, Int> = mutableMapOf()
         var modificado = false;
          Articulos.forEach{
             println("numero de articulos " + Articulos.size)
