@@ -1,4 +1,4 @@
-package com.moronlu18.item.entity
+ package com.moronlu18.item.entity
 
 /**
  * Al utilizar data class se implementa de forma automatica el metodo equals toString, hashcode, copy
