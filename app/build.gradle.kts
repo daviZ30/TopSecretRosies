@@ -83,4 +83,7 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.preference:preference:1.2.0")
+
+    //Soporte de fechas en Kotlin
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
 }

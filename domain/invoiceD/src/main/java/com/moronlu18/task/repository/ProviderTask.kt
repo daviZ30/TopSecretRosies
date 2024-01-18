@@ -36,10 +36,9 @@ class ProviderTask private constructor() : Provider {
                 task.endDate  = editTask.endDate
             }
         }
-    }
 
-    override fun sortId(id: Int) {
-       taskExample.sortBy { it.id}
     }
-
+    override fun sortId() {
+        taskExample.sortBy { it.id}
+    }
 }
