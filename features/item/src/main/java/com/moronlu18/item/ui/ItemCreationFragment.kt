@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -185,7 +184,9 @@ class ItemCreationFragment : Fragment() {
         val description = tilEditDescription.text.toString()
         val isTaxable = chbIsTaxable.isChecked
 
-        return item(id, name, rate, type, description, isTaxable)
+
+
+        return item(id, name, rate, type, description, isTaxable, 0.02)
     }
 
     private fun showValidationError(nameError: String?, rateError: String?) {

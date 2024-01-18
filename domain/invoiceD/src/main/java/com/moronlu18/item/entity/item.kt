@@ -10,7 +10,8 @@ data class item(
     var rate: Double,
     var type: itemType,
     var description: String,
-    var isTaxable: Boolean
+    var isTaxable: Boolean,
+    var Iva: Double
 ) : Comparable<item>{
     override fun compareTo(other: item): Int {
         return name.compareTo(other.name)

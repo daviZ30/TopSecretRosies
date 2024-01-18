@@ -40,7 +40,7 @@ class ItemListFragment : Fragment(), MenuProvider {
         get() = _binding!!
 
     private var isSortedByName = false
-    private var isSortedByDescription = false
+    private var isSortedByRate = false
 
 
 
@@ -192,10 +192,11 @@ class ItemListFragment : Fragment(), MenuProvider {
                 sortItemList(itemRepository.getItemList())
                 true
             }
-            //R.id.action_refresh -> {
-               // itemViewModel.sortItemListByDescription()
-               // true
-           // }
+            R.id.action_refresh -> {
+                isSortedByRate = !isSortedByRate
+                sortItemListRate(itemRepository.getItemList())
+                true
+            }
             else -> false
         }
     }
@@ -248,6 +249,15 @@ class ItemListFragment : Fragment(), MenuProvider {
     private fun sortItemList(itemList: List<item>) {
         val sortedList = if (isSortedByName) {
             itemList.sortedBy { it.name }
+        } else {
+            itemList
+        }
+        updateAdapter(sortedList)
+    }
+
+    private fun sortItemListRate(itemList: List<item>) {
+        val sortedList = if (isSortedByRate) {
+            itemList.sortedBy { it.rate }
         } else {
             itemList
         }

@@ -4,11 +4,14 @@ import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
 
  class ItemRepository() {
-    private val itemList = mutableListOf(
-        item(1, "Lápiz", 3.55, itemType.PRODUCT, "Lápiz pequeño", false),
-        item(2, "Goma", 1.23, itemType.PRODUCT, "Goma cuadrada", false),
-        item(3, "Bolígrafo", 2.23, itemType.PRODUCT, "Bolígrafo rojo", false),
-        item(4, "Sacapuntas", 1.63, itemType.PRODUCT, "Sacapuntas gris", false)
+
+
+
+     private val itemList = mutableListOf(
+        item(1, "Lápiz", 3.55, itemType.PRODUCT, "Lápiz pequeño", false, 0.02),
+        item(2, "Goma", 1.23, itemType.PRODUCT, "Goma cuadrada", false, 0.02),
+        item(3, "Bolígrafo", 2.23, itemType.PRODUCT, "Bolígrafo rojo", false, 0.02),
+        item(4, "Sacapuntas", 1.63, itemType.PRODUCT, "Sacapuntas gris", false, 0.02)
     )
 
     fun getItemList(): List<item> {

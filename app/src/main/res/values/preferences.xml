@@ -8,4 +8,13 @@
         <item>Id</item>
         <item>No</item>
     </array>
+
+    <array name="entriesItem">
+        <item>Ordenar por nombre de producto</item>
+        <item>Ordenar por precio</item>
+    </array>
+    <array name="entriesValuesItem">
+        <item>Name</item>
+        <item>Rate</item>
+    </array>
 </resources>
