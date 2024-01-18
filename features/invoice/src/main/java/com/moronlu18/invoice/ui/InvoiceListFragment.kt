@@ -147,7 +147,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             }
 
             R.id.action_refresh -> {
-                viewModel.validate()
+                viewModel.sortId()
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
                 //viewmodel.sortId
