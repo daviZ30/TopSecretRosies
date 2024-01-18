@@ -7,13 +7,13 @@ import java.time.Instant
 
 
 data class Factura(
-    val id: Int,
     val Cliente: Cliente,
     val FeEmision: Instant,
     val FeVencimiento: Instant,
     val Articulos: MutableList<item>,
-    val Estado: InvoiceStatus
-) {
+    val Estado: InvoiceStatus,
+    val id: Int
+):Identificator(id) {
     public fun CantidadArticulos(): Map<item,Int> {
         val DiferencesItem: MutableMap<item, Int> = mutableMapOf()
         var modificado = false;
@@ -28,7 +28,7 @@ data class Factura(
                          println("null")
                          DiferencesItem[it] = 1
                      }else{
-                         println("!= null " + n++)
+                         println("!= nuñ")
                          DiferencesItem[it] = n++
                          modificado = true
                      }
