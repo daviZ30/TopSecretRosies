@@ -3,8 +3,12 @@ package com.moronlu18.task.ui
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +20,7 @@ import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
-class TaskListFragment : Fragment() {
+class TaskListFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
@@ -72,6 +76,25 @@ class TaskListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_list_task, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.refreshTask -> {
+                viewModel.sortId()
+                binding.rvTaskList.adapter?.notifyDataSetChanged()
+                return true
+            }
+            R.id.sortTask -> {
+                viewModel.sortCustomer()
+                binding.rvTaskList.adapter?.notifyDataSetChanged()
+                return true
+            }else -> false
+        }
     }
 }
 

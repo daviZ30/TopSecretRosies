@@ -12,6 +12,7 @@ data class Task(
     var status: TaskStatus,
     var createdDate: String, //Instant
     var endDate: String //Instant
-) : Identificator(idTask) {
+) : Identificator(idTask)
+{
 
 }

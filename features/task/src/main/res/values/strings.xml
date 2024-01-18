@@ -17,4 +17,6 @@
     <string name="tvTaskDetailDateEnd">FECHA FIN:</string>
     <string name="tvTaskDetailType">TIPO:</string>
     <string name="tvTaskDetailState">ESTADO:</string>
+    <string name="refreshMenuTask">Refrescar\n</string>
+    <string name="sortMenuTask">Ordenar</string>
 </resources>

@@ -35,6 +35,5 @@ class ProviderTask private constructor()  {
                 task.endDate  = editTask.endDate
             }
         }
-
     }
 }
