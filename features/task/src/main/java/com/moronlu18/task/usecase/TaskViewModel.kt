@@ -102,6 +102,14 @@ class TaskViewModel : ViewModel() {
         return status.value!!
     }
 
+    public fun sortId(){
+        tasksList.sortBy { it.idTask }
+    }
+
+    public fun sortCustomer(){
+        tasksList.sortBy { it.customer.nombre }
+    }
+
     /**
      * Función que devuelve el estado de la creación de la tarea
      */
