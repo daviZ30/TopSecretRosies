@@ -1,13 +1,10 @@
 package com.moronlu18.customer.repository
 
 import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.invoice.entity.Provider
 import com.moronlu18.invoice.ui.firebase.Email
 
-class ProviderCustomer private constructor(): Provider {
-    override fun sortId() {
-        datasetCustomer.sortBy { it.id }
-    }
+class ProviderCustomer private constructor() {
+
 
     companion object{
         val datasetCustomer: MutableList<Cliente> = setUpDateSetCliente()
