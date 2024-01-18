@@ -29,6 +29,7 @@ class InvoiceListViewModel: ViewModel() {
         when {
             facturas.size == 0 -> state.value = InvoiceListState.noDataError
             else -> {
+                println("--------------------" + facturas.get(0).CantidadArticulos())
                 sortId()
                 state.value = InvoiceListState.Success
             }

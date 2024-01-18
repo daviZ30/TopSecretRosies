@@ -13,9 +13,36 @@ data class Factura(
     val FeVencimiento: Instant,
     val Articulos: MutableList<item>,
     val Estado: InvoiceStatus
-    ){
-    /*fun Cantidad():Int {
+) {
+    public fun CantidadArticulos(): Map<item,Int> {
+        val DiferencesItem: MutableMap<item, Int> = mutableMapOf()
+        var modificado = false;
+         Articulos.forEach{
+            println("numero de articulos " + Articulos.size)
 
-    }*/
+            DiferencesItem.forEach { k, v ->
+                if(k.compareTo(it) == 0){
+                    println("ifffffffff")
+                    var n:Int? = DiferencesItem[it]
+                     if(n == null){
+                         println("null")
+                         DiferencesItem[it] = 1
+                     }else{
+                         println("!= null " + n++)
+                         DiferencesItem[it] = n++
+                         modificado = true
+                     }
+
+            }
+        }
+             if(!modificado){
+                 DiferencesItem[it] = 1
+             }else{
+                 modificado = false
+             }
+
+    }
+        return DiferencesItem
+}
 }
 

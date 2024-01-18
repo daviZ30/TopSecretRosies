@@ -67,6 +67,7 @@ class InvoiceViewModel : ViewModel() {
 
             else -> {
                 CrearFactura(editar)
+
                 state.value = InvoiceState.Success
             }
 

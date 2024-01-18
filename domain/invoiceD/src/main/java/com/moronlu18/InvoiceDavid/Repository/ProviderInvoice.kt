@@ -5,13 +5,19 @@ import androidx.annotation.RequiresApi
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.entity.Provider
 import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
 
-class ProviderInvoice private constructor() {
+class ProviderInvoice  private constructor() : Provider {
+    override fun sortId() {
+        datasetFactura.sortBy { it.id }
+    }
+
     companion object {
+
         @RequiresApi(Build.VERSION_CODES.O)
         val datasetFactura: MutableList<Factura> = setUpDataSetFactura()
 
@@ -83,6 +89,7 @@ class ProviderInvoice private constructor() {
                 articulos,
                 status
             )
+            println(f.CantidadArticulos())
             ProviderInvoice.datasetFactura.add(f)
         }
         @RequiresApi(Build.VERSION_CODES.O)
