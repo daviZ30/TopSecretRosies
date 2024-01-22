@@ -1,17 +1,13 @@
 package com.example.signup.ui.preferences
 
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
-import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.signup.utils.Locator
 import com.moronlu18.invoice.R
 
-import kotlinx.coroutines.runBlocking
-
-class SettingsFragment : PreferenceFragmentCompat() {
+class  SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting, rootKey)
