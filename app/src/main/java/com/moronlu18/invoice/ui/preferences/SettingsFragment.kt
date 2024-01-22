@@ -13,6 +13,7 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.setting, rootKey)
         initPreferencesInvoice()
         initPreferencesItem()
+        initPreferencesTask()
         //preferenceManager.preferenceDataStore = Locator.settingsPreferencesRepository
 
 
@@ -56,6 +57,24 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun initPreferencesTask() {
+        findPreference<ListPreference>(getString(R.string.key_task_order))?.apply {
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+                if (preference is ListPreference) {
 
+                    val index = preference.findIndexOfValue(newValue.toString())
+
+                    val entryValue = preference.entryValues.getOrNull(index)
+
+                    entryValue?.let {
+                        Locator.userPreferencesRepository.saveTaskOrder(it.toString())
+                    }
+
+                }
+
+                true
+            }
+        }
+    }
 
 }

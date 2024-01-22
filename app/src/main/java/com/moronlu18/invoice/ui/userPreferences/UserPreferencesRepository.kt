@@ -41,6 +41,21 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
             }.first()
         }
     }
+    fun saveTaskOrder(order: String) {
+        runBlocking {
+            dataStore.edit { preferences ->
+                preferences[TASK_ORDER] = order
+            }
+        }
+    }
+
+    fun getTaskOrder(): String {
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[TASK_ORDER] ?: "default"
+            }.first()
+        }
+    }
 /*
     fun getPassword(): String {
         return runBlocking {
@@ -64,6 +79,6 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
         private val INVOICE_OR = stringPreferencesKey("invoice_or")
         private val PASSWORD = stringPreferencesKey("password")
         private val ITEM_ORDER = stringPreferencesKey("item_order")
-
+        private val TASK_ORDER = stringPreferencesKey("task_order")
     }
 }
