@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customerun.R
-import com.moronlu18.task.repository.ProviderTask
 
 
-class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int,nav:Int) -> Unit):
+class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int,nav:Int) -> Unit,private val onDelete: (position: Int) -> Unit,):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
      class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
         fun  bind(customer: Cliente){
@@ -35,17 +34,7 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
             onItemClick.invoke(position,0)
         }
        holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
-           var eliminado:Boolean     = true
-           for (task in ProviderTask.taskExample){
-               if (task.customer.id == clientes[position].id){
-                   eliminado = false
-                   break
-               }
-           }
-           if (eliminado){
-               clientes.removeAt(position)
-               notifyDataSetChanged()
-           }
+           onDelete(position)
        }
         holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
             onItemClick.invoke(position,1)

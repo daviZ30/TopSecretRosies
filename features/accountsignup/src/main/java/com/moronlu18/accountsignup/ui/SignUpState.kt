@@ -1,6 +1,6 @@
 package com.moronlu18.accountsignup.ui
 
-import com.moronlu18.invoice.ui.firebase.network.Resorces
+import Resorces
 
 sealed class SignUpState {
     object EmailEmptyError : SignUpState()

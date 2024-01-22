@@ -13,10 +13,25 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.setting, rootKey)
         initPreferencesInvoice()
         initPreferencesItem()
-        initPreferencesTask()
+        initPreferencesCustomer()
         //preferenceManager.preferenceDataStore = Locator.settingsPreferencesRepository
 
 
+    }
+
+    private fun initPreferencesCustomer() {
+        val option = preferenceManager.findPreference<Preference>(getString(R.string.key_customer_order)) as ListPreference?
+
+        option?.setOnPreferenceChangeListener { preference, newValue ->
+            if (preference is ListPreference){
+                val index = preference.findIndexOfValue(newValue.toString())
+                val entry = preference.entries.get(index)
+                val entryvalue = preference.entryValues.get(index)
+                println("----------------------- ${entryvalue} ")
+                Locator.userPreferencesRepository.saveCustomerOr(entryvalue.toString())
+            }
+            true
+        }
     }
 
 
@@ -57,24 +72,6 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun initPreferencesTask() {
-        findPreference<ListPreference>(getString(R.string.key_task_order))?.apply {
-            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
-                if (preference is ListPreference) {
 
-                    val index = preference.findIndexOfValue(newValue.toString())
-
-                    val entryValue = preference.entryValues.getOrNull(index)
-
-                    entryValue?.let {
-                        Locator.userPreferencesRepository.saveTaskOrder(it.toString())
-                    }
-
-                }
-
-                true
-            }
-        }
-    }
 
 }

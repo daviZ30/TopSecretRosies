@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <array name="entriesCustomer">
+        <item>Ordenar por ID</item>
+        <item>Ordemar por Nombre</item>
+    </array>
+    <array name="entriesValuesCustomer">
+        <item>Id</item>
+        <item>Nombre</item>
+    </array>
     <array name="entriesInvoice">
         <item>Ordenar por ID</item>
         <item>Ordemar por Nombre de Cliente</item>

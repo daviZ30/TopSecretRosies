@@ -1,5 +1,6 @@
 package com.moronlu18.accountsignup.usecase
 
+import Resorces
 import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moronlu18.AuthDirebaseRepository
-import com.moronlu18.invoice.ui.firebase.network.Resorces
 import com.moronlu18.accountsignup.ui.SignUpState
 import kotlinx.coroutines.launch
 
@@ -53,6 +53,8 @@ class SignupViewModel : ViewModel() {
                             Log.i(TAG, "Informacion del dato ${result.exception.message}")
                             state.value = SignUpState.AuthencationError(result.exception.message!!)
                         }
+
+                        else -> {}
                     }
                 }
             }
