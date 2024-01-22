@@ -4,6 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.signup.utils.Locator
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.ui.TaskState
 import java.text.SimpleDateFormat
@@ -37,7 +38,12 @@ class TaskViewModel : ViewModel() {
             TextUtils.isEmpty(title.value) || title.value?.isBlank()!!  ->state.value = TaskState.TitleIsMandatoryError
             customerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
-            else ->{ state.value = TaskState.Success }
+            else ->{
+                when(Locator.userPreferencesRepository.getTaskOrder()){
+                    "Id" -> sortId()
+                    "Customer" -> sortCustomer()
+                }
+                state.value = TaskState.Success }
         }
     }
 
