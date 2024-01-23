@@ -1,9 +1,11 @@
 package com.example.signup.ui.preferences
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.example.signup.utils.Locator
 import com.moronlu18.invoice.R
 
@@ -15,8 +17,25 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         initPreferencesItem()
         initPreferencesTask()
         initPreferencesCustomer()
+        initPreferences()
         //preferenceManager.preferenceDataStore = Locator.settingsPreferencesRepository
 
+
+    }
+
+    private fun initPreferences() {
+        val option = preferenceManager.findPreference<Preference>(getString(R.string.theme)) as SwitchPreference?
+
+        option?.setOnPreferenceChangeListener { preference, newValue ->
+            if(newValue == true){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                Locator.userPreferencesRepository.saveTheme("true")
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Locator.userPreferencesRepository.saveTheme("false")
+            }
+            true
+        }
 
     }
 

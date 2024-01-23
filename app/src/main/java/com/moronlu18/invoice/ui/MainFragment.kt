@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.signup.utils.Locator
 import com.moronlu18.invoice.databinding.FragmentMainBinding
 
 /**
@@ -80,6 +82,15 @@ class MainFragment : Fragment() {
         binding.btTaskList.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_mainFragment_to_nav_graph_task)
+        }
+        initTheme()
+    }
+    private fun initTheme() {
+        var value = Locator.userPreferencesRepository.getTheme()
+        if (value == "true") {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

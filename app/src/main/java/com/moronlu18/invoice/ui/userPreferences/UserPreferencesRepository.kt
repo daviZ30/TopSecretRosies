@@ -17,6 +17,21 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
         }
 
     }
+    fun saveTheme(theme: String) {
+        runBlocking {
+            dataStore.edit { preferences ->
+                preferences[THEME] = theme ?: "none"
+            }
+        }
+
+    }
+    fun getTheme(): String {
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[THEME] ?: "none"
+            }.first()
+        }
+    }
 
     fun getInvoiceOr(): String {
         return runBlocking {
@@ -72,6 +87,7 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
 
     companion object {
         private val INVOICE_OR = stringPreferencesKey("invoice_or")
+        private val THEME = stringPreferencesKey("theme")
         private val CUSTOMER = stringPreferencesKey("customer_order")
         private val ITEM_ORDER = stringPreferencesKey("item_order")
         private val TASK_ORDER = stringPreferencesKey("task_order")
