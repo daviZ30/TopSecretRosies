@@ -25,4 +25,13 @@
         <item>Name</item>
         <item>Rate</item>
     </array>
+    <string-array name="entriesTask">
+        <item>Ordenar por ID</item>
+        <item>Ordenar por Cliente</item>
+    </string-array>
+    <string-array name="entriesValuesTask">
+        <item>Id</item>
+        <item>Customer</item>
+    </string-array>
+
 </resources>
