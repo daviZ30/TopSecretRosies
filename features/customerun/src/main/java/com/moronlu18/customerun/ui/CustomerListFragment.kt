@@ -104,7 +104,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
             }
         }
         if (eliminado) {
-            builder.setTitle("¿Deseas eliminar esta factura?")
+            builder.setTitle("¿Deseas eliminar este Cliente?")
             builder.setPositiveButton("Eliminar") { _, _ ->
                 viewModel.clientes.removeAt(posicion)
                 if (viewModel.clientes.size < 1) {
