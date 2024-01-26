@@ -204,7 +204,7 @@ class InvoiceCreationFragment : Fragment() {
                         binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
                         updateTotal()
                     }
-                binding.tieInvoiceCreationIdCliente.setText(factura.Cliente.id.toString())
+                binding.tieInvoiceCreationIdCliente.setText(factura.idCliente.toString())
                 viewModel.idFactura.value = factura.id.toString()
                 //rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
                 viewModel.introduceCliente()

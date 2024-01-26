@@ -2,6 +2,7 @@ package com.moronlu18.invoice.Repository
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Cliente
@@ -11,7 +12,7 @@ import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
 
-class ProviderInvoice  private constructor()  {
+class ProviderInvoice private constructor() {
 
 
     companion object {
@@ -20,9 +21,8 @@ class ProviderInvoice  private constructor()  {
         val datasetFactura: MutableList<Factura> = setUpDataSetFactura()
 
 
-
         @RequiresApi(Build.VERSION_CODES.O)
-        private fun SetFecha(fecha:String):Instant{
+        private fun SetFecha(fecha: String): Instant {
             val dateString = fecha + "T00:00:00Z"
             //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
             //val localDateTime = LocalDateTime.parse(dateString, formatter)
@@ -30,6 +30,7 @@ class ProviderInvoice  private constructor()  {
             //return localDateTime.toInstant(ZoneOffset.MAX)
             return instant
         }
+
         //@RequiresApi(Build.VERSION_CODES.O)
         @RequiresApi(Build.VERSION_CODES.O)
         private fun setUpDataSetFactura(): MutableList<Factura> {
@@ -38,20 +39,12 @@ class ProviderInvoice  private constructor()  {
             val articulos = ItemRepository.getItemList()
             dataset.add(
                 Factura(
-                    1,
-                    Cliente(
-                        1,
-                        "Juanlu",
-                        "Cabrera Jimenez",
-                        Email("carnetaadspjf@gmail.com"),
-                        "6824556414",
-                        "Málaga",
-                        "Calle Leonora n46"
-                    ),  SetFecha("2020-10-20"), SetFecha("2021-01-20") , mutableListOf(
+                    InvoiceId(1),
+                    1, SetFecha("2020-10-20"), SetFecha("2021-01-20"), mutableListOf(
                         //Articulo("Zapato", 20.2),
                         //Articulo("Cordón", 2.2)
-                        LineaItem(articulos[0].id.value,1,1,articulos[0].rate,articulos[0].Iva),
-                        LineaItem(articulos[1].id.value,1,1,articulos[1].rate,articulos[1].Iva),
+                        LineaItem(articulos[0].id.value, 1, 1, articulos[0].rate, articulos[0].Iva),
+                        LineaItem(articulos[1].id.value, 1, 1, articulos[1].rate, articulos[1].Iva),
 
                         ),
                     InvoiceStatus.Pending
@@ -59,46 +52,54 @@ class ProviderInvoice  private constructor()  {
             )
             dataset.add(
                 Factura(
-                    2,
-                    Cliente(
-                        1,
-                        "Juanlu",
-                        "Cabrera Jimenez",
-                        Email("carnetaadspjf@gmail.com"),
-                        "6824556414",
-                        "Málaga",
-                        "Calle Leonora n46"
-                    ), SetFecha("2010-10-02"), SetFecha("2019-10-23"), mutableListOf(
-                        LineaItem(articulos[0].id.value,1,1,articulos[0].rate,articulos[0].Iva),
-                        LineaItem(articulos[1].id.value,1,1,articulos[1].rate,articulos[1].Iva),
+                    InvoiceId(2),
+                    1, SetFecha("2010-10-02"), SetFecha("2019-10-23"), mutableListOf(
+                        LineaItem(articulos[0].id.value, 1, 1, articulos[0].rate, articulos[0].Iva),
+                        LineaItem(articulos[1].id.value, 1, 1, articulos[1].rate, articulos[1].Iva),
                     ),
                     InvoiceStatus.Pending
                 )
             )
             return dataset
         }
+
         @RequiresApi(Build.VERSION_CODES.O)
-        fun CreateInvoice(idFactura:Int, cliente:Cliente, feEmi:Instant, feVen:Instant, articulos:MutableList<LineaItem>, status:InvoiceStatus) {
+        fun CreateInvoice(
+            idFactura: Int,
+            cliente: Int,
+            feEmi: Instant,
+            feVen: Instant,
+            articulos: MutableList<LineaItem>,
+            status: InvoiceStatus
+        ) {
             var f = Factura(
-                idFactura,
+                InvoiceId(idFactura),
                 cliente,
                 feEmi,
                 feVen,
                 articulos,
                 status
             )
-            println(f.CantidadArticulos())
+            //println(f.CantidadArticulos())
             ProviderInvoice.datasetFactura.add(f)
         }
+
         @RequiresApi(Build.VERSION_CODES.O)
-        fun editInvoice(idFactura:Int,cliente:Cliente,feEmi:Instant,feVen:Instant,articulos:MutableList<LineaItem>,status:InvoiceStatus) {
+        fun editInvoice(
+            idFactura: Int,
+            cliente: Int,
+            feEmi: Instant,
+            feVen: Instant,
+            articulos: MutableList<LineaItem>,
+            status: InvoiceStatus
+        ) {
             datasetFactura.remove(
                 getInvoice(
                     idFactura
                 )
             )
             var f = Factura(
-                idFactura,
+                InvoiceId(idFactura),
                 cliente,
                 feEmi,
                 feVen,
@@ -107,10 +108,11 @@ class ProviderInvoice  private constructor()  {
             )
             datasetFactura.add(f)
         }
+
         private fun getInvoice(id: Int): Factura? {
 
             datasetFactura.forEach {
-                if (id == it.id) {
+                if (id == it.id.value) {
 
                     return it
                 }

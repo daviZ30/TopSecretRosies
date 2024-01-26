@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.signup.utils.Locator
+import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceListState
 import com.moronlu18.invoice.ui.InvoiceState
@@ -16,11 +17,11 @@ class InvoiceListViewModel : ViewModel() {
     private var state = MutableLiveData<InvoiceListState>()
 
     fun sortNombre() {
-        facturas.sortBy { it.Cliente.nombre }
+        facturas.sortBy { ProviderCustomer.GetCliente(it.idCliente)?.nombre }
     }
 
     fun sortId() {
-        facturas.sortBy { it.Cliente.id }
+        facturas.sortBy { ProviderCustomer.GetCliente(it.idCliente)?.id }
     }
 
     fun getState(): LiveData<InvoiceListState> {

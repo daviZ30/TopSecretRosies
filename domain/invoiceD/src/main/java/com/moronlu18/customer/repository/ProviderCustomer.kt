@@ -17,6 +17,14 @@ class ProviderCustomer private constructor() {
                 Email("carnetaadspjf@gmail.com"),"6864646414","Málaga","Calle Leonora n46"))
             return dataset
         }
+        public fun GetCliente(id:Int):Cliente?{
+            datasetCustomer.forEach {
+                if(it.id == id){
+                    return it;
+                }
+            }
+            return null
+        }
 
 
     }

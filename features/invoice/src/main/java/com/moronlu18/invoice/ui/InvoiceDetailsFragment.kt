@@ -67,9 +67,9 @@ class InvoiceDetailsFragment : Fragment() {
                     ).show()
                 }
                 bindingAr.imgEliminarArticulo.visibility = View.GONE
-                binding.txtInvoiceDetailsNombre.text = factura.Cliente.nombre
-                binding.txtInvoiceDetailsEmail.text = factura.Cliente.email.value
-                binding.txtInvoiceDetailsTelefono.text = factura.Cliente.telefono.toString()
+                binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(factura.idCliente)?.nombre
+                binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(factura.idCliente)?.email?.value
+                binding.txtInvoiceDetailsTelefono.text = viewModel.GetCliente(factura.idCliente)?.telefono.toString()
                 //val zoneId = ZoneId.systemDefault()
                 val posEmi = factura.FeEmision.toString().indexOf('T')
                 val posVen = factura.FeVencimiento.toString().indexOf('T')

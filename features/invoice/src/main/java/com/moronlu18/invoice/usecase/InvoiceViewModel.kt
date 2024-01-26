@@ -12,7 +12,6 @@ import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceState
-import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 
 import java.time.Instant
@@ -93,7 +92,7 @@ class InvoiceViewModel : ViewModel() {
         if (editar) {
             ProviderInvoice.editInvoice(
                 idFactura.value!!.toInt(),
-                cliente,
+                cliente.id,
                 SetFecha(FeEmi.value!!),
                 SetFecha(FeVen.value!!),
                 articulos,
@@ -102,7 +101,7 @@ class InvoiceViewModel : ViewModel() {
         } else {
             ProviderInvoice.CreateInvoice(
                 idFactura.value!!.toInt(),
-                cliente,
+                cliente.id,
                 SetFecha(FeEmi.value!!),
                 SetFecha(FeVen.value!!),
                 articulos,
@@ -134,7 +133,7 @@ class InvoiceViewModel : ViewModel() {
         try {
             val i = cadena?.toInt()
             facturas.forEach {
-                if (it.id == i) {
+                if (it.id.value == i) {
                     return false
                 }
             }
@@ -148,7 +147,7 @@ class InvoiceViewModel : ViewModel() {
         try {
             val i = cadena?.toInt()
             facturas.forEach {
-                if (it.id == i) {
+                if (it.id.value == i) {
                     return false
                 }
             }
