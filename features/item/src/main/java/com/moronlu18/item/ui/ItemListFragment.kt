@@ -62,7 +62,7 @@ class ItemListFragment : Fragment(), MenuProvider {
             ItemRepository.getItemList(),
             { item ->
                 val bundle = Bundle().apply {
-                    putInt("id", item.id)
+                    putInt("id", item.id.value)
                     putString("name", item.name)
                     putDouble("rate", item.rate)
                     putSerializable("type", item.type)
@@ -80,7 +80,7 @@ class ItemListFragment : Fragment(), MenuProvider {
             },
             {  item ->
                 val bundle = Bundle().apply {
-                    putInt("id", item.id)
+                    putInt("id", item.id.value)
                     putString("name", item.name)
                     putDouble("rate", item.rate)
                     putSerializable("type", item.type)
@@ -240,7 +240,7 @@ class ItemListFragment : Fragment(), MenuProvider {
     private fun isItemInAnyInvoice(item: item): Boolean {
         val invoicesWithItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ProviderInvoice.datasetFactura.filter { factura ->
-                factura.Articulos.any { it.id_item == item.id }
+                factura.Articulos.any { it.id_item == item.id.value }
             }
         } else {
             TODO("VERSION.SDK_INT < O")

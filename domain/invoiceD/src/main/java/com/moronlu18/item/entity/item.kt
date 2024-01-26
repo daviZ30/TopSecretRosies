@@ -17,7 +17,7 @@
 ])
 data class item(
     @PrimaryKey
-    val id: Int,
+    val id: ItemId,
     var name: String,
     var rate: Double,
     var type: itemType,

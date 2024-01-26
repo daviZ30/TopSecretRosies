@@ -1,4 +1,7 @@
 package com.moronlu18.item.entity
 
-//class ItemId(override val value: Int) {
-//}
+import com.moronlu18.invoice.entity.UniqueId
+
+class ItemId(override val value: Int) : UniqueId(value) {
+
+}

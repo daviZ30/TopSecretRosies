@@ -50,8 +50,8 @@ class ProviderInvoice  private constructor()  {
                     ),  SetFecha("2020-10-20"), SetFecha("2021-01-20") , mutableListOf(
                         //Articulo("Zapato", 20.2),
                         //Articulo("Cordón", 2.2)
-                        LineaItem(articulos[0].id,1,1,articulos[0].rate,articulos[0].Iva),
-                        LineaItem(articulos[1].id,1,1,articulos[1].rate,articulos[1].Iva),
+                        LineaItem(articulos[0].id.value,1,1,articulos[0].rate,articulos[0].Iva),
+                        LineaItem(articulos[1].id.value,1,1,articulos[1].rate,articulos[1].Iva),
 
                         ),
                     InvoiceStatus.Pending
@@ -69,8 +69,8 @@ class ProviderInvoice  private constructor()  {
                         "Málaga",
                         "Calle Leonora n46"
                     ), SetFecha("2010-10-02"), SetFecha("2019-10-23"), mutableListOf(
-                        LineaItem(articulos[0].id,1,1,articulos[0].rate,articulos[0].Iva),
-                        LineaItem(articulos[1].id,1,1,articulos[1].rate,articulos[1].Iva),
+                        LineaItem(articulos[0].id.value,1,1,articulos[0].rate,articulos[0].Iva),
+                        LineaItem(articulos[1].id.value,1,1,articulos[1].rate,articulos[1].Iva),
                     ),
                     InvoiceStatus.Pending
                 )

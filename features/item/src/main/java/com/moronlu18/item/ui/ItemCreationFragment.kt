@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
 import com.moronlu18.item.usecase.ItemViewModel
@@ -186,7 +187,7 @@ class ItemCreationFragment : Fragment() {
 
 
 
-        return item(id, name, rate, type, description, isTaxable, 0.02)
+        return item(ItemId(id), name, rate, type, description, isTaxable, 0.02)
     }
 
     private fun showValidationError(nameError: String?, rateError: String?) {

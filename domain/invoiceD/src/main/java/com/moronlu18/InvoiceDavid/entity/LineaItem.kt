@@ -1,5 +1,6 @@
 package com.moronlu18.InvoiceDavid.entity
 
+import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 
@@ -17,14 +18,14 @@ data class LineaItem(
     companion object {
 
         fun getName(id:Int):String?{
-            return ItemRepository.getName(id)
+            return ItemRepository.getName(ItemId(id))
         }
         fun ToLineaItem(lista: MutableList<item>, id_invoice: Int): MutableList<LineaItem> {
             val newlist: MutableList<LineaItem> = mutableListOf()
             lista.forEach {
                 newlist.add(
                     LineaItem(
-                        it.id,
+                        it.id.value,
                         id_invoice,
                         lista.count { element -> element.id == it.id },
                         it.rate,

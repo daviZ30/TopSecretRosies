@@ -241,14 +241,14 @@ class InvoiceCreationFragment : Fragment() {
                     val datos = b.split('-')
 
                     val a = ObtenerItem(datos[0])
-                    factura.Articulos.add(LineaItem(a!!.id, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
+                    factura.Articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
                     rvadapter.notifyDataSetChanged()
                     binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
                 } else {
                     val b: String = binding.spArticulo.selectedItem.toString()
                     val datos = b.split('-')
                     val a = ObtenerItem(datos[0])
-                    viewModel.articulos.add(LineaItem(a!!.id, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
+                    viewModel.articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
                     rvadapter.notifyDataSetChanged()
                     binding.rvInvoiceArticulos.scrollToPosition(viewModel.articulos.size - 1)
                 }
