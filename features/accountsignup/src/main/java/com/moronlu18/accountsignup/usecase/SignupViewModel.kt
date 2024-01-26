@@ -1,6 +1,6 @@
 package com.moronlu18.accountsignup.usecase
 
-import Resorces
+import Resources
 import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -44,12 +44,12 @@ class SignupViewModel : ViewModel() {
                     //is cuando sea un data class
                     state.value = SignUpState.Loading(false)
                     when (result) {
-                        is Resorces.Sucess<*> -> {
+                        is Resources.Success<*> -> {
                             Log.i(TAG, "Login correcto del usuario")
                             state.value = SignUpState.Success(result)
                         }
 
-                        is Resorces.Error -> {
+                        is Resources.Error -> {
                             Log.i(TAG, "Informacion del dato ${result.exception.message}")
                             state.value = SignUpState.AuthencationError(result.exception.message!!)
                         }

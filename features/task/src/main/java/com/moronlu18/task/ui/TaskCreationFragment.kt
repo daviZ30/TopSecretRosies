@@ -4,22 +4,22 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.task.calendar.CalendarInvoice
-import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.usecase.TaskViewModel
+import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 
 
 class TaskCreationFragment : Fragment() {
@@ -52,7 +52,7 @@ class TaskCreationFragment : Fragment() {
             FragmentResultListener { _, result ->
                 var pos: Int = result.getInt("position")
                 val task = viewModel.tasksList[pos]
-                viewModel.idTask.value = task.idTask
+                viewModel.idTask.value = task.idTask.value
                 binding.tieTaskCreationTitle.setText(task.title)
                 binding.spTaskCreationCustomer.setSelection(task.customer.id)
                 binding.tieTaskCreationDesc.setText(task.description)

@@ -1,10 +1,11 @@
 package com.moronlu18.task.entity
 
 import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.invoice.entity.Identificator
+import com.moronlu18.invoice.entity.UniqueId
+
 
 data class Task(
-    val idTask: Int,
+    val idTask: TaskId,
     var customer: Cliente,
     var title: String,
     var description : String,
@@ -12,7 +13,5 @@ data class Task(
     var status: TaskStatus,
     var createdDate: String, //Instant
     var endDate: String //Instant
-) : Identificator(idTask)
-{
-
-}
+)
+data class TaskId(override val value: Int) : UniqueId(value)
