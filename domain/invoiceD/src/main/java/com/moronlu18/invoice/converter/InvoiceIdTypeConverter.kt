@@ -1,4 +1,4 @@
-package com.moronlu18.InvoiceDavid.converter
+package com.moronlu18.invoice.converter
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter

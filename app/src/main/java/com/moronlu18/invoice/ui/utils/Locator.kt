@@ -7,10 +7,10 @@ import com.example.signup.data.userPreferences.UserPreferencesRepository
 import com.moronlu18.invoice.ui.preferences.DataStorePreferencesRepository
 
 object Locator {
-    private var application: Application? = null
+    public var application: Application? = null
 
     //inline, Cuando la llamas se inicializa y te lo da
-    private inline val requiredApplication
+    public inline val requiredApplication
         get()= application ?: error("Missing call: initwith(application)")
 
     fun initWith(application:Application){

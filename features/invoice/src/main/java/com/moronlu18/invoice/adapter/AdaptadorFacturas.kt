@@ -7,12 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoiceFragment.R
 
 
 class AdaptadorFacturas(
-    val facturas: MutableList<Factura>,
+    val facturas: MutableList<Invoice>,
     private val onClick: (position: Int, navegar: Int) -> Unit,
     private val onDelete: (position: Int) -> Unit,
 ) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {

@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
-import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.usecase.InvoiceDetailsViewModel
 import com.moronlu18.invoiceFragment.databinding.FilaArticulosBinding
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
@@ -19,7 +19,7 @@ import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
 
 class InvoiceDetailsFragment : Fragment() {
 
-    lateinit var factura: Factura;
+    lateinit var factura: Invoice;
     private var _binding: FragmentInvoiceDetailsBinding? = null
     private var _bindingAr: FilaArticulosBinding? = null
 

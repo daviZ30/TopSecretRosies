@@ -5,10 +5,7 @@ import androidx.annotation.RequiresApi
 import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
-import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.invoice.entity.Factura
-import com.moronlu18.invoice.ui.firebase.Email
-import com.moronlu18.item.entity.item
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
 
@@ -18,7 +15,7 @@ class ProviderInvoice private constructor() {
     companion object {
 
         @RequiresApi(Build.VERSION_CODES.O)
-        val datasetFactura: MutableList<Factura> = setUpDataSetFactura()
+        val datasetFactura: MutableList<Invoice> = setUpDataSetFactura()
 
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -33,12 +30,12 @@ class ProviderInvoice private constructor() {
 
         //@RequiresApi(Build.VERSION_CODES.O)
         @RequiresApi(Build.VERSION_CODES.O)
-        private fun setUpDataSetFactura(): MutableList<Factura> {
-            var dataset: MutableList<Factura> = ArrayList()
+        private fun setUpDataSetFactura(): MutableList<Invoice> {
+            var dataset: MutableList<Invoice> = ArrayList()
 
             val articulos = ItemRepository.getItemList()
             dataset.add(
-                Factura(
+                Invoice(
                     InvoiceId(1),
                     1, SetFecha("2020-10-20"), SetFecha("2021-01-20"), mutableListOf(
                         //Articulo("Zapato", 20.2),
@@ -51,7 +48,7 @@ class ProviderInvoice private constructor() {
                 )
             )
             dataset.add(
-                Factura(
+                Invoice(
                     InvoiceId(2),
                     1, SetFecha("2010-10-02"), SetFecha("2019-10-23"), mutableListOf(
                         LineaItem(articulos[0].id.value, 1, 1, articulos[0].rate, articulos[0].Iva),
@@ -72,7 +69,7 @@ class ProviderInvoice private constructor() {
             articulos: MutableList<LineaItem>,
             status: InvoiceStatus
         ) {
-            var f = Factura(
+            var f = Invoice(
                 InvoiceId(idFactura),
                 cliente,
                 feEmi,
@@ -98,7 +95,7 @@ class ProviderInvoice private constructor() {
                     idFactura
                 )
             )
-            var f = Factura(
+            var f = Invoice(
                 InvoiceId(idFactura),
                 cliente,
                 feEmi,
@@ -109,7 +106,7 @@ class ProviderInvoice private constructor() {
             datasetFactura.add(f)
         }
 
-        private fun getInvoice(id: Int): Factura? {
+        private fun getInvoice(id: Int): Invoice? {
 
             datasetFactura.forEach {
                 if (id == it.id.value) {

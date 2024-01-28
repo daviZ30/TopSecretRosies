@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
-import com.moronlu18.invoice.entity.Factura
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
@@ -27,7 +27,7 @@ import java.time.Instant
 
 //data class Articulo(val nombre:String,val precio:Double)
 class InvoiceCreationFragment : Fragment() {
-    lateinit var factura: Factura
+    lateinit var factura: Invoice
     private var editar = false
 
     private var calendar = CalendarInvoice()
