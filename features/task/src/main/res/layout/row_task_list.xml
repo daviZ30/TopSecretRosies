@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvTituloTaskList"
+                android:id="@+id/tvTitleTaskList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_condensed_bold"
@@ -42,7 +42,7 @@
                 tools:ignore="TextSizeCheck" />
 
             <TextView
-                android:id="@+id/tvClienteTaskList"
+                android:id="@+id/tvCustomerTaskList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
@@ -50,11 +50,11 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSizeTaskList"
                 app:layout_constraintStart_toEndOf="@+id/ivTaskList"
-                app:layout_constraintTop_toBottomOf="@+id/tvTituloTaskList"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleTaskList"
                 tools:ignore="TextSizeCheck" />
 
             <TextView
-                android:id="@+id/tvFEndTaskList"
+                android:id="@+id/tvDEndTaskList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
@@ -63,12 +63,12 @@
                 android:textSize="@dimen/textSizeTaskList"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvFStartTaskList"
-                app:layout_constraintTop_toBottomOf="@+id/tvClienteTaskList"
+                app:layout_constraintStart_toEndOf="@+id/tvDCreateTaskList"
+                app:layout_constraintTop_toBottomOf="@+id/tvCustomerTaskList"
                 tools:ignore="TextSizeCheck" />
 
             <TextView
-                android:id="@+id/tvFStartTaskList"
+                android:id="@+id/tvDCreateTaskList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_variablefont_wdth_wght"
@@ -76,7 +76,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSizeTaskList"
                 app:layout_constraintStart_toEndOf="@+id/ivTaskList"
-                app:layout_constraintTop_toBottomOf="@+id/tvClienteTaskList"
+                app:layout_constraintTop_toBottomOf="@+id/tvCustomerTaskList"
                 tools:ignore="TextSizeCheck" />
 
             <ImageView

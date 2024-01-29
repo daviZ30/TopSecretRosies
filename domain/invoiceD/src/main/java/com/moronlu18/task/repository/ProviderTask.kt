@@ -16,7 +16,7 @@ class ProviderTask private constructor() {
         var taskExample: MutableList<Task> = mutableListOf(
             Task(
                 TaskId(aux + 1),
-                customer[aux],
+                customer[aux++],
                 "Crear Tarea",
                 "Crear layout tareas",
                 TaskType.private,
@@ -26,7 +26,7 @@ class ProviderTask private constructor() {
             ),
             Task(
                 TaskId(aux + 1),
-                customer[aux],
+                customer[aux++],
                 "Prueba List",
                 "Probar listas",
                 TaskType.call,
@@ -36,7 +36,7 @@ class ProviderTask private constructor() {
             ),
             Task(
                 TaskId(aux + 1),
-                customer[aux],
+                customer[aux++],
                 "Exponer proyecto",
                 "Exposición del proyecto",
                 TaskType.visitor,

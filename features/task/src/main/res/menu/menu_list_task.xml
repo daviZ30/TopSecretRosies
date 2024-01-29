@@ -4,13 +4,17 @@
 
     <item
         android:id="@+id/refreshTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:icon="@drawable/refresh"
         android:title="@string/refreshMenuTask"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/sortTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="@string/sortMenuTask"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>

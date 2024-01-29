@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.task.calendar.CalendarInvoice
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
@@ -71,8 +71,7 @@ class TaskCreationFragment : Fragment() {
                 }
 
                 TaskState.CustomerUnspecifiedError -> {
-                    Toast.makeText(requireContext(), "Selecciona un cliente", Toast.LENGTH_SHORT)
-                        .show()
+                    Utils.showToast(requireContext(), "Selecciona un cliente")
                 }
 
                 TaskState.IncorrectDateRangeError -> {
@@ -83,9 +82,9 @@ class TaskCreationFragment : Fragment() {
                 TaskState.Success -> {
                     viewModel.makeTask()
                     if (viewModel.edit)
-                        Toast.makeText(requireContext(), "Tarea editada", Toast.LENGTH_SHORT).show()
+                        Utils.showToast(requireContext(), "Tarea editada")
                     else
-                        Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
+                        Utils.showToast(requireContext(), "La tarea ha sido creada")
 
                     findNavController().popBackStack()
                 }
