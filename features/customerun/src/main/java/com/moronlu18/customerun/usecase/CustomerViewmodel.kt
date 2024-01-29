@@ -32,19 +32,19 @@ class CustomerViewModel : ViewModel() {
                 state.value = CustomerState.Success
                 if (!editar) {
                     if (ProviderCustomer.datasetCustomer.size > 0) {
-                        ProviderCustomer.datasetCustomer.add(
+                        ProviderCustomer.create(
                             Cliente(
-                                CustomerId(ProviderCustomer.datasetCustomer.last().id.value + 1),
+                                CustomerId(ProviderCustomer.getClientesCreados()),
                                 nombre.value!!,
                                 apellidos.value!!,
                                 Email(email.value!!),
                                 telefono.value!!,
                                 ciudad.value!!,
                                 direccion.value!!
-                            )
+                            ),null
                         )
                     } else {
-                        ProviderCustomer.datasetCustomer.add(
+                        ProviderCustomer.create(
                             Cliente(
                                 CustomerId(1),
                                 nombre.value!!,
@@ -53,14 +53,14 @@ class CustomerViewModel : ViewModel() {
                                 telefono.value!!,
                                 ciudad.value!!,
                                 direccion.value!!
-                            )
+                            ),null
                         )
 
                     }
                 } else {
                     ProviderCustomer.datasetCustomer.removeAt(position)
-                    ProviderCustomer.datasetCustomer.add(
-                        position, Cliente(
+                    ProviderCustomer.create(
+                         Cliente(
                             CustomerId(id),
                             nombre.value!!,
                             apellidos.value!!,
@@ -68,7 +68,7 @@ class CustomerViewModel : ViewModel() {
                             telefono.value!!,
                             ciudad.value!!,
                             direccion.value!!
-                        )
+                        ),position
                     )
                 }
             }

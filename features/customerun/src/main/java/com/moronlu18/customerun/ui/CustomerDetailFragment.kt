@@ -28,7 +28,7 @@ class CustomerDetailFragment : Fragment() {
                 var pos: Int = result.getInt("pos")
                 cliente = clientes[pos]
                 binding.txvnombreCustomerDetail.text = cliente.nombre + " " + cliente.apellidos
-                binding.txvidCustomerDetail.text = cliente.id.toString()
+                binding.txvidCustomerDetail.text = cliente.id.value.toString()
                 binding.txvemailCustomerDetail.text = cliente.email.value
                 binding.txvciudadCustomerDetail.text = cliente.city
                 binding.txvdireccionCustomerDetail.text = cliente.direction

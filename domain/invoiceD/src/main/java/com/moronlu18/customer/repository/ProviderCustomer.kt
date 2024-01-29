@@ -9,6 +9,7 @@ class ProviderCustomer private constructor() {
 
     companion object{
         val datasetCustomer: MutableList<Cliente> = setUpDateSetCliente()
+        private  var clientescreados:Int = datasetCustomer.size+1;
 
         private fun setUpDateSetCliente(): MutableList<Cliente> {
             var dataset : MutableList<Cliente> = ArrayList()
@@ -25,6 +26,19 @@ class ProviderCustomer private constructor() {
                 }
             }
             return null
+        }
+        fun  create(cliente: Cliente,position: Int?){
+            if (position == null){
+                datasetCustomer.add(cliente)
+                clientescreados++
+            }
+            else{
+                datasetCustomer.add(position,cliente)
+            }
+
+        }
+        fun getClientesCreados():Int{
+            return clientescreados
         }
 
 

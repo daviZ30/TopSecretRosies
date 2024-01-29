@@ -31,7 +31,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
 
     private val viewModel: CustomerListViewModel by viewModels()
 
-    val clientes = ProviderCustomer.datasetCustomer
+    private val clientes = ProviderCustomer.datasetCustomer
 
     private fun setUpToolbar() {
         (requireActivity() as? MainActivity)?.toolbar?.apply {
