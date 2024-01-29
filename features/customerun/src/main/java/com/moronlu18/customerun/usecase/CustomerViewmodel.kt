@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.CustomerId
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.ui.CustomerState
 import com.moronlu18.invoice.ui.firebase.Email
@@ -33,7 +34,7 @@ class CustomerViewModel : ViewModel() {
                     if (ProviderCustomer.datasetCustomer.size > 0) {
                         ProviderCustomer.datasetCustomer.add(
                             Cliente(
-                                ProviderCustomer.datasetCustomer.last().id + 1,
+                                CustomerId(ProviderCustomer.datasetCustomer.last().id.value + 1),
                                 nombre.value!!,
                                 apellidos.value!!,
                                 Email(email.value!!),
@@ -45,7 +46,7 @@ class CustomerViewModel : ViewModel() {
                     } else {
                         ProviderCustomer.datasetCustomer.add(
                             Cliente(
-                                1,
+                                CustomerId(1),
                                 nombre.value!!,
                                 apellidos.value!!,
                                 Email(email.value!!),
@@ -60,7 +61,7 @@ class CustomerViewModel : ViewModel() {
                     ProviderCustomer.datasetCustomer.removeAt(position)
                     ProviderCustomer.datasetCustomer.add(
                         position, Cliente(
-                            id,
+                            CustomerId(id),
                             nombre.value!!,
                             apellidos.value!!,
                             Email(email.value!!),

@@ -1,6 +1,7 @@
 package com.moronlu18.customer.repository
 
 import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.CustomerId
 import com.moronlu18.invoice.ui.firebase.Email
 
 class ProviderCustomer private constructor() {
@@ -11,15 +12,15 @@ class ProviderCustomer private constructor() {
 
         private fun setUpDateSetCliente(): MutableList<Cliente> {
             var dataset : MutableList<Cliente> = ArrayList()
-            dataset.add(Cliente(1,"Juanlu","Cabrera Jimenez", Email("carnetaadspjf@gmail.com"),"6824556414","Málaga","Calle Leonora n46"))
-            dataset.add(Cliente(2,"Antonio","Urquiza FAlle",Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46"))
-            dataset.add(Cliente(3,"Alex","Carnero Tapia",
+            dataset.add(Cliente(CustomerId(1),"Juanlu","Cabrera Jimenez", Email("carnetaadspjf@gmail.com"),"6824556414","Málaga","Calle Leonora n46"))
+            dataset.add(Cliente(CustomerId(2),"Antonio","Urquiza FAlle",Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46"))
+            dataset.add(Cliente(CustomerId(3),"Alex","Carnero Tapia",
                 Email("carnetaadspjf@gmail.com"),"6864646414","Málaga","Calle Leonora n46"))
             return dataset
         }
         public fun GetCliente(id:Int):Cliente?{
             datasetCustomer.forEach {
-                if(it.id == id){
+                if(it.id.value == id){
                     return it;
                 }
             }

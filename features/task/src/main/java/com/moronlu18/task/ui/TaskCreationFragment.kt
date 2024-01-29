@@ -54,7 +54,7 @@ class TaskCreationFragment : Fragment() {
                 val task = viewModel.tasksList[pos]
                 viewModel.idTask.value = task.idTask.value
                 binding.tieTaskCreationTitle.setText(task.title)
-                binding.spTaskCreationCustomer.setSelection(task.customer.id)
+                binding.spTaskCreationCustomer.setSelection(task.customer.id.value)
                 binding.tieTaskCreationDesc.setText(task.description)
                 binding.tieTaskCreationDateStart.setText(task.createdDate)
                 binding.tieTaskCreationDateEnd.setText(task.endDate)

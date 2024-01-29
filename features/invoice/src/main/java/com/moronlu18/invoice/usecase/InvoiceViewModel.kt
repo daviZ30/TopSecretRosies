@@ -92,7 +92,7 @@ class InvoiceViewModel : ViewModel() {
         if (editar) {
             ProviderInvoice.editInvoice(
                 idFactura.value!!.toInt(),
-                cliente.id,
+                cliente.id.value,
                 SetFecha(FeEmi.value!!),
                 SetFecha(FeVen.value!!),
                 articulos,
@@ -101,7 +101,7 @@ class InvoiceViewModel : ViewModel() {
         } else {
             ProviderInvoice.CreateInvoice(
                 idFactura.value!!.toInt(),
-                cliente.id,
+                cliente.id.value,
                 SetFecha(FeEmi.value!!),
                 SetFecha(FeVen.value!!),
                 articulos,
@@ -185,7 +185,7 @@ class InvoiceViewModel : ViewModel() {
             var i: Int = idCliente.value!!.toInt()
             if (i != null) {
                 clientes.forEach {
-                    if (it.id == i) {
+                    if (it.id.value == i) {
                         _cliente = it
                         this.nombre.value = it.nombre
                         this.email.value = it.email.value

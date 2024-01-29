@@ -1,6 +1,5 @@
 package com.moronlu18.invoice.usecase
 
-import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,6 @@ import com.example.signup.utils.Locator
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceListState
-import com.moronlu18.invoice.ui.InvoiceState
 
 class InvoiceListViewModel : ViewModel() {
     val _facturas = ProviderInvoice.datasetFactura
@@ -21,7 +19,7 @@ class InvoiceListViewModel : ViewModel() {
     }
 
     fun sortId() {
-        facturas.sortBy { ProviderCustomer.GetCliente(it.idCliente)?.id }
+        facturas.sortBy { ProviderCustomer.GetCliente(it.idCliente)?.id?.value }
     }
 
     fun getState(): LiveData<InvoiceListState> {

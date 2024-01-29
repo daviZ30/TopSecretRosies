@@ -1,10 +1,9 @@
 package com.moronlu18.customer.entity
 
-import com.moronlu18.invoice.entity.Identificator
 import com.moronlu18.invoice.ui.firebase.Email
 
 data class Cliente(
-    val id: Int,
+    val id: CustomerId,
     val nombre: String,
     val apellidos: String,
     val email: Email,

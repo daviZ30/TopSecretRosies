@@ -135,7 +135,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
             }
 
             R.id.action_sort -> {
-                viewModel.sortNombre()
+                viewModel.sortName()
                 binding.listcustomer.adapter?.notifyDataSetChanged()
                 return true
             }

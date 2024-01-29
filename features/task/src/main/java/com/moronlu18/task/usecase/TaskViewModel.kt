@@ -54,7 +54,7 @@ class TaskViewModel : ViewModel() {
      fun makeTask() {
          val customerId = idCustomer.value!!
          val title = this.title.value!!
-         val nameCustomer = customerList.find { it.id == customerId }?.getFullName()!!
+         val nameCustomer = customerList.find { it.id.value == customerId }?.getFullName()!!
          val desc = description.value ?: "" //Puede no tener descripión
          val type = getType()
          val status = getStatus()
@@ -62,7 +62,7 @@ class TaskViewModel : ViewModel() {
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
         if (idTask.value == null)
             idTask.value = tasksList.lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
-        val task =  Task(TaskId(idTask.value!!), customerList.find { it.id == customerId}!!,title, desc, type, status, createdDate, endDate)
+        val task =  Task(TaskId(idTask.value!!), customerList.find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
          if (!edit){
              ProviderTask.createTask(task)
          }else{

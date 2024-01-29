@@ -77,7 +77,7 @@ class CustomerCreationFragment : Fragment() {
             binding.tieDireccionCustomerCreation.setText(cliente.direction)
             binding.btnCrearCustomerCreation.setText("Editar")
             viewModel.editar=true
-            viewModel.id=cliente.id
+            viewModel.id=cliente.id.value
             viewModel.position=pos
         }
     }

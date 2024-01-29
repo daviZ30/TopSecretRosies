@@ -24,18 +24,18 @@ class CustomerListViewModel : ViewModel() {
                 if (Locator.userPreferencesRepository.getCustomerOr() == "Id") {
                     sortId()
                 } else if (Locator.userPreferencesRepository.getCustomerOr() == "Nombre") {
-                    sortNombre()
+                    sortName()
                 }
                 state.value = CustomerListState.Success
             }
         }
     }
 
-    fun sortNombre() {
+    fun sortName() {
         ProviderCustomer.datasetCustomer.sortBy { it.nombre }
     }
 
     fun sortId() {
-        ProviderCustomer.datasetCustomer.sortBy { it.id }
+        ProviderCustomer.datasetCustomer.sortBy { it.id.value }
     }
 }
