@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
+import com.moronlu18.invoice.converter.InvoiceStringLongConverter
 import com.moronlu18.invoice.entity.UniqueId
 import org.jetbrains.annotations.NotNull
 
@@ -30,7 +31,9 @@ data class Task(
     @NotNull
     var status: TaskStatus,
     @NotNull
+    @TypeConverters(InvoiceStringLongConverter::class)
     var createdDate: String, //Instant
+    @TypeConverters(InvoiceStringLongConverter::class)
     var endDate: String //Instant
 )
 
