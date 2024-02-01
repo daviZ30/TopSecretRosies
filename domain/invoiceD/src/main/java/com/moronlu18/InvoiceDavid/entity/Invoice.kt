@@ -12,6 +12,7 @@ import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
+import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import java.time.Instant
 
 @Entity(
@@ -36,6 +37,7 @@ data class Invoice(
     @Ignore
     val Articulos: MutableList<LineaItem>,
     @NonNull
+    @TypeConverters(InvoiceStatusConverter::class)
     val Estado: InvoiceStatus
 
 ) {

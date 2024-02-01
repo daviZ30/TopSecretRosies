@@ -1,6 +1,7 @@
 package com.moronlu18.InvoiceDavid.entity
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
@@ -20,6 +21,10 @@ interface InvoiceDao {
 
     @Query("SELECT * FROM invoice")
     fun selectAll(): Flow<List<Invoice>>
+
+    //@Delete
+    //fun delete(invoice: Invoice)
+
 /*
     @Query("SELECT * FROM invoice JOIN bussinesprofile ON account.bussinesprofile=bussinesProfile.id")
     fun loadAccountAndBusinessProfile() : Map<Account, BussinessProfile>*/

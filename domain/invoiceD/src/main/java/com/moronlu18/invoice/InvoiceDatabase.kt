@@ -10,6 +10,7 @@ import com.moronlu18.InvoiceDavid.entity.InvoiceDao
 import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
+import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.task.entity.Task
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +23,9 @@ import kotlinx.coroutines.launch
     version = 1,
     exportSchema = false
 )
-@TypeConverters(InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class)
+@TypeConverters(InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
+    InvoiceStatusConverter::class
+)
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
@@ -49,6 +52,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .allowMainThreadQueries()
                 .addTypeConverter(InvoiceIdTypeConverter())
                 .addTypeConverter(InvoiceInstantLongConverter())
+                .addTypeConverter(InvoiceStatusConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()

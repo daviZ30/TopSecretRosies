@@ -1,9 +1,11 @@
 package com.moronlu18.InvoiceDavid.entity
 
+import androidx.room.Entity
 import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 
+//@Entity
 data class LineaItem(
     val id_item: Int,
     val id_invoice: Int,
