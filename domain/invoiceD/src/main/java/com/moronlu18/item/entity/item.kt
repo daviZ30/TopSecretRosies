@@ -2,10 +2,8 @@
 
  import androidx.annotation.NonNull
  import androidx.room.Entity
- import androidx.room.ForeignKey
  import androidx.room.PrimaryKey
  import androidx.room.TypeConverters
- import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
  import com.moronlu18.invoice.converter.ItemIdTypeConverter
  import com.moronlu18.invoice.converter.ItemTypeConverter
 

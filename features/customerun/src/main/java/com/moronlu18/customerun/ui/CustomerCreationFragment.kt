@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.databinding.FragmentCustomerCreationBinding
 import com.moronlu18.customerun.usecase.CustomerViewModel
@@ -68,16 +68,16 @@ class CustomerCreationFragment : Fragment() {
         }
         parentFragmentManager.setFragmentResultListener("key", this) { key, result ->
             pos = result.getInt("pos")
-            var cliente: Cliente = ProviderCustomer.datasetCustomer[pos]
-            binding.tieNombreCustomerCreation.setText(cliente.nombre)
-            binding.tieApellidosCustomerCreation.setText(cliente.apellidos)
-            binding.tieCorreoCustomerCreation.setText(cliente.email.value)
-            binding.tieTeledonoCustomerCreation.setText(cliente.telefono)
-            binding.tieCiudadCustomerCreation.setText(cliente.city)
-            binding.tieDireccionCustomerCreation.setText(cliente.direction)
+            var customer: Customer = ProviderCustomer.datasetCustomer[pos]
+            binding.tieNombreCustomerCreation.setText(customer.nombre)
+            binding.tieApellidosCustomerCreation.setText(customer.apellidos)
+            binding.tieCorreoCustomerCreation.setText(customer.email.value)
+            binding.tieTeledonoCustomerCreation.setText(customer.telefono)
+            binding.tieCiudadCustomerCreation.setText(customer.city)
+            binding.tieDireccionCustomerCreation.setText(customer.direction)
             binding.btnCrearCustomerCreation.setText("Editar")
             viewModel.editar=true
-            viewModel.id=cliente.id.value
+            viewModel.id=customer.id.value
             viewModel.position=pos
         }
     }

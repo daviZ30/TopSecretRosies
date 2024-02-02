@@ -1,7 +1,7 @@
 package com.moronlu18.task.repository
 
 import Resources
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskId
@@ -12,7 +12,7 @@ class ProviderTask private constructor() {
     //Ejemplos de Task
     companion object {
         private var aux: Int = 0 //Creación de idTask autoincrementado
-        private val customer: MutableList<Cliente> = ProviderCustomer.datasetCustomer
+        private val customer: MutableList<Customer> = ProviderCustomer.datasetCustomer
         var taskExample: MutableList<Task> = mutableListOf(
             Task(
                 TaskId(aux + 1),

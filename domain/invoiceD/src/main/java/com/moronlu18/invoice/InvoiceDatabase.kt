@@ -7,11 +7,14 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.signup.utils.Locator
 import com.moronlu18.InvoiceDavid.entity.InvoiceDao
+import com.moronlu18.invoice.converter.CustomerTypeConverter
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import com.moronlu18.invoice.converter.ItemIdTypeConverter
 import com.moronlu18.invoice.converter.ItemTypeConverter
+import com.moronlu18.invoice.converter.TaskIdConverter
+import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
@@ -27,8 +30,9 @@ import kotlinx.coroutines.launch
     version = 1,
     exportSchema = false
 )
-@TypeConverters(InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
-    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class
+@TypeConverters(
+    InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
+    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class,CustomerTypeConverter::class,TaskIdConverter::class,TaskStringLongConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
@@ -61,6 +65,11 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(InvoiceIdTypeConverter())
                 .addTypeConverter(InvoiceInstantLongConverter())
                 .addTypeConverter(InvoiceStatusConverter())
+                .addTypeConverter(TaskStringLongConverter())
+                .addTypeConverter(ItemIdTypeConverter())
+                .addTypeConverter(ItemTypeConverter())
+                .addTypeConverter(CustomerTypeConverter())
+                .addTypeConverter(TaskIdConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()

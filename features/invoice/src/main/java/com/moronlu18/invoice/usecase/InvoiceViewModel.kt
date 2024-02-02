@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.ui.InvoiceState
@@ -27,7 +27,7 @@ class InvoiceViewModel : ViewModel() {
     var email = MutableLiveData<String>()
     var telefono = MutableLiveData<String>()
     val clientes = ProviderCustomer.datasetCustomer
-    private var _cliente: Cliente? = null
+    private var _customer: Customer? = null
     val _facturas = ProviderInvoice.datasetFactura
     val RawArticulos = ItemRepository.getItemList()
 
@@ -35,7 +35,7 @@ class InvoiceViewModel : ViewModel() {
         get() = _facturas!!
 
     val cliente
-        get() = _cliente!!
+        get() = _customer!!
 
 
     //var email = MutableLiveData<String>()
@@ -186,7 +186,7 @@ class InvoiceViewModel : ViewModel() {
             if (i != null) {
                 clientes.forEach {
                     if (it.id.value == i) {
-                        _cliente = it
+                        _customer = it
                         this.nombre.value = it.nombre
                         this.email.value = it.email.value
                         this.telefono.value = it.telefono

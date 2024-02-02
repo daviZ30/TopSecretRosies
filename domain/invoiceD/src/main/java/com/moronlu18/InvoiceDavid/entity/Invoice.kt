@@ -2,15 +2,13 @@ package com.moronlu18.invoice.entity
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import java.time.Instant

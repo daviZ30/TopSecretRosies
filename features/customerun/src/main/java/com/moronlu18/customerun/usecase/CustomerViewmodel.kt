@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.entity.CustomerId
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.ui.CustomerState
@@ -33,7 +33,7 @@ class CustomerViewModel : ViewModel() {
                 if (!editar) {
                     if (ProviderCustomer.datasetCustomer.size > 0) {
                         ProviderCustomer.create(
-                            Cliente(
+                            Customer(
                                 CustomerId(ProviderCustomer.getClientesCreados()),
                                 nombre.value!!,
                                 apellidos.value!!,
@@ -45,7 +45,7 @@ class CustomerViewModel : ViewModel() {
                         )
                     } else {
                         ProviderCustomer.create(
-                            Cliente(
+                            Customer(
                                 CustomerId(1),
                                 nombre.value!!,
                                 apellidos.value!!,
@@ -60,7 +60,7 @@ class CustomerViewModel : ViewModel() {
                 } else {
                     ProviderCustomer.datasetCustomer.removeAt(position)
                     ProviderCustomer.create(
-                         Cliente(
+                         Customer(
                             CustomerId(id),
                             nombre.value!!,
                             apellidos.value!!,

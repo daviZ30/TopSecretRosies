@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customerun.R
 
 
-class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemClick: (position:Int,nav:Int) -> Unit,private val onDelete: (position: Int) -> Unit,):
+class CustomerAdapter(val customers : MutableList<Customer>, private val onItemClick: (position:Int, nav:Int) -> Unit, private val onDelete: (position: Int) -> Unit,):
     RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
      class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
-        fun  bind(customer: Cliente){
+        fun  bind(customer: Customer){
             itemView.findViewById<TextView>(R.id.txtnombre_customer_list).text = "${customer.nombre}"
             itemView.findViewById<TextView>(R.id.txtapellidos_customer_list).text = "${customer.apellidos}"
             itemView.findViewById<TextView>(R.id.txtemail_customer_list).text = "${customer.email.value}"
@@ -28,7 +28,7 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
 
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
-        val item = clientes[position]
+        val item = customers[position]
         holder.bind(item)
         holder.itemView.setOnClickListener{
             onItemClick.invoke(position,0)
@@ -42,7 +42,7 @@ class CustomerAdapter(val clientes : MutableList<Cliente>, private val onItemCli
         }
     }
     override fun getItemCount(): Int {
-        return clientes.size
+        return customers.size
     }
 
 }

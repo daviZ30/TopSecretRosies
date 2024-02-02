@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
-import com.moronlu18.customer.entity.Cliente
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.databinding.FragmentCustomerDetailBinding
 
 class CustomerDetailFragment : Fragment() {
     var clientes = ProviderCustomer.datasetCustomer
-    lateinit var cliente: Cliente
+    lateinit var customer: Customer
 
     private var _binding: FragmentCustomerDetailBinding? = null
 
@@ -26,13 +26,13 @@ class CustomerDetailFragment : Fragment() {
             this,
             FragmentResultListener { requestKey, result ->
                 var pos: Int = result.getInt("pos")
-                cliente = clientes[pos]
-                binding.txvnombreCustomerDetail.text = cliente.nombre + " " + cliente.apellidos
-                binding.txvidCustomerDetail.text = cliente.id.value.toString()
-                binding.txvemailCustomerDetail.text = cliente.email.value
-                binding.txvciudadCustomerDetail.text = cliente.city
-                binding.txvdireccionCustomerDetail.text = cliente.direction
-                binding.txvtelefonoCustomerDetail.text = cliente.telefono.toString()
+                customer = clientes[pos]
+                binding.txvnombreCustomerDetail.text = customer.nombre + " " + customer.apellidos
+                binding.txvidCustomerDetail.text = customer.id.value.toString()
+                binding.txvemailCustomerDetail.text = customer.email.value
+                binding.txvciudadCustomerDetail.text = customer.city
+                binding.txvdireccionCustomerDetail.text = customer.direction
+                binding.txvtelefonoCustomerDetail.text = customer.telefono.toString()
             })
     }
 
