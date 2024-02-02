@@ -20,5 +20,5 @@ interface CustomerDao {
     fun selectAll(): Flow<List<Customer>>
 
     @Delete
-    fun delete(customer: Customer )
+    fun delete(customer: Customer)
 }

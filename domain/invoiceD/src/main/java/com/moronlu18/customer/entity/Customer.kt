@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
 import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.ui.firebase.Email
 @Entity(tableName = "customer")
@@ -15,7 +16,7 @@ data class Customer(
     val nombre: String,
     val apellidos: String,
     @NonNull
-    @TypeConverters()
+    @TypeConverters(CustomerEmailTypeConverter::class)
     val email: Email,
     val telefono: String,
     val city: String,
