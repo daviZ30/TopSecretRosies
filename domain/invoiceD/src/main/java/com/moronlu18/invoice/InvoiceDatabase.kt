@@ -7,7 +7,6 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.signup.utils.Locator
 import com.moronlu18.InvoiceDavid.entity.InvoiceDao
-import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
@@ -17,13 +16,14 @@ import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
 import com.moronlu18.task.entity.Task
+import com.moronlu18.task.entity.TaskDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Invoice::class, item::class],
+    entities = [Invoice::class, Task::class, item::class],
     version = 1,
     exportSchema = false
 )
@@ -33,6 +33,9 @@ import kotlinx.coroutines.launch
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
+
+    abstract fun taskDao(): TaskDao
+
     abstract fun itemDao(): ItemDao
 
     companion object {

@@ -4,6 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.task.calendar.CalendarInvoice
@@ -12,10 +13,12 @@ import com.moronlu18.task.entity.TaskId
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.task.ui.TaskState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
-
 class TaskViewModel : ViewModel() {
     val tasksList: MutableList<Task> = ProviderTask.taskExample
     val customerList = ProviderCustomer.datasetCustomer
@@ -68,6 +71,10 @@ class TaskViewModel : ViewModel() {
          }else{
              ProviderTask.updateTask(task)
          }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            TaskRepository.insert(task)
+        }
     }
 
     /**
