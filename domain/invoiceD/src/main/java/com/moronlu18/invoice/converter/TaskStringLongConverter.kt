@@ -4,7 +4,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 
 @ProvidedTypeConverter
-class InvoiceStringLongConverter {
+class TaskStringLongConverter {
     @TypeConverter
     fun toLong(value: String): Long {
         return value.toLong()

@@ -5,8 +5,8 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.moronlu18.customer.entity.Cliente
-import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
-import com.moronlu18.invoice.converter.InvoiceStringLongConverter
+import com.moronlu18.invoice.converter.TaskIdConverter
+import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.UniqueId
 import org.jetbrains.annotations.NotNull
 
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull
 )
 data class Task(
     @PrimaryKey
-    @TypeConverters(InvoiceIdTypeConverter::class)
+    @TypeConverters(TaskIdConverter::class)
     val idTask: TaskId,
     @NotNull
     var customer: Cliente,
@@ -31,9 +31,9 @@ data class Task(
     @NotNull
     var status: TaskStatus,
     @NotNull
-    @TypeConverters(InvoiceStringLongConverter::class)
+    @TypeConverters(TaskStringLongConverter::class)
     var createdDate: String, //Instant
-    @TypeConverters(InvoiceStringLongConverter::class)
+    @TypeConverters(TaskStringLongConverter::class)
     var endDate: String //Instant
 )
 
