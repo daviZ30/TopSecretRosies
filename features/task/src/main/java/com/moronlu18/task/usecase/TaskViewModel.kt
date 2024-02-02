@@ -13,7 +13,7 @@ import com.moronlu18.task.entity.TaskId
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
-import com.moronlu18.task.repository.TaskRepository
+/*import com.moronlu18.task.repository.TaskRepository*/
 import com.moronlu18.task.ui.TaskState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,7 +73,7 @@ class TaskViewModel : ViewModel() {
          }
 
         viewModelScope.launch(Dispatchers.IO) {
-            TaskRepository.insert(task)
+           // TaskRepository.insert(task)
         }
     }
 

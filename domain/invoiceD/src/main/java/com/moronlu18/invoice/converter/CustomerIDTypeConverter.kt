@@ -5,7 +5,7 @@ import androidx.room.TypeConverter
 import com.moronlu18.customer.entity.CustomerId
 
 @ProvidedTypeConverter
-class CustomerTypeConverter {
+class CustomerIDTypeConverter {
     @TypeConverter
     fun toInvoiceId(value: Int): CustomerId {
         return CustomerId(value)

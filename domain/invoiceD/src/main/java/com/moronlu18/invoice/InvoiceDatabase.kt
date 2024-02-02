@@ -7,7 +7,8 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.signup.utils.Locator
 import com.moronlu18.InvoiceDavid.entity.InvoiceDao
-import com.moronlu18.invoice.converter.CustomerTypeConverter
+import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
+import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
@@ -18,27 +19,25 @@ import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
-import com.moronlu18.task.entity.Task
-import com.moronlu18.task.entity.TaskDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Invoice::class, Task::class, item::class],
+    entities = [Invoice::class, /*Task::class*/ item::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
     InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
-    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class,CustomerTypeConverter::class,TaskIdConverter::class,TaskStringLongConverter::class
+    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class,CustomerIDTypeConverter::class,TaskIdConverter::class,TaskStringLongConverter::class,CustomerEmailTypeConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
 
-    abstract fun taskDao(): TaskDao
+    //abstract fun taskDao(): TaskDao
 
     abstract fun itemDao(): ItemDao
 
@@ -68,8 +67,9 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(TaskStringLongConverter())
                 .addTypeConverter(ItemIdTypeConverter())
                 .addTypeConverter(ItemTypeConverter())
-                .addTypeConverter(CustomerTypeConverter())
+                .addTypeConverter(CustomerIDTypeConverter())
                 .addTypeConverter(TaskIdConverter())
+                .addTypeConverter(CustomerEmailTypeConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()
