@@ -16,7 +16,6 @@ import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import com.moronlu18.invoice.converter.ItemIdTypeConverter
 import com.moronlu18.invoice.converter.ItemTypeConverter
-import com.moronlu18.invoice.converter.TaskIdConverter
 import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemDao
@@ -33,7 +32,8 @@ import kotlinx.coroutines.launch
 )
 @TypeConverters(
     InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
-    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class,CustomerIDTypeConverter::class,TaskIdConverter::class,TaskStringLongConverter::class,CustomerEmailTypeConverter::class
+    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class,CustomerIDTypeConverter::class,
+    /*TaskIdConverter::class,TaskStringLongConverter::class,*/CustomerEmailTypeConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
@@ -71,7 +71,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(ItemIdTypeConverter())
                 .addTypeConverter(ItemTypeConverter())
                 .addTypeConverter(CustomerIDTypeConverter())
-                .addTypeConverter(TaskIdConverter())
+                //.addTypeConverter(TaskIdConverter())
                 .addTypeConverter(CustomerEmailTypeConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
