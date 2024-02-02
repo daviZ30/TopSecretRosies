@@ -119,14 +119,14 @@ class TaskCreationFragment : Fragment() {
 
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
-        val customer = viewModel.customerList
-        if (customer.isEmpty()) {
+        val customerList = viewModel.customerList
+        if (customerList.isEmpty()) {
             names.add("<No Existen Clientes>")
             binding.btnTaskCreationAdd.isEnabled = false
         } else {
             names.add("--Selecciona un cliente--")
-            for (cliente in customer) {
-                names.add("${cliente.id}.-" + cliente.getFullName())
+            for (customer in customerList) {
+                names.add("${customer.id.value}.-" + customer.getFullName())
             }
         }
         binding.spTaskCreationCustomer.adapter =

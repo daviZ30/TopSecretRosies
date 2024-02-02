@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:hint="@string/tieTaskCreationTitulo"
+                        android:hint="@string/txtTaskTitle"
                         android:inputType="textShortMessage"
                         android:text="@={viewmodel.title}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -129,7 +129,7 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:hint="@string/tieTaskCreationFStart"
+                        android:hint="@string/txtTaskDateStart"
                         android:inputType="date"
                         android:text="@={viewmodel.createdDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -153,7 +153,7 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:fontFamily="@font/opensans_variablefont_wdth_wght"
-                        android:hint="@string/tieTaskCreationFEnd"
+                        android:hint="@string/txtTaskDateEnd"
                         android:inputType="date"
                         android:text="@={viewmodel.endDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
