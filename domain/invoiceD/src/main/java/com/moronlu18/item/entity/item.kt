@@ -1,28 +1,34 @@
  package com.moronlu18.item.entity
 
+ import androidx.annotation.NonNull
  import androidx.room.Entity
  import androidx.room.ForeignKey
  import androidx.room.PrimaryKey
+ import androidx.room.TypeConverters
+ import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
+ import com.moronlu18.invoice.converter.ItemIdTypeConverter
+ import com.moronlu18.invoice.converter.ItemTypeConverter
 
  /**
  * Al utilizar data class se implementa de forma automatica el metodo equals toString, hashcode, copy
  * teniendo en cuenta las propiedades declarasas en el constructor primario
  */
-@Entity(tableName = "item", foreignKeys =[
-    ForeignKey(entity = itemType::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("itemtype"),
-        onDelete = ForeignKey.RESTRICT,
-        onUpdate = ForeignKey.CASCADE)
-])
+@Entity(tableName = "Item")
 data class item(
     @PrimaryKey
+    @TypeConverters(ItemIdTypeConverter::class)
     val id: ItemId,
+    @NonNull
     var name: String,
+    @NonNull
     var rate: Double,
+    @TypeConverters(ItemTypeConverter::class)
     var type: itemType,
+    @NonNull
     var description: String,
+    @NonNull
     var isTaxable: Boolean,
+    @NonNull
     var Iva: Double
 ) : Comparable<item>{
     override fun compareTo(other: item): Int {
@@ -33,7 +39,6 @@ data class item(
         return "$name - $rate€"
     }
 }
-
 enum class itemType {
     PRODUCT,
     SERVICE

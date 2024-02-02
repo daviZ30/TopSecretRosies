@@ -11,7 +11,11 @@ import com.moronlu18.customer.entity.Cliente
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
+import com.moronlu18.invoice.converter.ItemIdTypeConverter
+import com.moronlu18.invoice.converter.ItemTypeConverter
 import com.moronlu18.invoice.entity.Invoice
+import com.moronlu18.item.entity.ItemDao
+import com.moronlu18.item.entity.item
 import com.moronlu18.task.entity.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,16 +23,17 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Invoice::class],
+    entities = [Invoice::class, item::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(InvoiceIdTypeConverter::class, InvoiceInstantLongConverter::class,
-    InvoiceStatusConverter::class
+    InvoiceStatusConverter::class, ItemTypeConverter::class, ItemIdTypeConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
+    abstract fun itemDao(): ItemDao
 
     companion object {
         @Volatile
@@ -49,7 +54,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 InvoiceDatabase::class.java,
                 "Invoice"
             ).fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
+                .allowMainThreadQueries()//quitarlo
                 .addTypeConverter(InvoiceIdTypeConverter())
                 .addTypeConverter(InvoiceInstantLongConverter())
                 .addTypeConverter(InvoiceStatusConverter())

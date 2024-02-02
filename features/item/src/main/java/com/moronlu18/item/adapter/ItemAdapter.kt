@@ -37,7 +37,7 @@ class ItemAdapter(private var itemList: List<item>, private val onItemClick: (it
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item:item) {
-            itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id}"
+            itemView.findViewById<TextView>(R.id.tvIdCard).text = "${item.id.value}"
             itemView.findViewById<TextView>(R.id.tvNameCard).text = "${item.name}"
             itemView.findViewById<TextView>(R.id.tvRateCard).text = String.format("%.2f", item.rate)
             itemView.findViewById<TextView>(R.id.tvTypeCard).text = "${item.type}"
