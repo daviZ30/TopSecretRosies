@@ -4,4 +4,4 @@ import com.moronlu18.invoice.entity.UniqueId
 
 data class CustomerId(
     override var value: Int
-): UniqueId(value)
+) : UniqueId(value)

@@ -97,4 +97,7 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-common:2.6.1")
+
+    //Convertir un Flow a LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 }

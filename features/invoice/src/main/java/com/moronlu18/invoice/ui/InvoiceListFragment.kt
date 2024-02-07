@@ -9,7 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -19,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
+import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.invoice.usecase.InvoiceListViewModel
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceListBinding
@@ -28,6 +28,8 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     private var _binding: FragmentInvoiceListBinding? = null
     private val binding
         get() = _binding!!
+
+    lateinit var adapterInvoice: AdaptadorFacturas
 
     /*fun ViewImage(){
       if (facturas.isEmpty()) {
@@ -66,7 +68,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
         //adapter.notifyDataSetChanged()
         //binding.rvInvoiceList.scrollToPosition(facturas.size - 1)
-        binding.rvInvoiceList.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
@@ -74,7 +75,18 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("OnViewCreated")
+        setUpUserRecycler()
+        viewModel.getState().observe(viewLifecycleOwner) {
+            when (it) {
+                is InvoiceListState.noDataError -> {
+                    binding.imgNada.visibility = View.VISIBLE
+                    binding.rvInvoiceList.visibility = View.GONE
+                    Utils.showSnackBar(binding.root,"Lista vacia")
+
+                }
+                is InvoiceListState.Success -> onSuccess()
+            }
+        }
 
         if (viewModel.facturas.size < 1) {
             binding.rvInvoiceList.visibility = View.GONE
@@ -83,7 +95,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             binding.rvInvoiceList.visibility = View.VISIBLE
             binding.imgNada.visibility = View.GONE
         }
-        var adapter = AdaptadorFacturas(viewModel.facturas,
+        var adapter = AdaptadorFacturas(
             { i: Int, n: Int ->
                 var bundle = Bundle();
                 bundle.putInt("pos", i)
@@ -98,17 +110,49 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 showDeleteConfirmationDialog(i)
             }
         )
-        println("OnCreateView")
 
-        binding.rvInvoiceList.adapter = adapter
 
+        viewModel.allinvoice.observe(viewLifecycleOwner) {
+            it.let { adapterInvoice.submitList(it) }
+        }
 
         binding.fabInvoice.setOnClickListener {
             //findNavController().navigate()
             findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
         }
 
-        viewModel.validate()
+        //viewModel.validate()
+    }
+    private fun setUpUserRecycler() {
+        adapterInvoice = AdaptadorFacturas(
+            { i: Int, n: Int ->
+                var bundle = Bundle();
+                bundle.putInt("pos", i)
+                parentFragmentManager.setFragmentResult("key", bundle)
+                if (n == 0) {
+                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
+                } else if (n == 1) {
+                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
+                }
+            },
+            { i: Int ->
+                showDeleteConfirmationDialog(i)
+            }
+        )
+
+        with(binding.rvInvoiceList) {
+            layoutManager = LinearLayoutManager(requireContext())
+            //setHasFixedSize(true) Con list adapter hay que quitar esto
+            //El recyckerview es dinamico ya que utilizamos listAdapter y se modifica en el número de elementos
+            //Se debe quitar setHasFixedSize(true)
+            this.adapter = adapterInvoice
+        }
+    }
+    private fun onSuccess() {
+        binding.imgNada.visibility = View.GONE
+        binding.rvInvoiceList.visibility = View.VISIBLE
+        Utils.showSnackBar(binding.root,"Lista Creada")
+        println("------------------------------"+ viewModel.allinvoice.value)
     }
 
     private fun showDeleteConfirmationDialog(posicion: Int) {
@@ -157,7 +201,10 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
         }
     }
-
+    override fun onStart() {
+        super.onStart()
+        viewModel.getInvoiceList()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

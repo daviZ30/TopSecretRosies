@@ -26,7 +26,7 @@ data class Invoice(
     val id: InvoiceId,
     @NonNull
     val idCliente: Int,
-    @NonNull
+
     @TypeConverters(InvoiceInstantLongConverter::class)
     val FeEmision: Instant,
     @NonNull

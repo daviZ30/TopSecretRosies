@@ -1,78 +1,79 @@
 package com.moronlu18.invoice.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.invoice.entity.Invoice
-import com.moronlu18.invoiceFragment.R
+import com.moronlu18.invoiceFragment.databinding.FilaFacturasBinding
 
 
 class AdaptadorFacturas(
-    val facturas: MutableList<Invoice>,
+
     private val onClick: (position: Int, navegar: Int) -> Unit,
     private val onDelete: (position: Int) -> Unit,
-) : RecyclerView.Adapter<AdaptadorFacturas.ViewHolder>() {
+) : ListAdapter<Invoice, AdaptadorFacturas.InvoiceHost>(INVOICE_COMPARATOR) {
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var cliente: TextView
-        var FeEmision: TextView
-        var FeVencimiento: TextView
-        var NumArticulos: TextView
-        var Total: TextView
-        var card: CardView
-        var eliminar : ImageView
-        var editar : ImageView
+    inner class InvoiceHost(var binding: FilaFacturasBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(invoice: Invoice, position: Int) {
+            with(binding) {
+                //var precios = invoice.Articulos.map { it.precio }
+                //var  SubTotal = precios.reduce { acc, ar -> acc + ar }
+                var SubTotal = 0;
+                txtLineaCliente.text = "Id: ${invoice.id.value}"
+                txtLineaTotal.text = String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+                txtLineaNumArticulos.text = invoice.Articulos.size.toString()
+                val posEmi = invoice.FeEmision.toString().indexOf('T')
+                val posVen = invoice.FeVencimiento.toString().indexOf('T')
+                txtLineaFeEmision.text = invoice.FeEmision.toString().substring(0, posEmi)
+                txtLineaFeVencimiento.text = invoice.FeVencimiento.toString().substring(0, posVen)
+                cvFactura.setOnClickListener {
+                    onClick(position, 0)
+                }
+                imgEliminar.setOnClickListener {
+                    onDelete(position)
 
+                }
+                imgEditar.setOnClickListener {
+                    onClick(position, 1)
+                }
 
-        init {
-            cliente = v.findViewById(R.id.txtLineaCliente)
-            FeEmision = v.findViewById(R.id.txtLineaFeEmision)
-            FeVencimiento = v.findViewById(R.id.txtLineaFeVencimiento)
-            NumArticulos = v.findViewById(R.id.txtLineaNumArticulos)
-            Total = v.findViewById(R.id.txtLineaTotal)
-            card = v.findViewById(R.id.cvFactura)
-            eliminar = v.findViewById(R.id.imgEliminar)
-            editar = v.findViewById(R.id.imgEditar)
+            }
         }
     }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.fila_facturas, parent, false)
-        return ViewHolder(v)
-    }
+    ): InvoiceHost {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val f = facturas[position]
-        var precios = f.Articulos.map { it.precio }
-        var SubTotal = precios.reduce { acc, ar -> acc + ar}
-        holder.cliente.text = "Id: ${f.id.value}"
-        holder.Total.text = String.format("%.2f €",SubTotal + (SubTotal * 0.21))
-        holder.NumArticulos.text = f.Articulos.size.toString()
-        val posEmi = f.FeEmision.toString().indexOf('T')
-        val posVen = f.FeVencimiento.toString().indexOf('T')
-         holder.FeEmision.text = f.FeEmision.toString().substring(0,posEmi)
-        holder.FeVencimiento.text = f.FeVencimiento.toString().substring(0,posVen)
-        holder.card.setOnClickListener {
-            onClick(position, 0)
-        }
-        holder.eliminar.setOnClickListener{
-            onDelete(position)
-
-        }
-        holder.editar.setOnClickListener{
-            onClick(position, 1)
-        }
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return InvoiceHost(FilaFacturasBinding.inflate(layoutInflater, parent, false))
 
     }
 
-    override fun getItemCount(): Int {
-        return facturas.size
+    override fun onBindViewHolder(holder: InvoiceHost, position: Int) {
+        val f = getItem(position)
+
+        holder.bind(f, position)
+
+
+    }
+
+    companion object {
+        private val INVOICE_COMPARATOR = object : DiffUtil.ItemCallback<Invoice>() {
+            override fun areItemsTheSame(oldItem: Invoice, newItem: Invoice): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Invoice, newItem: Invoice): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+        }
     }
 }
+

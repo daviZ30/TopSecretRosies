@@ -1,16 +1,27 @@
 package com.moronlu18.InvoiceDavid.entity
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
 
-//@Entity
+@Entity(tableName = "LineaItem", foreignKeys = [ForeignKey(
+    entity = Invoice::class,
+    parentColumns = arrayOf("id"), childColumns = arrayOf("id_invoice"),
+    onDelete = ForeignKey.RESTRICT, onUpdate = ForeignKey.CASCADE
+)], primaryKeys = [ "id_item","id_invoice" ] )
+
 data class LineaItem(
     val id_item: Int,
     val id_invoice: Int,
     val cantidad: Int,
+    @NonNull
     val precio: Double,
+    @NonNull
     val iva: Double
 ) : Comparable<LineaItem> {
     override fun compareTo(other: LineaItem): Int {

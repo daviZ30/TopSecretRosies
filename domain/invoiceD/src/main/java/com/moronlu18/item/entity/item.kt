@@ -11,22 +11,22 @@
  * Al utilizar data class se implementa de forma automatica el metodo equals toString, hashcode, copy
  * teniendo en cuenta las propiedades declarasas en el constructor primario
  */
-@Entity(tableName = "Item")
+//@Entity(tableName = "Item")
 data class item(
-    @PrimaryKey
-    @TypeConverters(ItemIdTypeConverter::class)
+   // @PrimaryKey
+   // @TypeConverters(ItemIdTypeConverter::class)
     val id: ItemId,
-    @NonNull
+   // @NonNull
     var name: String,
-    @NonNull
+   // @NonNull
     var rate: Double,
-    @TypeConverters(ItemTypeConverter::class)
+   // @TypeConverters(ItemTypeConverter::class)
     var type: itemType,
-    @NonNull
+   // @NonNull
     var description: String,
-    @NonNull
+   // @NonNull
     var isTaxable: Boolean,
-    @NonNull
+   // @NonNull
     var Iva: Double
 ) : Comparable<item>{
     override fun compareTo(other: item): Int {
