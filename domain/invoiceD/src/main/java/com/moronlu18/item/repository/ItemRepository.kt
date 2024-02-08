@@ -1,10 +1,14 @@
 package com.moronlu18.item.repository
 
+import Resources
+import android.database.sqlite.SQLiteException
+import com.moronlu18.invoice.InvoiceDatabase
 import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
+import kotlinx.coroutines.flow.Flow
 
- class ItemRepository private constructor() {
+class ItemRepository private constructor() {
     companion object {
         private val itemList = mutableListOf(
             item(ItemId(1), "Lápiz", 3.55, itemType.PRODUCT, "Lápiz pequeño", false, 0.02),
@@ -43,6 +47,37 @@ import com.moronlu18.item.entity.itemType
                 description = updatedItem.description
                 isTaxable = updatedItem.isTaxable
             }
+        }
+
+        fun updateItemDao(item: item): Resources {
+            return try {
+                InvoiceDatabase.getInstance().itemDao().update(item)
+                Resources.Success(item)
+            } catch (e: SQLiteException) {
+                Resources.Error(e)
+            }
+        }
+
+        fun insert(item: item): Resources {
+            return try {
+                InvoiceDatabase.getInstance().itemDao().insert(item)
+                Resources.Success(item)
+            } catch (e: SQLiteException) {
+                Resources.Error(e)
+            }
+        }
+
+        fun delete(item: item): Resources {
+            return try {
+                InvoiceDatabase.getInstance().itemDao().delete(item)
+                Resources.Success(item)
+            } catch (e: SQLiteException) {
+                Resources.Error(e)
+            }
+        }
+
+        fun getItemListDao(): Flow<List<item>> {
+            return InvoiceDatabase.getInstance().itemDao().selectAll()
         }
 
 

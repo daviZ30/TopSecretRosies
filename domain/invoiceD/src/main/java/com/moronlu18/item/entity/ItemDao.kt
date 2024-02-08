@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.moronlu18.invoice.entity.Invoice
+import com.moronlu18.item.entity.item
 import kotlinx.coroutines.flow.Flow
 
 
@@ -19,7 +19,7 @@ interface ItemDao {
     @Update
     fun update (item: item)
 
-    @Query("SELECT * FROM Item")
+    @Query("SELECT * FROM item")
     fun selectAll(): Flow<List<item>>
 
     @Delete

@@ -14,7 +14,12 @@ import com.moronlu18.InvoiceDavid.entity.LineaItemDao
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
+import com.moronlu18.invoice.converter.ItemIdTypeConverter
+import com.moronlu18.invoice.converter.ItemTaxableBoolConverter
+import com.moronlu18.invoice.converter.ItemTypeConverter
 import com.moronlu18.invoice.entity.Invoice
+import com.moronlu18.item.entity.ItemDao
+import com.moronlu18.item.entity.item
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 @Database(
-    entities = [Invoice::class, LineaItem::class/* Task::class, item::class,*/ /*Customer::class*/],
+    entities = [Invoice::class, LineaItem::class, item::class/* Task::class,*/ /*Customer::class*/],
     version = 2,
     exportSchema = false
 )
@@ -30,8 +35,9 @@ import java.time.Instant
     InvoiceIdTypeConverter::class,
     InvoiceInstantLongConverter::class,
     InvoiceStatusConverter::class,
-    // ItemTypeConverter::class,
-    // ItemIdTypeConverter::class,
+    ItemTypeConverter::class,
+    ItemIdTypeConverter::class,
+    ItemTaxableBoolConverter::class,
     //CustomerIDTypeConverter::class,
     //TaskIdConverter::class,
     //TaskStringLongConverter::class,
@@ -44,7 +50,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
 
     // abstract fun taskDao(): TaskDao
 
-    // abstract fun itemDao(): ItemDao
+     abstract fun itemDao(): ItemDao
     //abstract fun CustomerDao(): CustomerDao
 
     companion object {
@@ -68,8 +74,9 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(InvoiceInstantLongConverter())
                 .addTypeConverter(InvoiceStatusConverter())
                 //.addTypeConverter(TaskStringLongConverter())
-                //.addTypeConverter(ItemIdTypeConverter())
-                //.addTypeConverter(ItemTypeConverter())
+                .addTypeConverter(ItemIdTypeConverter())
+                .addTypeConverter(ItemTypeConverter())
+                .addTypeConverter(ItemTaxableBoolConverter())
                 //.addTypeConverter(CustomerIDTypeConverter())
                 //.addTypeConverter(TaskIdConverter())
                 //.addTypeConverter(CustomerEmailTypeConverter())

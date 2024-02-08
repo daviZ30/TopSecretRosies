@@ -142,7 +142,7 @@ class ItemCreationFragment : Fragment() {
                                 itemViewModel.addItem(newItem)
                                 findNavController().popBackStack()
                             } else {
-                                itemViewModel.updateItem(newItem)
+                                itemViewModel.updateItemDao(newItem)
                                 findNavController().popBackStack()
                                 itemViewModel.clearNewItem()
                             }

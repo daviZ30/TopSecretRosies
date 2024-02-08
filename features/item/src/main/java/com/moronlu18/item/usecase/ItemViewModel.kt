@@ -1,15 +1,61 @@
 package com.moronlu18.item.usecase
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.entity.itemType
 import com.moronlu18.item.repository.ItemRepository
+import com.moronlu18.item.repository.Resource
 import com.moronlu18.item.ui.ItemState
+import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.launch
 
 class ItemViewModel:ViewModel() {
 
+    private val _operationStatus = MutableLiveData<Resource>()
+    val operationStatus: LiveData<Resource> = _operationStatus
+
     val newItem = MutableLiveData<item?>()
+
+    val itemListDao: LiveData<List<item>> = ItemRepository.getItemListDao().asLiveData()
+
+
+    fun addItemDao(item: item) {
+        viewModelScope.launch {
+            val result = ItemRepository.insert(item)
+            _operationStatus.value = when (result) {
+                is Resources.Success<*> -> Resource.Success(item)
+                is Resources.Error -> Resource.Error(result.exception)
+                else -> {null}
+            }
+        }
+    }
+
+    fun removeItem(item: item) {
+        viewModelScope.launch {
+            val result = ItemRepository.delete(item)
+            _operationStatus.value = when (result) {
+                is Resources.Success<*> -> Resource.Success(item)
+                is Resources.Error -> Resource.Error(result.exception)
+                else -> Resource.Success(null)
+            }
+        }
+    }
+
+    fun updateItemDao(item: item) {
+        viewModelScope.launch {
+            val result = ItemRepository.updateItemDao(item)
+            _operationStatus.value = when (result) {
+                is Resources.Success<*> -> Resource.Success(item)
+                is Resources.Error -> Resource.Error(result.exception)
+                else -> null
+            }
+        }
+    }
+
+
 
 
 

@@ -103,11 +103,16 @@ class ItemListFragment : Fragment(), MenuProvider {
 
         itemViewModel.newItem.observe(viewLifecycleOwner) { newItem ->
             if (newItem != null) {
-                ItemRepository.addItem(newItem)
+                itemViewModel.addItemDao(newItem)
                 sortItemList(ItemRepository.getItemList())
                 itemViewModel.clearNewItem()
             }
         }
+
+        itemViewModel.itemListDao.observe(viewLifecycleOwner) { itemList ->
+            updateAdapter(itemList)
+        }
+
 
 
 
@@ -221,8 +226,8 @@ class ItemListFragment : Fragment(), MenuProvider {
         builder.setPositiveButton("Eliminar") { _, _ ->
 
             if (!isItemInInvoice) {
-                ItemRepository.removeItem(item)
-                updateAdapter(ItemRepository.getItemList())
+                itemViewModel.removeItem(item)
+
             } else {
 
                 Toast.makeText(
@@ -276,7 +281,6 @@ class ItemListFragment : Fragment(), MenuProvider {
     private fun updateAdapter(updatedList: List<item>) {
         val adapter = binding.rvItemList.adapter as? ItemAdapter
         adapter?.updateItemList(updatedList)
-        adapter?.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
