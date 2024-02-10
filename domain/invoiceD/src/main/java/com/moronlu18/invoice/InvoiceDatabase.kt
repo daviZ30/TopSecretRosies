@@ -11,6 +11,11 @@ import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.InvoiceDavid.entity.LineaItemDao
+import com.moronlu18.customer.entity.Customer
+import com.moronlu18.customer.entity.CustomerDao
+import com.moronlu18.customer.entity.CustomerId
+import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
+import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
@@ -18,6 +23,7 @@ import com.moronlu18.invoice.converter.ItemIdTypeConverter
 import com.moronlu18.invoice.converter.ItemTaxableBoolConverter
 import com.moronlu18.invoice.converter.ItemTypeConverter
 import com.moronlu18.invoice.entity.Invoice
+import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
 import kotlinx.coroutines.CoroutineScope
@@ -27,8 +33,8 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 @Database(
-    entities = [Invoice::class, LineaItem::class, item::class/* Task::class,*/ /*Customer::class*/],
-    version = 2,
+    entities = [Invoice::class, LineaItem::class, item::class,/* Task::class,*/ Customer::class],
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(
@@ -38,15 +44,16 @@ import java.time.Instant
     ItemTypeConverter::class,
     ItemIdTypeConverter::class,
     ItemTaxableBoolConverter::class,
-    //CustomerIDTypeConverter::class,
+    CustomerIDTypeConverter::class,
     //TaskIdConverter::class,
     //TaskStringLongConverter::class,
-    // CustomerEmailTypeConverter::class
+    CustomerEmailTypeConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
     abstract fun lineaItemDao(): LineaItemDao
+    abstract fun customerDao():CustomerDao
 
     // abstract fun taskDao(): TaskDao
 
@@ -77,9 +84,9 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(ItemIdTypeConverter())
                 .addTypeConverter(ItemTypeConverter())
                 .addTypeConverter(ItemTaxableBoolConverter())
-                //.addTypeConverter(CustomerIDTypeConverter())
+                .addTypeConverter(CustomerIDTypeConverter())
                 //.addTypeConverter(TaskIdConverter())
-                //.addTypeConverter(CustomerEmailTypeConverter())
+                .addTypeConverter(CustomerEmailTypeConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()
@@ -119,6 +126,13 @@ abstract class InvoiceDatabase : RoomDatabase() {
                         ),
                         InvoiceStatus.Pending
                     )
+                )
+            }
+            getInstance().let { invoiceDatabase ->
+                invoiceDatabase.customerDao().insert(
+                    Customer(
+                        CustomerId(2),"Antonio","Urquiza FAlle",
+                        Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46")
                 )
             }
 
