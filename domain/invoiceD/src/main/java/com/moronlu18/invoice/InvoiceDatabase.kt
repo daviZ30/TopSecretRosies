@@ -127,24 +127,12 @@ abstract class InvoiceDatabase : RoomDatabase() {
                         InvoiceStatus.Pending
                     )
                 )
-            }
-            getInstance().let { invoiceDatabase ->
-                invoiceDatabase.customerDao().insert(
-                    Customer(
-                        CustomerId(2),"Antonio","Urquiza FAlle",
-                        Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46")
-                )
+                invoiceDatabase.customerDao().insert(Customer(
+                    CustomerId(2),"Antonio","Urquiza FAlle",
+                    Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46"))
             }
 
-            /* instance.let { invoiceDatabase ->
-                 invoiceDatabase?.userDao()
-                     ?.insert(User("Pedro", "pedro@gmail.com", "pedrito", Tipo.User, Perfil.Private))
-                 invoiceDatabase?.userDao()
-                     ?.insert(User("Juan", "juan@gmail.com", "juanito", Tipo.User, Perfil.Private))
-
-             }*/
         }
-
         private fun SetFecha(fecha: String): Instant {
             val dateString = fecha + "T00:00:00Z"
             //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
