@@ -22,10 +22,14 @@ import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import com.moronlu18.invoice.converter.ItemIdTypeConverter
 import com.moronlu18.invoice.converter.ItemTaxableBoolConverter
 import com.moronlu18.invoice.converter.ItemTypeConverter
+import com.moronlu18.invoice.converter.TaskIdConverter
+import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
+import com.moronlu18.task.entity.Task
+import com.moronlu18.task.entity.TaskDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -33,7 +37,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 @Database(
-    entities = [Invoice::class, LineaItem::class, item::class,/* Task::class,*/ Customer::class],
+    entities = [Invoice::class, LineaItem::class, item::class, Task::class, Customer::class],
     version = 3,
     exportSchema = false
 )
@@ -55,10 +59,9 @@ abstract class InvoiceDatabase : RoomDatabase() {
     abstract fun lineaItemDao(): LineaItemDao
     abstract fun customerDao():CustomerDao
 
-    // abstract fun taskDao(): TaskDao
+    abstract fun taskDao(): TaskDao
 
-     abstract fun itemDao(): ItemDao
-    //abstract fun CustomerDao(): CustomerDao
+    abstract fun itemDao(): ItemDao
 
     companion object {
         @Volatile
@@ -80,12 +83,12 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(InvoiceIdTypeConverter())
                 .addTypeConverter(InvoiceInstantLongConverter())
                 .addTypeConverter(InvoiceStatusConverter())
-                //.addTypeConverter(TaskStringLongConverter())
+                .addTypeConverter(TaskStringLongConverter())
                 .addTypeConverter(ItemIdTypeConverter())
                 .addTypeConverter(ItemTypeConverter())
                 .addTypeConverter(ItemTaxableBoolConverter())
                 .addTypeConverter(CustomerIDTypeConverter())
-                //.addTypeConverter(TaskIdConverter())
+                .addTypeConverter(TaskIdConverter())
                 .addTypeConverter(CustomerEmailTypeConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
