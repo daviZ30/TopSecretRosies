@@ -216,10 +216,10 @@ class InvoiceCreationFragment : Fragment() {
                     factura.FeVencimiento.toString().substring(0, posVen)
                 )
 
-                val SubTotal = precios.reduce { acc, ar -> acc + ar }
-                binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
-                binding.txtInvoiceCreationTotal.text =
-                    String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+                //val SubTotal = precios.reduce { acc, ar -> acc + ar }
+                //binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
+                //binding.txtInvoiceCreationTotal.text =
+                 //   String.format("%.2f €", SubTotal + (SubTotal * 0.21))
 
                 binding.tieInvoiceCreationIdCliente.addTextChangedListener(
                     textWatcher(

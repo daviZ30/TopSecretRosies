@@ -11,8 +11,8 @@ import com.moronlu18.customerun.ui.CustomerListState
 
 class CustomerListViewModel : ViewModel() {
     private val _clientes = ProviderCustomer.datasetCustomer
-    private val customerRepository = InvoiceRepository()
-    var allinvoice = customerRepository.getInvoiceList().asLiveData()
+   // private val customerRepository = InvoiceRepository()
+    var allinvoice = InvoiceRepository.getInvoiceList().asLiveData()
 
     val clientes
         get() = _clientes

@@ -37,8 +37,8 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 @Database(
-    entities = [Invoice::class, LineaItem::class, item::class, Task::class, Customer::class],
-    version = 3,
+    entities = [Invoice::class, LineaItem::class, item::class, /*Task::class*/ Customer::class],
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(
@@ -49,17 +49,18 @@ import java.time.Instant
     ItemIdTypeConverter::class,
     ItemTaxableBoolConverter::class,
     CustomerIDTypeConverter::class,
-    TaskIdConverter::class,
-    TaskStringLongConverter::class,
-    CustomerEmailTypeConverter::class
+    CustomerEmailTypeConverter::class,
+    //TaskIdConverter::class,
+    //TaskStringLongConverter::class
+
 )
 abstract class InvoiceDatabase : RoomDatabase() {
 
     abstract fun invoiceDao(): InvoiceDao
     abstract fun lineaItemDao(): LineaItemDao
-    abstract fun customerDao():CustomerDao
+    abstract fun customerDao(): CustomerDao
 
-    abstract fun taskDao(): TaskDao
+    //abstract fun taskDao(): TaskDao
 
     abstract fun itemDao(): ItemDao
 
@@ -83,13 +84,13 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(InvoiceIdTypeConverter())
                 .addTypeConverter(InvoiceInstantLongConverter())
                 .addTypeConverter(InvoiceStatusConverter())
-                .addTypeConverter(TaskStringLongConverter())
                 .addTypeConverter(ItemIdTypeConverter())
                 .addTypeConverter(ItemTypeConverter())
                 .addTypeConverter(ItemTaxableBoolConverter())
                 .addTypeConverter(CustomerIDTypeConverter())
-                .addTypeConverter(TaskIdConverter())
                 .addTypeConverter(CustomerEmailTypeConverter())
+                //.addTypeConverter(TaskIdConverter())
+                //.addTypeConverter(TaskStringLongConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()
@@ -112,6 +113,14 @@ abstract class InvoiceDatabase : RoomDatabase() {
         }
 
         private fun populateInvoice() {
+            var listaItem =mutableListOf<LineaItem>(
+                LineaItem(
+                    1, 1, 1, 1.5, 45.5
+                ), LineaItem(
+                    2, 1, 1, 1.5, 45.5
+                )
+            )
+
             //.let ejecuta el código si no es nulo
             getInstance().let { invoiceDatabase ->
                 invoiceDatabase.invoiceDao().insert(
@@ -120,22 +129,27 @@ abstract class InvoiceDatabase : RoomDatabase() {
                         1,
                         SetFecha("2021-01-20"),
                         SetFecha("2021-01-20"),
-                        mutableListOf<LineaItem>(
-                            LineaItem(
-                                1, 1, 1, 1.5, 45.5
-                            ), LineaItem(
-                                2, 1, 1, 1.5, 45.5
-                            )
-                        ),
                         InvoiceStatus.Pending
                     )
                 )
-                invoiceDatabase.customerDao().insert(Customer(
-                    CustomerId(2),"Antonio","Urquiza FAlle",
-                    Email("carnetaadspjf@gmail.com"),"6846556414","Málaga","Calle Leonora n46"))
+                listaItem.forEach {
+                    invoiceDatabase.lineaItemDao().insert(it)
+                }
+                invoiceDatabase.customerDao().insert(
+                    Customer(
+                        CustomerId(2),
+                        "Antonio",
+                        "Urquiza FAlle",
+                        Email("carnetaadspjf@gmail.com"),
+                        "6846556414",
+                        "Málaga",
+                        "Calle Leonora n46"
+                    )
+                )
             }
 
         }
+
         private fun SetFecha(fecha: String): Instant {
             val dateString = fecha + "T00:00:00Z"
             //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")

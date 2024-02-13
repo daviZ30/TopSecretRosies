@@ -34,7 +34,7 @@ class ProviderInvoice private constructor() {
             var dataset: MutableList<Invoice> = ArrayList()
 
             val articulos = ItemRepository.getItemList()
-            dataset.add(
+           /* dataset.add(
                 Invoice(
                     InvoiceId(1),
                     1, SetFecha("2020-10-20"), SetFecha("2021-01-20"), mutableListOf(
@@ -56,7 +56,7 @@ class ProviderInvoice private constructor() {
                     ),
                     InvoiceStatus.Pending
                 )
-            )
+            )*/
             return dataset
         }
 
@@ -74,7 +74,7 @@ class ProviderInvoice private constructor() {
                 cliente,
                 feEmi,
                 feVen,
-                articulos,
+                //articulos,
                 status
             )
             //println(f.CantidadArticulos())

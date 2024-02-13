@@ -5,39 +5,40 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoiceFragment.databinding.FilaFacturasBinding
 
 
 class AdaptadorFacturas(
 
-    private val onClick: (position: Int, navegar: Int) -> Unit,
+    private val onClick: (fa:Invoice,listaItem:List<LineaItem >,n:Int) -> Unit,
     private val onDelete: (position: Int) -> Unit,
+    private val getListItem: (id:Int)->List<LineaItem>
 ) : ListAdapter<Invoice, AdaptadorFacturas.InvoiceHost>(INVOICE_COMPARATOR) {
 
     inner class InvoiceHost(var binding: FilaFacturasBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(invoice: Invoice, position: Int) {
+        fun bind(invoice: Invoice, listaItem: List<LineaItem>, position: Int) {
             with(binding) {
-                //var precios = invoice.Articulos.map { it.precio }
-                //var  SubTotal = precios.reduce { acc, ar -> acc + ar }
-                var SubTotal = 0;
+                println("-------------------------------------------------$listaItem")
+                var precios = listaItem.map { it.precio }
+                var  SubTotal = precios.reduce { acc, ar -> acc + ar }
                 txtLineaCliente.text = "Id: ${invoice.id.value}"
                 txtLineaTotal.text = String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-                txtLineaNumArticulos.text = invoice.Articulos.size.toString()
+                txtLineaNumArticulos.text = listaItem.size.toString()
                 val posEmi = invoice.FeEmision.toString().indexOf('T')
                 val posVen = invoice.FeVencimiento.toString().indexOf('T')
                 txtLineaFeEmision.text = invoice.FeEmision.toString().substring(0, posEmi)
                 txtLineaFeVencimiento.text = invoice.FeVencimiento.toString().substring(0, posVen)
                 cvFactura.setOnClickListener {
-                    onClick(position, 0)
+                    onClick(invoice,listaItem,0)
                 }
                 imgEliminar.setOnClickListener {
                     onDelete(position)
-
                 }
                 imgEditar.setOnClickListener {
-                    onClick(position, 1)
+                    onClick(invoice,listaItem,1)
                 }
 
             }
@@ -58,7 +59,7 @@ class AdaptadorFacturas(
     override fun onBindViewHolder(holder: InvoiceHost, position: Int) {
         val f = getItem(position)
 
-        holder.bind(f, position)
+        holder.bind(f, getListItem(f.id.value),position)
 
 
     }

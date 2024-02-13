@@ -8,6 +8,7 @@ import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
 import com.moronlu18.item.repository.ItemRepository
+import java.io.Serializable
 
 @Entity(tableName = "LineaItem", foreignKeys = [ForeignKey(
     entity = Invoice::class,
@@ -23,7 +24,7 @@ data class LineaItem(
     val precio: Double,
     @NonNull
     val iva: Double
-) : Comparable<LineaItem> {
+) : Comparable<LineaItem>,Serializable {
     override fun compareTo(other: LineaItem): Int {
         return id_item.compareTo(other.id_item)
     }

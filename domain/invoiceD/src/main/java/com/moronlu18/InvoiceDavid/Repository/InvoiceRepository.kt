@@ -1,30 +1,44 @@
 package com.moronlu18.InvoiceDavid.Repository
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.InvoiceDatabase
 import com.moronlu18.invoice.entity.Invoice
 import kotlinx.coroutines.flow.Flow
 
 class InvoiceRepository {
-    fun insert(fa: Invoice): Resource {
-        return try {
-            Log.e("Log", "ESTOY AQUIII")
-            InvoiceDatabase.getInstance().invoiceDao().insert(fa)
-            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + fa.Articulos)
-            fa.Articulos.forEach {
-                //println("ESTOY AQUI")
-                InvoiceDatabase.getInstance().lineaItemDao().insert(it)
+    companion object
+    {
+        fun insertInvoice(fa: Invoice): Resource {
+            return try {
+                InvoiceDatabase.getInstance().invoiceDao().insert(fa)
+                Resource.Success<Invoice>(fa)
+            }catch (e: SQLiteException){
+                println( e.message)
+                Resource.Error(e)
             }
-            Resource.Success<Invoice>(fa)
-        }catch (e: SQLiteException){
-            println( e.message)
-            Resource.Error(e)
+        }
+        fun insertLineaItem(lista: MutableList<LineaItem>): Resource {
+            return try {
+                lista.forEach {
+                    InvoiceDatabase.getInstance().lineaItemDao().insert(it)
+                }
+
+                Resource.Success<MutableList<LineaItem>>(lista)
+            }catch (e: SQLiteException){
+                println( e.message)
+                Resource.Error(e)
+            }
+        }
+
+
+        fun getInvoiceList(): Flow<List<Invoice>> {
+            return InvoiceDatabase.getInstance().invoiceDao().selectAll()
+        }
+        fun getLineaItemList(id:Int): List<LineaItem> {
+            return InvoiceDatabase.getInstance().lineaItemDao().selectFromInvoice(id)
         }
     }
 
-    fun getInvoiceList(): Flow<List<Invoice>> {
-        return InvoiceDatabase.getInstance().invoiceDao().selectAll()
-    }
 
 }

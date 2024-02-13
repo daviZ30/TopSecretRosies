@@ -16,8 +16,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.invoice.usecase.InvoiceListViewModel
 import com.moronlu18.invoiceFragment.R
@@ -81,9 +83,10 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 is InvoiceListState.noDataError -> {
                     binding.imgNada.visibility = View.VISIBLE
                     binding.rvInvoiceList.visibility = View.GONE
-                    Utils.showSnackBar(binding.root,"Lista vacia")
+                    Utils.showSnackBar(binding.root, "Lista vacia")
 
                 }
+
                 is InvoiceListState.Success -> onSuccess()
             }
         }
@@ -95,22 +98,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             binding.rvInvoiceList.visibility = View.VISIBLE
             binding.imgNada.visibility = View.GONE
         }
-        var adapter = AdaptadorFacturas(
-            { i: Int, n: Int ->
-                var bundle = Bundle();
-                bundle.putInt("pos", i)
-                parentFragmentManager.setFragmentResult("key", bundle)
-                if (n == 0) {
-                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
-                } else if (n == 1) {
-                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
-                }
-            },
-            { i: Int ->
-                showDeleteConfirmationDialog(i)
-            }
-        )
-
 
         viewModel.allinvoice.observe(viewLifecycleOwner) {
             it.let { adapterInvoice.submitList(it) }
@@ -123,20 +110,29 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
         //viewModel.validate()
     }
+
     private fun setUpUserRecycler() {
         adapterInvoice = AdaptadorFacturas(
-            { i: Int, n: Int ->
-                var bundle = Bundle();
-                bundle.putInt("pos", i)
-                parentFragmentManager.setFragmentResult("key", bundle)
+            { fa: Invoice, listaItem: List<LineaItem>, n: Int ->
+                var bundle = Bundle().apply {
+                    putSerializable("invoice", fa)
+                }
                 if (n == 0) {
-                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceDetailsFragment)
+                    findNavController().navigate(
+                        R.id.action_invoiceListFragment_to_invoiceDetailsFragment,
+                        bundle
+                    )
                 } else if (n == 1) {
-                    findNavController().navigate(R.id.action_invoiceListFragment_to_invoiceCreationFragment)
+                    findNavController().navigate(
+                        R.id.action_invoiceListFragment_to_invoiceCreationFragment,
+                        bundle
+                    )
                 }
             },
             { i: Int ->
                 showDeleteConfirmationDialog(i)
+            }, {
+                viewModel.getLineaItem(it)
             }
         )
 
@@ -148,11 +144,12 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             this.adapter = adapterInvoice
         }
     }
+
     private fun onSuccess() {
         binding.imgNada.visibility = View.GONE
         binding.rvInvoiceList.visibility = View.VISIBLE
-        Utils.showSnackBar(binding.root,"Lista Creada")
-        println("------------------------------"+ viewModel.allinvoice.value)
+        Utils.showSnackBar(binding.root, "Lista Creada")
+        println("------------------------------" + viewModel.allinvoice.value)
     }
 
     private fun showDeleteConfirmationDialog(posicion: Int) {
@@ -201,10 +198,12 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
         }
     }
+
     override fun onStart() {
         super.onStart()
         viewModel.getInvoiceList()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

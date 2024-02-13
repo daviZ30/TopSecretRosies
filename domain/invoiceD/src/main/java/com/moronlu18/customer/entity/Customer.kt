@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
 import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.ui.firebase.Email
+
 @Entity(tableName = "customer")
 data class Customer(
     @PrimaryKey
@@ -21,7 +22,7 @@ data class Customer(
     val telefono: String,
     val city: String,
     val direction: String
-){
+) {
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
     }

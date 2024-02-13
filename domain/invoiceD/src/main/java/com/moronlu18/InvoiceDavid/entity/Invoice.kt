@@ -11,6 +11,7 @@ import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
 import com.moronlu18.invoice.converter.InvoiceInstantLongConverter
 import com.moronlu18.invoice.converter.InvoiceStatusConverter
+import java.io.Serializable
 import java.time.Instant
 
 @Entity(
@@ -24,21 +25,16 @@ data class Invoice(
     @PrimaryKey
     @TypeConverters(InvoiceIdTypeConverter::class)
     val id: InvoiceId,
-    @NonNull
     val idCliente: Int,
-
     @TypeConverters(InvoiceInstantLongConverter::class)
     val FeEmision: Instant,
-    @NonNull
     @TypeConverters(InvoiceInstantLongConverter::class)
     val FeVencimiento: Instant,
     @Ignore
-    val Articulos: MutableList<LineaItem>,
-    @NonNull
+    var Articulos: MutableList<LineaItem>,
     @TypeConverters(InvoiceStatusConverter::class)
     val Estado: InvoiceStatus
-
-) {
+) : Serializable {
     constructor(
         id: InvoiceId,
         idCliente: Int,

@@ -10,16 +10,21 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.adapter.AdaptadorArticulos
+import com.moronlu18.invoice.adapter.AdaptadorFacturas
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.usecase.InvoiceDetailsViewModel
 import com.moronlu18.invoiceFragment.databinding.FilaArticulosBinding
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceDetailsBinding
+import com.moronlu18.item.entity.item
 
 
 class InvoiceDetailsFragment : Fragment() {
 
-    lateinit var factura: Invoice;
+    lateinit var invoice: Invoice;
+    lateinit var items: List<LineaItem>;
+    lateinit var adapterLineaItem: AdaptadorArticulos
     private var _binding: FragmentInvoiceDetailsBinding? = null
     private var _bindingAr: FilaArticulosBinding? = null
 
@@ -52,44 +57,57 @@ class InvoiceDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentFragmentManager.setFragmentResultListener(
-            "key",
-            this,
-            FragmentResultListener { requestKey, result ->
-                var pos: Int = result.getInt("pos")
-                factura = viewModel.facturas[pos]
-                var precios = factura.Articulos.map { it.precio }
-                binding.rvInvoiceDetails.adapter = AdaptadorArticulos(factura.Articulos, true) {
-                    Toast.makeText(
-                        requireContext(),
-                        "No puedes borrar un Articulo en la pestaña de detalles",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                bindingAr.imgEliminarArticulo.visibility = View.GONE
-                binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(factura.idCliente)?.nombre
-                binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(factura.idCliente)?.email?.value
-                binding.txtInvoiceDetailsTelefono.text = viewModel.GetCliente(factura.idCliente)?.telefono.toString()
-                //val zoneId = ZoneId.systemDefault()
-                val posEmi = factura.FeEmision.toString().indexOf('T')
-                val posVen = factura.FeVencimiento.toString().indexOf('T')
-                binding.txtInvoiceDetailsFechaEmision.text =
-                    factura.FeEmision.toString().substring(0, posEmi)
-                binding.txtInvoiceDetailsFechaVencimiento.text =
-                    factura.FeVencimiento.toString().substring(0, posVen)
-                var SubTotal = precios.reduce { acc, ar -> acc + ar }
-                binding.txtInvoiceDetailsSubtotal.text = String.format("%.2f €", SubTotal)
-                binding.txtInvoiceDetailsImpuestos.text = "21 %"
-                binding.txtInvoiceDetailsTotal.text =
-                    String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-                ComRadio(factura.Estado)
-                binding.rbInvoiceDetailsPendiente.isEnabled = false
-                binding.rbInvoiceDetailsPagada.isEnabled = false
-                binding.rbInvoiceDetailsPagadaVencida.isEnabled = false
-
-
-            })
+        arguments?.let {
+            invoice = it.getSerializable("invoice") as Invoice
+            items = viewModel.getLineaItem(invoice.id.value)
+            update()
+            setup()
+        }
     }
+
+    private fun setup() {
+        println("ITEMS: " + items)
+        adapterLineaItem = AdaptadorArticulos(items, true) {
+            Toast.makeText(
+                requireContext(),
+                "No puedes borrar un Articulo en la pestaña de detalles",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        with(binding.rvInvoiceDetails) {
+            layoutManager = LinearLayoutManager(requireContext())
+            this.adapter = adapterLineaItem
+        }
+        binding.rvInvoiceDetails.adapter
+        bindingAr.imgEliminarArticulo.visibility = View.GONE
+        binding.rbInvoiceDetailsPendiente.isEnabled = false
+        binding.rbInvoiceDetailsPagada.isEnabled = false
+        binding.rbInvoiceDetailsPagadaVencida.isEnabled = false
+
+    }
+
+    private fun update() {
+        var precios = items.map { it.precio }
+        binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(invoice.idCliente)?.nombre
+        binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(invoice.idCliente)?.email?.value
+        binding.txtInvoiceDetailsTelefono.text =
+            viewModel.GetCliente(invoice.idCliente)?.telefono.toString()
+        val posEmi = invoice.FeEmision.toString().indexOf('T')
+        val posVen = invoice.FeVencimiento.toString().indexOf('T')
+        binding.txtInvoiceDetailsFechaEmision.text =
+            invoice.FeEmision.toString().substring(0, posEmi)
+        binding.txtInvoiceDetailsFechaVencimiento.text =
+            invoice.FeVencimiento.toString().substring(0, posVen)
+
+        var SubTotal = precios.reduce { acc, ar -> acc + ar }
+        binding.txtInvoiceDetailsSubtotal.text = String.format("%.2f €", SubTotal)
+        binding.txtInvoiceDetailsImpuestos.text = "21 %"
+        binding.txtInvoiceDetailsTotal.text =
+            String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+        ComRadio(invoice.Estado)
+
+    }
+
 
     fun ComRadio(s: InvoiceStatus) {
         when (s) {

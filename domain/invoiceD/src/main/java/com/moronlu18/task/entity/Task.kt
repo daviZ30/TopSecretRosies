@@ -13,8 +13,11 @@ import org.jetbrains.annotations.NotNull
 @Entity(
     tableName = "task", foreignKeys =
     [ForeignKey(
-        entity = Customer::class, parentColumns = arrayOf("CustomerId"), childColumns = arrayOf("customer"),
-        onDelete = ForeignKey.RESTRICT, onUpdate = ForeignKey.CASCADE
+        entity = Customer::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("customer"),
+        onDelete = ForeignKey.RESTRICT,
+        onUpdate = ForeignKey.CASCADE
     )]
 )
 data class Task(
@@ -31,9 +34,9 @@ data class Task(
     @NotNull
     var status: TaskStatus,
     @NotNull
-     @TypeConverters(TaskStringLongConverter::class)
+    @TypeConverters(TaskStringLongConverter::class)
     var createdDate: String, //Instant
-   @TypeConverters(TaskStringLongConverter::class)
+    @TypeConverters(TaskStringLongConverter::class)
     var endDate: String //Instant
 )
 

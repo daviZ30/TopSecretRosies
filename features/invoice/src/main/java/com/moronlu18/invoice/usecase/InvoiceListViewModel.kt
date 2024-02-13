@@ -7,16 +7,21 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
+import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.InvoiceListState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class InvoiceListViewModel : ViewModel() {
     val _facturas = ProviderInvoice.datasetFactura
-    private val invoiceRepository = InvoiceRepository()
-    var allinvoice = invoiceRepository.getInvoiceList().asLiveData()
+    var allinvoice = InvoiceRepository.getInvoiceList().asLiveData()
 
 
     val facturas
@@ -33,6 +38,10 @@ class InvoiceListViewModel : ViewModel() {
 
     fun getState(): LiveData<InvoiceListState> {
         return state;
+    }
+    fun getLineaItem(id:Int):List<LineaItem>{
+
+       return InvoiceRepository.getLineaItemList(id)
     }
     fun getInvoiceList() {
 
