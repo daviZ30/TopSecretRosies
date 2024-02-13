@@ -49,8 +49,8 @@ import java.time.Instant
     ItemIdTypeConverter::class,
     ItemTaxableBoolConverter::class,
     CustomerIDTypeConverter::class,
-    //TaskIdConverter::class,
-    //TaskStringLongConverter::class,
+    TaskIdConverter::class,
+    TaskStringLongConverter::class,
     CustomerEmailTypeConverter::class
 )
 abstract class InvoiceDatabase : RoomDatabase() {
