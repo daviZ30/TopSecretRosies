@@ -10,30 +10,30 @@ import com.moronlu18.invoice.converter.TaskStringLongConverter
 import com.moronlu18.invoice.entity.UniqueId
 import org.jetbrains.annotations.NotNull
 
-/*@Entity(
-    tableName = "task"/*, foreignKeys =
+@Entity(
+    tableName = "task", foreignKeys =
     [ForeignKey(
         entity = Customer::class, parentColumns = arrayOf("CustomerId"), childColumns = arrayOf("customer"),
         onDelete = ForeignKey.RESTRICT, onUpdate = ForeignKey.CASCADE
-    )]*/
-)*/
+    )]
+)
 data class Task(
-    //@PrimaryKey
-    //@TypeConverters(TaskIdConverter::class)
+    @PrimaryKey
+    @TypeConverters(TaskIdConverter::class)
     val idTask: TaskId,
-    //@NotNull
+    @NotNull
     var customer: Customer,
-    //@NotNull
+    @NotNull
     var title: String,
     var description: String,
-    //@NotNull
+    @NotNull
     var type: TaskType,
-    //@NotNull
+    @NotNull
     var status: TaskStatus,
-    //@NotNull
-   // @TypeConverters(TaskStringLongConverter::class)
+    @NotNull
+     @TypeConverters(TaskStringLongConverter::class)
     var createdDate: String, //Instant
-   // @TypeConverters(TaskStringLongConverter::class)
+   @TypeConverters(TaskStringLongConverter::class)
     var endDate: String //Instant
 )
 
