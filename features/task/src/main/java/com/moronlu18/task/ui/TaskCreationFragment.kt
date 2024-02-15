@@ -14,10 +14,12 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.ui.utils.Utils
-import com.moronlu18.task.calendar.CalendarInvoice
+import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
+import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 
@@ -51,7 +53,7 @@ class TaskCreationFragment : Fragment() {
         parentFragmentManager.setFragmentResultListener("key", this,
             FragmentResultListener { _, result ->
                 var pos: Int = result.getInt("position")
-                val task = viewModel.tasksList[pos]
+                val task = ProviderTask.taskExample[pos]
                 viewModel.idTask.value = task.idTask.value
                 binding.tieTaskCreationTitle.setText(task.title)
                 binding.spTaskCreationCustomer.setSelection(task.customer.id.value)
@@ -119,7 +121,7 @@ class TaskCreationFragment : Fragment() {
 
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
-        val customerList = viewModel.customerList
+        val customerList = ProviderCustomer.datasetCustomer
         if (customerList.isEmpty()) {
             names.add("<No Existen Clientes>")
             binding.btnTaskCreationAdd.isEnabled = false

@@ -1,23 +1,24 @@
 package com.moronlu18.task.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moronlu18.taskFragment.R
+import com.moronlu18.invoice.MainActivity
 import com.moronlu18.task.adapter.TaskListAdapter
-import com.moronlu18.task.entity.Task
 import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
+import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
 class TaskListFragment : Fragment(), MenuProvider {
@@ -27,7 +28,6 @@ class TaskListFragment : Fragment(), MenuProvider {
 
     private val viewModel: TaskViewModel by viewModels()
 
-    private lateinit var tasks : MutableList<Task>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)/*
@@ -47,9 +47,8 @@ class TaskListFragment : Fragment(), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tasks = viewModel.tasksList
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        val adapter = TaskListAdapter(tasks) { pos:Int, nav:Int ->
+        val adapter = TaskListAdapter(ProviderTask.taskExample) { pos:Int, nav:Int ->
             var bundle = Bundle()
             bundle.putInt("position",pos)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -60,8 +59,9 @@ class TaskListFragment : Fragment(), MenuProvider {
             }
         }
         binding.rvTaskList.adapter = adapter
-        binding.rvTaskList.scrollToPosition(tasks.size - 1)
+        binding.rvTaskList.scrollToPosition(ProviderTask.taskExample.size - 1)
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
+        setUpToolbar()
         return binding.root;
     }
 
@@ -95,6 +95,15 @@ class TaskListFragment : Fragment(), MenuProvider {
                 return true
             }else -> false
         }
+    }
+
+    private fun setUpToolbar() {
+        //Modismo aplly de kotlin
+        (requireActivity() as? MainActivity)?.toolbar?.apply {
+            visibility = View.VISIBLE
+        }
+        val menuhost: MenuHost = requireActivity()
+        menuhost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 }
 

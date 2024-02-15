@@ -1,4 +1,4 @@
-package com.moronlu18.task.calendar
+package com.moronlu18.invoice.ui.utils.calendar
 
 import androidx.fragment.app.FragmentManager
 import java.text.SimpleDateFormat
@@ -14,7 +14,7 @@ class CalendarInvoice {
         /**
          * Función que devuelve la fecha actual y formateada
          */
-        public fun getCurrentDate(): String {
+        fun getCurrentDate(): String {
             return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
         }//Implementarlo más tarde para que todos puedan usarlo
     }

@@ -22,14 +22,20 @@ import com.moronlu18.invoice.converter.InvoiceStatusConverter
 import com.moronlu18.invoice.converter.ItemIdTypeConverter
 import com.moronlu18.invoice.converter.ItemTaxableBoolConverter
 import com.moronlu18.invoice.converter.ItemTypeConverter
+import com.moronlu18.invoice.converter.TaskCustomerIdConverter
 import com.moronlu18.invoice.converter.TaskIdConverter
-import com.moronlu18.invoice.converter.TaskStringLongConverter
+import com.moronlu18.invoice.converter.TaskStatusConverter
+import com.moronlu18.invoice.converter.TaskTypeConverter
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.firebase.Email
+import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.item.entity.ItemDao
 import com.moronlu18.item.entity.item
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskDao
+import com.moronlu18.task.entity.TaskId
+import com.moronlu18.task.entity.TaskStatus
+import com.moronlu18.task.entity.TaskType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -37,7 +43,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 @Database(
-    entities = [Invoice::class, LineaItem::class, item::class, /*Task::class*/ Customer::class],
+    entities = [Invoice::class, LineaItem::class, item::class, Task::class, Customer::class],
     version = 1,
     exportSchema = false
 )
@@ -50,8 +56,11 @@ import java.time.Instant
     ItemTaxableBoolConverter::class,
     CustomerIDTypeConverter::class,
     CustomerEmailTypeConverter::class,
-    //TaskIdConverter::class,
-    //TaskStringLongConverter::class
+    TaskCustomerIdConverter::class,
+    TaskIdConverter::class,
+    //TaskStringLongConverter::class,
+    TaskStatusConverter::class,
+    TaskTypeConverter::class
 
 )
 abstract class InvoiceDatabase : RoomDatabase() {
@@ -60,7 +69,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
     abstract fun lineaItemDao(): LineaItemDao
     abstract fun customerDao(): CustomerDao
 
-    //abstract fun taskDao(): TaskDao
+    abstract fun taskDao(): TaskDao
 
     abstract fun itemDao(): ItemDao
 
@@ -89,8 +98,11 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(ItemTaxableBoolConverter())
                 .addTypeConverter(CustomerIDTypeConverter())
                 .addTypeConverter(CustomerEmailTypeConverter())
-                //.addTypeConverter(TaskIdConverter())
+                .addTypeConverter(TaskIdConverter())
                 //.addTypeConverter(TaskStringLongConverter())
+                .addTypeConverter(TaskStatusConverter())
+                .addTypeConverter(TaskTypeConverter())
+                .addTypeConverter(TaskCustomerIdConverter())
                 .addCallback(
                     RoomDbInitializer(INSTANCE)
                 ).build()
@@ -110,6 +122,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
 
         private suspend fun populateDatabase() {
             populateInvoice()
+            populateTask()
         }
 
         private fun populateInvoice() {
@@ -149,7 +162,27 @@ abstract class InvoiceDatabase : RoomDatabase() {
             }
 
         }
-
+        private fun populateTask() {
+            getInstance().taskDao().insert(
+                Task(
+                    TaskId(1),
+                    Customer(
+                        CustomerId(2),
+                        "Antonio",
+                        "Urquiza FAlle",
+                        Email("carnetaadspjf@gmail.com"),
+                        "6846556414",
+                        "Málaga",
+                        "Calle Leonora n46"
+                    ),
+                       "Crear Base de Datos",
+                        "Funciona la base por fin",
+                        TaskType.visitor,
+                        TaskStatus.overdue,
+                        CalendarInvoice.getCurrentDate(),
+                        ""
+                    ))
+        }
         private fun SetFecha(fecha: String): Instant {
             val dateString = fecha + "T00:00:00Z"
             //val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")

@@ -7,11 +7,11 @@ import com.moronlu18.task.entity.TaskId
 @ProvidedTypeConverter
 class TaskIdConverter {
     @TypeConverter
-    fun TaskIdtoInt(value: Int): TaskId {
+    fun toTaskId(value: Int): TaskId {
         return TaskId(value)
     }
     @TypeConverter
-    fun InttoTaskId(taskId: TaskId):Int{
+    fun fromTaskId(taskId: TaskId):Int{
         return taskId.value
     }
 }

@@ -1,21 +1,23 @@
 package com.moronlu18.task.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.task.entity.Task
-import com.moronlu18.taskFragment.R
+import com.moronlu18.taskFragment.databinding.RowTaskListBinding
+import androidx.recyclerview.widget.ListAdapter
+
 
 class TaskListAdapter(
     val tasks: MutableList<Task>,
     private val onClick: (pos: Int, nav: Int) -> Unit
-) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+) : ListAdapter<Task, TaskListAdapter.ViewHolder>(TASK_COMPARATOR) {
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(binding: RowTaskListBinding) : RecyclerView.ViewHolder(binding.root) {
         var title: TextView
         var customer: TextView
         var dateCreate: TextView
@@ -25,19 +27,19 @@ class TaskListAdapter(
         var ivDelete: ImageView
 
         init {
-            title = v.findViewById(R.id.tvTitleTaskList)
-            customer = v.findViewById(R.id.tvCustomerTaskList)
-            dateCreate = v.findViewById(R.id.tvDCreateTaskList)
-            dateEnd = v.findViewById(R.id.tvDEndTaskList)
-            taskCV = v.findViewById(R.id.cvTaskAdapter)
-            ivEdit = v.findViewById(R.id.ivEdit)
-            ivDelete = v.findViewById(R.id.ivDelete)
+            title = binding.tvTitleTaskList
+            customer = binding.tvCustomerTaskList
+            dateCreate =binding.tvDCreateTaskList
+            dateEnd = binding.tvDEndTaskList
+            taskCV = binding.cvTaskAdapter
+            ivEdit = binding.ivEdit
+            ivDelete = binding.ivDelete
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.row_task_list, parent, false)
-        return ViewHolder(v)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return ViewHolder(RowTaskListBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -60,8 +62,16 @@ class TaskListAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return tasks.size
-    }
+    companion object {
+        private val TASK_COMPARATOR = object : DiffUtil.ItemCallback<Task>() {
+            override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+                return oldItem === newItem
+            }
 
+            override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+                return oldItem.idTask == newItem.idTask
+            }
+
+        }
+    }
 }

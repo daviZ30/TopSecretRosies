@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
 import com.moronlu18.customer.repository.ProviderCustomer
-import com.moronlu18.task.calendar.CalendarInvoice
+import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskId
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.repository.TaskRepository
 /*import com.moronlu18.task.repository.TaskRepository*/
 import com.moronlu18.task.ui.TaskState
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +21,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 class TaskViewModel : ViewModel() {
-    val tasksList: MutableList<Task> = ProviderTask.taskExample
-    val customerList = ProviderCustomer.datasetCustomer
     var idTask = MutableLiveData<Int>()
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
@@ -57,15 +56,15 @@ class TaskViewModel : ViewModel() {
      fun makeTask() {
          val customerId = idCustomer.value!!
          val title = this.title.value!!
-         val nameCustomer = customerList.find { it.id.value == customerId }?.getFullName()!!
+         //val nameCustomer = ProviderCustomer.datasetCustomer.find { it.id.value == customerId }?.getFullName()!!
          val desc = description.value ?: "" //Puede no tener descripión
          val type = getType()
          val status = getStatus()
          val createdDate = this.createdDate.value!!
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
         if (idTask.value == null)
-            idTask.value = tasksList.lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
-        val task =  Task(TaskId(idTask.value!!), customerList.find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
+            idTask.value = ProviderTask.taskExample.lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+        val task =  Task(TaskId(idTask.value!!), ProviderCustomer.datasetCustomer.find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
          if (!edit){
              ProviderTask.createTask(task)
          }else{
@@ -73,7 +72,7 @@ class TaskViewModel : ViewModel() {
          }
 
         viewModelScope.launch(Dispatchers.IO) {
-           // TaskRepository.insert(task)
+           TaskRepository.insert(task)
         }
     }
 
@@ -117,11 +116,11 @@ class TaskViewModel : ViewModel() {
     }
 
     public fun sortId(){
-        tasksList.sortBy { it.idTask.value }
+        ProviderTask.taskExample.sortBy { it.idTask.value }
     }
 
     public fun sortCustomer(){
-        tasksList.sortBy { it.customer.nombre }
+        ProviderTask.taskExample.sortBy { it.customer.nombre }
     }
 
     /**
