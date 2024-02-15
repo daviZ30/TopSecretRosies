@@ -30,7 +30,9 @@ import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.firebase.Email
 import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.item.entity.ItemDao
+import com.moronlu18.item.entity.ItemId
 import com.moronlu18.item.entity.item
+import com.moronlu18.item.entity.itemType
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskDao
 import com.moronlu18.task.entity.TaskId
@@ -123,7 +125,10 @@ abstract class InvoiceDatabase : RoomDatabase() {
         private suspend fun populateDatabase() {
             populateInvoice()
             populateTask()
+            populateItem()
         }
+
+
 
         private fun populateInvoice() {
             var listaItem =mutableListOf<LineaItem>(
@@ -190,6 +195,14 @@ abstract class InvoiceDatabase : RoomDatabase() {
             val instant = Instant.parse(dateString)
             //return localDateTime.toInstant(ZoneOffset.MAX)
             return instant
+        }
+
+
+        private fun populateItem() {
+            getInstance().itemDao().insert(
+                item(ItemId(1),"zanahoria",4.56,itemType.PRODUCT, "es mediana", false, 0.02),
+
+            )
         }
     }
 }

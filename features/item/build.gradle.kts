@@ -55,4 +55,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
 
+    // Dependencias para las pruebas
+    testImplementation("com.google.truth:truth:1.4.0")
+
 }
