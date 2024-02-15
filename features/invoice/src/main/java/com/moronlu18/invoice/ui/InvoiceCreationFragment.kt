@@ -27,9 +27,11 @@ import java.time.Instant
 
 //data class Articulo(val nombre:String,val precio:Double)
 class InvoiceCreationFragment : Fragment() {
-    lateinit var factura: Invoice
-    private var editar = false
+    lateinit var invoice: Invoice
+    lateinit var items: MutableList<LineaItem>;
 
+    private var editar = false
+    lateinit var adapterLineaItem: AdaptadorArticulos
     private var calendar = CalendarInvoice()
     private var _binding: FragmentInvoiceCreationBinding? = null
     private val binding
@@ -77,6 +79,16 @@ class InvoiceCreationFragment : Fragment() {
 
         adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
+        arguments?.let {
+            editar = it.getBoolean("editar")
+            if(editar){
+                invoice = it.getSerializable("invoice") as Invoice
+                items = viewModel.getLineaItem(invoice.id.value)
+                setup()
+                update()
+            }
+
+        }
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
@@ -187,53 +199,6 @@ class InvoiceCreationFragment : Fragment() {
         binding.spArticulo.adapter = adaptersp
 
 
-        parentFragmentManager.setFragmentResultListener("key",
-            this,
-            FragmentResultListener { requestKey, result ->
-                editar = true
-                val pos: Int = result.getInt("pos")
-                factura = viewModel.facturas[pos]
-                viewModel.setLista(factura.Articulos)
-                viewModel.editar = editar
-                val precios = factura.Articulos.map { it.precio }
-                binding.rvInvoiceArticulos.adapter =
-                    AdaptadorArticulos(factura.Articulos, false) { i: Int ->
-                        factura.Articulos.removeAt(i)
-
-                        //notifyItemRemoved(position)
-                        binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
-                        updateTotal()
-                    }
-                binding.tieInvoiceCreationIdCliente.setText(factura.idCliente.toString())
-                viewModel.idFactura.value = factura.id.toString()
-                //rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
-                viewModel.introduceCliente()
-
-                val posEmi = factura.FeEmision.toString().indexOf('T')
-                val posVen = factura.FeVencimiento.toString().indexOf('T')
-                binding.tieInvoiceFeEmi.setText(factura.FeEmision.toString().substring(0, posEmi))
-                binding.tieInvoiceCreationFeVen.setText(
-                    factura.FeVencimiento.toString().substring(0, posVen)
-                )
-
-                //val SubTotal = precios.reduce { acc, ar -> acc + ar }
-                //binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
-                //binding.txtInvoiceCreationTotal.text =
-                 //   String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-
-                binding.tieInvoiceCreationIdCliente.addTextChangedListener(
-                    textWatcher(
-                        binding.tilInvoiceCreationIdCliente
-                    )
-                )
-                binding.tieInvoiceCreationIdFactura.addTextChangedListener(
-                    textWatcher(
-                        binding.tilInvoiceCreationIdFactura
-                    )
-                )
-
-            })
-
         binding.btnArticulos.setOnClickListener {
             if (viewModel.idInvoice() != null) {
                 if (editar) {
@@ -241,9 +206,9 @@ class InvoiceCreationFragment : Fragment() {
                     val datos = b.split('-')
 
                     val a = ObtenerItem(datos[0])
-                    factura.Articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
+                    invoice.Articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
                     rvadapter.notifyDataSetChanged()
-                    binding.rvInvoiceArticulos.scrollToPosition(factura.Articulos.size - 1)
+                    binding.rvInvoiceArticulos.scrollToPosition(invoice.Articulos.size - 1)
                 } else {
                     val b: String = binding.spArticulo.selectedItem.toString()
                     val datos = b.split('-')
@@ -293,13 +258,60 @@ class InvoiceCreationFragment : Fragment() {
 
     }
 
+    private fun setup() {
+
+        viewModel.setLista(items)
+        adapterLineaItem =  AdaptadorArticulos(invoice.Articulos, false) { i: Int ->
+            invoice.Articulos.removeAt(i)
+
+            //notifyItemRemoved(position)
+            binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
+            updateTotal()
+        }
+        with(binding.rvInvoiceArticulos) {
+            layoutManager = LinearLayoutManager(requireContext())
+            this.adapter = adapterLineaItem
+        }
+    }
+    private fun update(){
+        val precios = items.map { it.precio }
+
+        viewModel.idFactura.value = invoice.id.value.toString()
+        viewModel.idCliente.value = invoice.idCliente.toString()
+        //rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
+        viewModel.introduceCliente()
+
+        val posEmi = invoice.FeEmision.toString().indexOf('T')
+        val posVen = invoice.FeVencimiento.toString().indexOf('T')
+        viewModel.FeEmi.value = invoice.FeEmision.toString().substring(0, posEmi)
+
+        viewModel.FeVen.value = invoice.FeVencimiento.toString().substring(0, posVen)
+
+        val SubTotal = precios.reduce { acc, ar -> acc + ar }
+        binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
+        binding.txtInvoiceCreationTotal.text =
+           String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+
+        binding.tieInvoiceCreationIdCliente.addTextChangedListener(
+            textWatcher(
+                binding.tilInvoiceCreationIdCliente
+            )
+        )
+        binding.tieInvoiceCreationIdFactura.addTextChangedListener(
+            textWatcher(
+                binding.tilInvoiceCreationIdFactura
+            )
+        )
+
+    }
+
     private fun updateTotal() {
         if (editar) {
-            if (factura.Articulos.size < 1) {
+            if (invoice.Articulos.size < 1) {
                 binding.txtInvoiceCreationSubtotal.text = ""
                 binding.txtInvoiceCreationTotal.text = ""
             } else {
-                val precios = factura.Articulos.map { it.precio }
+                val precios = invoice.Articulos.map { it.precio }
                 val SubTotal = precios.reduce { acc, ar -> acc + ar }
                 binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
                 binding.txtInvoiceCreationTotal.text =

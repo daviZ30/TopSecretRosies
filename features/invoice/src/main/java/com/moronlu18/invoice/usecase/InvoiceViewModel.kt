@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Customer
@@ -46,6 +47,10 @@ class InvoiceViewModel : ViewModel() {
     fun setLista(listaArticulos: MutableList<LineaItem>) {
         articulos = listaArticulos;
 
+    }
+
+    fun getLineaItem(id:Int):MutableList<LineaItem>{
+        return InvoiceRepository.getLineaItemList(id).toMutableList()
     }
 
     fun validate() {
@@ -89,7 +94,7 @@ class InvoiceViewModel : ViewModel() {
     }
 
     fun CrearFactura(editar: Boolean) {
-        if (editar) {
+        /*if (editar) {
             ProviderInvoice.editInvoice(
                 idFactura.value!!.toInt(),
                 cliente.id.value,
@@ -107,7 +112,7 @@ class InvoiceViewModel : ViewModel() {
                 articulos,
                 InvoiceStatus.Pending
             )
-        }
+        }*/
 
 
     }

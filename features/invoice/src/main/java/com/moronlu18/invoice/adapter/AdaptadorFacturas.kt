@@ -21,7 +21,6 @@ class AdaptadorFacturas(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(invoice: Invoice, listaItem: List<LineaItem>, position: Int) {
             with(binding) {
-                println("-------------------------------------------------$listaItem")
                 var precios = listaItem.map { it.precio }
                 var  SubTotal = precios.reduce { acc, ar -> acc + ar }
                 txtLineaCliente.text = "Id: ${invoice.id.value}"

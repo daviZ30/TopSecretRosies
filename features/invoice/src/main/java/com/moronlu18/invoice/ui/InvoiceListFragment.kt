@@ -116,6 +116,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             { fa: Invoice, listaItem: List<LineaItem>, n: Int ->
                 var bundle = Bundle().apply {
                     putSerializable("invoice", fa)
+                    putBoolean("editar",true)
                 }
                 if (n == 0) {
                     findNavController().navigate(
