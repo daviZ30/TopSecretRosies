@@ -18,7 +18,17 @@ class InvoiceRepository {
                 Resource.Error(e)
             }
         }
-        fun insertLineaItem(lista: MutableList<LineaItem>): Resource {
+        fun updateInvoice(fa: Invoice): Resource {
+            return try {
+                InvoiceDatabase.getInstance().invoiceDao().update(fa)
+                Resource.Success<Invoice>(fa)
+            }catch (e: SQLiteException){
+                println( e.message)
+                Resource.Error(e)
+            }
+        }
+
+        fun insertLineaItems(lista: MutableList<LineaItem>): Resource {
             return try {
                 lista.forEach {
                     InvoiceDatabase.getInstance().lineaItemDao().insert(it)
@@ -34,6 +44,9 @@ class InvoiceRepository {
 
         fun getInvoiceList(): Flow<List<Invoice>> {
             return InvoiceDatabase.getInstance().invoiceDao().selectAll()
+        }
+        fun getInvoiceListRAW(): List<Invoice> {
+            return InvoiceDatabase.getInstance().invoiceDao().selectAllRAW()
         }
         fun getLineaItemList(id:Int): List<LineaItem> {
             return InvoiceDatabase.getInstance().lineaItemDao().selectFromInvoice(id)

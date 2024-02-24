@@ -18,4 +18,7 @@ class CusomerRepository {
     fun getCustomerList(): Flow<List<Customer>> {
         return InvoiceDatabase.getInstance().customerDao().selectAll()
     }
+    fun getCustomerListRAW(): List<Customer> {
+        return InvoiceDatabase.getInstance().customerDao().selectAllRAW()
+    }
 }

@@ -79,6 +79,9 @@ class ItemRepository private constructor() {
         fun getItemListDao(): Flow<List<item>> {
             return InvoiceDatabase.getInstance().itemDao().selectAll()
         }
+        fun getItemListRAW(): List<item> {
+            return InvoiceDatabase.getInstance().itemDao().selectAllRAW()
+        }
 
 
     }

@@ -7,11 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
+import com.moronlu18.InvoiceDavid.Repository.Resource
+import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Customer
-import com.moronlu18.customer.repository.ProviderCustomer
-import com.moronlu18.invoice.Repository.ProviderInvoice
+import com.moronlu18.customer.repository.CusomerRepository
+import com.moronlu18.invoice.InvoiceDatabase
+import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.InvoiceState
 import com.moronlu18.item.repository.ItemRepository
 
@@ -27,10 +30,11 @@ class InvoiceViewModel : ViewModel() {
     var nombre = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var telefono = MutableLiveData<String>()
-    val clientes = ProviderCustomer.datasetCustomer
+    var cusomerRepository = CusomerRepository()
+    val clientes = cusomerRepository.getCustomerListRAW()
     private var _customer: Customer? = null
-    val _facturas = ProviderInvoice.datasetFactura
-    val RawArticulos = ItemRepository.getItemList()
+    val _facturas = InvoiceRepository.getInvoiceListRAW()
+    val RawArticulos = ItemRepository.getItemListRAW()
 
     val facturas
         get() = _facturas!!
@@ -49,9 +53,10 @@ class InvoiceViewModel : ViewModel() {
 
     }
 
-    fun getLineaItem(id:Int):MutableList<LineaItem>{
+    fun getLineaItem(id: Int): MutableList<LineaItem> {
         return InvoiceRepository.getLineaItemList(id).toMutableList()
     }
+
 
     fun validate() {
         when {
@@ -94,25 +99,39 @@ class InvoiceViewModel : ViewModel() {
     }
 
     fun CrearFactura(editar: Boolean) {
-        /*if (editar) {
-            ProviderInvoice.editInvoice(
-                idFactura.value!!.toInt(),
-                cliente.id.value,
-                SetFecha(FeEmi.value!!),
-                SetFecha(FeVen.value!!),
-                articulos,
-                InvoiceStatus.Pending
+        if (editar) {
+            InvoiceRepository.updateInvoice(
+                Invoice(
+                    InvoiceId(idFactura.value!!.toInt()),
+                    cliente.id.value,
+                    SetFecha(FeEmi.value!!),
+                    SetFecha(FeVen.value!!),
+                    articulos,
+                    InvoiceStatus.Pending
+                )
             )
         } else {
-            ProviderInvoice.CreateInvoice(
-                idFactura.value!!.toInt(),
-                cliente.id.value,
-                SetFecha(FeEmi.value!!),
-                SetFecha(FeVen.value!!),
-                articulos,
-                InvoiceStatus.Pending
+            InvoiceRepository.insertInvoice(
+                Invoice(
+                    InvoiceId(idFactura.value!!.toInt()),
+                    cliente.id.value,
+                    SetFecha(FeEmi.value!!),
+                    SetFecha(FeVen.value!!),
+                    articulos,
+                    InvoiceStatus.Pending
+                )
             )
-        }*/
+        }
+        val result = InvoiceRepository.insertLineaItems(articulos)
+        println(
+            "Lista de articulo post: ${
+                idFactura.value?.let {
+                    InvoiceRepository.getLineaItemList(
+                        it.toInt()
+                    )
+                }
+            } resultado: ${result.toString()}"
+        )
 
 
     }

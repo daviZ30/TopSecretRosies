@@ -21,6 +21,9 @@ interface InvoiceDao {
 
     @Query("SELECT * FROM invoice")
     fun selectAll(): Flow<List<Invoice>>
+    @Query("SELECT * FROM invoice")
+    fun selectAllRAW(): List<Invoice>
+
 
     //@Delete
     //fun delete(invoice: Invoice)

@@ -19,6 +19,8 @@ interface CustomerDao {
     @Query("SELECT * FROM customer")
     fun selectAll(): Flow<List<Customer>>
 
+    @Query("SELECT * FROM customer")
+    fun selectAllRAW(): List<Customer>
     @Delete
     fun delete(customer: Customer)
 }

@@ -21,6 +21,8 @@ interface ItemDao {
 
     @Query("SELECT * FROM item")
     fun selectAll(): Flow<List<item>>
+    @Query("SELECT * FROM item")
+    fun selectAllRAW(): List<item>
 
     @Delete
     fun delete(item: item)

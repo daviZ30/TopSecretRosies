@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +21,6 @@ import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.invoice.usecase.InvoiceViewModel
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceCreationBinding
 import com.moronlu18.item.entity.item
-import java.time.Instant
 
 
 //data class Articulo(val nombre:String,val precio:Double)
@@ -53,10 +51,8 @@ class InvoiceCreationFragment : Fragment() {
         }
 
         override fun afterTextChanged(s: Editable) {
-            // println("illoooooo ${t.toString()}")
             viewModel.introduceCliente()
             t.isErrorEnabled = false
-            //binding.Email.requestFocus()
         }
     }
 
@@ -77,11 +73,12 @@ class InvoiceCreationFragment : Fragment() {
         val adaptersp =
             ArrayAdapter(requireContext(), R.layout.simple_spinner_item, viewModel.RawArticulos)
 
+        println("ITEMSSSS" + viewModel.RawArticulos);
         adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-
+        binding.spArticulo.adapter = adaptersp
         arguments?.let {
             editar = it.getBoolean("editar")
-            if(editar){
+            if (editar) {
                 invoice = it.getSerializable("invoice") as Invoice
                 items = viewModel.getLineaItem(invoice.id.value)
                 setup()
@@ -186,15 +183,13 @@ class InvoiceCreationFragment : Fragment() {
                 )
             }
         }
-        val rvadapter = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
+        adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
             viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)
-
             binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
             updateTotal()
-
         }
-        binding.rvInvoiceArticulos.adapter = rvadapter
+        binding.rvInvoiceArticulos.adapter = adapterLineaItem
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
         binding.spArticulo.adapter = adaptersp
 
@@ -204,34 +199,37 @@ class InvoiceCreationFragment : Fragment() {
                 if (editar) {
                     val b: String = binding.spArticulo.selectedItem.toString()
                     val datos = b.split('-')
-
                     val a = ObtenerItem(datos[0])
-                    invoice.Articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
-                    rvadapter.notifyDataSetChanged()
+                    items.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!, 1, a.rate, a.Iva))
+                    adapterLineaItem.notifyDataSetChanged()
                     binding.rvInvoiceArticulos.scrollToPosition(invoice.Articulos.size - 1)
                 } else {
                     val b: String = binding.spArticulo.selectedItem.toString()
                     val datos = b.split('-')
                     val a = ObtenerItem(datos[0])
-                    viewModel.articulos.add(LineaItem(a!!.id.value, viewModel.idInvoice()!!,1,a!!.rate,a!!.Iva))
-                    rvadapter.notifyDataSetChanged()
+                    viewModel.articulos.add(
+                        LineaItem(
+                            a!!.id.value,
+                            viewModel.idInvoice()!!,
+                            1,
+                            a!!.rate,
+                            a!!.Iva
+                        )
+                    )
+                    adapterLineaItem.notifyDataSetChanged()
                     binding.rvInvoiceArticulos.scrollToPosition(viewModel.articulos.size - 1)
                 }
                 updateTotal()
 
-            }else{
-                Toast.makeText(requireContext(),"Introduzca un id válido",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Introduzca un id válido", Toast.LENGTH_LONG)
+                    .show()
             }
 
         }
 
         binding.btnCrear.setOnClickListener {
-            if (editar) {
-                viewModel.validate()
-            } else {
-                viewModel.validate()
-            }
-
+            viewModel.validate()
         }
 
         binding.tieInvoiceCreationIdCliente.addTextChangedListener(
@@ -261,7 +259,7 @@ class InvoiceCreationFragment : Fragment() {
     private fun setup() {
 
         viewModel.setLista(items)
-        adapterLineaItem =  AdaptadorArticulos(invoice.Articulos, false) { i: Int ->
+        adapterLineaItem = AdaptadorArticulos(invoice.Articulos, false) { i: Int ->
             invoice.Articulos.removeAt(i)
 
             //notifyItemRemoved(position)
@@ -273,7 +271,8 @@ class InvoiceCreationFragment : Fragment() {
             this.adapter = adapterLineaItem
         }
     }
-    private fun update(){
+
+    private fun update() {
         val precios = items.map { it.precio }
 
         viewModel.idFactura.value = invoice.id.value.toString()
@@ -290,7 +289,7 @@ class InvoiceCreationFragment : Fragment() {
         val SubTotal = precios.reduce { acc, ar -> acc + ar }
         binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
         binding.txtInvoiceCreationTotal.text =
-           String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+            String.format("%.2f €", SubTotal + (SubTotal * 0.21))
 
         binding.tieInvoiceCreationIdCliente.addTextChangedListener(
             textWatcher(
@@ -332,11 +331,6 @@ class InvoiceCreationFragment : Fragment() {
 
     }
 
-    private fun SetFecha(fecha: String): Instant {
-        val dateString = fecha + "T00:00:00Z"
-        val instant = Instant.parse(dateString)
-        return instant
-    }
 
     fun Created() {
         findNavController().popBackStack()
@@ -344,7 +338,7 @@ class InvoiceCreationFragment : Fragment() {
 
     fun ObtenerItem(nombre: String): item? {
         viewModel.RawArticulos.forEach {
-            if (nombre.trim().equals(it.name)) {
+            if (nombre.trim() == it.name) {
 
                 return it
             }
