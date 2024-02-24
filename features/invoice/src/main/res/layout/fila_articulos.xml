@@ -10,7 +10,7 @@
         android:id="@+id/imgEliminarArticulo"
         android:layout_width="30dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="100dp"
         android:layout_weight="1"
         android:src="@drawable/delete"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -24,9 +24,11 @@
 
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:text="@string/tvListaArticulosLabPrecio"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvlabCantidad"
         app:layout_constraintStart_toEndOf="@+id/tvInvoiceListaArticulosLabNombre"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +37,7 @@
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:paddingStart="6sp"
         android:text="@string/tvListaArticulosPrecio"
@@ -47,11 +50,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="20dp"
         android:fontFamily="@font/opensans_variablefont_wdth_wght"
         android:paddingStart="6dp"
         android:text="@string/tvListaArticulosNombre"
-        app:layout_constraintEnd_toStartOf="@+id/tvInvoiceListaArticulosPrecio"
+        app:layout_constraintEnd_toEndOf="@+id/tvInvoiceListaArticulosLabNombre"
         app:layout_constraintStart_toStartOf="@+id/tvInvoiceListaArticulosLabNombre"
         app:layout_constraintTop_toBottomOf="@+id/tvInvoiceListaArticulosLabNombre" />
 
@@ -75,5 +77,27 @@
         android:src="@drawable/compra"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvlabCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:text="Cantidad:"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/opensans_variablefont_wdth_wght"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/tvlabCantidad"
+        app:layout_constraintStart_toStartOf="@+id/tvlabCantidad"
+        app:layout_constraintTop_toBottomOf="@+id/tvlabCantidad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

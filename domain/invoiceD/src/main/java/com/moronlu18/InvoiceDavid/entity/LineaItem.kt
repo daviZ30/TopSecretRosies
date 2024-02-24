@@ -19,7 +19,7 @@ import java.io.Serializable
 data class LineaItem(
     val id_item: Int,
     val id_invoice: Int,
-    val cantidad: Int,
+    var cantidad: Int,
     @NonNull
     val precio: Double,
     @NonNull
@@ -28,7 +28,15 @@ data class LineaItem(
     override fun compareTo(other: LineaItem): Int {
         return id_item.compareTo(other.id_item)
     }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is LineaItem) return false
+        return id_invoice == other.id_invoice && id_item == other.id_item
+    }
 
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
     companion object {
 
         fun getName(id:Int):String?{
@@ -49,6 +57,8 @@ data class LineaItem(
             }
             return newlist
         }
+
+
         /*fun ToItem(lista:MutableList<LineaItem>): MutableList<item>{
             val newlist: MutableList<item> = mutableListOf()
             lista.forEach{

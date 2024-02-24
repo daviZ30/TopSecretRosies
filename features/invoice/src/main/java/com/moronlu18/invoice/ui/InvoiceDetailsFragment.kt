@@ -66,7 +66,6 @@ class InvoiceDetailsFragment : Fragment() {
     }
 
     private fun setup() {
-        println("ITEMS: " + items)
         adapterLineaItem = AdaptadorArticulos(items, true) {
             Toast.makeText(
                 requireContext(),
@@ -87,7 +86,7 @@ class InvoiceDetailsFragment : Fragment() {
     }
 
     private fun update() {
-        var precios = items.map { it.precio }
+        var precios = items.map { it.precio * it.cantidad }
         binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(invoice.idCliente)?.nombre
         binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(invoice.idCliente)?.email?.value
         binding.txtInvoiceDetailsTelefono.text =

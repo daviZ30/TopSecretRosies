@@ -21,7 +21,7 @@ class ItemRepository private constructor() {
             return itemList
         }
      fun getName(id:ItemId):String?{
-         itemList.forEach{
+         getItemListRAW().forEach{
              if(it.id == id){
                  return it.name
              }

@@ -2,18 +2,17 @@ package com.moronlu18.invoice.usecase
 
 import android.os.Build
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
-import com.moronlu18.InvoiceDavid.Repository.Resource
 import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.CusomerRepository
-import com.moronlu18.invoice.InvoiceDatabase
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.InvoiceState
 import com.moronlu18.item.repository.ItemRepository
@@ -67,7 +66,6 @@ class InvoiceViewModel : ViewModel() {
             nuevoId(idFactura.value) && editar -> state.value = InvoiceState.facturaNewIdError
             !validarIdFactura(idFactura.value) && !editar -> state.value =
                 InvoiceState.facturaValidateError
-
             !introduceCliente() -> state.value = InvoiceState.idClienteInvalidError
             !ValidateFecha(FeEmi.value) -> state.value = InvoiceState.feEmiInvalidError
             !ValidateFecha(FeVen.value) -> state.value = InvoiceState.feVenInvalidError
@@ -97,6 +95,13 @@ class InvoiceViewModel : ViewModel() {
         }
 
     }
+    fun InsertLineaItem(lineaItem:LineaItem ){
+        val result = InvoiceRepository.insertLineaItem(lineaItem)
+        Log.d("Resultado Insertar LineaItem", result.toString())
+    }
+    fun UpdateLineaItem(lineaItem: LineaItem) {
+        val result = InvoiceRepository.updateLineaItem(lineaItem)
+    }
 
     fun CrearFactura(editar: Boolean) {
         if (editar) {
@@ -110,6 +115,8 @@ class InvoiceViewModel : ViewModel() {
                     InvoiceStatus.Pending
                 )
             )
+            //val result = InvoiceRepository.insertLineaItems(articulosNuevos)
+            //Log.d("Resultado Insertar LineaItem", result.toString())
         } else {
             InvoiceRepository.insertInvoice(
                 Invoice(
@@ -121,18 +128,10 @@ class InvoiceViewModel : ViewModel() {
                     InvoiceStatus.Pending
                 )
             )
-        }
-        val result = InvoiceRepository.insertLineaItems(articulos)
-        println(
-            "Lista de articulo post: ${
-                idFactura.value?.let {
-                    InvoiceRepository.getLineaItemList(
-                        it.toInt()
-                    )
-                }
-            } resultado: ${result.toString()}"
-        )
+            val result = InvoiceRepository.insertListLineaItems(articulos)
+            Log.d("Resultado Insertar LineaItem", result.toString())
 
+        }
 
     }
 
@@ -181,7 +180,6 @@ class InvoiceViewModel : ViewModel() {
         return true
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun SetDate(fecha: String): Instant? {
         val dateString = fecha + "T00:00:00Z"
         val instant = Instant.parse(dateString)
@@ -230,6 +228,8 @@ class InvoiceViewModel : ViewModel() {
     fun getState(): LiveData<InvoiceState> {
         return state;
     }
+
+
 
 
 }

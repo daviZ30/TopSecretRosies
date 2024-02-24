@@ -20,12 +20,13 @@ class AdaptadorArticulos(
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var nombre: TextView
         var precio: TextView
+        var cantidad: TextView
         var img: ImageView
         init {
             nombre = v.findViewById(R.id.tvInvoiceListaArticulosNombre)
             precio = v.findViewById(R.id.tvInvoiceListaArticulosPrecio)
+            cantidad = v.findViewById(R.id.tvCantidad)
             img = v.findViewById(R.id.imgEliminarArticulo)
-
         }
     }
 
@@ -42,6 +43,7 @@ class AdaptadorArticulos(
         val f = articulos[position]
 
         holder.nombre.text = LineaItem.getName(f.id_item)
+        holder.cantidad.text = f.cantidad.toString()
         holder.precio.text = "${f.precio.toString()} €"
         if(mostrar){
             holder.img.visibility = View.GONE

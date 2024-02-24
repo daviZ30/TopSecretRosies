@@ -83,8 +83,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 is InvoiceListState.noDataError -> {
                     binding.imgNada.visibility = View.VISIBLE
                     binding.rvInvoiceList.visibility = View.GONE
-                    Utils.showSnackBar(binding.root, "Lista vacia")
-
                 }
 
                 is InvoiceListState.Success -> onSuccess()
@@ -149,8 +147,8 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     private fun onSuccess() {
         binding.imgNada.visibility = View.GONE
         binding.rvInvoiceList.visibility = View.VISIBLE
-        Utils.showSnackBar(binding.root, "Lista Creada")
-        println("------------------------------" + viewModel.allinvoice.value)
+        //Utils.showSnackBar(binding.root, "Lista Creada")
+
     }
 
     private fun showDeleteConfirmationDialog(posicion: Int) {
