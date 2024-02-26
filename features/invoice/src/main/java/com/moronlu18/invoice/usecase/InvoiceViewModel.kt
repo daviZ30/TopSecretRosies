@@ -1,9 +1,7 @@
 package com.moronlu18.invoice.usecase
 
-import android.os.Build
 import android.text.TextUtils
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,11 +10,10 @@ import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Customer
-import com.moronlu18.customer.repository.CusomerRepository
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.InvoiceState
 import com.moronlu18.item.repository.ItemRepository
-
 import java.time.Instant
 
 class InvoiceViewModel : ViewModel() {
@@ -29,7 +26,7 @@ class InvoiceViewModel : ViewModel() {
     var nombre = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var telefono = MutableLiveData<String>()
-    var cusomerRepository = CusomerRepository()
+    var cusomerRepository = CustomerRepository()
     val clientes = cusomerRepository.getCustomerListRAW()
     private var _customer: Customer? = null
     val _facturas = InvoiceRepository.getInvoiceListRAW()
