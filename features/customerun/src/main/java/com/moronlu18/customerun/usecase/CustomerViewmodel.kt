@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.entity.CustomerId
-import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customerun.ui.CustomerState
 import com.moronlu18.invoice.ui.firebase.Email
 import java.util.regex.Pattern
@@ -30,47 +30,18 @@ class CustomerViewModel : ViewModel() {
             ValidarEmail(email.value) -> state.value = CustomerState.EmailFormatError
             else -> {
                 state.value = CustomerState.Success
-                if (!editar) {
-                    if (ProviderCustomer.datasetCustomer.size > 0) {
-                        ProviderCustomer.create(
+                    println(
+                        CustomerRepository.insert(
                             Customer(
-                                CustomerId(ProviderCustomer.getClientesCreados()),
-                                nombre.value!!,
-                                apellidos.value!!,
-                                Email(email.value!!),
-                                telefono.value!!,
-                                ciudad.value!!,
-                                direccion.value!!
-                            ),null
-                        )
-                    } else {
-                        ProviderCustomer.create(
-                            Customer(
-                                CustomerId(1),
-                                nombre.value!!,
-                                apellidos.value!!,
-                                Email(email.value!!),
-                                telefono.value!!,
-                                ciudad.value!!,
-                                direccion.value!!
-                            ),null
-                        )
-
-                    }
-                } else {
-                    ProviderCustomer.datasetCustomer.removeAt(position)
-                    ProviderCustomer.create(
-                         Customer(
-                            CustomerId(id),
-                            nombre.value!!,
-                            apellidos.value!!,
-                            Email(email.value!!),
-                            telefono.value!!,
-                            ciudad.value!!,
-                            direccion.value!!
-                        ),position
+                        CustomerId(3),
+                        nombre.value!!,
+                        apellidos.value,
+                        Email(email.value!!),
+                        telefono.value,
+                        ciudad.value,
+                        direccion.value
                     )
-                }
+                        ))
             }
 
         }

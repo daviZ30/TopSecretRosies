@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 class CustomerRepository {
     companion object {
-        fun inset(c: Customer): Resource {
+        fun insert(c: Customer): Resource {
             return try {
                 InvoiceDatabase.getInstance().customerDao().insert(c)
                 Resource.Success<Customer>(c)

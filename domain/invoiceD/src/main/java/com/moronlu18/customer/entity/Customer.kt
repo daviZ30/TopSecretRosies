@@ -15,13 +15,13 @@ data class Customer(
     val id: CustomerId,
     @NonNull
     val nombre: String,
-    val apellidos: String,
+    val apellidos: String?,
     @NonNull
     @TypeConverters(CustomerEmailTypeConverter::class)
     val email: Email,
-    val telefono: String,
-    val city: String,
-    val direction: String
+    val telefono: String?,
+    val city: String?,
+    val direction: String?
 ) {
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
