@@ -68,19 +68,10 @@ class CustomerListFragment : Fragment(), MenuProvider {
             binding.textView5.visibility = View.GONE
         }
         // Inflate the layout for this fragment
-        val adapter = CustomerAdapter(viewModel.clientes, { i: Int, n: Int ->
-            var bundle = Bundle();
-            bundle.putInt("pos", i)
-            parentFragmentManager.setFragmentResult("key", bundle)
-            if (n == 0) {
-                findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
-            } else if (n == 1) {
-                findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
-            }
-
-        }, { i: Int ->
-            showDeleteConfirmationDialog(i)
-        })
+        val adapter = CustomerAdapter()
+        viewModel.allcustomers.observe(viewLifecycleOwner) {
+            it.let { adapter.submitList(it) }
+        }
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
         }

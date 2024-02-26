@@ -1,48 +1,51 @@
 package com.moronlu18.customerun.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Customer
-import com.moronlu18.customerun.R
+import com.moronlu18.customerun.databinding.FilaCustomerBinding
 
-
-class CustomerAdapter(val customers : MutableList<Customer>, private val onItemClick: (position:Int, nav:Int) -> Unit, private val onDelete: (position: Int) -> Unit,):
-    RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
-     class CustomerViewHolder(customerView: View) : RecyclerView.ViewHolder(customerView) {
-        fun  bind(customer: Customer){
-            itemView.findViewById<TextView>(R.id.txtnombre_customer_list).text = "${customer.nombre}"
-            itemView.findViewById<TextView>(R.id.txtapellidos_customer_list).text = "${customer.apellidos}"
-            itemView.findViewById<TextView>(R.id.txtemail_customer_list).text = "${customer.email.value}"
-        }
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
-        return CustomerViewHolder(view)
-    }
-
-
-    override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
-        val item = customers[position]
-        holder.bind(item)
-        holder.itemView.setOnClickListener{
-            onItemClick.invoke(position,0)
-        }
-       holder.itemView.findViewById<ImageButton>(R.id.btndelete).setOnClickListener {
-           onDelete(position)
-       }
-        holder.itemView.findViewById<ImageButton>(R.id.btnedit).setOnClickListener {
-            onItemClick.invoke(position,1)
+class CustomerAdapter():
+ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
+    inner class  CustomerHost(var binding: FilaCustomerBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(customer:Customer){
+            with(binding){
+                txtnombreCustomerList.text=customer.nombre
+                txtapellidosCustomerList.text=customer.apellidos
+                txtemailCustomerList.text=customer.email.value
+            }
 
         }
     }
-    override fun getItemCount(): Int {
-        return customers.size
+    fun notifyChanged() {
+        notifyDataSetChanged()
+    }
+    override fun onBindViewHolder(holder: CustomerHost, position: Int) {
+        //Se accede a un elemento de la lista interna de adapterRv mendiante el método getItem(position)
+        //Se accede a la lista interna midiante currentList
+
+        var u = getItem(position)
+
+        holder.bind(u)
     }
 
+    override fun onCreateViewHolder(parent:ViewGroup,viewType:Int):CustomerHost{
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return CustomerHost(FilaCustomerBinding.inflate(layoutInflater,parent,false))
+    }
+    companion object {
+        private val CUSTOMER_COMPARATOR = object : DiffUtil.ItemCallback<Customer>() {
+            override fun areItemsTheSame(oldItem: Customer, newItem: Customer): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Customer, newItem: Customer): Boolean {
+                return oldItem.nombre == newItem.nombre
+            }
+
+        }
+    }
 }

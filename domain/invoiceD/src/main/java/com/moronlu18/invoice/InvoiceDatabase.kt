@@ -126,6 +126,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
             populateInvoice()
             populateTask()
             populateItem()
+            populateCustomer()
         }
 
 
@@ -153,6 +154,15 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 listaItem.forEach {
                     invoiceDatabase.lineaItemDao().insert(it)
                 }
+
+            }
+
+        }
+        private fun populateCustomer() {
+
+
+            //.let ejecuta el código si no es nulo
+            getInstance().let { invoiceDatabase ->
                 invoiceDatabase.customerDao().insert(
                     Customer(
                         CustomerId(2),
@@ -163,6 +173,19 @@ abstract class InvoiceDatabase : RoomDatabase() {
                         "Málaga",
                         "Calle Leonora n46"
                     )
+
+                )
+                invoiceDatabase.customerDao().insert(
+                    Customer(
+                        CustomerId(1),
+                        "Alex",
+                        "Carnero Tapia",
+                        Email("carnetaadspjf@gmail.com"),
+                        "65478966",
+                        "Málaga",
+                        "Calle Leonora n46"
+                    )
+
                 )
             }
 

@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.signup.utils.Locator
-import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.ui.CustomerListState
 
 class CustomerListViewModel : ViewModel() {
     private val _clientes = ProviderCustomer.datasetCustomer
    // private val customerRepository = InvoiceRepository()
-    var allinvoice = InvoiceRepository.getInvoiceList().asLiveData()
+    var allcustomers = CustomerRepository.getCustomerList().asLiveData()
 
     val clientes
         get() = _clientes
