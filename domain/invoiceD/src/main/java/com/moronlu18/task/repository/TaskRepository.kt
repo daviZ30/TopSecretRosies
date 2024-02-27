@@ -12,6 +12,9 @@ class TaskRepository {
         fun selectAllTaskList() : Flow<List<Task>> {
             return InvoiceDatabase.getInstance().taskDao().selectAll()
         }
+        fun selectAllTaskListRAW() : List<Task> {
+            return InvoiceDatabase.getInstance().taskDao().selectAllRAW()
+        }
         fun deleteTask(task: Task){
             InvoiceDatabase.getInstance().taskDao().delete(task)
         }

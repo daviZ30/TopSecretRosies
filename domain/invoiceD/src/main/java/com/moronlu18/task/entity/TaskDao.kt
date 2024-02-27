@@ -15,4 +15,6 @@ interface TaskDao {
     fun delete(task : Task)
     @Query("SELECT * FROM task")
     fun selectAll(): Flow<List<Task>>
+    @Query("SELECT * FROM task")
+    fun selectAllRAW(): List<Task>
 }
