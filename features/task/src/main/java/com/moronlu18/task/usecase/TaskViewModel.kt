@@ -14,7 +14,6 @@ import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskId
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
-import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.task.ui.TaskState
 import kotlinx.coroutines.Dispatchers
@@ -65,10 +64,12 @@ class TaskViewModel : ViewModel() {
          val createdDate = this.createdDate.value!!
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
         if (idTask.value == null)
-            idTask.value = ProviderTask.taskExample.lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
+            idTask.value = TaskRepository.selectAllTaskListRAW().lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
         val task =  Task(TaskId(idTask.value!!), ProviderCustomer.datasetCustomer.find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
          if (!edit){
-             ProviderTask.createTask(task)
+             viewModelScope.launch(Dispatchers.IO) {
+                 TaskRepository.updateTask(task)
+             }
          }else{
              viewModelScope.launch(Dispatchers.IO) {
                  TaskRepository.insertTask(task)
@@ -120,11 +121,11 @@ class TaskViewModel : ViewModel() {
     }
 
     public fun sortId(){
-        ProviderTask.taskExample.sortBy { it.idTask.value }
+       // ProviderTask.taskExample.sortBy { it.idTask.value }
     }
 
     public fun sortCustomer(){
-        ProviderTask.taskExample.sortBy { it.customer.nombre }
+        //ProviderTask.taskExample.sortBy { it.customer.nombre }
     }
 
     /**

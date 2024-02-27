@@ -196,7 +196,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
                     "Funciona la base por fin",
                     TaskType.visitor,
                     TaskStatus.overdue,
-                    CalendarInvoice.getCurrentDate(),
+                    "27/02/2024",
                     CalendarInvoice.getCurrentDate()
                     ))
         }
