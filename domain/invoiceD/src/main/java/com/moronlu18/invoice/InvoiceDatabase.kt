@@ -122,11 +122,12 @@ abstract class InvoiceDatabase : RoomDatabase() {
             }
         }
 
-        private suspend fun populateDatabase() {
+        private fun populateDatabase() {
             populateCustomer()
+            populateItem()
             populateInvoice()
             populateTask()
-            populateItem()
+
 
         }
 
