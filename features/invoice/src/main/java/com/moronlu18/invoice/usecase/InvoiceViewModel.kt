@@ -104,7 +104,7 @@ class InvoiceViewModel : ViewModel() {
             InvoiceRepository.updateInvoice(
                 Invoice(
                     InvoiceId(idFactura.value!!.toInt()),
-                    cliente.id.value,
+                    cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
                     articulos,
@@ -117,7 +117,7 @@ class InvoiceViewModel : ViewModel() {
             InvoiceRepository.insertInvoice(
                 Invoice(
                     InvoiceId(idFactura.value!!.toInt()),
-                    cliente.id.value,
+                    cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
                     articulos,

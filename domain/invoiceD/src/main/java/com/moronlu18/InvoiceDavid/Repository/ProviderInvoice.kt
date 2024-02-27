@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
 import com.moronlu18.InvoiceDavid.entity.LineaItem
+import com.moronlu18.customer.entity.CustomerId
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.item.repository.ItemRepository
 import java.time.Instant
@@ -71,7 +72,7 @@ class ProviderInvoice private constructor() {
         ) {
             var f = Invoice(
                 InvoiceId(idFactura),
-                cliente,
+                CustomerId(cliente),
                 feEmi,
                 feVen,
                 //articulos,
@@ -97,7 +98,7 @@ class ProviderInvoice private constructor() {
             )
             var f = Invoice(
                 InvoiceId(idFactura),
-                cliente,
+                CustomerId(cliente),
                 feEmi,
                 feVen,
                 articulos,

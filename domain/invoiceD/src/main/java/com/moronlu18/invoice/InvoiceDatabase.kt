@@ -123,10 +123,11 @@ abstract class InvoiceDatabase : RoomDatabase() {
         }
 
         private suspend fun populateDatabase() {
+            populateCustomer()
             populateInvoice()
             populateTask()
             populateItem()
-            populateCustomer()
+
         }
 
 
@@ -145,7 +146,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 invoiceDatabase.invoiceDao().insert(
                     Invoice(
                         InvoiceId(1),
-                        1,
+                        CustomerId(1),
                         SetFecha("2021-01-20"),
                         SetFecha("2021-01-20"),
                         InvoiceStatus.Pending

@@ -87,10 +87,10 @@ class InvoiceDetailsFragment : Fragment() {
 
     private fun update() {
         var precios = items.map { it.precio * it.cantidad }
-        binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(invoice.idCliente)?.nombre
-        binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(invoice.idCliente)?.email?.value
+        binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(invoice.idCliente.value)?.nombre
+        binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(invoice.idCliente.value)?.email?.value
         binding.txtInvoiceDetailsTelefono.text =
-            viewModel.GetCliente(invoice.idCliente)?.telefono.toString()
+            viewModel.GetCliente(invoice.idCliente.value)?.telefono.toString()
         val posEmi = invoice.FeEmision.toString().indexOf('T')
         val posVen = invoice.FeVencimiento.toString().indexOf('T')
         binding.txtInvoiceDetailsFechaEmision.text =

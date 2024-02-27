@@ -20,7 +20,6 @@ import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
 import com.moronlu18.invoice.entity.Invoice
-import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.invoice.usecase.InvoiceListViewModel
 import com.moronlu18.invoiceFragment.R
 import com.moronlu18.invoiceFragment.databinding.FragmentInvoiceListBinding
@@ -77,7 +76,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpUserRecycler()
+        setUpInvoiceRecycler()
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 is InvoiceListState.noDataError -> {
@@ -109,9 +108,9 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         //viewModel.validate()
     }
 
-    private fun setUpUserRecycler() {
+    private fun setUpInvoiceRecycler() {
         adapterInvoice = AdaptadorFacturas(
-            { fa: Invoice, listaItem: List<LineaItem>, n: Int ->
+            { fa: Invoice,  n: Int ->
                 var bundle = Bundle().apply {
                     putSerializable("invoice", fa)
                     putBoolean("editar",true)
@@ -181,13 +180,15 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             R.id.action_sort -> {
                 //ordenar la lista del adapter aqui, con una funcion dentro del adapter, utilizar sortBy { it.propiedadPorLaQueOrdenar} y hacer el notifyDataSetChanged()
                // adapterInvoice.currentList.sortBy {  it.idCliente }
-                viewModel.allinvoice.value?.sortedBy { it.idCliente }
+                viewModel.allinvoice.value?.sortedBy { it.idCliente.value }
+                adapterInvoice.submitList(viewModel.allinvoice.value)
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
             }
 
             R.id.action_refresh -> {
                 viewModel.allinvoice.value?.sortedBy { it.id.value }
+                adapterInvoice.submitList(viewModel.allinvoice.value)
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
                 //viewmodel.sortId
