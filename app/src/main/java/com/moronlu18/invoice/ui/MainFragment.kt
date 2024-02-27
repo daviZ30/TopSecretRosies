@@ -86,7 +86,7 @@ class MainFragment : Fragment() {
         initTheme()
     }
     private fun initTheme() {
-        var value = Locator.userPreferencesRepository.getTheme()
+        var value = Locator.invoicePreferencesRepository.getTheme()
         if (value == "true") {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {

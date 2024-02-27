@@ -29,10 +29,10 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         option?.setOnPreferenceChangeListener { preference, newValue ->
             if(newValue == true){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                Locator.userPreferencesRepository.saveTheme("true")
+                Locator.invoicePreferencesRepository.saveTheme("true")
             }else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                Locator.userPreferencesRepository.saveTheme("false")
+                Locator.invoicePreferencesRepository.saveTheme("false")
             }
             true
         }
@@ -48,7 +48,7 @@ class  SettingsFragment : PreferenceFragmentCompat() {
                 val entry = preference.entries.get(index)
                 val entryvalue = preference.entryValues.get(index)
                 println("----------------------- ${entryvalue} ")
-                Locator.userPreferencesRepository.saveCustomerOr(entryvalue.toString())
+                Locator.invoicePreferencesRepository.saveCustomerOr(entryvalue.toString())
             }
             true
         }
@@ -63,8 +63,8 @@ class  SettingsFragment : PreferenceFragmentCompat() {
                 val index = preference.findIndexOfValue(newValue.toString())
                 val entry = preference.entries.get(index)
                 val entryvalue = preference.entryValues.get(index)
-                println("----------------------- ${entryvalue} ")
-                Locator.userPreferencesRepository.saveInvoiceOr(entryvalue.toString())
+
+                Locator.invoicePreferencesRepository.saveInvoiceOr(entryvalue.toString())
             }
             true
         }
@@ -82,7 +82,7 @@ class  SettingsFragment : PreferenceFragmentCompat() {
                     val entryValue = preference.entryValues.getOrNull(index)
 
                     entryValue?.let {
-                        Locator.userPreferencesRepository.saveItemOrder(it.toString())
+                        Locator.invoicePreferencesRepository.saveItemOrder(it.toString())
                     }
 
                 }
@@ -99,7 +99,7 @@ class  SettingsFragment : PreferenceFragmentCompat() {
                     val index = preference.findIndexOfValue(newValue.toString())
                     val entryValue = preference.entryValues.getOrNull(index)
                     entryValue?.let {
-                        Locator.userPreferencesRepository.saveTaskOrder(it.toString())
+                        Locator.invoicePreferencesRepository.saveTaskOrder(it.toString())
                     }
                 }
                 true

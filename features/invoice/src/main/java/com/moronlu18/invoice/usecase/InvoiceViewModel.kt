@@ -26,8 +26,7 @@ class InvoiceViewModel : ViewModel() {
     var nombre = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var telefono = MutableLiveData<String>()
-    var cusomerRepository = CustomerRepository()
-    val clientes = cusomerRepository.getCustomerListRAW()
+    val clientes = CustomerRepository.getCustomerListRAW()
     private var _customer: Customer? = null
     val _facturas = InvoiceRepository.getInvoiceListRAW()
     val RawArticulos = ItemRepository.getItemListRAW()
@@ -226,7 +225,9 @@ class InvoiceViewModel : ViewModel() {
         return state;
     }
 
-
+    fun deleteLineaItem(lineaItem: LineaItem) {
+        InvoiceRepository.deleteLineaItem(lineaItem)
+    }
 
 
 }

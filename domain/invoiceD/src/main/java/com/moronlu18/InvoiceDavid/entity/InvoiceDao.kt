@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.invoice.entity.Invoice
 import kotlinx.coroutines.flow.Flow
 
@@ -14,10 +15,13 @@ interface InvoiceDao {
     @Insert(onConflict = ForeignKey.RESTRICT)
     fun insert (invoice: Invoice) : Long
 
+
     @Update
     fun update (invoice: Invoice)
     //Se añade una query personalizada en un método que devuelve un objeto Account y el objeto
     //BussinessProfile
+    @Delete
+    fun delete(invoice: Invoice)
 
     @Query("SELECT * FROM invoice")
     fun selectAll(): Flow<List<Invoice>>

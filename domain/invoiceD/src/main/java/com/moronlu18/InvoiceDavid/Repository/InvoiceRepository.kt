@@ -41,17 +41,34 @@ class InvoiceRepository {
                 Resource.Error(e)
             }
         }
+
         fun insertLineaItem(item: LineaItem): Resource {
             return try {
-                    InvoiceDatabase.getInstance().lineaItemDao().insert(item)
+                InvoiceDatabase.getInstance().lineaItemDao().insert(item)
                 Resource.Success<LineaItem>(item)
             } catch (e: SQLiteException) {
                 println(e.message)
                 Resource.Error(e)
             }
         }
+
         fun updateLineaItem(lineaItem: LineaItem) {
             InvoiceDatabase.getInstance().lineaItemDao().update(lineaItem)
+        }
+
+        fun deleteInvoice(invoice: Invoice) {
+            InvoiceDatabase.getInstance().invoiceDao().delete(invoice)
+        }
+
+        fun deleteLineaItems(lista: List<LineaItem>) {
+            try {
+                lista.forEach {
+                    InvoiceDatabase.getInstance().lineaItemDao().delete(it)
+                }
+
+            } catch (e: SQLiteException) {
+                println(e.message)
+            }
         }
 
 
@@ -65,6 +82,10 @@ class InvoiceRepository {
 
         fun getLineaItemList(id: Int): List<LineaItem> {
             return InvoiceDatabase.getInstance().lineaItemDao().selectFromInvoice(id)
+        }
+
+        fun deleteLineaItem(lineaItem: LineaItem) {
+            InvoiceDatabase.getInstance().lineaItemDao().delete(lineaItem)
         }
 
 

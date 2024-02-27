@@ -1,6 +1,7 @@
 package com.moronlu18.InvoiceDavid.entity
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,6 +15,8 @@ interface LineaItemDao {
 
     @Update
     fun update (lineaItem: LineaItem)
+    @Delete
+    fun delete(lineaItem: LineaItem)
 
     @Query("SELECT * FROM LineaItem l where l.id_invoice = :id")
     fun selectFromInvoice(id:Int): List<LineaItem>

@@ -42,7 +42,7 @@ class TaskViewModel : ViewModel() {
             customerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{
-                when(Locator.userPreferencesRepository.getTaskOrder()){
+                when(Locator.invoicePreferencesRepository.getTaskOrder()){
                     "Id" -> sortId()
                     "Customer" -> sortCustomer()
                 }

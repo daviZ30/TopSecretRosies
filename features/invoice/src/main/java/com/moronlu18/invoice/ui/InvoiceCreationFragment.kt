@@ -184,6 +184,7 @@ class InvoiceCreationFragment : Fragment() {
             }
         }
         adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
+            viewModel.deleteLineaItem(viewModel.articulos[i])
             viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)
             binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()

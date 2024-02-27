@@ -25,9 +25,9 @@ class CustomerListViewModel : ViewModel() {
         when (clientes.size) {
             0 -> CustomerListState.noDataError
             else -> {
-                if (Locator.userPreferencesRepository.getCustomerOr() == "Id") {
+                if (Locator.invoicePreferencesRepository.getCustomerOr() == "Id") {
                     sortId()
-                } else if (Locator.userPreferencesRepository.getCustomerOr() == "Nombre") {
+                } else if (Locator.invoicePreferencesRepository.getCustomerOr() == "Nombre") {
                     sortName()
                 }
                 state.value = CustomerListState.Success

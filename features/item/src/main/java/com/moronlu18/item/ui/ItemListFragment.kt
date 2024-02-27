@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.signup.utils.Locator
-import com.google.android.material.snackbar.Snackbar
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.Repository.ProviderInvoice
 import com.moronlu18.item.adapter.ItemAdapter
@@ -254,7 +253,7 @@ class ItemListFragment : Fragment(), MenuProvider {
     }
 
     private fun sortItemList(itemList: List<item>) {
-        val sortOrder = Locator.userPreferencesRepository.getItemOrder()
+        val sortOrder = Locator.invoicePreferencesRepository.getItemOrder()
 
         val sortedList = when (sortOrder) {
             "Name" -> itemList.sortedBy { it.name }

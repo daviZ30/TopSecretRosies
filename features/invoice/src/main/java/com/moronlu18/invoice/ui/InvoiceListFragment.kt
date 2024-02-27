@@ -89,7 +89,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             }
         }
 
-        if (viewModel.facturas.size < 1) {
+        if (adapterInvoice.currentList.size < 1) {
             binding.rvInvoiceList.visibility = View.GONE
             binding.imgNada.visibility = View.VISIBLE
         } else {
@@ -156,15 +156,14 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("¿Deseas eliminar esta factura?")
         builder.setPositiveButton("Eliminar") { _, _ ->
-            viewModel.facturas.removeAt(posicion)
-            if (viewModel.facturas.size < 1) {
+            viewModel.removeInvoice(adapterInvoice.currentList[posicion])
+            if (adapterInvoice.currentList.size < 1) {
                 binding.rvInvoiceList.visibility = View.GONE
                 binding.imgNada.visibility = View.VISIBLE
             } else {
                 binding.rvInvoiceList.visibility = View.VISIBLE
                 binding.imgNada.visibility = View.GONE
             }
-
             binding.rvInvoiceList.adapter?.notifyDataSetChanged()
         }
 
@@ -181,13 +180,14 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
             R.id.action_sort -> {
                 //ordenar la lista del adapter aqui, con una funcion dentro del adapter, utilizar sortBy { it.propiedadPorLaQueOrdenar} y hacer el notifyDataSetChanged()
-                viewModel.sortNombre()
+               // adapterInvoice.currentList.sortBy {  it.idCliente }
+                viewModel.allinvoice.value?.sortedBy { it.idCliente }
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
             }
 
             R.id.action_refresh -> {
-                viewModel.sortId()
+                viewModel.allinvoice.value?.sortedBy { it.id.value }
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
                 //viewmodel.sortId

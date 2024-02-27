@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
-class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
+class InvoicePreferencesRepository(private val dataStore: DataStore<Preferences>) {
     fun saveInvoiceOr(orID: String) {
         runBlocking {
             dataStore.edit { preferences ->
