@@ -1,6 +1,10 @@
 package com.moronlu18.item.ui
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +15,8 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -140,6 +146,7 @@ class ItemCreationFragment : Fragment() {
 
                             if (itemViewModel.itemId.value.isNullOrEmpty()) {
                                 itemViewModel.addItem(newItem)
+                                showNotification(newItem)
                                 findNavController().popBackStack()
                             } else {
                                 itemViewModel.updateItemDao(newItem)
@@ -202,6 +209,41 @@ class ItemCreationFragment : Fragment() {
         } else {
             binding.textInputLayout3.error = null
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showNotification(item: item) {
+        createNotificationChannel()
+
+        val notificationBuilder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_add_alert_24)
+            .setContentTitle("Artículo añadido")
+            .setContentText("Se ha añadido el artículo con ID: ${item.id.value}")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext())) {
+            notify(NOTIFICATION_ID, notificationBuilder.build())
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Artículo Añadido"
+            val descriptionText = "Notificación para informar cuando se añade un nuevo artículo"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+
+            val notificationManager =
+                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    companion object {
+        private const val CHANNEL_ID = "channel_id"
+        private const val NOTIFICATION_ID = 1
     }
 
     override fun onDestroy() {
