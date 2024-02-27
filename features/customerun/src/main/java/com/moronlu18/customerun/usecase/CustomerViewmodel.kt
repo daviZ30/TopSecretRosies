@@ -20,7 +20,7 @@ class CustomerViewModel : ViewModel() {
     var direccion = MutableLiveData<String>("")
     var editar: Boolean = false
     var id: Int = 0
-    var position:Int =0
+    var position: Int = 0
     private var state = MutableLiveData<CustomerState>()
 
     fun validate() {
@@ -30,18 +30,19 @@ class CustomerViewModel : ViewModel() {
             ValidarEmail(email.value) -> state.value = CustomerState.EmailFormatError
             else -> {
                 state.value = CustomerState.Success
-                    println(
-                        CustomerRepository.insert(
-                            Customer(
-                        CustomerId(3),
-                        nombre.value!!,
-                        apellidos.value,
-                        Email(email.value!!),
-                        telefono.value,
-                        ciudad.value,
-                        direccion.value
+                println(
+                    CustomerRepository.insert(
+                        Customer(
+                            CustomerId(3),
+                            nombre.value!!,
+                            apellidos.value,
+                            Email(email.value!!),
+                            telefono.value,
+                            ciudad.value,
+                            direccion.value
+                        )
                     )
-                        ))
+                )
             }
 
         }

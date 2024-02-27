@@ -5,7 +5,6 @@ import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.CustomerRepository
-import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.invoice.Repository.ProviderInvoice
 
 class InvoiceDetailsViewModel:ViewModel() {
@@ -14,7 +13,7 @@ class InvoiceDetailsViewModel:ViewModel() {
         get() = _facturas!!
 
     fun GetCliente(id:Int): Customer? {
-        return CustomerRepository.GetCliente(id)
+        return CustomerRepository.getCliente(id)
     }
     fun getLineaItem(id:Int):List<LineaItem>{
         return InvoiceRepository.getLineaItemList(id)

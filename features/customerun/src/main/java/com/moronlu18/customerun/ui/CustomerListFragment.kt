@@ -46,6 +46,11 @@ class CustomerListFragment : Fragment(), MenuProvider {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.validate()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,7 +81,6 @@ class CustomerListFragment : Fragment(), MenuProvider {
             findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
         }
         binding.listcustomer.adapter = adapter
-        viewModel.validate()
         binding.listcustomer.adapter?.notifyDataSetChanged()
     }
 
@@ -97,8 +101,9 @@ class CustomerListFragment : Fragment(), MenuProvider {
         if (eliminado) {
             builder.setTitle("¿Deseas eliminar este Cliente?")
             builder.setPositiveButton("Eliminar") { _, _ ->
-                viewModel.clientes.removeAt(posicion)
-                if (viewModel.clientes.size < 1) {
+                //Implementar eliminar con base de datos
+                //viewModel.clientes.removeAt(posicion)
+                if (viewModel.allcustomers.value!!.isEmpty()) {
                     binding.listcustomer.visibility = View.GONE
                     binding.textView5.visibility = View.VISIBLE
                 } else {
