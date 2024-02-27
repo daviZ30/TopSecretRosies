@@ -127,8 +127,6 @@ abstract class InvoiceDatabase : RoomDatabase() {
             populateItem()
             populateInvoice()
             populateTask()
-
-
         }
 
 
@@ -136,9 +134,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
         private fun populateInvoice() {
             var listaItem =mutableListOf<LineaItem>(
                 LineaItem(
-                    1, 1, 1, 1.5, 45.5
-                ), LineaItem(
-                    2, 1, 1, 1.5, 45.5
+                    1, 1, 2, 1.5, 45.5
                 )
             )
 
