@@ -36,10 +36,10 @@ class TaskViewModel : ViewModel() {
 
     private val state = MutableLiveData<TaskState>()
     fun validate(){
-        val customerSelected = idCustomer.value == 0
+        val isCustomerSelected = idCustomer.value == 0 //Si no se ha seleccionado ninguno, devolverá true
         when{
             TextUtils.isEmpty(title.value) || title.value?.isBlank()!!  ->state.value = TaskState.TitleIsMandatoryError
-            customerSelected -> state.value = TaskState.CustomerUnspecifiedError
+            isCustomerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{
                 when(Locator.invoicePreferencesRepository.getTaskOrder()){

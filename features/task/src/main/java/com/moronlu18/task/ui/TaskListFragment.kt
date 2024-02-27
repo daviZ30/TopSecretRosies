@@ -28,27 +28,15 @@ class TaskListFragment : Fragment(), MenuProvider {
 
     private val viewModel: TaskViewModel by viewModels()
 
+    private lateinit var taskListAdapter : TaskListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)/*
-        parentFragmentManager.setFragmentResultListener("key", this,
-            FragmentResultListener { _, result ->
-                var pos: Int = result.getInt("pos")
-                binding.rvTaskList.adapter = TaskListAdapter(tasks) { _, _ ->
-                    var bundle = Bundle()
-                    bundle.putInt("position",pos)
-                    parentFragmentManager.setFragmentResult("key",bundle)
-                }
-                binding.rvTaskList.layoutManager = LinearLayoutManager(context)
-            })*/
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        val adapter = TaskListAdapter(ProviderTask.taskExample) { pos:Int, nav:Int ->
+         taskListAdapter = TaskListAdapter { pos:Int, nav:Int ->
             var bundle = Bundle()
             bundle.putInt("position",pos)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -58,7 +46,7 @@ class TaskListFragment : Fragment(), MenuProvider {
                 findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
             }
         }
-        binding.rvTaskList.adapter = adapter
+        binding.rvTaskList.adapter = taskListAdapter
         binding.rvTaskList.scrollToPosition(ProviderTask.taskExample.size - 1)
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         setUpToolbar()
@@ -67,6 +55,8 @@ class TaskListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        taskListAdapter.submitList(ProviderTask.taskExample)
 
         binding.fabTaskList.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)

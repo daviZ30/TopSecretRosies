@@ -2,23 +2,40 @@ package com.moronlu18.task.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.task.entity.Task
 import com.moronlu18.taskFragment.databinding.RowTaskListBinding
-import androidx.recyclerview.widget.ListAdapter
 
 
 class TaskListAdapter(
-    val tasks: MutableList<Task>,
     private val onClick: (pos: Int, nav: Int) -> Unit
 ) : ListAdapter<Task, TaskListAdapter.ViewHolder>(TASK_COMPARATOR) {
 
-    class ViewHolder(binding: RowTaskListBinding) : RecyclerView.ViewHolder(binding.root) {
-        var title: TextView
+    inner class ViewHolder(var binding: RowTaskListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(task: Task, position: Int) {
+            with(binding) {
+                tvTitleTaskList.text = task.title
+                tvCustomerTaskList.text = task.customer.getFullName()
+                tvDCreateTaskList.text = task.createdDate
+                tvDEndTaskList.text = task.endDate
+                cvTaskAdapter.setOnClickListener {
+                    onClick(position, 0)
+                }
+                ivDelete.setOnClickListener {
+                    //tasks.removeAt(position)
+                    notifyDataSetChanged()
+                    notifyItemRemoved(position)
+                }
+                ivEdit.setOnClickListener {
+                    onClick(position, 1)
+
+                }
+            }
+
+
+            /*var title: TextView
         var customer: TextView
         var dateCreate: TextView
         var dateEnd: TextView
@@ -34,6 +51,7 @@ class TaskListAdapter(
             taskCV = binding.cvTaskAdapter
             ivEdit = binding.ivEdit
             ivDelete = binding.ivDelete
+        }*/
         }
     }
 
@@ -43,7 +61,11 @@ class TaskListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val task = tasks[position]
+        val task = getItem(position)
+
+        holder.bind(task, position)
+
+        /*val task = tasks[position]
         holder.title.text = task.title
         holder.customer.text = task.customer.getFullName()
         holder.dateCreate.text = task.createdDate
@@ -59,7 +81,7 @@ class TaskListAdapter(
         }
         holder.ivEdit.setOnClickListener {
             onClick(position, 1)
-        }
+        }*/
     }
 
     companion object {
@@ -75,3 +97,6 @@ class TaskListAdapter(
         }
     }
 }
+
+
+
