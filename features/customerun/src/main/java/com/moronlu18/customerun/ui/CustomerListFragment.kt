@@ -15,13 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customerun.R
 import com.moronlu18.customerun.adapter.CustomerAdapter
 import com.moronlu18.customerun.databinding.FragmentCustomerListBinding
 import com.moronlu18.customerun.usecase.CustomerListViewModel
 import com.moronlu18.invoice.MainActivity
-import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.repository.TaskRepository
 
 
 class CustomerListFragment : Fragment(), MenuProvider {
@@ -31,7 +31,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
 
     private val viewModel: CustomerListViewModel by viewModels()
 
-    private val clientes = ProviderCustomer.datasetCustomer
+
 
     private fun setUpToolbar() {
         (requireActivity() as? MainActivity)?.toolbar?.apply {
@@ -65,15 +65,11 @@ class CustomerListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (clientes.size < 1) {
-            binding.listcustomer.visibility = View.GONE
-            binding.textView5.visibility = View.VISIBLE
-        } else {
-            binding.listcustomer.visibility = View.VISIBLE
-            binding.textView5.visibility = View.GONE
-        }
+
         // Inflate the layout for this fragment
-        val adapter = CustomerAdapter()
+        val adapter = CustomerAdapter { i: Int ->
+            showDeleteConfirmationDialog(i)
+        }
         viewModel.allcustomers.observe(viewLifecycleOwner) {
             it.let { adapter.submitList(it) }
         }
@@ -92,8 +88,8 @@ class CustomerListFragment : Fragment(), MenuProvider {
 
         val builder = AlertDialog.Builder(requireContext())
         var eliminado = true
-        for (task in ProviderTask.taskExample) {
-            if (task.customer.id == clientes[posicion].id) {
+        for (task in TaskRepository.selectAllTaskListRAW()) {
+            if (task.customer.id == viewModel.allcustomers.value?.get(posicion)!!.id) {
                 eliminado = false
                 break
             }
@@ -102,7 +98,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
             builder.setTitle("¿Deseas eliminar este Cliente?")
             builder.setPositiveButton("Eliminar") { _, _ ->
                 //Implementar eliminar con base de datos
-                //viewModel.clientes.removeAt(posicion)
+                CustomerRepository.delete(viewModel.allcustomers.value!![posicion])
                 if (viewModel.allcustomers.value!!.isEmpty()) {
                     binding.listcustomer.visibility = View.GONE
                     binding.textView5.visibility = View.VISIBLE

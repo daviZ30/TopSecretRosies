@@ -47,7 +47,7 @@ import java.time.Instant
 
 @Database(
     entities = [Invoice::class, LineaItem::class, item::class, Task::class, Customer::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(
