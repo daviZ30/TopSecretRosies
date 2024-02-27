@@ -33,7 +33,7 @@ class CustomerViewModel : ViewModel() {
                 println(
                     CustomerRepository.insert(
                         Customer(
-                            CustomerId(3),
+                            CustomerId(CustomerRepository.clientescreados),
                             nombre.value!!,
                             apellidos.value,
                             Email(email.value!!),

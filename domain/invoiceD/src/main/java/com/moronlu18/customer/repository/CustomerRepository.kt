@@ -8,9 +8,11 @@ import kotlinx.coroutines.flow.Flow
 
 class CustomerRepository {
     companion object {
+        var clientescreados= 3;
         fun insert(c: Customer): Resource {
             return try {
                 InvoiceDatabase.getInstance().customerDao().insert(c)
+                clientescreados++
                 Resource.Success<Customer>(c)
             } catch (e: SQLiteException) {
                 Resource.Error(e)
