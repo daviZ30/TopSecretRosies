@@ -60,7 +60,6 @@ import java.time.Instant
     CustomerEmailTypeConverter::class,
     TaskCustomerIdConverter::class,
     TaskIdConverter::class,
-    //TaskStringLongConverter::class,
     TaskStatusConverter::class,
     TaskTypeConverter::class
 
@@ -101,7 +100,6 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 .addTypeConverter(CustomerIDTypeConverter())
                 .addTypeConverter(CustomerEmailTypeConverter())
                 .addTypeConverter(TaskIdConverter())
-                //.addTypeConverter(TaskStringLongConverter())
                 .addTypeConverter(TaskStatusConverter())
                 .addTypeConverter(TaskTypeConverter())
                 .addTypeConverter(TaskCustomerIdConverter())

@@ -29,10 +29,8 @@ data class Task(
     var type: TaskType,
     @TypeConverters(TaskStatusConverter::class)
     var status: TaskStatus,
-    //@TypeConverters(TaskStringLongConverter::class)
-    var createdDate: String, //Instant
-    //@TypeConverters(TaskStringLongConverter::class)
-    var endDate: String //Instant
+    var createdDate: String,
+    var endDate: String
 )
 
 data class TaskId(override val value: Int) : UniqueId(value)
