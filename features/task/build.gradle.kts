@@ -50,4 +50,6 @@ dependencies {
     //Librería de animaciones lottie
     val lottieVersion = "3.4.0"
     implementation("com.airbnb.android:lottie:$lottieVersion")
+    //Convertir un Flow a LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 }

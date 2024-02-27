@@ -2,15 +2,18 @@ package com.moronlu18.task.repository
 
 import com.moronlu18.invoice.InvoiceDatabase
 import com.moronlu18.task.entity.Task
+import kotlinx.coroutines.flow.Flow
 
 class TaskRepository {
-     fun insert(task: Task) {
-        //InvoiceDatabase.getInstance().taskDao().insert(task)
-    }
-
     companion object {
-        fun insert(task: Task) {
-            InvoiceDatabase.getInstance().taskDao()?.insert(task)
+        fun insertTask(task: Task) {
+            InvoiceDatabase.getInstance().taskDao().insert(task)
+        }
+        fun selectAllTaskList() : Flow<List<Task>> {
+            return InvoiceDatabase.getInstance().taskDao().selectAll()
+        }
+        fun deleteTask(task: Task){
+            InvoiceDatabase.getInstance().taskDao().delete(task)
         }
     }
 }

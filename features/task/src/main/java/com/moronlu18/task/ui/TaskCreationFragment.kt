@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.task.entity.TaskStatus
@@ -121,7 +121,7 @@ class TaskCreationFragment : Fragment() {
 
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
-        val customerList = ProviderCustomer.datasetCustomer
+        val customerList = CustomerRepository.getCustomerListRAW()
         if (customerList.isEmpty()) {
             names.add("<No Existen Clientes>")
             binding.btnTaskCreationAdd.isEnabled = false
@@ -164,34 +164,4 @@ class TaskCreationFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
-    /**
-     * Devuelve el id del spinner
-     */
-   /* private fun getIdCustomer(customer: String): Int {
-        try {
-            val id: Int = customer.split(".").first().toInt()
-            return id
-        } catch (e: NumberFormatException) {
-            return -1
-        }
-    }*/
-
-    /*   private fun createTask() {
-           val idTask = tasks.lastOrNull()?.idTask?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
-           val customerId = getIdCustomer(binding.spTaskCreationCliente.selectedItem.toString())
-           val title = binding.tieTaskCreationTitle.text.toString()
-           val nameCustomer = customer.find { it.id == customerId }?.getFullName()
-           val desc = binding.tieTaskCreationDesc.text.toString()
-           val type = TaskType.valueOf(binding.spTaskCreationType.selectedItem.toString())
-           val status = TaskStatus.valueOf(binding.spTaskCreationStatus.selectedItem.toString())
-           val createdDate = binding.tieTaskCreationDateStart.text.toString()
-           val endDate = binding.tieTaskCreationDateEnd.text.toString()
-           tasks.add(Task(idTask, customerId,title, desc, nameCustomer!!, type, status, createdDate, endDate))
-           Toast.makeText(requireContext(), "La tarea ha sido creada", Toast.LENGTH_SHORT).show()
-           val bundle = Bundle()
-           parentFragmentManager.setFragmentResult("key", bundle)
-           findNavController().popBackStack()
-       }*/
 }

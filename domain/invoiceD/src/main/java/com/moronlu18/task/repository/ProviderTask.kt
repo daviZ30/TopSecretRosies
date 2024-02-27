@@ -53,7 +53,7 @@ class ProviderTask private constructor() {
             Task(idTask++,cliente[2].id,"Por que si", "Nombre y apellidos más comúnes","Mohamed Wang Smith",  TaskType.private, TaskStatus.pending,"07/12/2023", "10:01"),*/
         )
 
-        public fun updateTask(editTask: Task) {
+         fun updateTask(editTask: Task) {
             var task = taskExample.find { it.idTask == editTask.idTask }
             task!!.apply {
                 task.customer = editTask.customer
@@ -66,13 +66,12 @@ class ProviderTask private constructor() {
             }
         }
 
-        public fun createTask(taskCreate: Task): Resources {
+         fun createTask(taskCreate: Task): Resources {
             try {
                 val task = taskCreate
                 return Resources.Success(task)
             } catch (e: Exception) {
                 return Resources.Error(e)
-
             }
         }
     }

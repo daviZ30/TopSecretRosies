@@ -1,6 +1,7 @@
 package com.moronlu18.task.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.moronlu18.customer.entity.Customer
@@ -9,14 +10,14 @@ import com.moronlu18.invoice.converter.TaskStatusConverter
 import com.moronlu18.invoice.entity.UniqueId
 
 @Entity(
-    tableName = "task",/* foreignKeys =
+    tableName = "task",foreignKeys =
     [ForeignKey(
         entity = Customer::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("customer"),
         onDelete = ForeignKey.RESTRICT,
         onUpdate = ForeignKey.CASCADE
-    )]*/
+    )]
 )
 data class Task(
     @PrimaryKey

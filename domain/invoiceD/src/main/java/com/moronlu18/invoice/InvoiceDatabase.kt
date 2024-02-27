@@ -14,6 +14,7 @@ import com.moronlu18.InvoiceDavid.entity.LineaItemDao
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.entity.CustomerDao
 import com.moronlu18.customer.entity.CustomerId
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
 import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.converter.InvoiceIdTypeConverter
@@ -190,21 +191,13 @@ abstract class InvoiceDatabase : RoomDatabase() {
             getInstance().taskDao().insert(
                 Task(
                     TaskId(1),
-                    Customer(
-                        CustomerId(2),
-                        "Antonio",
-                        "Urquiza FAlle",
-                        Email("carnetaadspjf@gmail.com"),
-                        "6846556414",
-                        "Málaga",
-                        "Calle Leonora n46"
-                    ),
-                       "Crear Base de Datos",
-                        "Funciona la base por fin",
-                        TaskType.visitor,
-                        TaskStatus.overdue,
-                        CalendarInvoice.getCurrentDate(),
-                        ""
+                    CustomerRepository.getCliente(1),
+                    "Crear Base de Datos",
+                    "Funciona la base por fin",
+                    TaskType.visitor,
+                    TaskStatus.overdue,
+                    CalendarInvoice.getCurrentDate(),
+                    CalendarInvoice.getCurrentDate()
                     ))
         }
         private fun SetFecha(fecha: String): Instant {

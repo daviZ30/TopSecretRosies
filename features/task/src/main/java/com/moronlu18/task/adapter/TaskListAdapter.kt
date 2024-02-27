@@ -10,7 +10,8 @@ import com.moronlu18.taskFragment.databinding.RowTaskListBinding
 
 
 class TaskListAdapter(
-    private val onClick: (pos: Int, nav: Int) -> Unit
+    private val onClick: (pos: Int, nav: Int) -> Unit,
+    private val onDelete: (task: Task) -> Unit,
 ) : ListAdapter<Task, TaskListAdapter.ViewHolder>(TASK_COMPARATOR) {
 
     inner class ViewHolder(var binding: RowTaskListBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,35 +24,17 @@ class TaskListAdapter(
                 cvTaskAdapter.setOnClickListener {
                     onClick(position, 0)
                 }
-                ivDelete.setOnClickListener {
-                    //tasks.removeAt(position)
-                    notifyDataSetChanged()
-                    notifyItemRemoved(position)
-                }
                 ivEdit.setOnClickListener {
                     onClick(position, 1)
 
                 }
+                ivDelete.setOnClickListener {
+                    onDelete(task)
+                    //tasks.removeAt(position)
+                    //notifyDataSetChanged()
+                    //notifyItemRemoved(position)
+                }
             }
-
-
-            /*var title: TextView
-        var customer: TextView
-        var dateCreate: TextView
-        var dateEnd: TextView
-        var taskCV: CardView
-        var ivEdit: ImageView
-        var ivDelete: ImageView
-
-        init {
-            title = binding.tvTitleTaskList
-            customer = binding.tvCustomerTaskList
-            dateCreate =binding.tvDCreateTaskList
-            dateEnd = binding.tvDEndTaskList
-            taskCV = binding.cvTaskAdapter
-            ivEdit = binding.ivEdit
-            ivDelete = binding.ivDelete
-        }*/
         }
     }
 
@@ -64,24 +47,6 @@ class TaskListAdapter(
         val task = getItem(position)
 
         holder.bind(task, position)
-
-        /*val task = tasks[position]
-        holder.title.text = task.title
-        holder.customer.text = task.customer.getFullName()
-        holder.dateCreate.text = task.createdDate
-        holder.dateEnd.text = task.endDate
-
-        holder.taskCV.setOnClickListener {
-            onClick(position, 0)
-        }
-        holder.ivDelete.setOnClickListener {
-            tasks.removeAt(position)
-            notifyDataSetChanged()
-            notifyItemRemoved(position)
-        }
-        holder.ivEdit.setOnClickListener {
-            onClick(position, 1)
-        }*/
     }
 
     companion object {

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.task.adapter.TaskListAdapter
+import com.moronlu18.task.entity.Task
 import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
@@ -36,7 +37,7 @@ class TaskListFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-         taskListAdapter = TaskListAdapter { pos:Int, nav:Int ->
+         taskListAdapter = TaskListAdapter ({ pos:Int, nav:Int ->
             var bundle = Bundle()
             bundle.putInt("position",pos)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -45,7 +46,10 @@ class TaskListFragment : Fragment(), MenuProvider {
             } else if(nav == 1){
                 findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
             }
-        }
+        },{ task : Task ->
+            viewModel.deleteTask(task)
+             binding.rvTaskList.adapter?.notifyDataSetChanged()
+         })
         binding.rvTaskList.adapter = taskListAdapter
         binding.rvTaskList.scrollToPosition(ProviderTask.taskExample.size - 1)
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
@@ -56,7 +60,9 @@ class TaskListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        taskListAdapter.submitList(ProviderTask.taskExample)
+        viewModel.allTasks.observe(viewLifecycleOwner){tasks ->
+            taskListAdapter.submitList(tasks)
+        }
 
         binding.fabTaskList.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)

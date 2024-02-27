@@ -1,9 +1,11 @@
 package com.moronlu18.task.usecase
 
+/*import com.moronlu18.task.repository.TaskRepository*/
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
 import com.moronlu18.customer.repository.ProviderCustomer
@@ -14,13 +16,13 @@ import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.repository.TaskRepository
-/*import com.moronlu18.task.repository.TaskRepository*/
 import com.moronlu18.task.ui.TaskState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 class TaskViewModel : ViewModel() {
+    val allTasks = TaskRepository.selectAllTaskList().asLiveData()
     var idTask = MutableLiveData<Int>()
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
@@ -68,12 +70,14 @@ class TaskViewModel : ViewModel() {
          if (!edit){
              ProviderTask.createTask(task)
          }else{
-             ProviderTask.updateTask(task)
+             viewModelScope.launch(Dispatchers.IO) {
+                 TaskRepository.insertTask(task)
+             }
          }
+    }
 
-        viewModelScope.launch(Dispatchers.IO) {
-           TaskRepository.insert(task)
-        }
+    fun deleteTask(task : Task){
+        TaskRepository.deleteTask(task)
     }
 
     /**
