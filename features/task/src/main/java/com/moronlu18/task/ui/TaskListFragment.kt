@@ -36,7 +36,18 @@ class TaskListFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-         taskListAdapter = TaskListAdapter ({ task : Task, nav:Int ->
+        binding.viewmodel = this.viewModel
+        binding.lifecycleOwner = this
+       /*binding.rvTaskList.scrollToPosition(viewModel.getTaskList().size - 1)
+        binding.rvTaskList.layoutManager = LinearLayoutManager(context)*/
+        setUpToolbar()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.orderList() //TODO OOOOOOOOOOOOOOOOOOO
+        taskListAdapter = TaskListAdapter ({ task : Task, nav:Int ->
             var bundle = Bundle()
             bundle.putSerializable("task",task)
             parentFragmentManager.setFragmentResult("key",bundle)
@@ -47,18 +58,10 @@ class TaskListFragment : Fragment(), MenuProvider {
             }
         },{ task : Task ->
             viewModel.deleteTask(task)
-             binding.rvTaskList.adapter?.notifyDataSetChanged()
-         })
+            binding.rvTaskList.adapter?.notifyDataSetChanged()
+        })
         binding.rvTaskList.adapter = taskListAdapter
-        binding.rvTaskList.scrollToPosition(viewModel.getTaskList().size - 1)
-        binding.rvTaskList.layoutManager = LinearLayoutManager(context)
-        setUpToolbar()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.orderList()
+        binding.rvTaskList.layoutManager = LinearLayoutManager(requireContext())
         viewModel.allTasks.observe(viewLifecycleOwner){tasks ->
             taskListAdapter.submitList(tasks)
         }
