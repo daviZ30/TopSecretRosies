@@ -19,9 +19,9 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun selectAllRAW(): List<Task>
     @Query("SELECT * FROM task ORDER BY task.idTask")
-    fun sortById(): List<Task>
+    fun sortById(): Flow<List<Task>>
     @Query("SELECT * FROM task ORDER BY task.customer")
-    fun sortByCustomer(): List<Task>
+    fun sortByCustomer(): Flow<List<Task>>
     @Update
     fun update(task: Task)
 }

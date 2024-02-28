@@ -4,7 +4,6 @@ import Resources
 import com.moronlu18.invoice.InvoiceDatabase
 import com.moronlu18.task.entity.Task
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class TaskRepository {
     companion object {
@@ -19,6 +18,9 @@ class TaskRepository {
         fun selectAllTaskList() : Flow<List<Task>> {
             return InvoiceDatabase.getInstance().taskDao().selectAll()
         }
+        fun selectAllTaskListOrderByCustomer() : Flow<List<Task>>{
+            return InvoiceDatabase.getInstance().taskDao().sortByCustomer()
+        }
         fun selectAllTaskListRAW() : List<Task> {
             return InvoiceDatabase.getInstance().taskDao().selectAllRAW()
         }
@@ -28,14 +30,6 @@ class TaskRepository {
         fun updateTask(task : Task){
             InvoiceDatabase.getInstance().taskDao().update(task)
         }
-        fun selectAllTaskListSorted() : Flow<List<Task>> {
-            return InvoiceDatabase.getInstance().taskDao().selectAll().map { tasks ->
-                tasks.sortedBy { it.customer.nombre } // Ordenar la lista por el nombre del cliente
-            }
-        }
 
-        fun orderByCustomer() : List<Task>{
-            return InvoiceDatabase.getInstance().taskDao().sortByCustomer()
-        }
     }
 }
