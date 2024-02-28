@@ -63,7 +63,6 @@ class  SettingsFragment : PreferenceFragmentCompat() {
                 val index = preference.findIndexOfValue(newValue.toString())
                 val entry = preference.entries.get(index)
                 val entryvalue = preference.entryValues.get(index)
-
                 Locator.invoicePreferencesRepository.saveInvoiceOr(entryvalue.toString())
             }
             true

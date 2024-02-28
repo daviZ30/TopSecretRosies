@@ -16,77 +16,94 @@ import com.moronlu18.invoice.ui.InvoiceListState
 import kotlinx.coroutines.launch
 
 class InvoiceListViewModel : ViewModel() {
-    var allinvoice = InvoiceRepository.getInvoiceList().asLiveData()
-
+    var allinvoice = initAllInovice();
     private var state = MutableLiveData<InvoiceListState>()
 
     fun getState(): LiveData<InvoiceListState> {
         return state;
     }
-    fun getLineaItem(id:Int):List<LineaItem>{
 
-       return InvoiceRepository.getLineaItemList(id)
+    fun getLineaItem(id: Int): List<LineaItem> {
+
+        return InvoiceRepository.getLineaItemList(id)
     }
-    fun removeInvoice(invoice: Invoice){
+
+    fun removeInvoice(invoice: Invoice) {
         InvoiceRepository.deleteLineaItems(InvoiceRepository.getLineaItemList(invoice.id.value))
         //println("Articulos: ${InvoiceRepository.getLineaItemList(invoice.id.value)}")
         InvoiceRepository.deleteInvoice(invoice)
     }
-    fun getInvoiceList() {
 
+    fun initAllInovice(): LiveData<List<Invoice>> {
+        if (Locator.invoicePreferencesRepository.getInvoiceOr() == "No") {
+            return InvoiceRepository.getInvoiceListOrderByIdCliente().asLiveData()
+        } else {
+            return InvoiceRepository.getInvoiceList().asLiveData()
+        }
+
+        /*var listFlow = InvoiceRepository.getInvoiceList()
+        viewModelScope.launch {
+            listFlow.collect { lista ->
+                if (Locator.invoicePreferencesRepository.getInvoiceOr() == "No") {
+                    lista.sortedBy { it.idCliente.value }
+                } else {
+                    lista.sortedBy { it.id.value }
+                }
+            }
+        }
+        return listFlow.asLiveData()*/
+    }
+
+    fun getInvoiceList() {
+        allinvoice = initAllInovice()
         viewModelScope.launch {
             when {
-                allinvoice.value?.isEmpty() == true -> state.value = InvoiceListState.noDataError
+                allinvoice.value?.isEmpty() == true -> state.value =
+                    InvoiceListState.noDataError
+
                 else -> {
                     state.value = InvoiceListState.Success
-
-                    if (Locator.invoicePreferencesRepository.getInvoiceOr() == "Id") {
-                        //sortId()
-                    } else if (Locator.invoicePreferencesRepository.getInvoiceOr() == "No") {
-                       // sortNombre()
-                    }
-
                 }
             }
         }
     }
-   /* fun validate() {
-        when {
-            facturas.size == 0 -> state.value = InvoiceListState.noDataError
-            else -> {
-                if (Locator.userPreferencesRepository.getInvoiceOr() == "Id") {
-                    sortId()
-                } else if (Locator.userPreferencesRepository.getInvoiceOr() == "No") {
-                    sortNombre()
-                }
-                /*viewModelScope.launch(Dispatchers.IO) {
-                    invoiceRepository.insert(
-                        Invoice(
-                            InvoiceId(2),
-                            2,
-                            SetFecha("2021-01-20"),
-                            SetFecha("2021-01-20"),
-                            Articulos = mutableListOf<LineaItem>(
-                                LineaItem(
-                                    1,
-                                    1,
-                                    1,
-                                    1.5,
-                                    45.5
-                                )
-                            ),
-                            InvoiceStatus.Pending
-                        )
-                    )
-                }*/
-                state.value = InvoiceListState.Success
+    /* fun validate() {
+         when {
+             facturas.size == 0 -> state.value = InvoiceListState.noDataError
+             else -> {
+                 if (Locator.userPreferencesRepository.getInvoiceOr() == "Id") {
+                     sortId()
+                 } else if (Locator.userPreferencesRepository.getInvoiceOr() == "No") {
+                     sortNombre()
+                 }
+                 /*viewModelScope.launch(Dispatchers.IO) {
+                     invoiceRepository.insert(
+                         Invoice(
+                             InvoiceId(2),
+                             2,
+                             SetFecha("2021-01-20"),
+                             SetFecha("2021-01-20"),
+                             Articulos = mutableListOf<LineaItem>(
+                                 LineaItem(
+                                     1,
+                                     1,
+                                     1,
+                                     1.5,
+                                     45.5
+                                 )
+                             ),
+                             InvoiceStatus.Pending
+                         )
+                     )
+                 }*/
+                 state.value = InvoiceListState.Success
 
-                viewModelScope.launch(Dispatchers.IO) {
-                    println(".-+----------------" + allinvoice.value as List<Invoice>)
-                }
-            }
-        }
-    }*/
+                 viewModelScope.launch(Dispatchers.IO) {
+                     println(".-+----------------" + allinvoice.value as List<Invoice>)
+                 }
+             }
+         }
+     }*/
 
 
 }

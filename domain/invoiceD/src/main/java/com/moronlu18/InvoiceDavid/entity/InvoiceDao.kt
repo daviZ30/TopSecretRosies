@@ -6,7 +6,6 @@ import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.moronlu18.customer.entity.Customer
 import com.moronlu18.invoice.entity.Invoice
 import kotlinx.coroutines.flow.Flow
 
@@ -25,6 +24,8 @@ interface InvoiceDao {
 
     @Query("SELECT * FROM invoice")
     fun selectAll(): Flow<List<Invoice>>
+    @Query("SELECT * FROM invoice i  order by i.idCliente")
+    fun selectAllOrderByIdCliente(): Flow<List<Invoice>>
     @Query("SELECT * FROM invoice")
     fun selectAllRAW(): List<Invoice>
 

@@ -1,11 +1,7 @@
 package com.moronlu18.invoice.adapter
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +15,6 @@ class AdaptadorFacturas(
     private val onDelete: (position: Int) -> Unit,
     private val getListItem: (id: Int) -> List<LineaItem>
 ) : ListAdapter<Invoice, AdaptadorFacturas.InvoiceHost>(INVOICE_COMPARATOR) {
-
 
 
     inner class InvoiceHost(var binding: FilaFacturasBinding) :
@@ -54,7 +49,6 @@ class AdaptadorFacturas(
     }
 
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -62,7 +56,15 @@ class AdaptadorFacturas(
 
         val layoutInflater = LayoutInflater.from(parent.context)
         return InvoiceHost(FilaFacturasBinding.inflate(layoutInflater, parent, false))
+    }
 
+    fun sortId() {
+        val sortedInvoiceList = currentList.sortedBy { it.id.value }
+        submitList(sortedInvoiceList)
+    }
+    fun sortIdCliente() {
+        val sortedInvoiceList = currentList.sortedBy { it.idCliente.value }
+        submitList(sortedInvoiceList)
     }
 
     override fun onBindViewHolder(holder: InvoiceHost, position: Int) {

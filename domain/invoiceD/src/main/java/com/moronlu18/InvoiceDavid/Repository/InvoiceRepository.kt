@@ -75,6 +75,9 @@ class InvoiceRepository {
         fun getInvoiceList(): Flow<List<Invoice>> {
             return InvoiceDatabase.getInstance().invoiceDao().selectAll()
         }
+        fun getInvoiceListOrderByIdCliente(): Flow<List<Invoice>> {
+            return InvoiceDatabase.getInstance().invoiceDao().selectAllOrderByIdCliente()
+        }
 
         fun getInvoiceListRAW(): List<Invoice> {
             return InvoiceDatabase.getInstance().invoiceDao().selectAllRAW()

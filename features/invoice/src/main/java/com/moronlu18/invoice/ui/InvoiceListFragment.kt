@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.signup.utils.Locator
 import com.moronlu18.InvoiceDavid.entity.LineaItem
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.invoice.adapter.AdaptadorFacturas
@@ -94,6 +95,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpInvoiceRecycler()
+
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 is InvoiceListState.noDataError -> {
@@ -114,7 +116,9 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         }
 
         viewModel.allinvoice.observe(viewLifecycleOwner) {
-            it.let { adapterInvoice.submitList(it) }
+            it.let { adapterInvoice.submitList(it)
+                println("Lista: $it")
+            }
         }
 
         binding.fabInvoice.setOnClickListener {
@@ -194,26 +198,18 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
-
             R.id.action_sort -> {
-                //ordenar la lista del adapter aqui, con una funcion dentro del adapter, utilizar sortBy { it.propiedadPorLaQueOrdenar} y hacer el notifyDataSetChanged()
-               // adapterInvoice.currentList.sortBy {  it.idCliente }
-                viewModel.allinvoice.value?.sortedBy { it.idCliente.value }
-                adapterInvoice.submitList(viewModel.allinvoice.value)
+               adapterInvoice.sortId()
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
             }
 
             R.id.action_refresh -> {
-                viewModel.allinvoice.value?.sortedBy { it.id.value }
-                adapterInvoice.submitList(viewModel.allinvoice.value)
+                adapterInvoice.sortIdCliente()
                 binding.rvInvoiceList.adapter?.notifyDataSetChanged()
                 return true
-                //viewmodel.sortId
             }
-
             else -> false
-
         }
     }
     private fun showNotification(context: Context, title: String, message: String) {
@@ -235,6 +231,12 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     override fun onStart() {
         super.onStart()
         viewModel.getInvoiceList()
+        if (Locator.invoicePreferencesRepository.getInvoiceOr() == "No") {
+            adapterInvoice.sortIdCliente()
+        } else {
+            adapterInvoice.sortId()
+        }
+
     }
 
     override fun onDestroyView() {
