@@ -17,11 +17,12 @@ import com.moronlu18.task.entity.TaskType
 import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.task.ui.TaskState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 class TaskViewModel : ViewModel() {
-    val allTasks = TaskRepository.selectAllTaskList().asLiveData()
+    var allTasks = orderList()
     var idTask = MutableLiveData<Int>()
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
@@ -43,12 +44,16 @@ class TaskViewModel : ViewModel() {
             isCustomerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value,endDate.value) -> state.value = TaskState.IncorrectDateRangeError
             else ->{
-                when(Locator.invoicePreferencesRepository.getTaskOrder()){
-                    "Id" -> sortId()
-                    "Customer" -> sortCustomer()
-                }
                 state.value = TaskState.Success }
         }
+    }
+
+     fun orderList(): LiveData<List<Task>>{
+       return when(Locator.invoicePreferencesRepository.getTaskOrder()){
+            "Id" -> TaskRepository.selectAllTaskList().asLiveData()
+            "Customer" -> TaskRepository.selectAllTaskListOrderByCustomer().asLiveData()
+           else -> {TaskRepository.selectAllTaskList().asLiveData()}
+       }
     }
 
     /**
@@ -127,11 +132,13 @@ class TaskViewModel : ViewModel() {
 
     public fun sortId(){
        //getTaskList().sortBy { it.idTask.value }
+        TaskRepository.selectAllTaskList().map { tasks -> tasks.sortedBy { it.idTask.value } }
+
     }
 
     public fun sortCustomer(){
         //ProviderTask.taskExample.sortBy { it.customer.nombre }
-        TaskRepository.selectAllTaskListSorted()
+        TaskRepository.selectAllTaskList().map { tasks -> tasks.sortedBy { it.customer.nombre } }
     }
 
     /**

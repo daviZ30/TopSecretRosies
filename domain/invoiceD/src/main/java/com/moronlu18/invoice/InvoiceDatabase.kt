@@ -199,6 +199,17 @@ abstract class InvoiceDatabase : RoomDatabase() {
                     "27/02/2024",
                     CalendarInvoice.getCurrentDate()
                     ))
+            getInstance().taskDao().insert(
+                Task(
+                    TaskId(2),
+                    CustomerRepository.getCliente(1),
+                    "Mejorar base de datos",
+                    "Regular",
+                    TaskType.private,
+                    TaskStatus.modified,
+                    "28/02/2024",
+                    CalendarInvoice.getCurrentDate()
+                ))
         }
         private fun SetFecha(fecha: String): Instant {
             val dateString = fecha + "T00:00:00Z"

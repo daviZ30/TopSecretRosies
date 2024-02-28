@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.task.adapter.TaskListAdapter
 import com.moronlu18.task.entity.Task
-import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
@@ -51,7 +50,7 @@ class TaskListFragment : Fragment(), MenuProvider {
              binding.rvTaskList.adapter?.notifyDataSetChanged()
          })
         binding.rvTaskList.adapter = taskListAdapter
-        binding.rvTaskList.scrollToPosition(TaskRepository.selectAllTaskListRAW().size - 1) /////rrrrradsaadawaw
+        binding.rvTaskList.scrollToPosition(viewModel.getTaskList().size - 1)
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         setUpToolbar()
         return binding.root
@@ -59,7 +58,7 @@ class TaskListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.orderList()
         viewModel.allTasks.observe(viewLifecycleOwner){tasks ->
             taskListAdapter.submitList(tasks)
         }
@@ -81,12 +80,12 @@ class TaskListFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.refreshTask -> {
-                viewModel.sortId()
+                taskListAdapter.sortId()
                 binding.rvTaskList.adapter?.notifyDataSetChanged()
                 return true
             }
             R.id.sortTask -> {
-                viewModel.sortCustomer()
+                taskListAdapter.sortCustomer()
                 binding.rvTaskList.adapter?.notifyDataSetChanged()
                 return true
             }else -> false

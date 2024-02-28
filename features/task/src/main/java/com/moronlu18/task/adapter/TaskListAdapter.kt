@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.task.entity.Task
+import com.moronlu18.task.entity.TaskStatus
+import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.RowTaskListBinding
 
 
@@ -21,6 +23,11 @@ class TaskListAdapter(
                 tvCustomerTaskList.text = task.customer.getFullName()
                 tvDCreateTaskList.text = task.createdDate
                 tvDEndTaskList.text = task.endDate
+                ivTaskList.setImageResource( when(task.status){
+                    TaskStatus.overdue -> R.drawable.icon_taskoverdue
+                    TaskStatus.modified -> R.drawable.icon_taskmodified
+                    TaskStatus.pending -> R.drawable.icon_taskpending
+                })
                 cvTaskAdapter.setOnClickListener {
                     onClick(task, 0)
                 }
@@ -41,7 +48,14 @@ class TaskListAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(RowTaskListBinding.inflate(layoutInflater, parent, false))
     }
-
+    fun sortId() {
+        val sortedTaskList = currentList.sortedBy { it.idTask.value }
+        submitList(sortedTaskList)
+    }
+    fun sortCustomer() {
+        val sortedTaskList = currentList.sortedBy { it.customer.nombre }
+        submitList(sortedTaskList)
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = getItem(position)
 
