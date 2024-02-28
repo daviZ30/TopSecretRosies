@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
 import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customerun.R
 import com.moronlu18.customerun.adapter.CustomerAdapter
@@ -30,7 +31,6 @@ class CustomerListFragment : Fragment(), MenuProvider {
     private val binding get() = _binding!!
 
     private val viewModel: CustomerListViewModel by viewModels()
-
 
 
     private fun setUpToolbar() {
@@ -67,9 +67,15 @@ class CustomerListFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
 
         // Inflate the layout for this fragment
-        val adapter = CustomerAdapter { i: Int ->
+        val adapter = CustomerAdapter({
+            println(it)
+            var bundle = Bundle().apply {
+                putSerializable("customer", it)
+            }
+            findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2,bundle)
+        }, { i: Int ->
             showDeleteConfirmationDialog(i)
-        }
+        })
         viewModel.allcustomers.observe(viewLifecycleOwner) {
             it.let { adapter.submitList(it) }
         }
@@ -87,31 +93,47 @@ class CustomerListFragment : Fragment(), MenuProvider {
     private fun showDeleteConfirmationDialog(posicion: Int) {
 
         val builder = AlertDialog.Builder(requireContext())
-        var eliminado = true
+        var rtarea = false
+        var rinvoice = false
         for (task in TaskRepository.selectAllTaskListRAW()) {
             if (task.customer.id == viewModel.allcustomers.value?.get(posicion)!!.id) {
-                eliminado = false
+                rtarea = true
                 break
             }
         }
-        if (eliminado) {
-            builder.setTitle("¿Deseas eliminar este Cliente?")
-            builder.setPositiveButton("Eliminar") { _, _ ->
-                //Implementar eliminar con base de datos
-                CustomerRepository.delete(viewModel.allcustomers.value!![posicion])
-                if (viewModel.allcustomers.value!!.isEmpty()) {
-                    binding.listcustomer.visibility = View.GONE
-                    binding.textView5.visibility = View.VISIBLE
-                } else {
-                    binding.listcustomer.visibility = View.VISIBLE
-                    binding.textView5.visibility = View.GONE
-                }
-                binding.listcustomer.adapter?.notifyDataSetChanged()
+        for (invoice in InvoiceRepository.getInvoiceListRAW()) {
+            if (invoice.idCliente == viewModel.allcustomers.value?.get(posicion)!!.id) {
+                rinvoice = true
+                break
             }
-            builder.setNegativeButton("Cancel", null)
-        } else {
-            builder.setTitle("Cliente referenciado en Task")
-            builder.setNegativeButton("Ok", null)
+        }
+        when {
+            rtarea -> {
+                builder.setTitle("Cliente referenciado en Task")
+                builder.setNegativeButton("Ok", null)
+            }
+
+            rinvoice -> {
+                builder.setTitle("Cliente referenciado en Invoice")
+                builder.setNegativeButton("Ok", null)
+            }
+
+            else -> {
+                builder.setTitle("¿Deseas eliminar este Cliente?")
+                builder.setPositiveButton("Eliminar") { _, _ ->
+                    //Implementar eliminar con base de datos
+                    CustomerRepository.delete(viewModel.allcustomers.value!![posicion])
+                    if (viewModel.allcustomers.value!!.isEmpty()) {
+                        binding.listcustomer.visibility = View.GONE
+                        binding.textView5.visibility = View.VISIBLE
+                    } else {
+                        binding.listcustomer.visibility = View.VISIBLE
+                        binding.textView5.visibility = View.GONE
+                    }
+                    binding.listcustomer.adapter?.notifyDataSetChanged()
+                }
+                builder.setNegativeButton("Cancel", null)
+            }
         }
 
 

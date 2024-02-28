@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customerun.databinding.FragmentCustomerDetailBinding
-import com.moronlu18.task.entity.Task
 
 class CustomerDetailFragment : Fragment() {
-    //var clientes = ProviderCustomer.datasetCustomer
+
     lateinit var customer: Customer
 
     private var _binding: FragmentCustomerDetailBinding? = null
@@ -24,11 +23,9 @@ class CustomerDetailFragment : Fragment() {
         parentFragmentManager.setFragmentResultListener(
             "key",
             this,
-            FragmentResultListener { requestKey, result ->
-                //var pos: Int = result.getInt("pos")
-               // customer = clientes[pos]
-                val task: Task = result.getSerializable("task") as Task
-                customer = task.customer
+            FragmentResultListener { _, result ->
+                println( result.getSerializable("customer") as Customer)
+                customer =  result.getSerializable("customer") as Customer
                 binding.txvnombreCustomerDetail.text = customer.nombre + " " + customer.apellidos
                 binding.txvidCustomerDetail.text = customer.id.value.toString()
                 binding.txvemailCustomerDetail.text = customer.email.value
