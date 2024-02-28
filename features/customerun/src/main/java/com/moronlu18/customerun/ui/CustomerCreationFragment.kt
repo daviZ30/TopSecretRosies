@@ -18,7 +18,6 @@ import com.moronlu18.customerun.usecase.CustomerViewModel
 
 class CustomerCreationFragment : Fragment() {
     private var _binding: FragmentCustomerCreationBinding? = null
-    private var pos: Int = 0
 
     private val binding
     get() = _binding!!
@@ -76,7 +75,6 @@ class CustomerCreationFragment : Fragment() {
             binding.btnCrearCustomerCreation.setText("Editar")
             viewModel.editar=true
             viewModel.id=customer.id.value
-            viewModel.position=pos
         }
     }
 

@@ -20,7 +20,6 @@ class CustomerViewModel : ViewModel() {
     var direccion = MutableLiveData<String>("")
     var editar: Boolean = false
     var id: Int = 0
-    var position: Int = 0
     private var state = MutableLiveData<CustomerState>()
 
     fun validate() {
