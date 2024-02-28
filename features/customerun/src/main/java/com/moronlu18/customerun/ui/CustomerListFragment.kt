@@ -72,7 +72,8 @@ class CustomerListFragment : Fragment(), MenuProvider {
             var bundle = Bundle().apply {
                 putSerializable("customer", it)
             }
-            findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2,bundle)
+            parentFragmentManager.setFragmentResult("key",bundle)
+            findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
         }, { i: Int ->
             showDeleteConfirmationDialog(i)
         })
