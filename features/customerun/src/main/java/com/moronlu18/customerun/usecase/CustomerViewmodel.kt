@@ -30,7 +30,17 @@ class CustomerViewModel : ViewModel() {
             ValidarEmail(email.value) -> state.value = CustomerState.EmailFormatError
             else -> {
                 state.value = CustomerState.Success
-                println(
+                if(editar){
+                    CustomerRepository.updateCustomer(Customer(
+                        CustomerId(id),
+                        nombre.value!!,
+                        apellidos.value,
+                        Email(email.value!!),
+                        telefono.value,
+                        ciudad.value,
+                        direccion.value
+                    ))
+                }else{
                     CustomerRepository.insert(
                         Customer(
                             CustomerId(CustomerRepository.clientescreados),
@@ -42,7 +52,8 @@ class CustomerViewModel : ViewModel() {
                             direccion.value
                         )
                     )
-                )
+                }
+                editar= false
             }
 
         }

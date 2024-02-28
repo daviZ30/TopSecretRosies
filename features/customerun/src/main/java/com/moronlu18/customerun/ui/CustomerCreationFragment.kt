@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.moronlu18.customer.entity.Customer
-import com.moronlu18.customer.repository.ProviderCustomer
 import com.moronlu18.customerun.databinding.FragmentCustomerCreationBinding
 import com.moronlu18.customerun.usecase.CustomerViewModel
 
@@ -67,8 +66,7 @@ class CustomerCreationFragment : Fragment() {
             }
         }
         parentFragmentManager.setFragmentResultListener("key", this) { key, result ->
-            pos = result.getInt("pos")
-            var customer: Customer = ProviderCustomer.datasetCustomer[pos]
+            var customer: Customer = result.getSerializable("customer") as Customer
             binding.tieNombreCustomerCreation.setText(customer.nombre)
             binding.tieApellidosCustomerCreation.setText(customer.apellidos)
             binding.tieCorreoCustomerCreation.setText(customer.email.value)

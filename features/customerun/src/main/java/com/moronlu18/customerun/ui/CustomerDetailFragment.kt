@@ -24,7 +24,6 @@ class CustomerDetailFragment : Fragment() {
             "key",
             this,
             FragmentResultListener { _, result ->
-                println( result.getSerializable("customer") as Customer)
                 customer =  result.getSerializable("customer") as Customer
                 binding.txvnombreCustomerDetail.text = customer.nombre + " " + customer.apellidos
                 binding.txvidCustomerDetail.text = customer.id.value.toString()

@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customerun.R
 import com.moronlu18.customerun.adapter.CustomerAdapter
@@ -67,13 +68,17 @@ class CustomerListFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
 
         // Inflate the layout for this fragment
-        val adapter = CustomerAdapter({
-            println(it)
+        val adapter = CustomerAdapter({ c: Customer, n: Int ->
             var bundle = Bundle().apply {
-                putSerializable("customer", it)
+                putSerializable("customer", c)
             }
-            parentFragmentManager.setFragmentResult("key",bundle)
-            findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)
+            when (n){
+                0->{parentFragmentManager.setFragmentResult("key",bundle)
+                    findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)}
+                1->{parentFragmentManager.setFragmentResult("key",bundle)
+                findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)}
+            }
+
         }, { i: Int ->
             showDeleteConfirmationDialog(i)
         })

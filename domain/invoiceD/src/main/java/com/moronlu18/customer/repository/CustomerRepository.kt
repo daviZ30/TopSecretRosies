@@ -18,6 +18,15 @@ class CustomerRepository {
                 Resource.Error(e)
             }
         }
+        fun updateCustomer(customer: Customer): Resource {
+            return try {
+                InvoiceDatabase.getInstance().customerDao().update(customer)
+                Resource.Success<Customer>(customer)
+            } catch (e: SQLiteException) {
+                println(e.message)
+                Resource.Error(e)
+            }
+        }
         fun delete(c: Customer): Resource {
             return try {
                 InvoiceDatabase.getInstance().customerDao().delete(c)

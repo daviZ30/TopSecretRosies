@@ -9,7 +9,7 @@ import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customerun.databinding.FilaCustomerBinding
 
 class CustomerAdapter(
-    private val onClick: (c: Customer) -> Unit,
+    private val onClick: (c: Customer, n: Int) -> Unit,
     private val onDelete: (position: Int) -> Unit
 ):
 ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
@@ -23,7 +23,10 @@ ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
                     onDelete(position)
                 }
                 cdvCusotmerList.setOnClickListener {
-                    onClick(customer)
+                    onClick(customer,0)
+                }
+                btnedit.setOnClickListener {
+                    onClick(customer,1)
                 }
             }
 
