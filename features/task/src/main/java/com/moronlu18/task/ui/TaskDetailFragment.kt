@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
-import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.entity.Task
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.databinding.FragmentTaskDetailBinding
 
@@ -25,8 +25,8 @@ class TaskDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.setFragmentResultListener("key", this,
             FragmentResultListener { _, result ->
-                var pos: Int = result.getInt("position")
-                val task = ProviderTask.taskExample[pos]
+                val task: Task = result.getSerializable("task") as Task
+                //val task = TaskRepository.selectAllTaskListRAW()[pos]
                 binding.tvTaskDetailTitle.text = task.title
                 binding.tvTaskDetailClienteCont.text = task.customer.getFullName()
                 binding.tvTaskDetailDescCont.text = task.description

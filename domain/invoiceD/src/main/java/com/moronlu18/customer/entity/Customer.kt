@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import com.moronlu18.invoice.converter.CustomerEmailTypeConverter
 import com.moronlu18.invoice.converter.CustomerIDTypeConverter
 import com.moronlu18.invoice.ui.firebase.Email
+import java.io.Serializable
 
 @Entity(tableName = "customer")
 data class Customer(
@@ -22,7 +23,7 @@ data class Customer(
     val telefono: String?,
     val city: String?,
     val direction: String?
-) {
+):Serializable {
     public fun getFullName(): String {
         return this.nombre + " " + this.apellidos
     }

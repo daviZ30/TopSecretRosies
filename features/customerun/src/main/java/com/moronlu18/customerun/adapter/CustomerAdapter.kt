@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customerun.databinding.FilaCustomerBinding
 
-class CustomerAdapter(private val onDelete: (position: Int) -> Unit):
+class CustomerAdapter(
+    private val onClick: (c: Customer) -> Unit,
+    private val onDelete: (position: Int) -> Unit
+):
 ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
     inner class  CustomerHost(var binding: FilaCustomerBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(customer:Customer){
@@ -18,6 +21,9 @@ ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
                 txtemailCustomerList.text=customer.email.value
                 btndelete.setOnClickListener {
                     onDelete(position)
+                }
+                cdvCusotmerList.setOnClickListener {
+                    onClick(customer)
                 }
             }
 

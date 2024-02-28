@@ -10,23 +10,22 @@ import com.moronlu18.taskFragment.databinding.RowTaskListBinding
 
 
 class TaskListAdapter(
-    private val onClick: (pos: Int, nav: Int) -> Unit,
+    private val onClick: (task: Task, nav: Int) -> Unit,
     private val onDelete: (task: Task) -> Unit,
 ) : ListAdapter<Task, TaskListAdapter.ViewHolder>(TASK_COMPARATOR) {
 
     inner class ViewHolder(var binding: RowTaskListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(task: Task, position: Int) {
+        fun bind(task: Task) {
             with(binding) {
                 tvTitleTaskList.text = task.title
                 tvCustomerTaskList.text = task.customer.getFullName()
                 tvDCreateTaskList.text = task.createdDate
                 tvDEndTaskList.text = task.endDate
                 cvTaskAdapter.setOnClickListener {
-                    onClick(position, 0)
+                    onClick(task, 0)
                 }
                 ivEdit.setOnClickListener {
-                    onClick(position, 1)
-
+                    onClick(task, 1)
                 }
                 ivDelete.setOnClickListener {
                     onDelete(task)
@@ -46,7 +45,7 @@ class TaskListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = getItem(position)
 
-        holder.bind(task, position)
+        holder.bind(task)
     }
 
     companion object {

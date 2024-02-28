@@ -163,8 +163,8 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 invoiceDatabase.customerDao().insert(
                     Customer(
                         CustomerId(2),
-                        "Antonio",
-                        "Urquiza FAlle",
+                        "Paco",
+                        "Urquiza Falle",
                         Email("carnetaadspjf@gmail.com"),
                         "6846556414",
                         "Málaga",
@@ -191,7 +191,7 @@ abstract class InvoiceDatabase : RoomDatabase() {
             getInstance().taskDao().insert(
                 Task(
                     TaskId(1),
-                    CustomerRepository.getCliente(1),
+                    CustomerRepository.getCliente(2),
                     "Crear Base de Datos",
                     "Funciona la base por fin",
                     TaskType.visitor,
