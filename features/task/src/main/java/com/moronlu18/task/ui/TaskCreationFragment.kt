@@ -14,12 +14,11 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.ui.utils.Utils
 import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
+import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.entity.TaskType
-import com.moronlu18.task.repository.ProviderTask
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.databinding.FragmentTaskCreationBinding
 
@@ -32,9 +31,6 @@ class TaskCreationFragment : Fragment() {
 
     private val viewModel: TaskViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     inner class TextWatcherTask(private var til: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -52,8 +48,8 @@ class TaskCreationFragment : Fragment() {
         initializeWidgetsValues()
         parentFragmentManager.setFragmentResultListener("key", this,
             FragmentResultListener { _, result ->
-                var pos: Int = result.getInt("position")
-                val task = ProviderTask.taskExample[pos]
+                val task: Task = result.getSerializable("task") as Task
+                //val task = viewModel.getTask(pos)
                 viewModel.idTask.value = task.idTask.value
                 binding.tieTaskCreationTitle.setText(task.title)
                 binding.spTaskCreationCustomer.setSelection(task.customer.id.value)
@@ -121,13 +117,13 @@ class TaskCreationFragment : Fragment() {
 
         val names: MutableList<String> = mutableListOf()
         //Añade los clientes al spinner y si no hay no puedes crear una tarea
-        val customerList = CustomerRepository.getCustomerListRAW()
-        if (customerList.isEmpty()) {
+        //val customerList = CustomerRepository.getCustomerListRAW()
+        if (viewModel.getCustomerList().isEmpty()) {
             names.add("<No Existen Clientes>")
             binding.btnTaskCreationAdd.isEnabled = false
         } else {
             names.add("--Selecciona un cliente--")
-            for (customer in customerList) {
+            for (customer in viewModel.getCustomerList()) {
                 names.add("${customer.id.value}.-" + customer.getFullName())
             }
         }

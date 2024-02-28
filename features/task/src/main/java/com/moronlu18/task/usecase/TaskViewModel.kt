@@ -1,6 +1,5 @@
 package com.moronlu18.task.usecase
 
-/*import com.moronlu18.task.repository.TaskRepository*/
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
-import com.moronlu18.customer.repository.ProviderCustomer
+import com.moronlu18.customer.entity.Customer
+import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.ui.utils.calendar.CalendarInvoice
 import com.moronlu18.task.entity.Task
 import com.moronlu18.task.entity.TaskId
@@ -65,8 +65,8 @@ class TaskViewModel : ViewModel() {
          val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
         if (idTask.value == null)
             idTask.value = TaskRepository.selectAllTaskListRAW().lastOrNull()?.idTask?.value?.plus(1) ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
-        val task =  Task(TaskId(idTask.value!!), ProviderCustomer.datasetCustomer.find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
-         if (!edit){
+        val task =  Task(TaskId(idTask.value!!), getCustomerList().find { it.id.value == customerId}!!,title, desc, type, status, createdDate, endDate)
+         if (edit){
              viewModelScope.launch(Dispatchers.IO) {
                  TaskRepository.updateTask(task)
              }
@@ -80,7 +80,12 @@ class TaskViewModel : ViewModel() {
     fun deleteTask(task : Task){
         TaskRepository.deleteTask(task)
     }
-
+    fun getTaskList(): List<Task>{
+        return TaskRepository.selectAllTaskListRAW()
+    }
+    fun getCustomerList(): List<Customer>{
+        return CustomerRepository.getCustomerListRAW()
+    }
     /**
      * Función que devuelve si es incorrecto el rango de fechas (createdDate antes que endDate)
      */
@@ -121,11 +126,12 @@ class TaskViewModel : ViewModel() {
     }
 
     public fun sortId(){
-       // ProviderTask.taskExample.sortBy { it.idTask.value }
+       //getTaskList().sortBy { it.idTask.value }
     }
 
     public fun sortCustomer(){
         //ProviderTask.taskExample.sortBy { it.customer.nombre }
+        TaskRepository.selectAllTaskListSorted()
     }
 
     /**

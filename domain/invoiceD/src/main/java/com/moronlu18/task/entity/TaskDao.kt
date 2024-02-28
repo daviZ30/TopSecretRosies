@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +18,10 @@ interface TaskDao {
     fun selectAll(): Flow<List<Task>>
     @Query("SELECT * FROM task")
     fun selectAllRAW(): List<Task>
+    @Query("SELECT * FROM task ORDER BY task.idTask")
+    fun sortById(): List<Task>
+    @Query("SELECT * FROM task ORDER BY task.customer")
+    fun sortByCustomer(): List<Task>
+    @Update
+    fun update(task: Task)
 }

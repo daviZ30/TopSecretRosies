@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
 import com.moronlu18.task.adapter.TaskListAdapter
 import com.moronlu18.task.entity.Task
-import com.moronlu18.task.repository.ProviderTask
+import com.moronlu18.task.repository.TaskRepository
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
@@ -37,9 +37,9 @@ class TaskListFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-         taskListAdapter = TaskListAdapter ({ pos:Int, nav:Int ->
+         taskListAdapter = TaskListAdapter ({ task : Task, nav:Int ->
             var bundle = Bundle()
-            bundle.putInt("position",pos)
+            bundle.putSerializable("task",task)
             parentFragmentManager.setFragmentResult("key",bundle)
             if(nav == 0){
                 findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
@@ -51,10 +51,10 @@ class TaskListFragment : Fragment(), MenuProvider {
              binding.rvTaskList.adapter?.notifyDataSetChanged()
          })
         binding.rvTaskList.adapter = taskListAdapter
-        binding.rvTaskList.scrollToPosition(ProviderTask.taskExample.size - 1)
+        binding.rvTaskList.scrollToPosition(TaskRepository.selectAllTaskListRAW().size - 1) /////rrrrradsaadawaw
         binding.rvTaskList.layoutManager = LinearLayoutManager(context)
         setUpToolbar()
-        return binding.root;
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
