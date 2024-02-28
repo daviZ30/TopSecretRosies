@@ -1,6 +1,9 @@
 package com.moronlu18.invoice.ui
 
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -29,7 +33,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     private var _binding: FragmentInvoiceListBinding? = null
     private val binding
         get() = _binding!!
-
+    lateinit var channel: NotificationChannel;
     lateinit var adapterInvoice: AdaptadorFacturas
 
     /*fun ViewImage(){
@@ -42,6 +46,10 @@ class InvoiceListFragment : Fragment(), MenuProvider {
       }
   }*/
     private val viewModel: InvoiceListViewModel by viewModels()
+
+    private val NOTIFICATION_ID = 700
+    private val CHANNEL_ID = "delete_chanel"
+    private val TAG = "DeleteTAG"
 
 
     private fun setUpToolbar() {
@@ -63,6 +71,15 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     ): View? {
         //ViewImage()
         _binding = FragmentInvoiceListBinding.inflate(inflater, container, false)
+
+        channel = NotificationChannel(
+            CHANNEL_ID,
+            "Channel Invoice",
+            NotificationManager.IMPORTANCE_LOW,
+        ).apply {
+            description = "Invoice Borrado"
+        }
+
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
         setUpToolbar()
@@ -164,6 +181,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 binding.imgNada.visibility = View.GONE
             }
             binding.rvInvoiceList.adapter?.notifyDataSetChanged()
+            showNotification(requireContext(),"Invoice Borrado","Invoice borrado con exito");
         }
 
         builder.setNegativeButton("Cancelar", null)
@@ -197,6 +215,21 @@ class InvoiceListFragment : Fragment(), MenuProvider {
             else -> false
 
         }
+    }
+    private fun showNotification(context: Context, title: String, message: String) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        notificationManager.createNotificationChannel(channel)
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
     }
 
     override fun onStart() {

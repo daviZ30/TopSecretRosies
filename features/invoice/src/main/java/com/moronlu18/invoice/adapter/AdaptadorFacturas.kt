@@ -1,7 +1,11 @@
 package com.moronlu18.invoice.adapter
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,11 +15,12 @@ import com.moronlu18.invoiceFragment.databinding.FilaFacturasBinding
 
 
 class AdaptadorFacturas(
-
     private val onClick: (fa: Invoice, n: Int) -> Unit,
     private val onDelete: (position: Int) -> Unit,
     private val getListItem: (id: Int) -> List<LineaItem>
 ) : ListAdapter<Invoice, AdaptadorFacturas.InvoiceHost>(INVOICE_COMPARATOR) {
+
+
 
     inner class InvoiceHost(var binding: FilaFacturasBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -33,13 +38,13 @@ class AdaptadorFacturas(
                     txtLineaFeVencimiento.text =
                         invoice.FeVencimiento.toString().substring(0, posVen)
                     cvFactura.setOnClickListener {
-                        onClick(invoice,  0)
+                        onClick(invoice, 0)
                     }
                     imgEliminar.setOnClickListener {
                         onDelete(position)
                     }
                     imgEditar.setOnClickListener {
-                        onClick(invoice,  1)
+                        onClick(invoice, 1)
                     }
 
                 }
@@ -47,6 +52,7 @@ class AdaptadorFacturas(
             }
         }
     }
+
 
 
     override fun onCreateViewHolder(
