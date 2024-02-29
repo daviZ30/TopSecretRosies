@@ -72,7 +72,7 @@ class InvoiceCreationFragment : Fragment() {
         // val itemListString = articulos.map { articulo -> articulo.nombre }
         val adaptersp =
             ArrayAdapter(requireContext(), R.layout.simple_spinner_item, viewModel.RawArticulos)
-
+        setup()
         adaptersp.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spArticulo.adapter = adaptersp
         arguments?.let {
@@ -89,6 +89,11 @@ class InvoiceCreationFragment : Fragment() {
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
+                InvoiceState.nameEmtyError -> {
+                    binding.tilNameInvoiceCreationIdFactura.error =
+                        "Introduce un Nombre"
+                    binding.tilNameInvoiceCreationIdFactura.requestFocus()
+                }
                 InvoiceState.idClienteEmtyError -> {
                     binding.tilInvoiceCreationIdCliente.error =
                         "Introduce un id de Cliente existente"
@@ -262,8 +267,9 @@ class InvoiceCreationFragment : Fragment() {
     }
 
     private fun setup() {
-
-        viewModel.setLista(items)
+        if(editar){
+            viewModel.setLista(items)
+        }
         adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
             viewModel.deleteLineaItem(viewModel.articulos[i])
             viewModel.articulos.removeAt(i)

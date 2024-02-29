@@ -29,51 +29,18 @@ data class LineaItem(
     var cantidad: Int,
     val precio: Double,
     val iva: Double
-) : Comparable<LineaItem>, Serializable {
-    override fun compareTo(other: LineaItem): Int {
-        return id_item.compareTo(other.id_item)
-    }
-
+) :  Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is LineaItem) return false
         return id_invoice == other.id_invoice && id_item == other.id_item
     }
 
-    override fun hashCode(): Int {
-        return super.hashCode()
-    }
-
     companion object {
-
         fun getName(id: Int): String? {
             return ItemRepository.getName(ItemId(id))
         }
 
-        fun ToLineaItem(lista: MutableList<item>, id_invoice: Int): MutableList<LineaItem> {
-            val newlist: MutableList<LineaItem> = mutableListOf()
-            lista.forEach {
-                newlist.add(
-                    LineaItem(
-                        it.id.value,
-                        id_invoice,
-                        lista.count { element -> element.id == it.id },
-                        it.rate,
-                        it.Iva
-                    )
-                )
-            }
-            return newlist
-        }
-
-
-        /*fun ToItem(lista:MutableList<LineaItem>): MutableList<item>{
-            val newlist: MutableList<item> = mutableListOf()
-            lista.forEach{
-                newlist.add(ItemRepository.getInstance().getItem(it.id_item)!!)
-            }
-            return newlist
-        }*/
     }
 
 }

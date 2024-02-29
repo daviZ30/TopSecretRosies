@@ -145,7 +145,8 @@ abstract class InvoiceDatabase : RoomDatabase() {
                         CustomerId(1),
                         SetFecha("2021-01-20"),
                         SetFecha("2021-01-20"),
-                        InvoiceStatus.Pending
+                        InvoiceStatus.Pending,
+                        "2021DDD"
                     )
                 )
                 listaItem.forEach {

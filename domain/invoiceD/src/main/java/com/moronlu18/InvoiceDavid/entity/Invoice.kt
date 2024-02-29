@@ -36,7 +36,8 @@ data class Invoice(
     @TypeConverters(InvoiceInstantLongConverter::class)
     val FeVencimiento: Instant,
     @TypeConverters(InvoiceStatusConverter::class)
-    val Estado: InvoiceStatus
+    val Estado: InvoiceStatus,
+    val name: String
 ) : Serializable {
 
 

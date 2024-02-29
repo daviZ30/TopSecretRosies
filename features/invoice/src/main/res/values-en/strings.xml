@@ -41,6 +41,7 @@
     <string name="tvInvoiceCreationfactura">Invoice</string>
     <string name="hInvoiceCreationIdFactura">Invoice id</string>
     <string name="hInvoiceCreationIdCliente">Customer id</string>
+    <string name="nombre">Name</string>
 
 
 </resources>

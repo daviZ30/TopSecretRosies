@@ -4,6 +4,7 @@ package com.moronlu18.invoice.ui
 
 sealed class InvoiceState {
     data object idFacturaEmtyError : InvoiceState()
+    data object nameEmtyError : InvoiceState()
     data object idClienteEmtyError : InvoiceState()
     data object idClienteInvalidError : InvoiceState()
     data object feEmiInvalidError : InvoiceState()
@@ -19,6 +20,7 @@ sealed class InvoiceState {
     data object dateInvalidError : InvoiceState()
 
     data object Success : InvoiceState()
+
 
 
 }

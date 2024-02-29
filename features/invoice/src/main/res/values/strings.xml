@@ -6,8 +6,8 @@
     <string name="tieInvoiceCreationEmail">Email:</string>
     <string name="tieÍnvoiceCreationTelefono">Teléfono:</string>
     <string name="txtInvoiceCreationFecha">Fecha</string>
-    <string name="tieInvoicecreationFeEmision">Fecha de Emisión:</string>
-    <string name="tieInvoiceCreationFeVencimiento">Fecha de Vencimiento:</string>
+    <string name="tieInvoicecreationFeEmision">F.Emisión:</string>
+    <string name="tieInvoiceCreationFeVencimiento">F.Vencimiento:</string>
     <string name="txtInvoiceCreationArticulos">Artículos</string>
     <string name="btnInvoiceCreationArticulos">Añadir Articulo</string>
     <string name="txtInvoiceCreationLabSubTotal">Subtotal:</string>
@@ -25,8 +25,8 @@
     <string name="txtInvoiceDetailsLabEmail">Email:</string>
     <string name="txtInvoiceDetailsLabTelefono">Teléfono:</string>
     <string name="txtInvoiceDetailsFecha">Fecha</string>
-    <string name="txtInvoiceDetailsLabFeEmision">Fecha de Emisión :</string>
-    <string name="txtInvoiceDetailsLabFeVencimiento">Fecha de Vencimiento :</string>
+    <string name="txtInvoiceDetailsLabFeEmision">F.Emisión :</string>
+    <string name="txtInvoiceDetailsLabFeVencimiento">F.Vencimiento :</string>
     <string name="txtIncoiceDetailsArticulos">Articulos</string>
     <string name="txtInvoiceDetailsLabSubTotal">SubTotal:</string>
     <string name="txtInvoiceDetailsLabImpuestos">Impuestos:</string>
@@ -41,5 +41,6 @@
     <string name="tvInvoiceCreationfactura">Factura</string>
     <string name="hInvoiceCreationIdFactura">Id de la Factura</string>
     <string name="hInvoiceCreationIdCliente">Id del Cliente</string>
+    <string name="nombre">Nombre</string>
 
 </resources>

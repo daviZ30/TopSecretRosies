@@ -19,6 +19,7 @@ import java.time.Instant
 class InvoiceViewModel : ViewModel() {
     var articulos: MutableList<LineaItem> = ArrayList<LineaItem>()
     var editar: Boolean = false
+    var name = MutableLiveData<String>()
     var idFactura = MutableLiveData<String>()
     var idCliente = MutableLiveData<String>()
     var FeEmi = MutableLiveData<String>()
@@ -55,6 +56,7 @@ class InvoiceViewModel : ViewModel() {
 
     fun validate() {
         when {
+            TextUtils.isEmpty(name.value) -> state.value = InvoiceState.nameEmtyError
             TextUtils.isEmpty(idFactura.value) -> state.value = InvoiceState.idFacturaEmtyError
             TextUtils.isEmpty(idCliente.value) -> state.value = InvoiceState.idClienteEmtyError
             TextUtils.isEmpty(FeEmi.value) -> state.value = InvoiceState.feEmiEmtyError
@@ -67,7 +69,6 @@ class InvoiceViewModel : ViewModel() {
             !ValidateFecha(FeVen.value) -> state.value = InvoiceState.feVenInvalidError
             !olderDate(SetDate(FeEmi.value!!)!!, SetDate(FeVen.value!!)!!) -> state.value =
                 InvoiceState.dateInvalidError
-
             articulos.size == 0 -> state.value = InvoiceState.ArticulosEmptyError
 
             else -> {
@@ -107,8 +108,8 @@ class InvoiceViewModel : ViewModel() {
                     cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
-
-                    InvoiceStatus.Pending
+                    InvoiceStatus.Pending,
+                    name.value!!
                 )
             )
             //val result = InvoiceRepository.insertLineaItems(articulosNuevos)
@@ -120,8 +121,8 @@ class InvoiceViewModel : ViewModel() {
                     cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
-
-                    InvoiceStatus.Pending
+                    InvoiceStatus.Pending,
+                    name.value!!
                 )
             )
             val result = InvoiceRepository.insertListLineaItems(articulos)

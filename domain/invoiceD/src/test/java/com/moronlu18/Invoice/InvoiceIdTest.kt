@@ -1,4 +1,4 @@
-package com.moronlu18.accounts
+package com.moronlu18.Invoice
 
 import com.google.common.truth.Truth
 import com.moronlu18.InvoiceDavid.entity.InvoiceId

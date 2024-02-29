@@ -87,6 +87,7 @@ class InvoiceDetailsFragment : Fragment() {
 
     private fun update() {
         var precios = items.map { it.precio * it.cantidad }
+        binding.txtInvoiceDetailsNombreF.text = invoice.name
         binding.txtInvoiceDetailsNombre.text = viewModel.GetCliente(invoice.idCliente.value)?.nombre
         binding.txtInvoiceDetailsEmail.text = viewModel.GetCliente(invoice.idCliente.value)?.email?.value
         binding.txtInvoiceDetailsTelefono.text =
