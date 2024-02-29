@@ -15,5 +15,5 @@
     <item
         android:id="@+id/action_task"
         android:title="Task"
-        android:icon="@drawable/icon_taskoverdue"/>
+        android:icon="@drawable/baseline_mark_chat_read_24"/>
 </menu>

@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -68,10 +69,16 @@ class MainActivity : AppCompatActivity() {
         {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+        setupNavigationView()
     }
 
 
-
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        else // dejamos que el SO haga su funcion
+            super.onBackPressed()
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -84,13 +91,26 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
+                //La navegación se realiza directamente utilizando el id del fragment
                 navController.navigate(R.id.settingsFragment)
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+    private fun setupNavigationView() {
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.action_customer -> {
+                    println("olalksdjfokasdjfa")
+                    navController.navigate(R.id.action_mainFragment_to_itemFragment)
+                }
+            }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
