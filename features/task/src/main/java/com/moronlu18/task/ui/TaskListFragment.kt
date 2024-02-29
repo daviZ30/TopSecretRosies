@@ -38,15 +38,12 @@ class TaskListFragment : Fragment(), MenuProvider {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
-       /*binding.rvTaskList.scrollToPosition(viewModel.getTaskList().size - 1)
-        binding.rvTaskList.layoutManager = LinearLayoutManager(context)*/
         setUpToolbar()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.orderList() //TODO OOOOOOOOOOOOOOOOOOO
         taskListAdapter = TaskListAdapter ({ task : Task, nav:Int ->
             var bundle = Bundle()
             bundle.putSerializable("task",task)
@@ -58,10 +55,10 @@ class TaskListFragment : Fragment(), MenuProvider {
             }
         },{ task : Task ->
             viewModel.deleteTask(task)
-            binding.rvTaskList.adapter?.notifyDataSetChanged()
         })
         binding.rvTaskList.adapter = taskListAdapter
         binding.rvTaskList.layoutManager = LinearLayoutManager(requireContext())
+
         viewModel.allTasks.observe(viewLifecycleOwner){tasks ->
             taskListAdapter.submitList(tasks)
         }
@@ -70,6 +67,12 @@ class TaskListFragment : Fragment(), MenuProvider {
             findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshList()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -85,12 +88,12 @@ class TaskListFragment : Fragment(), MenuProvider {
             R.id.refreshTask -> {
                 taskListAdapter.sortId()
                 binding.rvTaskList.adapter?.notifyDataSetChanged()
-                return true
+                true
             }
             R.id.sortTask -> {
                 taskListAdapter.sortCustomer()
                 binding.rvTaskList.adapter?.notifyDataSetChanged()
-                return true
+                true
             }else -> false
         }
     }

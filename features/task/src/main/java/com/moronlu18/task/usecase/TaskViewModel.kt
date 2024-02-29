@@ -38,13 +38,13 @@ class TaskViewModel : ViewModel() {
 
     private val state = MutableLiveData<TaskState>()
     fun validate() {
-        val isCustomerSelected =
+        val isNotCustomerSelected =
             idCustomer.value == 0 //Si no se ha seleccionado ninguno, devolverá true
         when {
             TextUtils.isEmpty(title.value) || title.value?.isBlank()!! -> state.value =
                 TaskState.TitleIsMandatoryError
 
-            isCustomerSelected -> state.value = TaskState.CustomerUnspecifiedError
+            isNotCustomerSelected -> state.value = TaskState.CustomerUnspecifiedError
             incorrectDateRange(createdDate.value, endDate.value) -> state.value =
                 TaskState.IncorrectDateRangeError
 
@@ -64,6 +64,10 @@ class TaskViewModel : ViewModel() {
         }.asLiveData()
     }
 
+    fun refreshList(){
+       allTasks = orderList()
+    }
+
     /**
      * Función que crea o edita una tarea
      */
@@ -75,7 +79,7 @@ class TaskViewModel : ViewModel() {
         val type = getType()
         val status = getStatus()
         val createdDate = this.createdDate.value!!
-        val endDate = this.endDate.value ?: "" //Puede tener fecha fin indefinido
+        val endDate = this.endDate.value ?: "" //Puede tener fecha fin vacio
         if (idTask.value == null)
             idTask.value =
                 TaskRepository.selectAllTaskListRAW().lastOrNull()?.idTask?.value?.plus(1)
