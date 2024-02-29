@@ -24,11 +24,4 @@ class ItemIdTest {
 
     }
 
-    /*
-    @Test
-    fun `Id valor negativo`(){
-
-    }
-     */
-
 }
