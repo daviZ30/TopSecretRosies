@@ -28,6 +28,23 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/clTaskWidth" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/avNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/nodata" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTaskList"
             android:layout_width="0dp"

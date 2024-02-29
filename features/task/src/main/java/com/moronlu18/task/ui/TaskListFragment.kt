@@ -1,5 +1,9 @@
 package com.moronlu18.task.ui
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -7,6 +11,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -21,6 +28,7 @@ import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
 
+@RequiresApi(Build.VERSION_CODES.O)
 class TaskListFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentTaskListBinding? = null
@@ -35,6 +43,15 @@ class TaskListFragment : Fragment(), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        channel = NotificationChannel(
+            CHANNEL_ID,
+            "Channel Invoice",
+            NotificationManager.IMPORTANCE_LOW,
+        ).apply {
+            description = "Invoice Borrado"
+        }
+
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
@@ -44,6 +61,7 @@ class TaskListFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         taskListAdapter = TaskListAdapter ({ task : Task, nav:Int ->
             var bundle = Bundle()
             bundle.putSerializable("task",task)
@@ -54,13 +72,20 @@ class TaskListFragment : Fragment(), MenuProvider {
                 findNavController().navigate(R.id.action_taskListFragment_to_taskCreationFragment)
             }
         },{ task : Task ->
-            viewModel.deleteTask(task)
+            showDeleteConfirmationDialog(task)
         })
         binding.rvTaskList.adapter = taskListAdapter
         binding.rvTaskList.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.allTasks.observe(viewLifecycleOwner){tasks ->
-            taskListAdapter.submitList(tasks)
+            if(tasks.isEmpty()){
+                binding.avNoData.visibility = View.VISIBLE
+                binding.rvTaskList.visibility = View.GONE
+            }else{
+                binding.avNoData.visibility = View.GONE
+                binding.rvTaskList.visibility = View.VISIBLE
+                taskListAdapter.submitList(tasks)
+            }
         }
 
         binding.fabTaskList.setOnClickListener {
@@ -68,8 +93,8 @@ class TaskListFragment : Fragment(), MenuProvider {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         viewModel.refreshList()
     }
 
@@ -105,6 +130,45 @@ class TaskListFragment : Fragment(), MenuProvider {
         }
         val menuhost: MenuHost = requireActivity()
         menuhost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+    private fun showDeleteConfirmationDialog(task: Task) {
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("¿Deseas eliminar esta tarea?")
+        builder.setPositiveButton("Eliminar") { _, _ ->
+            viewModel.deleteTask(task)
+            if (taskListAdapter.currentList.size < 1) {
+                binding.rvTaskList.visibility = View.GONE
+                binding.avNoData.visibility = View.VISIBLE
+            } else {
+                binding.rvTaskList.visibility = View.VISIBLE
+                binding.avNoData.visibility = View.GONE
+            }
+            binding.rvTaskList.adapter?.notifyDataSetChanged()
+            showNotification(requireContext(),"Tarea eliminada","La tarea ${task.idTask}->${task.title} ha sido eliminado");
+        }
+
+        builder.setNegativeButton("Cancelar", null)
+        builder.show()
+    }
+    private fun showNotification(context: Context, title: String, message: String) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.createNotificationChannel(channel)
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
+    }
+    companion object{
+        lateinit var channel: NotificationChannel
+        private val NOTIFICATION_ID = 800
+        private val CHANNEL_ID = "delete_chanel"
     }
 }
 
