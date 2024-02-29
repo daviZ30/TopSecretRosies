@@ -17,10 +17,12 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.moronlu18.invoice.databinding.ActivityMainBinding
+import com.moronlu18.invoice.ui.utils.showToast
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
 
-    val toolbar: Toolbar get() = binding.toolbar
+    val toolbar: Toolbar get() = binding.contentMain.toolbar
     val drawer: DrawerLayout
         get() = binding.drawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.contentMain.toolbar)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
@@ -69,6 +71,11 @@ class MainActivity : AppCompatActivity() {
         {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+        NavigationUI.setupWithNavController(
+            binding.contentMain.toolbar,
+            navController,
+            appBarConfiguration
+        )
         setupNavigationView()
     }
 
@@ -95,6 +102,10 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.settingsFragment)
                 true
             }
+            android.R.id.home -> {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
@@ -103,8 +114,10 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.action_customer -> {
-                    println("olalksdjfokasdjfa")
                     navController.navigate(R.id.action_mainFragment_to_itemFragment)
+                }
+                else -> {
+                    showToast("Opción invalida")
                 }
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
