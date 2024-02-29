@@ -41,6 +41,11 @@ En primer lugar, he unificado los módulos en uno, en esta parte del proyecto tu
 Posteriormente implementé el módulo Invoice en domain e introducí todas las clases correspondientes como el provider y las clases POJO. También organize mi módulo incluyendo los package ui, adapter y usecase con sus correspondientes clases.
 Por último mejore un poco el aspecto visual de mis layouts.   
 
+# INVOICE V3
+En esta versión nos encontramos con numerosos cambios, preferencias, base de datos, notificaciones …
+En primer lugar en la pestaña settings de la aplicación nos podemos encontrar con un apartado de ordenación de invoice en la cual podremos elegir la forma con la que se ordene dicha lista. En relación con la base de datos he implementado dos pojos (Invoice y LineaItem) los cuales tienen relación con la tabla Customer y Item, gracias a ellos y a la implementación de la base de datos y las interfaces DAO guardamos todos los datos de forma local. En mi módulo se mandará una notificación cada vez que borremos una factura 
+Por último se han implementados tres clases de prueba las cuales prueban los pojos Invoice y LineaItem y la clase InvoiceID
+
 
 # Customer (Alex Carnero)
 En todos mis layout he implementado un constrainlayout como container principal. He intentado usar la misma gama de colores y fuente de letra que mis compañeros para hacer una aplicación homogénea.
