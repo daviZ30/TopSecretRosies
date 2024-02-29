@@ -107,7 +107,7 @@ class InvoiceViewModel : ViewModel() {
                     cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
-                    articulos,
+
                     InvoiceStatus.Pending
                 )
             )
@@ -120,7 +120,7 @@ class InvoiceViewModel : ViewModel() {
                     cliente.id,
                     SetFecha(FeEmi.value!!),
                     SetFecha(FeVen.value!!),
-                    articulos,
+
                     InvoiceStatus.Pending
                 )
             )

@@ -183,13 +183,7 @@ class InvoiceCreationFragment : Fragment() {
                 )
             }
         }
-        adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
-            viewModel.deleteLineaItem(viewModel.articulos[i])
-            viewModel.articulos.removeAt(i)
-            //notifyItemRemoved(position)
-            binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
-            updatePrecios()
-        }
+
         binding.rvInvoiceArticulos.adapter = adapterLineaItem
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
         binding.spArticulo.adapter = adaptersp
@@ -270,9 +264,9 @@ class InvoiceCreationFragment : Fragment() {
     private fun setup() {
 
         viewModel.setLista(items)
-        adapterLineaItem = AdaptadorArticulos(invoice.Articulos, false) { i: Int ->
-            invoice.Articulos.removeAt(i)
-
+        adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
+            viewModel.deleteLineaItem(viewModel.articulos[i])
+            viewModel.articulos.removeAt(i)
             //notifyItemRemoved(position)
             binding.rvInvoiceArticulos.adapter?.notifyDataSetChanged()
             updatePrecios()

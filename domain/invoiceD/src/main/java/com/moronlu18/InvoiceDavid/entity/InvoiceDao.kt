@@ -24,10 +24,12 @@ interface InvoiceDao {
 
     @Query("SELECT * FROM invoice")
     fun selectAll(): Flow<List<Invoice>>
+
     @Query("SELECT * FROM invoice i  order by i.idCliente")
     fun selectAllOrderByIdCliente(): Flow<List<Invoice>>
     @Query("SELECT * FROM invoice")
     fun selectAllRAW(): List<Invoice>
+
 
 
     //@Delete

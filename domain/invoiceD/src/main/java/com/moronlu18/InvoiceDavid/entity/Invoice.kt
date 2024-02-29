@@ -35,48 +35,10 @@ data class Invoice(
     val FeEmision: Instant,
     @TypeConverters(InvoiceInstantLongConverter::class)
     val FeVencimiento: Instant,
-    @Ignore
-    var Articulos: MutableList<LineaItem>,
     @TypeConverters(InvoiceStatusConverter::class)
     val Estado: InvoiceStatus
 ) : Serializable {
-    constructor(
-        id: InvoiceId,
-        idCliente: CustomerId,
-        FeEmision: Instant,
-        FeVencimiento: Instant,
-        Estado: InvoiceStatus
-    ) : this(id, idCliente, FeEmision, FeVencimiento, mutableListOf(), Estado)
 
-    /*public fun CantidadArticulos(): Map<LineaItem,Int> {
-        val DiferencesItem: MutableMap<LineaItem, Int> = mutableMapOf()
-        var modificado = false;
-         Articulos.forEach{
-            println("numero de articulos " + Articulos.size)
 
-            DiferencesItem.forEach { k, v ->
-                if(k.compareTo(it) == 0){
-                    println("ifffffffff")
-                    var n:Int? = DiferencesItem[it]
-                     if(n == null){
-                         println("null")
-                         DiferencesItem[it] = 1
-                     }else{
-                         println("!= nuñ")
-                         DiferencesItem[it] = n++
-                         modificado = true
-                     }
-
-            }
-        }
-             if(!modificado){
-                 DiferencesItem[it] = 1
-             }else{
-                 modificado = false
-             }
-
-      }
-        return DiferencesItem
-    }*/
 }
 

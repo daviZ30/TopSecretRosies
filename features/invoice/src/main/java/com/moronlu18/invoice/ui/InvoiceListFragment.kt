@@ -230,6 +230,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
 
     override fun onStart() {
         super.onStart()
+
         viewModel.getInvoiceList()
         if (Locator.invoicePreferencesRepository.getInvoiceOr() == "No") {
             adapterInvoice.sortIdCliente()

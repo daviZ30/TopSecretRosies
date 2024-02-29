@@ -243,13 +243,15 @@ class ItemListFragment : Fragment(), MenuProvider {
 
     private fun isItemInAnyInvoice(item: item): Boolean {
         val invoicesWithItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ProviderInvoice.datasetFactura.filter { factura ->
+           /* ProviderInvoice.datasetFactura.filter { factura ->
                 factura.Articulos.any { it.id_item == item.id.value }
-            }
+            }*/
+            //TODO David: Lo he comentado porque ahora mi clase Invoice no tiene articulos, los obtengo con una consulta a la base de datos
         } else {
             TODO("VERSION.SDK_INT < O")
         }
-        return invoicesWithItem.isNotEmpty()
+        //return invoicesWithItem.isNotEmpty()
+        return false
     }
 
     private fun sortItemList(itemList: List<item>) {

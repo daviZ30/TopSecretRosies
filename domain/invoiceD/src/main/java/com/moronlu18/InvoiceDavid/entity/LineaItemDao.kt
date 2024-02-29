@@ -20,6 +20,7 @@ interface LineaItemDao {
 
     @Query("SELECT * FROM LineaItem l where l.id_invoice = :id")
     fun selectFromInvoice(id:Int): List<LineaItem>
+
     @Query("SELECT * FROM LineaItem")
     fun selectAllRAW(): List<LineaItem>
 

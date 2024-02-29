@@ -101,7 +101,7 @@ class ProviderInvoice private constructor() {
                 CustomerId(cliente),
                 feEmi,
                 feVen,
-                articulos,
+
                 status
             )
             datasetFactura.add(f)
