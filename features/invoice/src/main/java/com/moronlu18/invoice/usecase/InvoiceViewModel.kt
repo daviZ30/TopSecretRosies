@@ -24,7 +24,7 @@ class InvoiceViewModel : ViewModel() {
     var idCliente = MutableLiveData<String>()
     var FeEmi = MutableLiveData<String>()
     var FeVen = MutableLiveData<String>()
-    var nombre = MutableLiveData<String>()
+    var nombreCliente = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var telefono = MutableLiveData<String>()
     val clientes = CustomerRepository.getCustomerListRAW()
@@ -206,7 +206,7 @@ class InvoiceViewModel : ViewModel() {
                 clientes.forEach {
                     if (it.id.value == i) {
                         _customer = it
-                        this.nombre.value = it.nombre
+                        this.nombreCliente.value = it.nombre
                         this.email.value = it.email.value
                         this.telefono.value = it.telefono
                         return true
@@ -214,7 +214,7 @@ class InvoiceViewModel : ViewModel() {
                 }
             }
         } catch (e: Exception) {
-            this.nombre.value = ""
+            this.nombreCliente.value = ""
             this.email.value = ""
             this.telefono.value = ""
             return false

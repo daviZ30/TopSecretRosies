@@ -285,9 +285,9 @@ class InvoiceCreationFragment : Fragment() {
 
     private fun update() {
         val precios = items.map { it.precio * it.cantidad }
-
+        viewModel.name.value = invoice.name
         viewModel.idFactura.value = invoice.id.value.toString()
-        viewModel.idCliente.value = invoice.idCliente.toString()
+        viewModel.idCliente.value = invoice.idCliente.value.toString()
         //rellenarCliente(binding.tieInvoiceCreationIdCliente.text)
         viewModel.introduceCliente()
 
@@ -321,7 +321,7 @@ class InvoiceCreationFragment : Fragment() {
             binding.txtInvoiceCreationSubtotal.text = ""
             binding.txtInvoiceCreationTotal.text = ""
         } else {
-            val precios = viewModel.articulos.map { it.precio }
+            val precios = viewModel.articulos.map { it.precio * it.cantidad }
             val SubTotal = precios.reduce { acc, ar -> acc + ar }
             binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
             binding.txtInvoiceCreationTotal.text =
