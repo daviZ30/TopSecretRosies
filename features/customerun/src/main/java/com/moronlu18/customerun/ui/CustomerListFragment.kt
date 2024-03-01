@@ -35,7 +35,7 @@ import com.moronlu18.task.repository.TaskRepository
 
 class CustomerListFragment : Fragment(), MenuProvider {
     private var _binding: FragmentCustomerListBinding? = null
-
+    lateinit var adaptercustomer: CustomerAdapter
     private val binding get() = _binding!!
 
     private val viewModel: CustomerListViewModel by viewModels()
@@ -86,7 +86,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
 
         // Inflate the layout for this fragment
-        val adapter = CustomerAdapter({ c: Customer, n: Int ->
+        adaptercustomer = CustomerAdapter({ c: Customer, n: Int ->
             var bundle = Bundle().apply {
                 putSerializable("customer", c)
             }
@@ -95,7 +95,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
                     findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)}
                 1->{parentFragmentManager.setFragmentResult("key",bundle)
                 findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
-                    showNotification(requireContext(),"Alerta de seguridad ","El cliente ${c.nombre} esta siendo modificado")
+                    showNotification(requireContext(),"Alerta de seguridad ","El cliente ${c.getFullName()} esta siendo modificado")
                 }
             }
 
@@ -103,12 +103,12 @@ class CustomerListFragment : Fragment(), MenuProvider {
             showDeleteConfirmationDialog(i)
         })
         viewModel.allcustomers.observe(viewLifecycleOwner) {
-            it.let { adapter.submitList(it) }
+            it.let { adaptercustomer.submitList(it) }
         }
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
         }
-        binding.listcustomer.adapter = adapter
+        binding.listcustomer.adapter = adaptercustomer
         binding.listcustomer.adapter?.notifyDataSetChanged()
     }
 
@@ -150,6 +150,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
                     //Implementar eliminar con base de datos
                     CustomerRepository.delete(viewModel.allcustomers.value!![posicion])
                     if (viewModel.allcustomers.value!!.isEmpty()) {
+                        adaptercustomer.notifyChanged()
                         binding.listcustomer.visibility = View.GONE
                         binding.textView5.visibility = View.VISIBLE
                     } else {
@@ -169,13 +170,13 @@ class CustomerListFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
-                viewModel.sortId()
+                adaptercustomer.sortId()
                 binding.listcustomer.adapter?.notifyDataSetChanged()
                 return true
             }
 
             R.id.action_sort -> {
-                viewModel.sortName()
+                adaptercustomer.sortbyName()
                 binding.listcustomer.adapter?.notifyDataSetChanged()
                 return true
             }

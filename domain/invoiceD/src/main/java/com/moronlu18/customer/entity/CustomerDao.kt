@@ -23,6 +23,8 @@ interface CustomerDao {
     fun selectAllRAW(): List<Customer>
     @Delete
     fun delete(customer: Customer)
+    @Query("SELECT * FROM customer c order by c.nombre")
+    fun sortbyName(): Flow<List<Customer>>
     @Query("SELECT * FROM customer c where c.id = :id")
     fun selectCustomer(id: Int): Customer
 }

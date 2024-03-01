@@ -35,6 +35,9 @@ class CustomerRepository {
                 Resource.Error(e)
             }
         }
+        fun getCustomerListOrderByName(): Flow<List<Customer>> {
+            return InvoiceDatabase.getInstance().customerDao().sortbyName()
+        }
         fun getCustomerList(): Flow<List<Customer>> {
             return InvoiceDatabase.getInstance().customerDao().selectAll()
         }

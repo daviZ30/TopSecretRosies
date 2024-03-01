@@ -6,40 +6,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.signup.utils.Locator
+import com.moronlu18.customer.entity.Customer
 import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.customerun.ui.CustomerListState
 import kotlinx.coroutines.launch
 
 class CustomerListViewModel : ViewModel() {
    // private val customerRepository = InvoiceRepository()
-    var allcustomers = CustomerRepository.getCustomerList().asLiveData()
+    var allcustomers = initallCustomer()
 
     private var state = MutableLiveData<CustomerListState>()
     fun getState(): LiveData<CustomerListState> {
         return state
     }
 
+    fun initallCustomer(): LiveData<List<Customer>> {
+        if (Locator.invoicePreferencesRepository.getCustomerOr() == "Id") {
+            return CustomerRepository.getCustomerList().asLiveData()
+        } else {
+            return CustomerRepository.getCustomerListOrderByName().asLiveData()
+        }
+    }
     fun validate() {
         viewModelScope.launch {
         when  {
              allcustomers.value?.isEmpty() == true -> CustomerListState.noDataError
             else -> {
-                if (Locator.invoicePreferencesRepository.getCustomerOr() == "Id") {
-                    sortId()
-                } else if (Locator.invoicePreferencesRepository.getCustomerOr() == "Nombre") {
-                    sortName()
-                }
                 state.value = CustomerListState.Success
             }
         }
             }
-    }
-
-    fun sortName() {
-        allcustomers.value?.sortedBy{ it.nombre }
-    }
-
-    fun sortId() {
-        allcustomers.value?.sortedBy{ it.id.value }
     }
 }

@@ -48,6 +48,14 @@ ListAdapter<Customer, CustomerAdapter.CustomerHost>(CUSTOMER_COMPARATOR){
         val layoutInflater = LayoutInflater.from(parent.context)
         return CustomerHost(FilaCustomerBinding.inflate(layoutInflater,parent,false))
     }
+    fun sortId() {
+        val customersort = currentList.sortedBy { it.id.value }
+        submitList(customersort)
+    }
+    fun sortbyName() {
+        val customersort = currentList.sortedBy { it.nombre }
+        submitList(customersort)
+    }
     companion object {
         private val CUSTOMER_COMPARATOR = object : DiffUtil.ItemCallback<Customer>() {
             override fun areItemsTheSame(oldItem: Customer, newItem: Customer): Boolean {
