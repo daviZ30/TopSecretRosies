@@ -18,6 +18,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.signup.utils.Locator
@@ -116,8 +117,15 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         }
 
         viewModel.allinvoice.observe(viewLifecycleOwner) {
+            if(it.isEmpty()){
+                binding.imgNada.visibility = View.VISIBLE
+                binding.rvInvoiceList.visibility = View.GONE
+            }else{
+                binding.imgNada.visibility = View.GONE
+                binding.rvInvoiceList.visibility = View.VISIBLE
+                adapterInvoice.submitList(it)
+            }
             it.let { adapterInvoice.submitList(it)
-                println("Lista: $it")
             }
         }
 
@@ -172,10 +180,11 @@ class InvoiceListFragment : Fragment(), MenuProvider {
     }
 
     private fun showDeleteConfirmationDialog(posicion: Int) {
-
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("¿Deseas eliminar esta factura?")
         builder.setPositiveButton("Eliminar") { _, _ ->
+
+            showNotification(requireContext(),"Invoice Borrado","Invoice borrado con exito");
             viewModel.removeInvoice(adapterInvoice.currentList[posicion])
             if (adapterInvoice.currentList.size < 1) {
                 binding.rvInvoiceList.visibility = View.GONE
@@ -185,7 +194,7 @@ class InvoiceListFragment : Fragment(), MenuProvider {
                 binding.imgNada.visibility = View.GONE
             }
             binding.rvInvoiceList.adapter?.notifyDataSetChanged()
-            showNotification(requireContext(),"Invoice Borrado","Invoice borrado con exito");
+
         }
 
         builder.setNegativeButton("Cancelar", null)
@@ -213,13 +222,20 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         }
     }
     private fun showNotification(context: Context, title: String, message: String) {
+        println("-----------------------------------")
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
         notificationManager.createNotificationChannel(channel)
 
+        val pendingIntent = NavDeepLinkBuilder(requireContext())
+            .setComponentName(MainActivity::class.java)
+            .setGraph(com.moronlu18.invoice.R.navigation.nav_graph)
+            .setDestination(com.moronlu18.invoice.R.id.mainFragment)
+            .createPendingIntent()
+
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentIntent(pendingIntent)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle(title)
             .setContentText(message)
@@ -237,7 +253,6 @@ class InvoiceListFragment : Fragment(), MenuProvider {
         } else {
             adapterInvoice.sortId()
         }
-
     }
 
     override fun onDestroyView() {
