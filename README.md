@@ -18,6 +18,18 @@ Para este modulo muestra basicamente un listado de articulos con sus atributos, 
 
 He tenido algunas dificultades como que en el itemcreation cuando lo ejecutaba en la aplicacion cuando esta unido en el nav_graph los componentes se me ponian encima de otro a pesar que cuando lo estoy editando el layout para que se ve bien, asi que puse un LinearLayout para posicionar los componentes de manera correcta, me cuesta un poco utilizar el LinearLayout pero poco a poco empiezo a entenderlo, me paso lo mismo en el itemlist pero tambien tuve otra dificultad en ese modulo y es que cuando cree los iten estaticos de prueba para ver si se creaban bien, estaban muy separados cuando estaba haciendo scroll veia el siguiente elemento y asi sucesivamente y estaba mal diseñado, asi estuve haciendo varias pruebas y llege a una solucion que era reducir de tamaño del ConstraintLayout que tenia asignado el layout de itemlist, lo pruebo ya me sale bien, no estan demasiado separados las vistas de los articulos en el RecyclerView. Tambien me costo un poco como hacer el Adapter del itemlist pero poco a poco iba saliendo bien. Me costo un poco al principio como poner en el nav_graph como poner el fragment de cada modulo, pero ya empece a entender como se hace.
 
+## Base de datos con Room
+
+Para esta parte he creado una clase dao para mi modulo un itemDao.kt, que tiene las operaciones de update, insert, delete y select, para la clase que tiene la base de datos de la aplicacion (InvoiceDatabase) puse un populateitem que tendra un articulo de prueba para comprobar si se inserta bien el articulo y se cree la tabla correctamente, he comprobado en el DatabaseInspector si se crea la tabla y si se ven los articulos cuando añado uno y todo funciona lo mismo cuando editas un articulo y borras uno, tambien de que si un articulo esta en una factura no se pueda borrar, he puesto metodos en el viewmodel para hacer las operaciones CRUD de la base de datos, tambien utiliza la clase Resources para el tema de los errores que pueden generar la base de datos con las operaciones
+
+## Notificacion
+
+Para la notificacion en item hice que cuando añades un articulo se te muestra una notificacion con el id del articulo que has añadido hice eso en el ItemCreation, asi cuando el usuario quiera buscar un articulo en concreto pero hay muchos articulos añadidos mediente el id pueda buscar el articulo facilmente que el usuario desea ademas que siempre esta la notificacion con el id del articulo
+
+## Pruebas unitarias
+
+Hice una clase test para hacer pruebas para la clase POJO como por ejemplo que se cree bien el articulo, comparar dos articulos, comprobar si se muestra bien el toString, comprobar si dos articulos son iguales o si no lo son y tambien de comprobar si un articulo es una copia de otro articulo, y tambien otra clase test para comprobar si el id de dos articulos es igual o no
+
 # INVOICE (David Zambrana)
 En todos mis layout he implementado un constraintlayout como principal. En ellos me he basado en implementar varios cardview en los cuales distribuyó el contenido. Todo está construido con la misma gama de colores e intentando buscar una similitud en la distribución de los view.
 Para el funcionamiento de estos features cree varios fragment en el nav_gragh principal, después implemente varios actions y lo vincule a los botones previamente creados 
