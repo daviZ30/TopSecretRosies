@@ -36,6 +36,7 @@ En este layout solo podemos ver el RecyclerView, en el layout de cada fila podem
 ![](https://i.postimg.cc/Kcf54Dtm/list.png)
 
 # Customer (Alex Carnero)
+Todo el código de la clase POJO de Customer esta cubierto por una clase de prueba la cual  comprueba el 100% de la clase Customer.
 En todos mis layout he implementado un constrainlayout como container principal. He intentado usar la misma gama de colores y fuente de letra que mis compañeros para hacer una aplicación homogénea.
 
 ## CustomerCreation
@@ -46,6 +47,10 @@ He usado varion linearlayout para dividir la información del cliente segun de l
 
 ## CustomerList
 Fragmento encargado de listar todos los clientes existentes en la lista de clientes aunque el modelo de datos no este todavia implementado he añadido una lista manualmente para saber como se posionarian los elementos.
+## Base de Datos
+He tenido que crear dos clases para mi modulo para que funcionaran con la base de datos local de nuestra aplicación la primera seria CustomerDao.kt la cual es la encargada de realizar todas las sentencias de sql con la base de datos y la otra clase seria el CustomerRepository encargada de llamar a la sentencia sql correspondiente de CustomerDao y recoger tanto el los datos devueltos por la sentencia como los errores que se pueden producir con la base de datos
+## Notificacion
+Yo he creado una notificación a la hora de editar un cliente puesto que al tratarse de una aplicación que registra facturas es importante avisar a los usurios de los cambios de los clientes cuyas facturas emiten para que no se produzca ningun tipo de error.
 
 # TASK (Juan Luis Guerra Gennich) 
 ### v1
