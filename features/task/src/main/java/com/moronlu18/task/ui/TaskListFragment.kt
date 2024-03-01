@@ -2,7 +2,6 @@ package com.moronlu18.task.ui
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -22,8 +20,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.invoice.MainActivity
+import com.moronlu18.invoice.ui.utils.Notification
 import com.moronlu18.task.adapter.TaskListAdapter
 import com.moronlu18.task.entity.Task
+import com.moronlu18.task.entity.TaskStatus
 import com.moronlu18.task.usecase.TaskViewModel
 import com.moronlu18.taskFragment.R
 import com.moronlu18.taskFragment.databinding.FragmentTaskListBinding
@@ -85,6 +85,9 @@ class TaskListFragment : Fragment(), MenuProvider {
                 binding.avNoData.visibility = View.GONE
                 binding.rvTaskList.visibility = View.VISIBLE
                 taskListAdapter.submitList(tasks)
+                val count = tasks.count { task -> task.status in setOf(TaskStatus.pending, TaskStatus.modified)}
+                Notification.showNotification(requireContext(),"Tareas pendientes","Tienes $count tareas pendientes por completar",
+                    channel, CHANNEL_ID, NOTIFICATION_ID)
             }
         }
 
@@ -145,26 +148,12 @@ class TaskListFragment : Fragment(), MenuProvider {
                 binding.avNoData.visibility = View.GONE
             }
             binding.rvTaskList.adapter?.notifyDataSetChanged()
-            showNotification(requireContext(),"Tarea eliminada","La tarea ${task.idTask}->${task.title} ha sido eliminado");
         }
 
         builder.setNegativeButton("Cancelar", null)
         builder.show()
     }
-    private fun showNotification(context: Context, title: String, message: String) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        notificationManager.createNotificationChannel(channel)
-
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
-    }
     companion object{
         lateinit var channel: NotificationChannel
         private val NOTIFICATION_ID = 800

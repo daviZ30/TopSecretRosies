@@ -2,7 +2,6 @@ package com.moronlu18.customerun.ui
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,13 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
@@ -30,8 +27,8 @@ import com.moronlu18.customerun.adapter.CustomerAdapter
 import com.moronlu18.customerun.databinding.FragmentCustomerListBinding
 import com.moronlu18.customerun.usecase.CustomerListViewModel
 import com.moronlu18.invoice.MainActivity
+import com.moronlu18.invoice.ui.utils.Notification
 import com.moronlu18.task.repository.TaskRepository
-
 
 class CustomerListFragment : Fragment(), MenuProvider {
     private var _binding: FragmentCustomerListBinding? = null
@@ -96,7 +93,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
                     findNavController().navigate(R.id.action_customerListFragment_to_customerDetailFragment2)}
                 1->{parentFragmentManager.setFragmentResult("key",bundle)
                 findNavController().navigate(R.id.action_customerListFragment_to_customerCreationFragment2)
-                    showNotification(requireContext(),"Alerta de seguridad ","El cliente ${c.getFullName()} esta siendo modificado")
+                    Notification.showNotificationWithNavMain(requireContext(),"Alerta de seguridad ","El cliente ${c.getFullName()} esta siendo modificado",canal, CHANNEL_ID,NOTIFICATION_ID)
                 }
             }
 
@@ -226,25 +223,5 @@ class CustomerListFragment : Fragment(), MenuProvider {
         super.onDestroyView()
         _binding = null
     }
-    @RequiresApi(33)
-    private fun showNotification(context: Context, title: String, message: String) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
-        notificationManager.createNotificationChannel(canal)
-        val pendingIntent = NavDeepLinkBuilder(requireContext())
-            .setComponentName(MainActivity::class.java)
-            .setGraph(com.moronlu18.invoice.R.navigation.nav_graph)
-            .setDestination(com.moronlu18.invoice.R.id.mainFragment)
-            .createPendingIntent()
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentIntent(pendingIntent)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
-    }
 }
