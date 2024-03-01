@@ -53,12 +53,12 @@ class  SettingsFragment : PreferenceFragmentCompat() {
             }
             true
         }
-        val recursos = resources
-        val displayMetrics = recursos.displayMetrics
+        val recursos = context?.resources
+        val displayMetrics = recursos?.displayMetrics
         val configuration = resources.configuration
 
         configuration.setLocale(Locale(languageCode))
-        recursos.updateConfiguration(configuration,displayMetrics)
+        recursos?.updateConfiguration(configuration,displayMetrics)
         configuration.locale = Locale(languageCode)
         resources.updateConfiguration(configuration, displayMetrics)
     }

@@ -43,7 +43,7 @@
     <string name="key_task_order" translatable="false">order_task</string>
     <string name="list_task">Orden de Tareas</string>
     <string name="theme">Tema</string>
-    <string name="languaje">Idioma</string>
+    <string name="languaje">Idioma [Proximamente]</string>
     <string name="action_settings">Ajustes</string>
     <string name="btSignIn">Inicio de sesión</string>
     <string name="theme_dark">Tema oscuro</string>
