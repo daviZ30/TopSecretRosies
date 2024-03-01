@@ -85,6 +85,7 @@ class CustomerListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // Inflate the layout for this fragment
         adaptercustomer = CustomerAdapter({ c: Customer, n: Int ->
             var bundle = Bundle().apply {
@@ -110,6 +111,42 @@ class CustomerListFragment : Fragment(), MenuProvider {
         }
         binding.listcustomer.adapter = adaptercustomer
         binding.listcustomer.adapter?.notifyDataSetChanged()
+        viewModel.getState().observe(viewLifecycleOwner) {
+            when (it) {
+                is CustomerListState.noDataError -> {
+                    binding.imgNada.visibility = View.VISIBLE
+                    binding.listcustomer.visibility = View.GONE
+                }
+
+                is CustomerListState.Success -> onSuccess()
+            }
+        }
+
+        if (adaptercustomer.currentList.size < 1) {
+            binding.listcustomer.visibility = View.GONE
+            binding.imgNada.visibility = View.VISIBLE
+        } else {
+            binding.listcustomer.visibility = View.VISIBLE
+            binding.imgNada.visibility = View.GONE
+        }
+
+        viewModel.allcustomers.observe(viewLifecycleOwner) {
+            if(it.isEmpty()){
+                binding.imgNada.visibility = View.VISIBLE
+                binding.listcustomer.visibility = View.GONE
+            }else{
+                binding.imgNada.visibility = View.GONE
+                binding.listcustomer.visibility = View.VISIBLE
+                adaptercustomer.submitList(it)
+            }
+            it.let { adaptercustomer.submitList(it)
+            }
+        }
+    }
+
+    private fun onSuccess() {
+        binding.imgNada.visibility = View.GONE
+        binding.listcustomer.visibility = View.VISIBLE
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -152,10 +189,10 @@ class CustomerListFragment : Fragment(), MenuProvider {
                     if (viewModel.allcustomers.value!!.isEmpty()) {
                         adaptercustomer.notifyChanged()
                         binding.listcustomer.visibility = View.GONE
-                        binding.textView5.visibility = View.VISIBLE
+                        binding.imgNada.visibility = View.VISIBLE
                     } else {
                         binding.listcustomer.visibility = View.VISIBLE
-                        binding.textView5.visibility = View.GONE
+                        binding.imgNada.visibility = View.GONE
                     }
                     binding.listcustomer.adapter?.notifyDataSetChanged()
                 }
