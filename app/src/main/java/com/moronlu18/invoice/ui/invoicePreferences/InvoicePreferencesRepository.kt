@@ -33,6 +33,21 @@ class InvoicePreferencesRepository(private val dataStore: DataStore<Preferences>
         }
     }
 
+    fun saveLanguaje(theme: String) {
+        runBlocking {
+            dataStore.edit { preferences ->
+                preferences[LANGUAJE] = theme
+            }
+        }
+    }
+    fun getLanguaje(): String {
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[LANGUAJE] ?: "none"
+            }.first()
+        }
+    }
+
     fun getInvoiceOr(): String {
         return runBlocking {
             dataStore.data.map { preferences ->
@@ -86,9 +101,10 @@ class InvoicePreferencesRepository(private val dataStore: DataStore<Preferences>
     }
 
     companion object {
-        private val INVOICE_OR = stringPreferencesKey("invoice_or")
         private val THEME = stringPreferencesKey("theme")
+        private val LANGUAJE = stringPreferencesKey("languaje")
         private val CUSTOMER = stringPreferencesKey("customer_order")
+        private val INVOICE_OR = stringPreferencesKey("invoice_or")
         private val ITEM_ORDER = stringPreferencesKey("item_order")
         private val TASK_ORDER = stringPreferencesKey("task_order")
     }

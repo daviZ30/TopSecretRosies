@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.signup.utils.Locator
 import com.moronlu18.invoice.databinding.FragmentMainBinding
+import java.util.Locale
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -84,6 +85,7 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_nav_graph_task)
         }
         initTheme()
+        initLanguaje()
     }
     private fun initTheme() {
         var value = Locator.invoicePreferencesRepository.getTheme()
@@ -92,6 +94,25 @@ class MainFragment : Fragment() {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+    }
+    private fun initLanguaje() {
+        var value = Locator.invoicePreferencesRepository.getLanguaje()
+        var languageCode = Locale.getDefault().language
+
+        if (value == "true") {
+            languageCode = "en"
+        } // si es false, se queda con el valor por defecto
+        println("AAAAAAAAAAAAAAAAAAA--A------ $value")
+        println("AAAAAAAAAAAAAAAAAAA--A------ $languageCode")
+
+        val recursos = resources
+        val displayMetrics = recursos.displayMetrics
+        val configuration = resources.configuration
+
+        configuration.setLocale(Locale(languageCode))
+        recursos.updateConfiguration(configuration,displayMetrics)
+        configuration.locale = Locale(languageCode)
+        resources.updateConfiguration(configuration, displayMetrics)
     }
 
     override fun onDestroyView() {
