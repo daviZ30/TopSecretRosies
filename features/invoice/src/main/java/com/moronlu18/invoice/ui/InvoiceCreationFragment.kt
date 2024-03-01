@@ -90,10 +90,10 @@ class InvoiceCreationFragment : Fragment() {
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 InvoiceState.nameEmtyError -> {
-                    binding.tilNameInvoiceCreationIdFactura.error =
-                        "Introduce un Nombre"
+                    binding.tilNameInvoiceCreationIdFactura.error = "Introduce un Nombre"
                     binding.tilNameInvoiceCreationIdFactura.requestFocus()
                 }
+
                 InvoiceState.idClienteEmtyError -> {
                     binding.tilInvoiceCreationIdCliente.error =
                         "Introduce un id de Cliente existente"
@@ -168,10 +168,7 @@ class InvoiceCreationFragment : Fragment() {
             calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
                 binding.tieInvoiceFeEmi.setText(
                     String.format(
-                        "%04d-%02d-%02d",
-                        year,
-                        month + 1,
-                        day
+                        "%04d-%02d-%02d", year, month + 1, day
                     )
                 )
             }
@@ -180,10 +177,7 @@ class InvoiceCreationFragment : Fragment() {
             calendar.showDatePickerDialog(parentFragmentManager) { day, month, year ->
                 binding.tieInvoiceCreationFeVen.setText(
                     String.format(
-                        "%04d-%02d-%02d",
-                        year,
-                        month + 1,
-                        day
+                        "%04d-%02d-%02d", year, month + 1, day
                     )
                 )
             }
@@ -193,35 +187,31 @@ class InvoiceCreationFragment : Fragment() {
         binding.rvInvoiceArticulos.layoutManager = LinearLayoutManager(context)
         binding.spArticulo.adapter = adaptersp
 
-
+        var cantidad = 1
         binding.btnArticulos.setOnClickListener {
             if (viewModel.idInvoice() != null) {
                 val b: String = binding.spArticulo.selectedItem.toString()
                 val datos = b.split('-')
                 val a = ObtenerItem(datos[0])
                 var insert = true;
+
                 viewModel.articulos.forEach {
                     if (it.id_item == a!!.id.value) {
-                        it.cantidad++;
+                        cantidad = ++it.cantidad;
                         insert = false;
                     }
                 }
-
                 val lineaItem = LineaItem(
-                    a!!.id.value,
-                    viewModel.idInvoice()!!,
-                    1,
-                    a.rate,
-                    a.Iva
+                    a!!.id.value, viewModel.idInvoice()!!, cantidad, a.rate, a.Iva
                 )
                 if (insert) {
                     if (viewModel.editar) {
-                        viewModel.InsertLineaItem(lineaItem)
+                        viewModel.UpdateLineaItem(lineaItem)
                     }
                     viewModel.articulos.add(
                         lineaItem
                     )
-                }else{
+                } else {
                     viewModel.UpdateLineaItem(lineaItem)
                 }
 
@@ -267,7 +257,7 @@ class InvoiceCreationFragment : Fragment() {
     }
 
     private fun setup() {
-        if(editar){
+        if (editar) {
             viewModel.setLista(items)
         }
         adapterLineaItem = AdaptadorArticulos(viewModel.articulos, false) { i: Int ->
@@ -299,8 +289,7 @@ class InvoiceCreationFragment : Fragment() {
 
         val SubTotal = precios.reduce { acc, ar -> acc + ar }
         binding.txtInvoiceCreationSubtotal.text = String.format("%.2f €", SubTotal)
-        binding.txtInvoiceCreationTotal.text =
-            String.format("%.2f €", SubTotal + (SubTotal * 0.21))
+        binding.txtInvoiceCreationTotal.text = String.format("%.2f €", SubTotal + (SubTotal * 0.21))
 
         binding.tieInvoiceCreationIdCliente.addTextChangedListener(
             textWatcher(

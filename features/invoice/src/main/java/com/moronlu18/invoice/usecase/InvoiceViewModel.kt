@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.moronlu18.InvoiceDavid.Repository.InvoiceRepository
 import com.moronlu18.InvoiceDavid.entity.InvoiceId
 import com.moronlu18.InvoiceDavid.entity.InvoiceStatus
@@ -14,6 +15,7 @@ import com.moronlu18.customer.repository.CustomerRepository
 import com.moronlu18.invoice.entity.Invoice
 import com.moronlu18.invoice.ui.InvoiceState
 import com.moronlu18.item.repository.ItemRepository
+import kotlinx.coroutines.launch
 import java.time.Instant
 
 class InvoiceViewModel : ViewModel() {
@@ -31,6 +33,7 @@ class InvoiceViewModel : ViewModel() {
     private var _customer: Customer? = null
     val _facturas = InvoiceRepository.getInvoiceListRAW()
     val RawArticulos = ItemRepository.getItemListRAW()
+    var updateListItem : MutableList<LineaItem> = ArrayList<LineaItem>()
 
     val facturas
         get() = _facturas!!
@@ -97,7 +100,8 @@ class InvoiceViewModel : ViewModel() {
         Log.d("Resultado Insertar LineaItem", result.toString())
     }
     fun UpdateLineaItem(lineaItem: LineaItem) {
-        val result = InvoiceRepository.updateLineaItem(lineaItem)
+        updateListItem.add(lineaItem)
+
     }
 
     fun CrearFactura(editar: Boolean) {
@@ -112,6 +116,9 @@ class InvoiceViewModel : ViewModel() {
                     name.value!!
                 )
             )
+            updateListItem.forEach {
+                InvoiceRepository.updateLineaItem(it)
+            }
             //val result = InvoiceRepository.insertLineaItems(articulosNuevos)
             //Log.d("Resultado Insertar LineaItem", result.toString())
         } else {

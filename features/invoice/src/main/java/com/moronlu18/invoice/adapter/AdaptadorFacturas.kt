@@ -22,11 +22,13 @@ class AdaptadorFacturas(
         fun bind(invoice: Invoice, listaItem: List<LineaItem>, position: Int) {
             with(binding) {
                 if (listaItem.isNotEmpty()) {
-                    var precios = listaItem.map { it.precio }
+                    var precios = listaItem.map { it.precio * it.cantidad }
                     var SubTotal = precios.reduce { acc, ar -> acc + ar }
                     txtLineaCliente.text = "Id: ${invoice.id.value}"
                     txtLineaTotal.text = String.format("%.2f €", SubTotal + (SubTotal * 0.21))
-                    txtLineaNumArticulos.text = listaItem.size.toString()
+                    txtLineaNumArticulos.text = listaItem.map {
+                        it.cantidad
+                    }.reduce { acc, ar -> acc + ar }.toString()
                     val posEmi = invoice.FeEmision.toString().indexOf('T')
                     val posVen = invoice.FeVencimiento.toString().indexOf('T')
                     txtLineaFeEmision.text = invoice.FeEmision.toString().substring(0, posEmi)
@@ -62,6 +64,7 @@ class AdaptadorFacturas(
         val sortedInvoiceList = currentList.sortedBy { it.id.value }
         submitList(sortedInvoiceList)
     }
+
     fun sortIdCliente() {
         val sortedInvoiceList = currentList.sortedBy { it.idCliente.value }
         submitList(sortedInvoiceList)

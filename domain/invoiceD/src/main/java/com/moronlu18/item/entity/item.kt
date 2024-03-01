@@ -36,7 +36,7 @@ data class item(
     }
 
     override fun toString(): String {
-        return "$name - $rate€"
+        return String.format("%s - %.2f€", name , rate)
     }
 }
 enum class itemType {

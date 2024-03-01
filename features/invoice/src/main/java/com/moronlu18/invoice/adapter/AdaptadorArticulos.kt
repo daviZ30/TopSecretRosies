@@ -44,7 +44,7 @@ class AdaptadorArticulos(
 
         holder.nombre.text = LineaItem.getName(f.id_item)
         holder.cantidad.text = f.cantidad.toString()
-        holder.precio.text = "${f.precio.toString()} €"
+        holder.precio.text = String.format("%.2f€", f.precio)
         if(mostrar){
             holder.img.visibility = View.GONE
         }else{
