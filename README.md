@@ -53,25 +53,48 @@ He tenido que crear dos clases para mi modulo para que funcionaran con la base d
 Yo he creado una notificación a la hora de editar un cliente puesto que al tratarse de una aplicación que registra facturas es importante avisar a los usurios de los cambios de los clientes cuyas facturas emiten para que no se produzca ningun tipo de error.
 
 # TASK (Juan Luis Guerra Gennich) 
-### v1
+## v1
 Mi trabajo consistió en la creación y visualización de las tareas. Mi idea fue hacer las tareas como notas comunes, con su fecha y horas en las que esté previsto hacerlas y vinculadas a un cliente.
 
-## TaskCreation
+### TaskCreation
 El layout principal, en el que se crearan las tareas y con la intención de implementar la posibilidad de editar dichas tareas. Aqui utilicé varios LinearLayout ordenar los componentes/widgets.
 Además se utilizará un Spinner para seleccionar el cliente que ya previamente se debió crear para enlazar esta tarea con un cliente especifico. También hay dos Spinner que servirán para poner la hora.
 La fecha de momento es un EditText en formato fecha, pero la intención es con código se pueda abrir un calendario y seleccionar la fecha.
 
-## TaskDetail
+### TaskDetail
 En está parte implemente Guideline y Barrier para probar su funcionamiento y hacer un layout sin LinearLayout y con mayor control de tamaños. 
 Se podrá visualizar a modo de ejemplo con datos inventados una tarea con sus respectivos datos.
 
-## TaskList
+### TaskList
 Layout que contiene la lista de todas las tareas creadas, de momento se visualizan tareas de ejemplo. Aqui se implementa el RecycleView para crear cada fragmento de información de las tareas y la función de hacer scroll.
 Después de que en TaskCreation se cree una tarea, se añadirá aquí y se podrá visualizar la lista completa de tareas.
 
-### v2
-## TaskViewModel y nuevos cambios
+## v2
+### TaskViewModel y nuevos cambios
 He implementado la funcionalidad del viewModel para task y diversos cambios en los layouts y nuevas funcionalidades. También he creado un repositorio estático con un Sigleton para tener tareas de ejemplo. 
 Se ha implementado la funcionalidad de editar y borrar una tarea además de vincular estas tareas con un cliente de Customer. También creé un popUp para las fechas donde se mostrará un calentario, 
 que puedes elegir cualquier fecha que no haya pasado y en mi caso consideré que la fecha por defecto de creación sea la que esté en la fecha actual cuando se crea, pero no es obligatorio fecha final. 
 Además, la creación y edición tiene control de errores como tituló y cliente obligatorios y fecha fin no puede ocurrir antes que fecha inicial/creación. 
+
+## v3
+### Preferencias
+Además de la preferencia en conjunto del tema de la aplicación, hay preferencia para la ordenación de la lista de Tareas, 
+
+### Notificacion
+La lista de tareas notificará cuantas tareas están en estado pendiente, incluyendo las modificadas consideradas como tareas sin completar. La lista llamará a una función en la clase
+Notification con los datos necesarios.
+
+### Base de datos
+Creación de la tabla Task en la base de datos. Existen dos tareas creadas de ejemplo en InvoiceDatabase. Las funciones de la tabla se hacen en TaskDao, siendo llamadas en TaskRepository, omitiendo la necesidad de tener datos de ejemplo en ProviderTask.
+
+### Test
+La clase POJO de Task tiene las pruebas necesarias, además de las pruebas para la clase TaskId y para sus enumeraciones.
+
+### Otros cambios
+En la lista, dependiendo del estado (TaskStatus) se mostrará un icono u otro, entre 3 distintos.
+Cuando la lista está vacia, mostrará una animación de que no hay datos en la lista, además de que no habrá ninguna notificación.
+La ordenación de la lista, por ID (por defecto), y por nombre de cliente. El botón refresh recarga la lista y lo ordena por Id.
+El string de task está traducido.
+De forma voluntaria he añadido cambio de idioma, pero a veces no funciona correctamente.
+
+

@@ -85,8 +85,8 @@ class TaskListFragment : Fragment(), MenuProvider {
                 binding.avNoData.visibility = View.GONE
                 binding.rvTaskList.visibility = View.VISIBLE
                 taskListAdapter.submitList(tasks)
-                val count = tasks.count { task -> task.status in setOf(TaskStatus.pending, TaskStatus.modified)}
-                Notification.showNotification(requireContext(),"Tareas pendientes","Tienes $count tareas pendientes por completar",
+                val count = tasks.count { task -> task.status in setOf(TaskStatus.pending, TaskStatus.modified)} // Considero el estado modified como no completado tambien
+                Notification.showNotification(requireContext(),"Tareas pendientes","Tienes $count tareas sin completar",
                     channel, CHANNEL_ID, NOTIFICATION_ID)
             }
         }

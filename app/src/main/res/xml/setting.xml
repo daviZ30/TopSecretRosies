@@ -4,19 +4,32 @@
     <PreferenceCategory
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Tema">
+        android:title="@string/theme">
 
         <SwitchPreference
             android:key="@string/theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:title="Tema oscuro" />
+            android:title="@string/theme_dark" />
     </PreferenceCategory>
     <PreferenceCategory
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Ordenación">
+        android:title="@string/languaje">
+
+        <SwitchPreference
+            android:key="@string/languaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:enabled="false"
+            android:title="@string/english" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/Order">
 
         <ListPreference
             android:layout_width="wrap_content"

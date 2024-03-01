@@ -58,7 +58,7 @@ class TaskCreationFragment : Fragment() {
                 binding.tieTaskCreationDateEnd.setText(task.endDate)
                 binding.spTaskCreationType.setSelection(task.type.ordinal)
                 binding.spTaskCreationStatus.setSelection(task.status.ordinal)
-                viewModel.edit = true
+                viewModel.isEdit = true
             })
 
 
@@ -79,7 +79,7 @@ class TaskCreationFragment : Fragment() {
 
                 TaskState.Success -> {
                     viewModel.makeTask()
-                    if (viewModel.edit)
+                    if (viewModel.isEdit)
                         Utils.showToast(requireContext(), "Tarea editada")
                     else
                         Utils.showToast(requireContext(), "La tarea ha sido creada")

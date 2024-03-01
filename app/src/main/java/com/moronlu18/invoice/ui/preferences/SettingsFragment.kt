@@ -8,6 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.signup.utils.Locator
 import com.moronlu18.invoice.R
+import java.util.Locale
 
 class  SettingsFragment : PreferenceFragmentCompat() {
 
@@ -17,13 +18,14 @@ class  SettingsFragment : PreferenceFragmentCompat() {
         initPreferencesItem()
         initPreferencesTask()
         initPreferencesCustomer()
-        initPreferences()
+        initPreferencesTheme()
+        initPreferencesLanguaje()
         //preferenceManager.preferenceDataStore = Locator.settingsPreferencesRepository
 
 
     }
 
-    private fun initPreferences() {
+    private fun initPreferencesTheme() {
         val option = preferenceManager.findPreference<Preference>(getString(R.string.theme)) as SwitchPreference?
 
         option?.setOnPreferenceChangeListener { preference, newValue ->
@@ -37,6 +39,28 @@ class  SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+    }
+    private fun initPreferencesLanguaje() {
+        val option = preferenceManager.findPreference<Preference>(getString(R.string.languaje)) as SwitchPreference?
+        var languageCode = Locale.getDefault().language
+
+        option?.setOnPreferenceChangeListener { preference, newValue ->
+            if(newValue == true){
+                languageCode = "en"
+                Locator.invoicePreferencesRepository.saveLanguaje("true")
+            }else{
+                Locator.invoicePreferencesRepository.saveLanguaje("false")
+            }
+            true
+        }
+        val recursos = context?.resources
+        val displayMetrics = recursos?.displayMetrics
+        val configuration = resources.configuration
+
+        configuration.setLocale(Locale(languageCode))
+        recursos?.updateConfiguration(configuration,displayMetrics)
+        configuration.locale = Locale(languageCode)
+        resources.updateConfiguration(configuration, displayMetrics)
     }
 
     private fun initPreferencesCustomer() {

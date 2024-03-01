@@ -27,13 +27,13 @@ class TaskViewModel : ViewModel() {
     val title = MutableLiveData<String>()
     val idCustomer = MutableLiveData<Int>() //Recibe la posicion del spinner de customer
     val description = MutableLiveData<String>()
-    val type = MutableLiveData<TaskType>()
-    val status = MutableLiveData<TaskStatus>()
+    private val type = MutableLiveData<TaskType>()
+    private val status = MutableLiveData<TaskStatus>()
     val createdDate = MutableLiveData(CalendarInvoice.getCurrentDate())
     val endDate = MutableLiveData<String>()
-    val typeselected = MutableLiveData<Int>()
-    val statusselected = MutableLiveData<Int>()
-    var edit: Boolean = false
+    val typeSelected = MutableLiveData<Int>()
+    val statusSelected = MutableLiveData<Int>()
+    var isEdit: Boolean = false
 
 
     private val state = MutableLiveData<TaskState>()
@@ -86,7 +86,7 @@ class TaskViewModel : ViewModel() {
                     ?: 1 //si no esta vacio devuelve el ultimo id + 1, si esta vacio devuelve 1
         val task = Task(TaskId(idTask.value!!), getCustomerList().find { it.id.value == customerId }!!, title, desc, type, status, createdDate, endDate)
         viewModelScope.launch(Dispatchers.IO) {
-            when (edit) {
+            when (isEdit) {
                 true -> TaskRepository.updateTask(task)
                 false -> TaskRepository.insertTask(task)
             }
@@ -122,7 +122,7 @@ class TaskViewModel : ViewModel() {
      * Función que devuelve el tipo de tarea según la posición del spinner
      */
     private fun getType(): TaskType {
-        when (typeselected.value) {
+        when (typeSelected.value) {
             //0 -> type.value = TaskType.private
             1 -> type.value = TaskType.call
             2 -> type.value = TaskType.visitor
@@ -135,7 +135,7 @@ class TaskViewModel : ViewModel() {
      * Función que devuelve el estado de tarea según la posición del spinner
      */
     private fun getStatus(): TaskStatus {
-        when (statusselected.value) {
+        when (statusSelected.value) {
             //0 -> status.value = TaskStatus.pending
             1 -> status.value = TaskStatus.modified
             2 -> status.value = TaskStatus.overdue
